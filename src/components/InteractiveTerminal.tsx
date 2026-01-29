@@ -29,21 +29,22 @@ export default function InteractiveTerminal({
 
   const commands: Record<string, (args?: string) => string> = {
     help: () => `Available commands:
-  help          - Show this help message
-  clear         - Clear the terminal
-  whoami        - Display current user
-  pwd           - Print working directory
-  ls            - List files and directories
-  cd [dir]      - Change directory
-  mkdir [name]  - Create a new directory
-  touch [name]  - Create a new file
-  cat [file]    - Display file contents
-  echo [text]   - Echo text back
-  date          - Show current date and time
-  git status    - Show git status (demo)
-  git log       - Show git log (demo)
-  ssh demo      - Demo SSH connection
-  history       - Show command history`,
+  help            - Show this help message
+  clear           - Clear the terminal
+  whoami          - Display current user
+  pwd             - Print working directory
+  ls [-la]        - List files and directories (supports -l, -a, -la flags)
+  cd [dir]        - Change directory
+  mkdir [name]    - Create a new directory
+  touch [name]    - Create a new file
+  cat [file]      - Display file contents
+  echo [text]     - Echo text back
+  date            - Show current date and time
+  git status      - Show git status (demo)
+  git clone [url] - Clone a repository (demo)
+  git log         - Show git log (demo)
+  ssh demo        - Demo SSH connection
+  history         - Show command history`,
     
     clear: () => {
       xtermRef.current?.clear();
@@ -54,9 +55,22 @@ export default function InteractiveTerminal({
     
     pwd: () => currentDir,
     
-    ls: () => {
+    ls: (args?: string) => {
       const files = fileSystem[currentDir] || [];
-      return files.length > 0 ? files.join("\n") : "Directory is empty";
+      if (files.length === 0) return "Directory is empty";
+      
+      // Handle -la, -l, -a flags
+      if (args && (args.includes("-l") || args.includes("-a"))) {
+        return files.map(f => {
+          const isDir = f.endsWith("/");
+          const perms = isDir ? "drwxr-xr-x" : "-rw-r--r--";
+          const size = isDir ? "4096" : "1024";
+          const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+          return `${perms}  1 sales-user  staff  ${size}  ${date}  ${f}`;
+        }).join("\n");
+      }
+      
+      return files.join("\n");
     },
     
     cd: (args?: string) => {
@@ -155,6 +169,33 @@ Your branch is up to date with 'origin/main'.
 
 nothing to commit, working tree clean`,
     
+    "git clone": (args?: string) => {
+      if (!args || !args.trim()) {
+        return "fatal: You must specify a repository to clone.";
+      }
+      
+      const repoUrl = args.trim();
+      const repoName = repoUrl.split("/").pop()?.replace(".git", "") || "repository";
+      
+      // Add the cloned repo to file system
+      const files = fileSystem[currentDir] || [];
+      if (!files.includes(repoName + "/")) {
+        setFileSystem(prev => ({
+          ...prev,
+          [currentDir]: [...files, repoName + "/"],
+          [`${currentDir}/${repoName}`]: ["README.md", "src/", "package.json"]
+        }));
+      }
+      
+      return `Cloning into '${repoName}'...
+remote: Enumerating objects: 42, done.
+remote: Counting objects: 100% (42/42), done.
+remote: Compressing objects: 100% (28/28), done.
+remote: Total 42 (delta 12), reused 38 (delta 10), pack-reused 0
+Receiving objects: 100% (42/42), 15.23 KiB | 2.17 MiB/s, done.
+Resolving deltas: 100% (12/12), done.`;
+    },
+    
     "git log": () => `commit abc123def456 (HEAD -> main, origin/main)
 Author: Sales User <sales@ibm.com>
 Date:   ${new Date().toDateString()}
@@ -206,6 +247,30 @@ Last login: ${new Date().toLocaleString()}
     term.writeln(welcomeMessage);
     term.writeln("");
     
+    // Define executeCommand inside useEffect to access current state
+    const executeCommand = (cmd: string): string => {
+      const trimmedCmd = cmd.trim();
+      
+      // Handle echo command
+      if (trimmedCmd.startsWith("echo ")) {
+        return trimmedCmd.substring(5);
+      }
+      
+      // Handle commands with arguments
+      const parts = trimmedCmd.split(" ");
+      const command = parts[0];
+      const args = parts.slice(1).join(" ");
+      
+      if (commands[command]) {
+        return commands[command](args);
+      }
+      // Check for multi-word commands
+      if (commands[trimmedCmd]) {
+        return commands[trimmedCmd]();
+      }
+      return `Command not found: ${command}. Type 'help' for available commands.`;
+    };
+
     // Run initial commands
     initialCommands.forEach(cmd => {
       term.writeln(`$ ${cmd}`);
@@ -303,32 +368,6 @@ Last login: ${new Date().toLocaleString()}
       term.dispose();
     };
   }, []);
-
-  const executeCommand = (cmd: string): string => {
-    const trimmedCmd = cmd.trim();
-    
-    // Handle echo command
-    if (trimmedCmd.startsWith("echo ")) {
-      return trimmedCmd.substring(5);
-    }
-    
-    // Handle commands with arguments
-    const parts = trimmedCmd.split(" ");
-    const command = parts[0];
-    const args = parts.slice(1).join(" ");
-    
-    if (commands[command]) {
-      return commands[command](args);
-    }
-    
-    // Check for multi-word commands like "git status"
-    if (commands[trimmedCmd]) {
-      return commands[trimmedCmd]();
-    }
-    
-    // Command not found
-    return `Command not found: ${command}. Type 'help' for available commands.`;
-  };
 
   const handleReset = () => {
     if (xtermRef.current) {
