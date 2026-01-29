@@ -31,15 +31,16 @@ export default function InteractiveTerminalPage() {
               </h3>
             </div>
             <ul style={{ margin: 0, paddingLeft: "1.5rem", color: "#161616", lineHeight: 1.8 }}>
-              <li>This is a <strong>real bash terminal</strong> - all commands work like in your system terminal</li>
+              <li>This is a <strong>safe, simulated terminal</strong> - perfect for learning without risk</li>
               <li>Try commands like: <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>ls</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>pwd</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>mkdir</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>cd</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>git status</code></li>
               <li>Use <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>↑</code> and <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>↓</code> arrow keys to navigate command history</li>
-              <li>Press <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>Tab</code> for auto-completion</li>
+              <li>Type <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>help</code> to see all available commands</li>
             </ul>
           </div>
 
           <InteractiveTerminal
-            welcomeMessage="🚀 Real Bash Terminal - All commands work like your system terminal!"
+            welcomeMessage="🚀 FSM Terminal Practice Environment - Type 'help' to get started!"
+            initialCommands={[]}
           />
         </Section>
 
@@ -122,12 +123,11 @@ export default function InteractiveTerminalPage() {
           </div>
         </Section>
 
-        <Section level={3} style={{ marginTop: "3rem", padding: "2rem", backgroundColor: "#fff3e0", borderRadius: "8px" }}>
-          <h3 style={{ marginTop: 0, color: "#ff832b" }}>💡 Important</h3>
+        <Section level={3} style={{ marginTop: "3rem", padding: "2rem", backgroundColor: "#e8f4ff", borderRadius: "8px" }}>
+          <h3 style={{ marginTop: 0, color: "#0f62fe" }}>💡 Safe Learning Environment</h3>
           <p style={{ color: "#161616", lineHeight: 1.8, marginBottom: 0 }}>
-            This is a <strong>real terminal</strong> connected to your system. Commands execute in your home directory.
-            Be careful with destructive commands like <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>rm</code>.
-            Use this to practice real-world terminal skills safely!
+            This is a <strong>simulated terminal</strong> - a safe sandbox for learning. All commands are simulated and won't affect your actual system.
+            Practice freely without worrying about making mistakes! When you're comfortable, apply these skills in your real development environment.
           </p>
         </Section>
       </Column>

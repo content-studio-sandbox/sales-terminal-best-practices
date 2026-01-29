@@ -1,166 +1,150 @@
-# Sales Terminal Best Practices
+# FSM Technical Best Practices
 
-An interactive web application designed to teach IBM Sales teams essential terminal, Git, and SSH skills for modern development workflows.
+A comprehensive web application for teaching terminal, Git, and SSH best practices to FSM sales teams. Built with React, TypeScript, and IBM Carbon Design System.
 
-## 🚀 Features
+## Features
 
-- **Terminal Basics**: Learn essential command-line navigation and file operations
-- **Git Workflows**: Master version control with practical Git commands and best practices
-- **SSH Best Practices**: Understand secure remote server connections and key management
-- **Interactive Terminal**: Practice commands in a safe, simulated terminal environment
+- **Interactive Terminal Simulator**: Safe, simulated terminal environment for hands-on practice
+- **Terminal Basics Guide**: Comprehensive documentation with visual diagrams
+- **Git Workflows**: Best practices for version control
+- **SSH Best Practices**: Security and connection guides
+- **Professional UI**: IBM Carbon Design System components
+- **OpenShift Ready**: Fully containerized and production-ready
 
-## 📋 Prerequisites
+## Quick Start
 
-- Node.js (v18 or higher recommended)
-- npm or yarn package manager
+### Prerequisites
 
-## 🛠️ Installation
+- Node.js 18+ 
+- npm or yarn
 
-1. **Clone or navigate to the project directory**
-   ```bash
-   cd sales-terminal-best-practices
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open your browser**
-   - Navigate to `http://localhost:5173` (or the port shown in your terminal)
-
-## 📦 Technologies
-
-- **React 18** - Modern UI library
-- **TypeScript** - Type-safe JavaScript
-- **Vite** - Fast build tool and dev server
-- **IBM Carbon Design System** - Enterprise-grade UI components
-- **xterm.js** - Terminal emulator for interactive practice
-- **React Router** - Client-side routing
-
-## 🎯 Usage
-
-### For Sales Teams
-
-1. **Start with Terminal Basics** - Learn fundamental commands
-2. **Progress to Git Workflows** - Understand version control
-3. **Master SSH Best Practices** - Secure remote connections
-4. **Practice in Interactive Terminal** - Apply your knowledge safely
-
-### For Developers
-
-The application is built with a modular structure:
-
-```
-src/
-├── components/          # Reusable components
-│   └── InteractiveTerminal.tsx
-├── pages/              # Main application pages
-│   ├── TerminalBasicsPage.tsx
-│   ├── GitWorkflowsPage.tsx
-│   ├── SSHBestPracticesPage.tsx
-│   └── InteractiveTerminalPage.tsx
-├── layout/             # Layout components
-│   ├── AppHeader.tsx
-│   ├── AppFooter.tsx
-│   └── MainLayout.tsx
-└── App.tsx            # Main application component
-```
-
-## 🔧 Available Scripts
+### Installation
 
 ```bash
+# Install dependencies
+npm install
+
 # Start development server
 npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Run linter
-npm run lint
 ```
 
-## 🎨 Customization
+The application will be available at: http://localhost:8081
 
-### Adding New Commands to Interactive Terminal
+### Build for Production
 
-Edit `src/components/InteractiveTerminal.tsx` and add to the `commands` object:
+```bash
+npm run build
+```
+
+## Project Structure
+
+```
+sales-terminal-best-practices/
+├── src/
+│   ├── components/
+│   │   ├── InteractiveTerminal.tsx    # Simulated terminal component
+│   │   └── VisualDiagram.tsx          # ASCII diagram component
+│   ├── pages/
+│   │   ├── LandingPage.tsx            # Home page
+│   │   ├── TerminalBasicsPage.tsx     # Terminal documentation
+│   │   ├── GitWorkflowsPage.tsx       # Git best practices
+│   │   ├── SSHBestPracticesPage.tsx   # SSH guides
+│   │   └── InteractiveTerminalPage.tsx # Practice terminal
+│   ├── layout/
+│   │   ├── AppHeader.tsx              # Navigation header
+│   │   └── AppFooter.tsx              # Footer
+│   └── App.tsx                        # Main app component
+├── public/                            # Static assets
+└── package.json                       # Dependencies
+```
+
+## Available Commands in Simulated Terminal
+
+The interactive terminal supports these commands:
+
+- `help` - Show all available commands
+- `ls` - List files and directories
+- `cd [dir]` - Change directory
+- `pwd` - Print working directory
+- `mkdir [name]` - Create directory
+- `touch [name]` - Create file
+- `cat [file]` - Display file contents
+- `echo [text]` - Echo text
+- `whoami` - Display current user
+- `date` - Show current date/time
+- `git status` - Show git status (demo)
+- `git log` - Show git log (demo)
+- `ssh demo` - Demo SSH connection
+- `history` - Show command history
+- `clear` - Clear terminal
+
+## Deployment
+
+### OpenShift Deployment
+
+This application is designed to run in OpenShift/Kubernetes:
+
+```bash
+# Build container
+docker build -t fsm-terminal-best-practices .
+
+# Deploy to OpenShift
+oc new-app fsm-terminal-best-practices
+oc expose svc/fsm-terminal-best-practices
+```
+
+### Environment Variables
+
+No environment variables required - the app is fully self-contained.
+
+## Technology Stack
+
+- **React 18** - UI framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool
+- **IBM Carbon Design System** - UI components
+- **xterm.js** - Terminal emulator
+- **React Router** - Client-side routing
+
+## Security
+
+- ✅ **Safe Simulation**: Terminal is fully simulated - no real system access
+- ✅ **No Backend Required**: Pure frontend application
+- ✅ **OpenShift Compatible**: Runs in containerized environments
+- ✅ **No Sensitive Data**: No authentication or data storage
+
+## Development
+
+### Adding New Commands
+
+Edit `src/components/InteractiveTerminal.tsx`:
 
 ```typescript
-const commands: Record<string, () => string> = {
-  // Add your custom command
-  mycommand: () => "Output of my command",
-  // ...
+const commands: Record<string, (args?: string) => string> = {
+  mycommand: (args) => {
+    // Your command logic here
+    return "Command output";
+  }
 };
 ```
 
 ### Adding New Pages
 
-1. Create a new page component in `src/pages/`
-2. Add the route in `src/App.tsx`
-3. Update navigation in `src/layout/AppHeader.tsx`
+1. Create page component in `src/pages/`
+2. Add route in `src/App.tsx`
+3. Add navigation link in `src/layout/AppHeader.tsx`
 
-## 📚 Learning Path
-
-### Beginner
-- Terminal Basics: Navigation, file operations
-- Basic Git commands: clone, status, add, commit
-
-### Intermediate
-- Git branching and merging
-- SSH key generation and management
-- Interactive terminal practice
-
-### Advanced
-- Complex Git workflows
-- SSH configuration files
-- Advanced terminal operations
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
+## Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
-## 📝 License
+## License
 
-This project is licensed under the MIT License.
+IBM Internal Use Only
 
-## 🆘 Support
+## Support
 
-For questions or issues:
-- Open an issue in the repository
-- Contact the development team
-- Check the documentation in each section
-
-## 🎓 Additional Resources
-
-- [Git Documentation](https://git-scm.com/doc)
-- [SSH Academy](https://www.ssh.com/academy/ssh)
-- [IBM Carbon Design System](https://carbondesignsystem.com/)
-- [Terminal Command Reference](https://ss64.com/)
-
-## 🔐 Security Note
-
-This application uses a simulated terminal environment. All commands are safe to practice and do not affect your actual system. When working with real terminals and servers, always:
-
-- Use strong SSH keys
-- Never share private keys
-- Follow your organization's security policies
-- Test commands in development environments first
-
----
-
-Built with ❤️ for IBM Sales Teams using IBM Carbon Design System
+For questions or issues, contact the FSM Technical Training team.
