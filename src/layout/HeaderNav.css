@@ -1,0 +1,33 @@
+/* Make the nav breathe and center-ish between name and actions */
+.app-header .app-header__nav {
+  margin-left: 24px;
+}
+
+/* Larger clickable target + subtle focus ring like w3 */
+.app-header .cds--header__menu-item {
+  padding: 0 12px;                 /* widen hit area */
+  font-weight: 500;
+}
+
+/* Active tab (bold + bottom bar/pill outline vibe) */
+.app-header .cds--header__menu-item.is-active {
+  position: relative;
+  font-weight: 600;
+}
+
+.app-header .cds--header__menu-item.is-active::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -10px;                   /* sits on the header rail */
+  height: 2px;
+  background: var(--cds-background-brand, #0f62fe);
+}
+
+/* High-contrast focus (Carbon provides focus, this just makes it a tad thicker) */
+.app-header .cds--header__menu-item:focus-visible {
+  outline: 2px solid #0f62fe;
+  outline-offset: 2px;
+  border-radius: 4px;
+}

@@ -1,0 +1,505 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/theme' as *;
+@use '@carbon/react/scss/type' as *;
+
+.executive-dashboard {
+  padding: $spacing-07 $spacing-06;
+  background: $layer-01;
+  min-height: 100vh;
+  max-width: 1584px;
+  margin: 0 auto;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-08;
+    padding: $spacing-06;
+    background: $layer-02;
+    border-radius: 4px;
+
+    h1 {
+      @include type-style('heading-05');
+      margin-bottom: $spacing-02;
+      color: $text-primary;
+    }
+  }
+
+  &__subtitle {
+    @include type-style('body-01');
+    color: $text-secondary;
+    max-width: 600px;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-04;
+    flex-shrink: 0;
+  }
+
+  &__kpis {
+    margin-bottom: $spacing-08;
+  }
+
+  &__tabs {
+    .cds--tabs {
+      margin-bottom: 0;
+    }
+
+    .cds--tab-content {
+      padding: $spacing-06 0;
+    }
+  }
+}
+
+.executive-dashboard-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.section-title {
+  @include type-style('heading-03');
+  margin-bottom: $spacing-06;
+  color: $text-primary;
+  font-weight: 600;
+}
+
+.tab-title {
+  @include type-style('heading-04');
+  margin-bottom: $spacing-03;
+}
+
+.tab-description {
+  @include type-style('body-01');
+  color: $text-secondary;
+  margin-bottom: $spacing-06;
+}
+
+// Executive Metrics
+.executive-metric {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-04;
+  padding: $spacing-06;
+  height: 100%;
+  min-height: 180px;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    margin-bottom: $spacing-03;
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__label {
+    @include type-style('label-01');
+    color: $text-secondary;
+    margin-bottom: $spacing-03;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+
+  &__value {
+    @include type-style('heading-03');
+    margin-bottom: $spacing-04;
+    color: $text-primary;
+    font-weight: 600;
+  }
+
+  &__change {
+    display: flex;
+    align-items: center;
+    gap: $spacing-02;
+    @include type-style('label-01');
+    font-weight: 500;
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &--green {
+    border-left-color: $support-success;
+    
+    .executive-metric__icon {
+      background: rgba(36, 161, 72, 0.12);
+      color: $support-success;
+    }
+
+    .executive-metric__change {
+      color: $support-success;
+    }
+  }
+
+  &--blue {
+    border-left-color: $link-primary;
+    
+    .executive-metric__icon {
+      background: rgba(0, 114, 195, 0.12);
+      color: $link-primary;
+    }
+
+    .executive-metric__change {
+      color: $link-primary;
+    }
+  }
+
+  &--purple {
+    border-left-color: #8852ff;
+    
+    .executive-metric__icon {
+      background: rgba(136, 82, 255, 0.12);
+      color: #8852ff;
+    }
+
+    .executive-metric__change {
+      color: #8852ff;
+    }
+  }
+
+  &--red {
+    border-left-color: $support-error;
+    
+    .executive-metric__icon {
+      background: rgba(218, 30, 40, 0.12);
+      color: $support-error;
+    }
+
+    .executive-metric__change {
+      color: $support-error;
+    }
+  }
+}
+
+// Business Impact Tiles
+.business-impact-tile {
+  padding: $spacing-05;
+  height: 100%;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $spacing-04;
+
+    h4 {
+      @include type-style('heading-02');
+      flex: 1;
+    }
+  }
+
+  &__trend {
+    display: flex;
+    align-items: center;
+    gap: $spacing-02;
+    color: $support-success;
+    @include type-style('label-01');
+  }
+
+  &__value {
+    @include type-style('heading-05');
+    margin-bottom: $spacing-04;
+    color: $text-primary;
+  }
+
+  &__footer {
+    @include type-style('label-01');
+    color: $text-secondary;
+  }
+}
+
+.roi-summary {
+  padding: $spacing-06;
+
+  h4 {
+    @include type-style('heading-03');
+    margin-bottom: $spacing-05;
+  }
+
+  &__content {
+    display: flex;
+    gap: $spacing-07;
+  }
+
+  &__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-03;
+
+    .label {
+      @include type-style('label-01');
+      color: $text-secondary;
+    }
+
+    .value {
+      @include type-style('heading-04');
+    }
+
+    &--highlight {
+      .value {
+        @include type-style('heading-05');
+        color: $support-success;
+      }
+    }
+  }
+}
+
+// Talent Pipeline
+.talent-pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-05;
+  padding: $spacing-05;
+  background: $layer-02;
+  border-radius: 4px;
+
+  &__stage {
+    background: $layer-01;
+    padding: $spacing-05;
+    border-radius: 4px;
+    border-left: 4px solid $link-primary;
+  }
+
+  &__stage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-04;
+
+    h4 {
+      @include type-style('heading-02');
+    }
+
+    .count {
+      @include type-style('heading-04');
+      color: $link-primary;
+    }
+  }
+
+  &__metrics {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-04;
+
+    .metric {
+      .label {
+        @include type-style('label-01');
+        color: $text-secondary;
+        display: block;
+        margin-bottom: $spacing-02;
+      }
+    }
+  }
+
+  &__arrow {
+    text-align: center;
+    font-size: 24px;
+    color: $link-primary;
+    margin: $spacing-03 0;
+  }
+}
+
+.pipeline-insight,
+.pipeline-recommendations {
+  padding: $spacing-05;
+  height: 100%;
+
+  h4 {
+    @include type-style('heading-03');
+    margin-bottom: $spacing-04;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      @include type-style('body-01');
+      padding: $spacing-03 0;
+      padding-left: $spacing-05;
+      position: relative;
+
+      &::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: $link-primary;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// Diversity Metrics
+.diversity-metric {
+  padding: $spacing-05;
+  height: 100%;
+
+  h4 {
+    @include type-style('heading-03');
+    margin-bottom: $spacing-05;
+  }
+
+  &__progress {
+    margin-bottom: $spacing-04;
+  }
+
+  &__target {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include type-style('label-01');
+    color: $text-secondary;
+  }
+}
+
+.diversity-insights {
+  padding: $spacing-06;
+
+  h4 {
+    @include type-style('heading-03');
+    margin-bottom: $spacing-05;
+  }
+
+  .highlight {
+    margin-bottom: $spacing-05;
+
+    h5 {
+      @include type-style('heading-02');
+      margin-bottom: $spacing-02;
+    }
+
+    p {
+      @include type-style('body-01');
+      color: $text-secondary;
+    }
+  }
+}
+
+// Risk Indicators
+.risk-indicator {
+  padding: $spacing-05;
+  height: 100%;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $spacing-04;
+
+    h4 {
+      @include type-style('heading-02');
+      flex: 1;
+    }
+  }
+
+  &__count {
+    margin-bottom: $spacing-04;
+
+    .value {
+      @include type-style('heading-05');
+      display: block;
+      margin-bottom: $spacing-02;
+    }
+
+    .label {
+      @include type-style('label-01');
+      color: $text-secondary;
+    }
+  }
+
+  &__trend {
+    display: flex;
+    align-items: center;
+    gap: $spacing-02;
+    @include type-style('label-01');
+    color: $text-secondary;
+  }
+}
+
+.compliance-summary {
+  padding: $spacing-06;
+
+  h4 {
+    @include type-style('heading-03');
+    margin-bottom: $spacing-05;
+  }
+
+  .compliance-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-03;
+    padding: $spacing-04;
+    text-align: center;
+
+    .icon-success {
+      color: $support-success;
+    }
+
+    span {
+      @include type-style('label-01');
+    }
+  }
+}
+
+// Table Customizations
+.completion-cell {
+  min-width: 200px;
+}
+
+// Responsive Design
+@media (max-width: 672px) {
+  .executive-dashboard {
+    padding: $spacing-05;
+
+    &__header {
+      flex-direction: column;
+      gap: $spacing-04;
+    }
+
+    &__actions {
+      width: 100%;
+
+      button {
+        flex: 1;
+      }
+    }
+  }
+
+  .roi-summary__content {
+    flex-direction: column;
+    gap: $spacing-05;
+  }
+
+  .talent-pipeline__stage-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-02;
+  }
+}
+
+// Made with Bob

@@ -1,0 +1,234 @@
+/* Performance Optimizations for Instana CLS/LCP improvements */
+
+/* Pulse animation for skeleton loaders */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* CSS Containment for better rendering performance */
+.leadership-table {
+  contain: layout style paint;
+  content-visibility: auto;
+}
+
+.kpi-tile {
+  will-change: transform;
+  aspect-ratio: 16 / 9;
+  contain: layout style;
+}
+
+/* Prevent layout shifts during image loading */
+img {
+  aspect-ratio: attr(width) / attr(height);
+}
+
+/* Optimize table rendering */
+.cds--data-table {
+  contain: layout style;
+}
+
+/* Reduce repaints for fixed elements */
+.cds--header {
+  will-change: transform;
+  contain: layout style paint;
+}
+
+/* Optimize modal rendering */
+.cds--modal {
+  contain: layout style;
+}
+
+/* Prevent layout shifts in grid layouts */
+.cds--grid {
+  contain: layout;
+}
+
+/* Optimize tile rendering */
+.cds--tile {
+  contain: layout style;
+  content-visibility: auto;
+}
+
+/* Reduce layout thrashing for tooltips */
+.cds--tooltip {
+  contain: layout style paint;
+}
+
+/* Optimize button rendering */
+.cds--btn {
+  contain: layout style;
+}
+
+/* Prevent layout shifts in loading states */
+.loading-skeleton {
+  min-height: 400px;
+  contain: layout style;
+}
+
+/* Optimize form rendering */
+.cds--form {
+  contain: layout;
+}
+
+/* Reduce repaints for sticky elements */
+.sticky-header {
+  will-change: transform;
+  contain: layout style paint;
+}
+
+/* Optimize dropdown rendering */
+.cds--dropdown {
+  contain: layout style;
+}
+
+/* Prevent layout shifts in tabs */
+.cds--tabs {
+  contain: layout;
+}
+
+/* Optimize accordion rendering */
+.cds--accordion {
+  contain: layout style;
+}
+
+/* Reduce layout thrashing for notifications */
+.cds--toast-notification {
+  contain: layout style paint;
+}
+
+/* Optimize tag rendering */
+.cds--tag {
+  contain: layout style;
+}
+
+/* Prevent layout shifts in progress indicators */
+.cds--progress {
+  contain: layout;
+}
+
+/* Optimize search input rendering */
+.cds--search {
+  contain: layout style;
+}
+
+/* Reduce repaints for overflow menus */
+.cds--overflow-menu {
+  contain: layout style paint;
+}
+
+/* Optimize pagination rendering */
+.cds--pagination {
+  contain: layout style;
+}
+
+/* Prevent layout shifts in breadcrumbs */
+.cds--breadcrumb {
+  contain: layout;
+}
+
+/* Optimize code snippet rendering */
+.cds--snippet {
+  contain: layout style;
+}
+
+/* Reduce layout thrashing for inline loading */
+.cds--inline-loading {
+  contain: layout style;
+}
+
+/* Optimize file uploader rendering */
+.cds--file {
+  contain: layout style;
+}
+
+/* Prevent layout shifts in structured list */
+.cds--structured-list {
+  contain: layout;
+}
+
+/* Optimize number input rendering */
+.cds--number {
+  contain: layout style;
+}
+
+/* Reduce repaints for sliders */
+.cds--slider {
+  contain: layout style;
+}
+
+/* Optimize toggle rendering */
+.cds--toggle {
+  contain: layout style;
+}
+
+/* Prevent layout shifts in radio buttons */
+.cds--radio-button-group {
+  contain: layout;
+}
+
+/* Optimize checkbox rendering */
+.cds--checkbox {
+  contain: layout style;
+}
+
+/* Reduce layout thrashing for date picker */
+.cds--date-picker {
+  contain: layout style;
+}
+
+/* Optimize time picker rendering */
+.cds--time-picker {
+  contain: layout style;
+}
+
+/* Prevent layout shifts in select */
+.cds--select {
+  contain: layout;
+}
+
+/* Optimize text area rendering */
+.cds--text-area {
+  contain: layout style;
+}
+
+/* Reduce repaints for text input */
+.cds--text-input {
+  contain: layout style;
+}
+
+/* Optimize combo box rendering */
+.cds--combo-box {
+  contain: layout style;
+}
+
+/* Prevent layout shifts in multi-select */
+.cds--multi-select {
+  contain: layout;
+}
+
+/* Optimize content switcher rendering */
+.cds--content-switcher {
+  contain: layout style;
+}
+
+/* Reduce layout thrashing for UI shell */
+.cds--ui-shell {
+  contain: layout style paint;
+}
+
+/* Optimize side nav rendering */
+.cds--side-nav {
+  contain: layout style paint;
+}
+
+/* Prevent layout shifts in header */
+.cds--header-panel {
+  contain: layout style;
+}
+
+/* Made with Bob */

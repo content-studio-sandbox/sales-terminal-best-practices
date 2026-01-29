@@ -1,0 +1,25 @@
+@use '@carbon/react/scss/themes' as *;
+@use '@carbon/react/scss/theme' as *;
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+
+// Global styles using Carbon tokens only
+body {
+  margin: 0;
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Minimal layout helpers using Carbon spacing tokens
+.page-section {
+  margin-block: $spacing-07; // 32px
+}
+
+.centered-content {
+  max-width: 1584px; // Carbon max content width
+  margin: 0 auto;
+  padding-inline: $spacing-05; // 16px
+}

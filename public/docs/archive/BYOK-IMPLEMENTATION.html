@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>byok-implementation – Your Projects at IBM</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-79fc7679b39df2b239e62fa7ea158d7e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": true,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/yp-logo.png" alt="" class="navbar-logo light-content">
+    <img src="../images/yp-logo.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Your Projects at IBM</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/content-studio-sandbox/your-projects" target="_blank"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-linkedin" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-linkedin">    
+        <li>
+    <a class="dropdown-item" href="https://www.linkedin.com/sharing/share-offsite/" target="_blank">
+ <span class="dropdown-text">Share on LinkedIn</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://www.linkedin.com/company/ibm/" target="_blank">
+ <span class="dropdown-text">IBM LinkedIn</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#byok-bring-your-own-key-implementation" id="toc-byok-bring-your-own-key-implementation" class="nav-link active" data-scroll-target="#byok-bring-your-own-key-implementation">BYOK (Bring Your Own Key) Implementation</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#problem-statement" id="toc-problem-statement" class="nav-link" data-scroll-target="#problem-statement">Problem Statement</a></li>
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution">Solution</a></li>
+  <li><a href="#components-created" id="toc-components-created" class="nav-link" data-scroll-target="#components-created">Components Created</a>
+  <ul class="collapse">
+  <li><a href="#database-migration-20251112180000_create_user_api_keys_table.sql" id="toc-database-migration-20251112180000_create_user_api_keys_table.sql" class="nav-link" data-scroll-target="#database-migration-20251112180000_create_user_api_keys_table.sql">1. Database Migration (<code>20251112180000_create_user_api_keys_table.sql</code>)</a></li>
+  <li><a href="#api-keys-settings-modal-apikeyssettingsmodal.tsx" id="toc-api-keys-settings-modal-apikeyssettingsmodal.tsx" class="nav-link" data-scroll-target="#api-keys-settings-modal-apikeyssettingsmodal.tsx">2. API Keys Settings Modal (<code>ApiKeysSettingsModal.tsx</code>)</a></li>
+  <li><a href="#api-key-warning-banner-apikeywarningbanner.tsx" id="toc-api-key-warning-banner-apikeywarningbanner.tsx" class="nav-link" data-scroll-target="#api-key-warning-banner-apikeywarningbanner.tsx">3. API Key Warning Banner (<code>ApiKeyWarningBanner.tsx</code>)</a></li>
+  <li><a href="#integration-points" id="toc-integration-points" class="nav-link" data-scroll-target="#integration-points">4. Integration Points</a></li>
+  </ul></li>
+  <li><a href="#user-flow" id="toc-user-flow" class="nav-link" data-scroll-target="#user-flow">User Flow</a>
+  <ul class="collapse">
+  <li><a href="#first-time-user-experience" id="toc-first-time-user-experience" class="nav-link" data-scroll-target="#first-time-user-experience">First-Time User Experience</a></li>
+  <li><a href="#returning-user-experience" id="toc-returning-user-experience" class="nav-link" data-scroll-target="#returning-user-experience">Returning User Experience</a></li>
+  </ul></li>
+  <li><a href="#security-considerations" id="toc-security-considerations" class="nav-link" data-scroll-target="#security-considerations">Security Considerations</a>
+  <ul class="collapse">
+  <li><a href="#database-security" id="toc-database-security" class="nav-link" data-scroll-target="#database-security">Database Security</a></li>
+  <li><a href="#frontend-security" id="toc-frontend-security" class="nav-link" data-scroll-target="#frontend-security">Frontend Security</a></li>
+  <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices">Best Practices</a></li>
+  </ul></li>
+  <li><a href="#api-key-sources" id="toc-api-key-sources" class="nav-link" data-scroll-target="#api-key-sources">API Key Sources</a>
+  <ul class="collapse">
+  <li><a href="#watsonx.ai" id="toc-watsonx.ai" class="nav-link" data-scroll-target="#watsonx.ai">WatsonX.ai</a></li>
+  <li><a href="#watson-orchestrate" id="toc-watson-orchestrate" class="nav-link" data-scroll-target="#watson-orchestrate">Watson Orchestrate</a></li>
+  </ul></li>
+  <li><a href="#migration-instructions" id="toc-migration-instructions" class="nav-link" data-scroll-target="#migration-instructions">Migration Instructions</a>
+  <ul class="collapse">
+  <li><a href="#apply-the-migration" id="toc-apply-the-migration" class="nav-link" data-scroll-target="#apply-the-migration">Apply the Migration</a></li>
+  <li><a href="#verify-migration" id="toc-verify-migration" class="nav-link" data-scroll-target="#verify-migration">Verify Migration</a></li>
+  </ul></li>
+  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a>
+  <ul class="collapse">
+  <li><a href="#manual-testing" id="toc-manual-testing" class="nav-link" data-scroll-target="#manual-testing">Manual Testing</a></li>
+  <li><a href="#security-testing" id="toc-security-testing" class="nav-link" data-scroll-target="#security-testing">Security Testing</a></li>
+  </ul></li>
+  <li><a href="#future-enhancements" id="toc-future-enhancements" class="nav-link" data-scroll-target="#future-enhancements">Future Enhancements</a>
+  <ul class="collapse">
+  <li><a href="#potential-improvements" id="toc-potential-improvements" class="nav-link" data-scroll-target="#potential-improvements">Potential Improvements</a></li>
+  </ul></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
+  <ul class="collapse">
+  <li><a href="#common-issues" id="toc-common-issues" class="nav-link" data-scroll-target="#common-issues">Common Issues</a></li>
+  </ul></li>
+  <li><a href="#files-modifiedcreated" id="toc-files-modifiedcreated" class="nav-link" data-scroll-target="#files-modifiedcreated">Files Modified/Created</a>
+  <ul class="collapse">
+  <li><a href="#new-files" id="toc-new-files" class="nav-link" data-scroll-target="#new-files">New Files</a></li>
+  <li><a href="#modified-files" id="toc-modified-files" class="nav-link" data-scroll-target="#modified-files">Modified Files</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<section id="byok-bring-your-own-key-implementation" class="level1">
+<h1>BYOK (Bring Your Own Key) Implementation</h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This document describes the implementation of the Bring Your Own Key (BYOK) system for IBM WatsonX.ai and Watson Orchestrate API keys. This feature allows users to configure their own API keys instead of relying on shared TechZone instances that expire after 2 days.</p>
+</section>
+<section id="problem-statement" class="level2">
+<h2 class="anchored" data-anchor-id="problem-statement">Problem Statement</h2>
+<p>Previously, the application used shared API keys from IBM TechZone instances that expire after 2 days. This meant: - Users had to constantly re-reserve TechZone instances - The application would become unusable when keys expired - No way for users to use their own persistent API keys</p>
+</section>
+<section id="solution" class="level2">
+<h2 class="anchored" data-anchor-id="solution">Solution</h2>
+<p>Implemented a comprehensive BYOK system that: 1. Stores user-specific API keys securely in the database 2. Shows warning banners when keys are not configured 3. Provides an easy-to-use settings modal for key configuration 4. Includes educational content about obtaining API keys from TechZone</p>
+</section>
+<section id="components-created" class="level2">
+<h2 class="anchored" data-anchor-id="components-created">Components Created</h2>
+<section id="database-migration-20251112180000_create_user_api_keys_table.sql" class="level3">
+<h3 class="anchored" data-anchor-id="database-migration-20251112180000_create_user_api_keys_table.sql">1. Database Migration (<code>20251112180000_create_user_api_keys_table.sql</code>)</h3>
+<p>Creates the <code>user_api_keys</code> table with: - <strong>Fields:</strong> - <code>id</code>: UUID primary key - <code>user_id</code>: Foreign key to auth.users - <code>watsonx_api_key</code>: WatsonX.ai API key - <code>watsonx_project_id</code>: WatsonX.ai project ID - <code>watsonx_url</code>: WatsonX.ai endpoint URL - <code>orchestrate_api_key</code>: Watson Orchestrate API key - <code>orchestrate_url</code>: Watson Orchestrate endpoint URL - <code>created_at</code>, <code>updated_at</code>: Timestamps</p>
+<ul>
+<li><strong>Security:</strong>
+<ul>
+<li>Row Level Security (RLS) enabled</li>
+<li>Users can only access their own keys</li>
+<li>Policies for SELECT, INSERT, UPDATE, DELETE</li>
+</ul></li>
+<li><strong>Features:</strong>
+<ul>
+<li>Unique constraint on user_id (one row per user)</li>
+<li>Automatic updated_at timestamp trigger</li>
+<li>Indexed for fast lookups</li>
+</ul></li>
+</ul>
+</section>
+<section id="api-keys-settings-modal-apikeyssettingsmodal.tsx" class="level3">
+<h3 class="anchored" data-anchor-id="api-keys-settings-modal-apikeyssettingsmodal.tsx">2. API Keys Settings Modal (<code>ApiKeysSettingsModal.tsx</code>)</h3>
+<p>A comprehensive modal for managing API keys:</p>
+<p><strong>Features:</strong> - Accordion-based UI for WatsonX.ai and Watson Orchestrate sections - Password-style inputs with show/hide toggle - Pre-filled default URLs - Educational content with links to IBM TechZone - Success/error notifications - Auto-save with upsert functionality</p>
+<p><strong>User Experience:</strong> - Clear instructions on how to obtain API keys - Step-by-step guide for TechZone reservation - Security note about encryption and storage - Smooth save flow with confirmation</p>
+</section>
+<section id="api-key-warning-banner-apikeywarningbanner.tsx" class="level3">
+<h3 class="anchored" data-anchor-id="api-key-warning-banner-apikeywarningbanner.tsx">3. API Key Warning Banner (<code>ApiKeyWarningBanner.tsx</code>)</h3>
+<p>An actionable notification banner that: - Automatically checks if user has configured API keys - Shows warning when keys are missing - Provides “Configure API Keys” button - Can be dismissed by user - Explains the importance of BYOK - Mentions TechZone expiration issue</p>
+<p><strong>Smart Behavior:</strong> - Only shows when keys are not configured - Hides after user configures keys - Respects user dismissal - Refreshes after key save</p>
+</section>
+<section id="integration-points" class="level3">
+<h3 class="anchored" data-anchor-id="integration-points">4. Integration Points</h3>
+<section id="mainlayout.tsx" class="level4">
+<h4 class="anchored" data-anchor-id="mainlayout.tsx">MainLayout.tsx</h4>
+<ul>
+<li>Added <code>ApiKeysSettingsModal</code> component</li>
+<li>Added <code>ApiKeyWarningBanner</code> at top of content area</li>
+<li>Added refresh mechanism for banner after key save</li>
+<li>Success notification on key save</li>
+</ul>
+</section>
+<section id="appheader.tsx" class="level4">
+<h4 class="anchored" data-anchor-id="appheader.tsx">AppHeader.tsx</h4>
+<ul>
+<li>Added Settings icon button in global actions</li>
+<li>Triggers API Keys settings modal</li>
+<li>Positioned between Feedback and Release Notes buttons</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="user-flow" class="level2">
+<h2 class="anchored" data-anchor-id="user-flow">User Flow</h2>
+<section id="first-time-user-experience" class="level3">
+<h3 class="anchored" data-anchor-id="first-time-user-experience">First-Time User Experience</h3>
+<ol type="1">
+<li><strong>User logs in</strong> → Warning banner appears at top of page</li>
+<li><strong>User clicks “Configure API Keys”</strong> → Settings modal opens</li>
+<li><strong>User sees educational content</strong> → Learns about TechZone and BYOK</li>
+<li><strong>User enters API keys</strong> → Saves configuration</li>
+<li><strong>Success notification</strong> → Confirms keys are saved</li>
+<li><strong>Warning banner disappears</strong> → User can now use WatsonX features</li>
+</ol>
+</section>
+<section id="returning-user-experience" class="level3">
+<h3 class="anchored" data-anchor-id="returning-user-experience">Returning User Experience</h3>
+<ol type="1">
+<li><strong>User with configured keys</strong> → No warning banner shown</li>
+<li><strong>User can update keys</strong> → Click Settings icon in header</li>
+<li><strong>User can view/edit keys</strong> → Modal shows current configuration</li>
+<li><strong>User can delete keys</strong> → Clear fields and save</li>
+</ol>
+</section>
+</section>
+<section id="security-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="security-considerations">Security Considerations</h2>
+<section id="database-security" class="level3">
+<h3 class="anchored" data-anchor-id="database-security">Database Security</h3>
+<ul>
+<li><strong>RLS Policies:</strong> Users can only access their own API keys</li>
+<li><strong>Encryption:</strong> Keys stored in database (consider adding encryption at rest)</li>
+<li><strong>No Sharing:</strong> Keys are never shared between users</li>
+<li><strong>Cascade Delete:</strong> Keys deleted when user account is deleted</li>
+</ul>
+</section>
+<section id="frontend-security" class="level3">
+<h3 class="anchored" data-anchor-id="frontend-security">Frontend Security</h3>
+<ul>
+<li><strong>Password Fields:</strong> API keys hidden by default</li>
+<li><strong>Show/Hide Toggle:</strong> User can reveal keys when needed</li>
+<li><strong>No Logging:</strong> Keys not logged to console</li>
+<li><strong>Type Safety:</strong> TypeScript ensures proper handling</li>
+</ul>
+</section>
+<section id="best-practices" class="level3">
+<h3 class="anchored" data-anchor-id="best-practices">Best Practices</h3>
+<ul>
+<li>Keys stored per-user, not globally</li>
+<li>Clear security messaging to users</li>
+<li>Proper error handling</li>
+<li>No keys in client-side code</li>
+</ul>
+</section>
+</section>
+<section id="api-key-sources" class="level2">
+<h2 class="anchored" data-anchor-id="api-key-sources">API Key Sources</h2>
+<section id="watsonx.ai" class="level3">
+<h3 class="anchored" data-anchor-id="watsonx.ai">WatsonX.ai</h3>
+<ol type="1">
+<li>Go to <a href="https://techzone.ibm.com">IBM TechZone</a></li>
+<li>Reserve a WatsonX.ai instance</li>
+<li>Note: Instance expires after 2 days</li>
+<li>Copy API key and Project ID</li>
+<li>Paste into settings modal</li>
+</ol>
+</section>
+<section id="watson-orchestrate" class="level3">
+<h3 class="anchored" data-anchor-id="watson-orchestrate">Watson Orchestrate</h3>
+<ol type="1">
+<li>Go to <a href="https://techzone.ibm.com">IBM TechZone</a></li>
+<li>Reserve a Watson Orchestrate instance</li>
+<li>Note: Instance expires after 2 days</li>
+<li>Copy API key and URL</li>
+<li>Paste into settings modal</li>
+</ol>
+</section>
+</section>
+<section id="migration-instructions" class="level2">
+<h2 class="anchored" data-anchor-id="migration-instructions">Migration Instructions</h2>
+<section id="apply-the-migration" class="level3">
+<h3 class="anchored" data-anchor-id="apply-the-migration">Apply the Migration</h3>
+<p>Run the SQL migration file in Supabase SQL Editor:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Copy contents of APPLY_BYOK_MIGRATION.sql</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- Paste into Supabase SQL Editor</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- Execute</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Or use the Supabase CLI (if linked):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> your-projects</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> supabase db push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="verify-migration" class="level3">
+<h3 class="anchored" data-anchor-id="verify-migration">Verify Migration</h3>
+<p>Check that the table was created:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> user_api_keys <span class="kw">LIMIT</span> <span class="dv">1</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Check RLS policies:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> pg_policies <span class="kw">WHERE</span> tablename <span class="op">=</span> <span class="st">'user_api_keys'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="testing" class="level2">
+<h2 class="anchored" data-anchor-id="testing">Testing</h2>
+<section id="manual-testing" class="level3">
+<h3 class="anchored" data-anchor-id="manual-testing">Manual Testing</h3>
+<ol type="1">
+<li><strong>Test Warning Banner:</strong>
+<ul>
+<li>Log in as new user</li>
+<li>Verify warning banner appears</li>
+<li>Click “Configure API Keys”</li>
+<li>Verify modal opens</li>
+</ul></li>
+<li><strong>Test Settings Modal:</strong>
+<ul>
+<li>Enter WatsonX.ai API key and project ID</li>
+<li>Click “Save Keys”</li>
+<li>Verify success notification</li>
+<li>Verify banner disappears</li>
+</ul></li>
+<li><strong>Test Key Persistence:</strong>
+<ul>
+<li>Refresh page</li>
+<li>Click Settings icon in header</li>
+<li>Verify keys are still there</li>
+<li>Verify banner does not appear</li>
+</ul></li>
+<li><strong>Test Key Update:</strong>
+<ul>
+<li>Change API key value</li>
+<li>Save</li>
+<li>Verify update successful</li>
+</ul></li>
+<li><strong>Test Key Deletion:</strong>
+<ul>
+<li>Clear all fields</li>
+<li>Save</li>
+<li>Verify warning banner reappears</li>
+</ul></li>
+</ol>
+</section>
+<section id="security-testing" class="level3">
+<h3 class="anchored" data-anchor-id="security-testing">Security Testing</h3>
+<ol type="1">
+<li><strong>Test RLS:</strong>
+<ul>
+<li>Log in as User A</li>
+<li>Save API keys</li>
+<li>Log in as User B</li>
+<li>Verify User B cannot see User A’s keys</li>
+</ul></li>
+<li><strong>Test Show/Hide:</strong>
+<ul>
+<li>Enter API key</li>
+<li>Verify it’s hidden by default</li>
+<li>Click “Show API Key”</li>
+<li>Verify key is visible</li>
+<li>Click “Hide API Key”</li>
+<li>Verify key is hidden again</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="future-enhancements" class="level2">
+<h2 class="anchored" data-anchor-id="future-enhancements">Future Enhancements</h2>
+<section id="potential-improvements" class="level3">
+<h3 class="anchored" data-anchor-id="potential-improvements">Potential Improvements</h3>
+<ol type="1">
+<li><strong>Encryption at Rest:</strong>
+<ul>
+<li>Encrypt API keys in database</li>
+<li>Use Supabase Vault or similar</li>
+</ul></li>
+<li><strong>Key Validation:</strong>
+<ul>
+<li>Test API keys before saving</li>
+<li>Verify they work with IBM services</li>
+</ul></li>
+<li><strong>Key Expiration Tracking:</strong>
+<ul>
+<li>Track when TechZone keys expire</li>
+<li>Send reminders to users</li>
+</ul></li>
+<li><strong>Multiple Key Sets:</strong>
+<ul>
+<li>Allow users to save multiple key sets</li>
+<li>Switch between different environments</li>
+</ul></li>
+<li><strong>Team Key Sharing:</strong>
+<ul>
+<li>Allow leaders to share keys with team</li>
+<li>Implement team-level key management</li>
+</ul></li>
+<li><strong>Key Usage Analytics:</strong>
+<ul>
+<li>Track which features use which keys</li>
+<li>Show usage statistics</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<section id="common-issues" class="level3">
+<h3 class="anchored" data-anchor-id="common-issues">Common Issues</h3>
+<p><strong>Issue:</strong> Warning banner doesn’t disappear after saving keys - <strong>Solution:</strong> Check that keys were actually saved in database - <strong>Check:</strong> Run <code>SELECT * FROM user_api_keys WHERE user_id = 'your-user-id'</code></p>
+<p><strong>Issue:</strong> TypeScript errors about user_api_keys table - <strong>Solution:</strong> Regenerate Supabase types after migration - <strong>Command:</strong> <code>npx supabase gen types typescript --local &gt; src/integrations/supabase/types.ts</code></p>
+<p><strong>Issue:</strong> RLS policy errors - <strong>Solution:</strong> Verify user is authenticated - <strong>Check:</strong> Ensure <code>auth.uid()</code> returns valid user ID</p>
+<p><strong>Issue:</strong> Keys not loading in modal - <strong>Solution:</strong> Check browser console for errors - <strong>Check:</strong> Verify RLS policies allow SELECT</p>
+</section>
+</section>
+<section id="files-modifiedcreated" class="level2">
+<h2 class="anchored" data-anchor-id="files-modifiedcreated">Files Modified/Created</h2>
+<section id="new-files" class="level3">
+<h3 class="anchored" data-anchor-id="new-files">New Files</h3>
+<ul>
+<li><code>supabase/migrations/20251112180000_create_user_api_keys_table.sql</code></li>
+<li><code>src/components/carbon/ApiKeysSettingsModal.tsx</code></li>
+<li><code>src/components/carbon/ApiKeyWarningBanner.tsx</code></li>
+<li><code>APPLY_BYOK_MIGRATION.sql</code></li>
+<li><code>BYOK-IMPLEMENTATION.md</code></li>
+</ul>
+</section>
+<section id="modified-files" class="level3">
+<h3 class="anchored" data-anchor-id="modified-files">Modified Files</h3>
+<ul>
+<li><code>src/layout/MainLayout.tsx</code> - Added modal and banner integration</li>
+<li><code>src/layout/AppHeader.tsx</code> - Added Settings button</li>
+</ul>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The BYOK system provides a robust solution for managing user-specific API keys, eliminating the dependency on shared TechZone instances and providing a better user experience. The implementation follows IBM Carbon Design System guidelines and includes comprehensive security measures.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<div class="listitem">
+<a href="https://ibm.com" rel="noopener noreferrer" class="footerLogo"><img src="https://www.ibm.com/brand/experience-guides/developer/8f4e3cc2b5d52354a6d43c8edba1e3c9/02_8-bar-reverse.svg" alt="IBM Logo" class="footer__logo" width="250" height="250"></a>
+</div>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

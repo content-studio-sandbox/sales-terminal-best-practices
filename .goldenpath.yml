@@ -1,0 +1,20 @@
+kind: fullstack
+public: true
+port: 3000
+oauth2: auto
+backend:
+  path: api
+  port: 3000
+env:
+  # Instana SaaS Configuration
+  # For SaaS, we only need reportingUrl and key - NO agent host/port
+  INSTANA_REPORTING_URL: "https://ibmdevsandbox-instanaibm.instana.io"
+  INSTANA_AGENT_KEY:
+    secretKeyRef:
+      name: instana-secrets
+      key: agent-key
+oauth2_args:
+  # Skip authentication for Watson Orchestrate public API endpoints
+  - "--skip-auth-regex=^/api/public/.*"
+  # Skip the provider button for seamless SSO
+  - "--skip-provider-button=true"

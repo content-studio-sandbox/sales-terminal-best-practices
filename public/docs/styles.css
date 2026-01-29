@@ -1,0 +1,808 @@
+/* Mermaid diagram spacing - force compact view */
+div.cell-output-display .mermaid,
+.cell-output-display > .mermaid,
+.quarto-figure .mermaid,
+.mermaid {
+  max-height: 320px !important;
+  height: 320px !important;
+  margin: 1rem 0 !important;
+  overflow: hidden !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+
+div.cell-output-display .mermaid svg,
+.cell-output-display > .mermaid svg,
+.quarto-figure .mermaid svg,
+.mermaid svg {
+  max-height: 320px !important;
+  height: 320px !important;
+  width: 100% !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+
+/* Force figure container to be compact */
+.quarto-figure-default,
+.quarto-figure,
+figure {
+  margin: 1rem 0 !important;
+  max-height: 340px !important;
+}
+
+/* Reduce spacing after mermaid diagrams */
+.cell-output-display {
+  margin-bottom: 0.5rem !important;
+  max-height: 340px !important;
+}
+
+/* Navbar customization - white background with black text */
+#quarto-header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  min-height: 60px !important;
+  height: 60px !important;
+  overflow: visible !important;
+}
+
+.navbar {
+  background-color: #ffffff !important;
+  min-height: 60px !important;
+  height: 60px !important;
+  padding: 0 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  overflow: visible !important;
+}
+
+.navbar-brand-container {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  overflow: visible !important;
+}
+
+.navbar-brand {
+  padding: 0 1rem !important;
+  color: #161616 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  height: 100% !important;
+  text-decoration: none !important;
+  overflow: visible !important;
+}
+
+/* Add padding to the separator line between logo and title */
+.navbar-brand::after {
+  margin: 0 0.5rem !important;
+}
+
+.navbar-brand:hover {
+  color: #0f62fe !important;
+}
+
+.navbar-brand img {
+  max-height: 32px !important;
+  width: auto !important;
+  display: inline-block !important;
+  object-fit: contain !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  vertical-align: middle !important;
+}
+
+/* Show only the light-content logo for white navbar */
+.navbar-brand img.navbar-logo.light-content {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.navbar-brand img.navbar-logo.dark-content {
+  display: none !important;
+}
+
+.navbar-title {
+  color: #161616 !important;
+  font-size: 1.125rem !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+
+.navbar-nav .nav-link {
+  color: #161616 !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 60px !important;
+  border-radius: 0 !important;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #0f62fe !important;
+  background-color: #f4f4f4 !important;
+  border-radius: 0 !important;
+}
+
+/* Fix icon-only links hover */
+.navbar-nav .nav-link:has(.bi):not(:has(span)):not(:has(div)):hover {
+  background-color: #f4f4f4 !important;
+  padding: 0.75rem !important;
+}
+
+.navbar-nav .nav-link.active {
+  color: #0f62fe !important;
+  border-bottom: 2px solid #0f62fe !important;
+}
+
+/* Search box in navbar */
+#quarto-search {
+  background-color: #f4f4f4 !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 4px !important;
+  padding: 0.25rem 0.5rem !important;
+  max-width: 300px !important;
+}
+
+.aa-Autocomplete {
+  background-color: #f4f4f4 !important;
+  border-radius: 4px !important;
+}
+
+.aa-Form {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.aa-Input {
+  color: #161616 !important;
+  background-color: transparent !important;
+  border: none !important;
+  font-size: 0.875rem !important;
+}
+
+.aa-Input::placeholder {
+  color: rgba(22, 22, 22, 0.5) !important;
+}
+
+.aa-InputWrapper {
+  background-color: transparent !important;
+}
+
+/* Hide the clear button and submit button wrappers that create gaps */
+.aa-InputWrapperSuffix,
+.aa-ClearButton {
+  display: none !important;
+  width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.aa-SubmitButton {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.aa-InputWrapperPrefix {
+  background: transparent !important;
+}
+
+/* Navbar icons */
+.navbar .bi {
+  color: #161616 !important;
+  font-size: 1.25rem !important;
+  vertical-align: middle !important;
+}
+
+/* GitHub and LinkedIn icons in navbar */
+.navbar-nav .nav-link .bi,
+.navbar-nav .dropdown-toggle .bi {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Navbar right side items */
+.navbar-nav .nav-item {
+  display: flex !important;
+  align-items: center !important;
+  height: 60px !important;
+}
+
+/* Fix icon-only nav links */
+.navbar-nav .nav-link:has(.bi):not(:has(span)):not(:has(div)) {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.75rem !important;
+  min-width: 48px !important;
+}
+
+/* LinkedIn dropdown styling */
+.navbar .dropdown-toggle {
+  color: white !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0.75rem 1rem !important;
+  height: 60px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.navbar .dropdown-toggle:hover {
+  background-color: #262626 !important;
+}
+
+.navbar .dropdown-toggle::after {
+  color: white !important;
+  border-top-color: white !important;
+  margin-left: 0.25rem !important;
+}
+
+/* Fix icon spacing */
+.navbar-nav .nav-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+/* IBM Carbon Design System - Additional Styles */
+
+:root {
+  /* Carbon color tokens */
+  --carbon-gray-10: #f4f4f4;
+  --carbon-gray-20: #e0e0e0;
+  --carbon-gray-30: #c6c6c6;
+  --carbon-gray-50: #8d8d8d;
+  --carbon-gray-70: #525252;
+  --carbon-gray-80: #393939;
+  --carbon-gray-90: #262626;
+  --carbon-gray-100: #161616;
+  
+  --carbon-blue-60: #0f62fe;
+  --carbon-blue-70: #0043ce;
+  --carbon-blue-80: #002d9c;
+  
+  /* Carbon spacing */
+  --spacing-03: 0.5rem;
+  --spacing-05: 1rem;
+  --spacing-06: 1.5rem;
+  --spacing-07: 2rem;
+}
+
+/* Carbon type scale and smoothing */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Carbon productive heading styles */
+.quarto-title-block .quarto-title {
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1.25;
+}
+
+/* Carbon UI Shell header */
+#quarto-header {
+  background-color: var(--carbon-gray-100);
+  border-bottom: 1px solid var(--carbon-gray-80);
+  box-shadow: none;
+}
+
+/* Carbon tile hover effect */
+.card,
+.quarto-grid-item {
+  transition: background-color 70ms cubic-bezier(0, 0, 0.38, 0.9);
+}
+
+/* Carbon focus indicator */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--carbon-blue-60);
+  outline-offset: 2px;
+}
+
+/* Carbon data table striping */
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: transparent;
+}
+
+.table-striped > tbody > tr:hover > * {
+  background-color: var(--carbon-gray-10);
+}
+
+/* Carbon inline code */
+p code,
+li code {
+  background-color: var(--carbon-gray-10);
+  color: var(--carbon-gray-100);
+  padding: 0.125rem 0.25rem;
+  font-size: 0.875rem;
+}
+
+/* Carbon productive headings - remove default borders */
+h1, h2, h3, h4, h5, h6 {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Carbon section dividers */
+hr {
+  border: none;
+  border-top: 1px solid var(--carbon-gray-20);
+  margin: var(--spacing-07) 0;
+}
+
+/* Carbon list spacing */
+ul, ol {
+  padding-left: var(--spacing-06);
+  margin: var(--spacing-05) 0;
+}
+
+li {
+  margin-bottom: var(--spacing-03);
+}
+
+/* Carbon blockquote */
+blockquote {
+  border-left: 3px solid var(--carbon-blue-60);
+  padding-left: var(--spacing-05);
+  margin: var(--spacing-06) 0;
+  color: var(--carbon-gray-70);
+  font-style: italic;
+}
+
+/* Carbon breadcrumb */
+.breadcrumb {
+  background-color: transparent;
+  padding: var(--spacing-03) 0;
+  margin-bottom: var(--spacing-05);
+  font-size: 0.875rem;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";
+  color: var(--carbon-gray-50);
+}
+
+/* Carbon tag/badge styles */
+.badge {
+  font-size: 0.75rem;
+  font-weight: 400;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.75rem;
+  letter-spacing: 0.16px;
+}
+
+/* Carbon notification inline */
+.alert {
+  border-radius: 0;
+  border-left-width: 3px;
+  padding: var(--spacing-05);
+}
+
+/* Carbon overflow menu (dropdown) */
+.dropdown-menu {
+  border-radius: 0;
+  border: 1px solid var(--carbon-gray-30);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  padding: 0;
+}
+
+.dropdown-item {
+  padding: var(--spacing-03) var(--spacing-05);
+  font-size: 0.875rem;
+  transition: background-color 70ms cubic-bezier(0, 0, 0.38, 0.9);
+}
+
+.dropdown-item:hover {
+  background-color: var(--carbon-gray-10);
+}
+
+/* Carbon search input */
+.form-control,
+input[type="search"] {
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid var(--carbon-gray-80);
+  padding: var(--spacing-03) var(--spacing-05);
+  font-size: 0.875rem;
+  transition: border-color 70ms cubic-bezier(0, 0, 0.38, 0.9);
+}
+
+.form-control:focus,
+input[type="search"]:focus {
+  border-bottom-color: var(--carbon-blue-60);
+  outline: none;
+  box-shadow: none;
+}
+
+/* Carbon loading skeleton */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--carbon-gray-10) 0%,
+    var(--carbon-gray-20) 50%,
+    var(--carbon-gray-10) 100%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Carbon tooltip */
+.tooltip {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+/* Mermaid diagram Carbon styling */
+.mermaid {
+  background-color: var(--carbon-gray-10);
+  padding: var(--spacing-06);
+  margin: var(--spacing-07) 0;
+}
+
+/* Carbon productive motion */
+* {
+  transition-duration: 70ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.38, 0.9);
+}
+
+/* Disable transitions for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Carbon breakpoints */
+@media (max-width: 671px) {
+  /* Small */
+  :root {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 672px) and (max-width: 1055px) {
+  /* Medium */
+  :root {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1056px) {
+  /* Large and above */
+  :root {
+    font-size: 16px;
+  }
+}
+
+/* Print styles - Carbon */
+@media print {
+  body {
+    background-color: white;
+    color: black;
+  }
+  
+  .navbar,
+  .sidebar,
+  .quarto-navigation,
+  button,
+  .btn {
+    display: none !important;
+  }
+  
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  
+  pre, blockquote {
+    page-break-inside: avoid;
+  }
+}
+
+/* IBM Hero Section */
+.ibm-hero {
+  background: linear-gradient(135deg, #161616 0%, #262626 100%);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.ibm-hero.ibm-grid-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+.ibm-hero__brand {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+
+.ibm-hero__title {
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+}
+
+.ibm-hero__sub {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 2rem 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ibm-hero__ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* IBM Buttons */
+.ibm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.28572;
+  letter-spacing: 0.16px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 70ms cubic-bezier(0, 0, 0.38, 0.9);
+  min-height: 48px;
+}
+
+.ibm-btn--primary {
+  background-color: #0f62fe;
+  color: white;
+}
+
+.ibm-btn--primary:hover {
+  background-color: #0043ce;
+  color: white;
+  text-decoration: none;
+}
+
+.ibm-btn--secondary {
+  background-color: #393939;
+  color: white;
+}
+
+.ibm-btn--secondary:hover {
+  background-color: #474747;
+  color: white;
+  text-decoration: none;
+}
+
+.ibm-btn--tertiary {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+}
+
+.ibm-btn--tertiary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-decoration: none;
+}
+
+.ibm-btn--ghost {
+  background-color: transparent;
+  color: white;
+  border: 1px solid transparent;
+}
+
+.ibm-btn--ghost:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-decoration: none;
+}
+
+/* IBM Section Title */
+.ibm-section-title {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 3rem 0 2rem 0;
+  color: #161616;
+}
+
+/* IBM Cards Grid */
+.ibm-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.ibm-card {
+  background-color: #f4f4f4;
+  border: 1px solid #e0e0e0;
+  padding: 0;
+  transition: all 70ms cubic-bezier(0, 0, 0.38, 0.9);
+  display: flex;
+  flex-direction: column;
+}
+
+.ibm-card:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.ibm-card__content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.ibm-card__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.32px;
+  color: #525252;
+  margin-bottom: 0.5rem;
+}
+
+.ibm-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #161616;
+  margin: 0 0 0.75rem 0;
+}
+
+.ibm-card__description {
+  font-size: 0.875rem;
+  color: #525252;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  flex: 1;
+}
+
+.ibm-card__links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ibm-card__links li {
+  margin-bottom: 0.5rem;
+}
+
+.ibm-link--arrow {
+  color: #0f62fe;
+  text-decoration: none;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 70ms cubic-bezier(0, 0, 0.38, 0.9);
+}
+
+.ibm-link--arrow::after {
+  content: '→';
+  font-size: 1rem;
+  transition: transform 70ms cubic-bezier(0, 0, 0.38, 0.9);
+}
+
+.ibm-link--arrow:hover {
+  color: #0043ce;
+  text-decoration: underline;
+}
+
+.ibm-link--arrow:hover::after {
+  transform: translateX(4px);
+}
+
+/* IBM Helper Notification */
+.ibm-helper-notification {
+  display: flex;
+  background-color: #e0e2ff;
+  border-left: 3px solid #0f62fe;
+  padding: 1rem;
+  margin: 2rem 0;
+  gap: 1rem;
+}
+
+.ibm-helper-notification__accent {
+  width: 3px;
+  background-color: #0f62fe;
+  flex-shrink: 0;
+}
+
+.ibm-helper-notification__body {
+  flex: 1;
+}
+
+.ibm-helper-notification__title {
+  font-weight: 600;
+  color: #161616;
+  margin: 0 0 0.5rem 0;
+}
+
+.ibm-helper-notification__actions {
+  margin: 0;
+  color: #525252;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ibm-hero__title {
+    font-size: 2.5rem;
+  }
+  
+  .ibm-hero__sub {
+    font-size: 1rem;
+  }
+  
+  .ibm-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .ibm-hero__ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .ibm-btn {
+    width: 100%;
+  }
+}

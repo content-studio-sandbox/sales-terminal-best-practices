@@ -1,0 +1,37 @@
+@import '@carbon/styles/css/styles.css';
+/* Ensure the canvas paints the whole page */
+html, body, #root { height: 100%; min-height: 100%; }
+
+/* Body is transparent; <html> provides the base background color via tokens */
+body {
+    background: transparent !important;
+    position: relative; /* anchor for ::before */
+}
+
+/* Full-page dotted grid, fixed behind all routes/components */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;                  /* top/right/bottom/left: 0 */
+    z-index: -1;               /* sits behind the app */
+    pointer-events: none;
+
+    /* Token-aware pattern with a fallback layer for older browsers */
+    background-image:
+            radial-gradient(1.6px 1.6px at 1px 1px,
+            color-mix(in oklab, var(--cds-text-primary) 34%, transparent),
+            transparent),
+            radial-gradient(1.6px 1.6px at 1px 1px, rgba(255,255,255,0.22), transparent);
+    background-size: 20px 20px;
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+/* Light theme: softer dots */
+[data-carbon-theme="g10"] body::before {
+    background-image:
+            radial-gradient(1.6px 1.6px at 1px 1px,
+            color-mix(in oklab, var(--cds-text-primary) 18%, transparent),
+            transparent),
+            radial-gradient(1.6px 1.6px at 1px 1px, rgba(0,0,0,0.14), transparent);
+}

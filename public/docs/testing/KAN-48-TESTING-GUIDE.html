@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>kan-48-testing-guide – Your Projects at IBM</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-79fc7679b39df2b239e62fa7ea158d7e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": true,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/yp-logo.png" alt="" class="navbar-logo light-content">
+    <img src="../images/yp-logo.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Your Projects at IBM</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/content-studio-sandbox/your-projects" target="_blank"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-linkedin" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-linkedin">    
+        <li>
+    <a class="dropdown-item" href="https://www.linkedin.com/sharing/share-offsite/" target="_blank">
+ <span class="dropdown-text">Share on LinkedIn</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://www.linkedin.com/company/ibm/" target="_blank">
+ <span class="dropdown-text">IBM LinkedIn</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#kan-48-testing-guide" id="toc-kan-48-testing-guide" class="nav-link active" data-scroll-target="#kan-48-testing-guide">KAN-48 Testing Guide</a>
+  <ul class="collapse">
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#step-1-apply-the-database-migration" id="toc-step-1-apply-the-database-migration" class="nav-link" data-scroll-target="#step-1-apply-the-database-migration">Step 1: Apply the Database Migration</a></li>
+  <li><a href="#step-2-load-test-data" id="toc-step-2-load-test-data" class="nav-link" data-scroll-target="#step-2-load-test-data">Step 2: Load Test Data</a></li>
+  <li><a href="#step-3-test-the-feature" id="toc-step-3-test-the-feature" class="nav-link" data-scroll-target="#step-3-test-the-feature">Step 3: Test the Feature</a>
+  <ul class="collapse">
+  <li><a href="#view-your-projects" id="toc-view-your-projects" class="nav-link" data-scroll-target="#view-your-projects">3.1 View Your Projects</a></li>
+  <li><a href="#expand-the-project-board" id="toc-expand-the-project-board" class="nav-link" data-scroll-target="#expand-the-project-board">3.2 Expand the Project Board</a></li>
+  <li><a href="#test-task-management" id="toc-test-task-management" class="nav-link" data-scroll-target="#test-task-management">3.3 Test Task Management</a></li>
+  <li><a href="#test-multiple-projects" id="toc-test-multiple-projects" class="nav-link" data-scroll-target="#test-multiple-projects">3.4 Test Multiple Projects</a></li>
+  </ul></li>
+  <li><a href="#expected-behavior" id="toc-expected-behavior" class="nav-link" data-scroll-target="#expected-behavior">Expected Behavior</a>
+  <ul class="collapse">
+  <li><a href="#empty-state" id="toc-empty-state" class="nav-link" data-scroll-target="#empty-state">Empty State</a></li>
+  <li><a href="#with-projects" id="toc-with-projects" class="nav-link" data-scroll-target="#with-projects">With Projects</a></li>
+  </ul></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
+  <ul class="collapse">
+  <li><a href="#no-projects-assigned-yet-shows-even-after-running-test-data" id="toc-no-projects-assigned-yet-shows-even-after-running-test-data" class="nav-link" data-scroll-target="#no-projects-assigned-yet-shows-even-after-running-test-data">“No Projects Assigned Yet” shows even after running test data</a></li>
+  <li><a href="#tasks-not-showing-in-the-board" id="toc-tasks-not-showing-in-the-board" class="nav-link" data-scroll-target="#tasks-not-showing-in-the-board">Tasks not showing in the board</a></li>
+  <li><a href="#file-uploads-not-working" id="toc-file-uploads-not-working" class="nav-link" data-scroll-target="#file-uploads-not-working">File uploads not working</a></li>
+  </ul></li>
+  <li><a href="#clean-up-test-data" id="toc-clean-up-test-data" class="nav-link" data-scroll-target="#clean-up-test-data">Clean Up Test Data</a></li>
+  <li><a href="#success-criteria" id="toc-success-criteria" class="nav-link" data-scroll-target="#success-criteria">Success Criteria</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<section id="kan-48-testing-guide" class="level1">
+<h1>KAN-48 Testing Guide</h1>
+<p>This guide will help you test the Monday.com-style intern project tracking system.</p>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<ol type="1">
+<li>Make sure you’re on the <code>KAN-48</code> branch</li>
+<li>The database migration has been applied (see <code>KAN-48-DEPLOYMENT-GUIDE.md</code>)</li>
+<li>You’re running the app locally with <code>npm run dev</code></li>
+</ol>
+</section>
+<section id="step-1-apply-the-database-migration" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-apply-the-database-migration">Step 1: Apply the Database Migration</h2>
+<p>First, apply the migration to create the necessary tables:</p>
+<ol type="1">
+<li>Go to your Supabase project: https://fbmtayllfxudwfqcazgu.supabase.co</li>
+<li>Navigate to <strong>SQL Editor</strong></li>
+<li>Open the file: <code>supabase/migrations/20251205000000_create_intern_project_tracking.sql</code></li>
+<li>Copy the entire contents and paste into the SQL Editor</li>
+<li>Click <strong>Run</strong> to execute the migration</li>
+</ol>
+</section>
+<section id="step-2-load-test-data" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-load-test-data">Step 2: Load Test Data</h2>
+<p>To see the feature in action, you need to populate test data:</p>
+<ol type="1">
+<li>In Supabase SQL Editor, open the file: <code>KAN-48-TEST-DATA.sql</code></li>
+<li>Copy the entire contents and paste into the SQL Editor</li>
+<li>Click <strong>Run</strong> to execute the script</li>
+</ol>
+<p>This script will: - Create a demo project called “KAN-48 Demo Project” - Assign the intern user (<code>intern.local@ibm.com</code>) to the project - Create 4 sample tasks with different statuses: - ✅ <strong>Done</strong>: “Complete Onboarding” - 🔄 <strong>In Progress</strong>: “Setup Development Environment” - 📋 <strong>To Do</strong>: “Review Project Documentation” - ⏸️ <strong>On Hold</strong>: “Database Schema Design” - Add sample comments/updates to some tasks</p>
+</section>
+<section id="step-3-test-the-feature" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-test-the-feature">Step 3: Test the Feature</h2>
+<section id="view-your-projects" class="level3">
+<h3 class="anchored" data-anchor-id="view-your-projects">3.1 View Your Projects</h3>
+<ol type="1">
+<li><p>Make sure your <code>.env.local</code> has:</p>
+<pre><code>VITE_AUTH_MOCK=1
+VITE_AUTH_MOCK_EMAIL=intern.local@ibm.com
+VITE_AUTH_MOCK_ROLE=intern</code></pre></li>
+<li><p>Navigate to <strong>My Projects</strong> tab (http://localhost:8080/your-projects)</p></li>
+<li><p>You should see:</p>
+<ul>
+<li>Section: “Projects You’re Contributing To (1)”</li>
+<li>A project card for “KAN-48 Demo Project”</li>
+<li>A chevron icon indicating it’s expandable</li>
+</ul></li>
+</ol>
+</section>
+<section id="expand-the-project-board" class="level3">
+<h3 class="anchored" data-anchor-id="expand-the-project-board">3.2 Expand the Project Board</h3>
+<ol type="1">
+<li>Click on the “KAN-48 Demo Project” card</li>
+<li>The card should expand to show the Monday.com-style task board</li>
+<li>You should see a table with columns:
+<ul>
+<li>Task</li>
+<li>Status</li>
+<li>Due Date</li>
+<li>Actions</li>
+</ul></li>
+</ol>
+</section>
+<section id="test-task-management" class="level3">
+<h3 class="anchored" data-anchor-id="test-task-management">3.3 Test Task Management</h3>
+<p><strong>View Task Details:</strong> 1. Click the “Edit” icon (pencil) on any task 2. A modal should open showing: - Task title and description - Current status with dropdown to change it - Due date - Updates/Comments section (accordion) - Attachments section (accordion)</p>
+<p><strong>Change Task Status:</strong> 1. In the task details modal, use the status dropdown 2. Change a task from “To Do” to “In Progress” 3. Close the modal 4. The task status should update in the table</p>
+<p><strong>Add a Comment/Update:</strong> 1. Open a task details modal 2. Expand the “Updates” accordion 3. Type a comment in the text area 4. Click “Add Update” 5. Your comment should appear in the list</p>
+<p><strong>Upload a File:</strong> 1. Open a task details modal 2. Expand the “Attachments” accordion 3. Click “Add file” or drag a file 4. The file should upload and appear in the attachments list</p>
+<p><strong>Create a New Task:</strong> 1. Click the “Add Task” button at the top of the board 2. Fill in: - Task Title (required) - Description - Status - Due Date 3. Click “Create” 4. The new task should appear in the table</p>
+<p><strong>Delete a Task:</strong> 1. Click the “Delete” icon (trash can) on any task 2. Confirm the deletion 3. The task should be removed from the table</p>
+</section>
+<section id="test-multiple-projects" class="level3">
+<h3 class="anchored" data-anchor-id="test-multiple-projects">3.4 Test Multiple Projects</h3>
+<p>To test with multiple projects:</p>
+<ol type="1">
+<li>Run the test data script again (it will create another project)</li>
+<li>Or manually create projects in Supabase and assign the intern</li>
+<li>Each project should appear as a separate expandable card</li>
+</ol>
+</section>
+</section>
+<section id="expected-behavior" class="level2">
+<h2 class="anchored" data-anchor-id="expected-behavior">Expected Behavior</h2>
+<section id="empty-state" class="level3">
+<h3 class="anchored" data-anchor-id="empty-state">Empty State</h3>
+<ul>
+<li>If the intern has NO projects assigned, they should see:
+<ul>
+<li>A Monday.com-style table header (Task, Person, Status, Date, Files, Notes/Links)</li>
+<li>An empty state message: “No Projects Assigned Yet”</li>
+<li>No “Explore Opportunities” button</li>
+</ul></li>
+</ul>
+</section>
+<section id="with-projects" class="level3">
+<h3 class="anchored" data-anchor-id="with-projects">With Projects</h3>
+<ul>
+<li>Each assigned project appears as an expandable card</li>
+<li>Clicking a project card expands/collapses the task board</li>
+<li>The task board shows all tasks for that specific project</li>
+<li>All CRUD operations work (Create, Read, Update, Delete)</li>
+<li>Status changes are reflected immediately</li>
+<li>Comments and file attachments work</li>
+</ul>
+</section>
+</section>
+<section id="troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<section id="no-projects-assigned-yet-shows-even-after-running-test-data" class="level3">
+<h3 class="anchored" data-anchor-id="no-projects-assigned-yet-shows-even-after-running-test-data">“No Projects Assigned Yet” shows even after running test data</h3>
+<ol type="1">
+<li><p>Check if the migration was applied:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> intern_project_tasks <span class="kw">LIMIT</span> <span class="dv">1</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If this returns an error, the migration wasn’t applied.</p></li>
+<li><p>Check if the intern is assigned to the project:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> ps.<span class="op">*</span>, p.name <span class="kw">as</span> project_name</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> project_staff ps</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> projects p <span class="kw">ON</span> p.<span class="kw">id</span> <span class="op">=</span> ps.project_id</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> users u <span class="kw">ON</span> u.<span class="kw">id</span> <span class="op">=</span> ps.user_id</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> u.email <span class="op">=</span> <span class="st">'intern.local@ibm.com'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Check if tasks exist:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> t.<span class="op">*</span>, p.name <span class="kw">as</span> project_name</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> intern_project_tasks t</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> projects p <span class="kw">ON</span> p.<span class="kw">id</span> <span class="op">=</span> t.project_id</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> project_staff ps <span class="kw">ON</span> ps.project_id <span class="op">=</span> p.<span class="kw">id</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> users u <span class="kw">ON</span> u.<span class="kw">id</span> <span class="op">=</span> ps.user_id</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> u.email <span class="op">=</span> <span class="st">'intern.local@ibm.com'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+</section>
+<section id="tasks-not-showing-in-the-board" class="level3">
+<h3 class="anchored" data-anchor-id="tasks-not-showing-in-the-board">Tasks not showing in the board</h3>
+<ol type="1">
+<li>Make sure you’ve expanded the project card (click on it)</li>
+<li>Check browser console for errors</li>
+<li>Verify the project_id matches between project_staff and intern_project_tasks</li>
+</ol>
+</section>
+<section id="file-uploads-not-working" class="level3">
+<h3 class="anchored" data-anchor-id="file-uploads-not-working">File uploads not working</h3>
+<ol type="1">
+<li>Check if the <code>project-files</code> storage bucket exists in Supabase</li>
+<li>Verify RLS policies allow the intern to upload files</li>
+<li>Check browser console for storage errors</li>
+</ol>
+</section>
+</section>
+<section id="clean-up-test-data" class="level2">
+<h2 class="anchored" data-anchor-id="clean-up-test-data">Clean Up Test Data</h2>
+<p>To remove all test data:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Delete test tasks and related data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> intern_task_attachments </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> task_id <span class="kw">IN</span> (</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> <span class="kw">id</span> <span class="kw">FROM</span> intern_project_tasks </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> project_id <span class="kw">IN</span> (</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">SELECT</span> <span class="kw">id</span> <span class="kw">FROM</span> projects <span class="kw">WHERE</span> name <span class="op">=</span> <span class="st">'KAN-48 Demo Project'</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> intern_task_updates </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> task_id <span class="kw">IN</span> (</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> <span class="kw">id</span> <span class="kw">FROM</span> intern_project_tasks </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> project_id <span class="kw">IN</span> (</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">SELECT</span> <span class="kw">id</span> <span class="kw">FROM</span> projects <span class="kw">WHERE</span> name <span class="op">=</span> <span class="st">'KAN-48 Demo Project'</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> intern_project_tasks </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> project_id <span class="kw">IN</span> (</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> <span class="kw">id</span> <span class="kw">FROM</span> projects <span class="kw">WHERE</span> name <span class="op">=</span> <span class="st">'KAN-48 Demo Project'</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> project_staff </span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> project_id <span class="kw">IN</span> (</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> <span class="kw">id</span> <span class="kw">FROM</span> projects <span class="kw">WHERE</span> name <span class="op">=</span> <span class="st">'KAN-48 Demo Project'</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> projects <span class="kw">WHERE</span> name <span class="op">=</span> <span class="st">'KAN-48 Demo Project'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="success-criteria" class="level2">
+<h2 class="anchored" data-anchor-id="success-criteria">Success Criteria</h2>
+<p>✅ Intern can see ONLY their assigned projects<br>
+✅ Projects are expandable to show task boards<br>
+✅ Task board has Monday.com-style layout<br>
+✅ Can create new tasks<br>
+✅ Can update task status (To Do, In Progress, On Hold, Done)<br>
+✅ Can set/update due dates<br>
+✅ Can add comments/updates<br>
+✅ Can upload file attachments<br>
+✅ Can delete tasks<br>
+✅ Multiple interns can be assigned to the same project<br>
+✅ Empty state shows Monday.com-style skeleton (no “Explore Opportunities”)</p>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
+<p>After successful testing: 1. Commit the changes 2. Push to the KAN-48 branch 3. Create a pull request 4. Request review from the team</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<div class="listitem">
+<a href="https://ibm.com" rel="noopener noreferrer" class="footerLogo"><img src="https://www.ibm.com/brand/experience-guides/developer/8f4e3cc2b5d52354a6d43c8edba1e3c9/02_8-bar-reverse.svg" alt="IBM Logo" class="footer__logo" width="250" height="250"></a>
+</div>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
