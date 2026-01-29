@@ -23,7 +23,7 @@ wss.on('connection', (ws) => {
   console.log('New terminal connection established');
 
   // Determine shell based on OS
-  const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash';
+  const shell = os.platform() === 'win32' ? 'powershell.exe' : process.env.SHELL || '/bin/zsh';
   
   // Spawn a new terminal process
   const ptyProcess = spawn(shell, [], {
