@@ -8,6 +8,7 @@ import {
     Theme,
     HeaderNavigation,
     HeaderMenuItem,
+    HeaderMenu,
 } from "@carbon/react";
 import { Moon, Sun, Chat } from "@carbon/icons-react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -17,16 +18,25 @@ interface AppHeaderProps {
     onFeedbackClick?: () => void;
 }
 
-const routes = [
+const coreRoutes = [
     { id: "terminal-basics", label: "Terminal Basics", path: "/terminal-basics" },
     { id: "git-workflows", label: "Git Workflows", path: "/git-workflows" },
+    { id: "interactive-terminal", label: "Interactive Terminal", path: "/interactive-terminal" },
+];
+
+const advancedRoutes = [
     { id: "ssh-best-practices", label: "SSH Best Practices", path: "/ssh-best-practices" },
     { id: "vim-best-practices", label: "Vim Best Practices", path: "/vim-best-practices" },
-    { id: "openshift-best-practices", label: "OpenShift Best Practices", path: "/openshift-best-practices" },
+    { id: "openshift-best-practices", label: "OpenShift", path: "/openshift-best-practices" },
+];
+
+const ibmToolsRoutes = [
     { id: "api-authentication", label: "API Authentication", path: "/api-authentication" },
     { id: "cpd-cli", label: "CPD CLI", path: "/cpd-cli" },
     { id: "agentic-tools", label: "Agentic Tools", path: "/agentic-tools" },
-    { id: "interactive-terminal", label: "Interactive Terminal", path: "/interactive-terminal" },
+];
+
+const utilityRoutes = [
     { id: "survey-results", label: "Survey Results", path: "/survey-results" },
 ];
 
@@ -152,7 +162,65 @@ export default function AppHeader({ onFeedbackClick }: AppHeaderProps) {
                             </HeaderName>
 
                             <HeaderNavigation aria-label="Main navigation">
-                                {routes.map((route) => (
+                                {/* Core Learning Modules */}
+                                {coreRoutes.map((route) => (
+                                    <HeaderMenuItem
+                                        key={route.id}
+                                        href={route.path}
+                                        isActive={pathname === route.path}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            navigate(route.path);
+                                        }}
+                                    >
+                                        {route.label}
+                                    </HeaderMenuItem>
+                                ))}
+
+                                {/* Advanced Topics Dropdown */}
+                                <HeaderMenu
+                                    aria-label="Advanced Topics"
+                                    menuLinkName="Advanced Topics"
+                                    isActive={advancedRoutes.some(r => pathname === r.path)}
+                                >
+                                    {advancedRoutes.map((route) => (
+                                        <HeaderMenuItem
+                                            key={route.id}
+                                            href={route.path}
+                                            isActive={pathname === route.path}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate(route.path);
+                                            }}
+                                        >
+                                            {route.label}
+                                        </HeaderMenuItem>
+                                    ))}
+                                </HeaderMenu>
+
+                                {/* IBM Tools Dropdown */}
+                                <HeaderMenu
+                                    aria-label="IBM Tools"
+                                    menuLinkName="IBM Tools"
+                                    isActive={ibmToolsRoutes.some(r => pathname === r.path)}
+                                >
+                                    {ibmToolsRoutes.map((route) => (
+                                        <HeaderMenuItem
+                                            key={route.id}
+                                            href={route.path}
+                                            isActive={pathname === route.path}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate(route.path);
+                                            }}
+                                        >
+                                            {route.label}
+                                        </HeaderMenuItem>
+                                    ))}
+                                </HeaderMenu>
+
+                                {/* Utility Pages */}
+                                {utilityRoutes.map((route) => (
                                     <HeaderMenuItem
                                         key={route.id}
                                         href={route.path}
