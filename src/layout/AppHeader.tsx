@@ -21,6 +21,8 @@ const routes = [
     { id: "terminal-basics", label: "Terminal Basics", path: "/terminal-basics" },
     { id: "git-workflows", label: "Git Workflows", path: "/git-workflows" },
     { id: "ssh-best-practices", label: "SSH Best Practices", path: "/ssh-best-practices" },
+    { id: "vim-best-practices", label: "Vim Best Practices", path: "/vim-best-practices" },
+    { id: "openshift-best-practices", label: "OpenShift Best Practices", path: "/openshift-best-practices" },
     { id: "interactive-terminal", label: "Interactive Terminal", path: "/interactive-terminal" },
 ];
 

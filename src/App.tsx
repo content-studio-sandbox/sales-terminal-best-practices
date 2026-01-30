@@ -8,6 +8,8 @@ import LandingPage from '@/pages/LandingPage';
 import TerminalBasicsPage from './pages/TerminalBasicsPage';
 import GitWorkflowsPage from './pages/GitWorkflowsPage';
 import SSHBestPracticesPage from './pages/SSHBestPracticesPage';
+import VimBestPracticesPage from './pages/VimBestPracticesPage';
+import OpenShiftBestPracticesPage from './pages/OpenShiftBestPracticesPage';
 import InteractiveTerminalPage from './pages/InteractiveTerminalPage';
 import {AppThemeProvider} from "@/theme/ThemeProvider.tsx";
 
@@ -24,6 +26,8 @@ const AppContent: React.FC = () => {
           <Route path="terminal-basics" element={<TerminalBasicsPage />} />
           <Route path="git-workflows" element={<GitWorkflowsPage />} />
           <Route path="ssh-best-practices" element={<SSHBestPracticesPage />} />
+          <Route path="vim-best-practices" element={<VimBestPracticesPage />} />
+          <Route path="openshift-best-practices" element={<OpenShiftBestPracticesPage />} />
           <Route path="interactive-terminal" element={<InteractiveTerminalPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
