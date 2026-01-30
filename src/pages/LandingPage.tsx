@@ -35,17 +35,17 @@ export default function LandingPage() {
 
   return (
     <div style={{ backgroundColor: "#ffffff" }}>
-      <Grid fullWidth>
-        <Column lg={16} md={8} sm={4}>
-          {/* Hero Section */}
-          <div style={{
-            padding: "4rem 2rem",
-            textAlign: "center",
-            background: "linear-gradient(135deg, #0f62fe 0%, #0043ce 50%, #002d9c 100%)",
-            borderBottom: "1px solid #e0e0e0",
-            position: "relative",
-            overflow: "hidden"
-          }}>
+      {/* Hero Section - Full Width */}
+      <div style={{
+        padding: "4rem 2rem",
+        textAlign: "center",
+        background: "linear-gradient(135deg, #0f62fe 0%, #0043ce 50%, #002d9c 100%)",
+        borderBottom: "1px solid #e0e0e0",
+        position: "relative",
+        overflow: "hidden",
+        width: "100%",
+        margin: 0
+      }}>
             {/* Geometric Pattern Overlay */}
             <div style={{
               position: "absolute",
@@ -99,9 +99,11 @@ export default function LandingPage() {
               </Button>
             </div>
             </div>
-          </div>
+      </div>
 
-          {/* Features Grid */}
+      {/* Features Grid */}
+      <Grid fullWidth>
+        <Column lg={16} md={8} sm={4}>
           <div style={{ padding: "4rem 2rem" }}>
             <h2 style={{
               fontSize: "2rem",
