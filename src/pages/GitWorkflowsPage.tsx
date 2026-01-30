@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Column, Heading, Section } from "@carbon/react";
-import { Branch, Commit, PullRequest, CheckmarkFilled, Enterprise, Laptop } from "@carbon/icons-react";
+import { Branch, Commit, PullRequest, CheckmarkFilled, Enterprise, Laptop, Copy, Checkmark } from "@carbon/icons-react";
 
 export default function GitWorkflowsPage() {
+  const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCmd(text);
+    setTimeout(() => setCopiedCmd(null), 2000);
+  };
   const workflows = [
     {
       title: "Getting Started with Git",
@@ -141,18 +148,48 @@ export default function GitWorkflowsPage() {
                       {i + 1}
                     </div>
                     <div style={{ flex: 1 }}>
-                      <code style={{
-                        backgroundColor: "#161616",
-                        color: "#f4f4f4",
-                        padding: "0.25rem 0.5rem",
-                        borderRadius: "4px",
-                        fontSize: "0.875rem",
-                        fontFamily: "'IBM Plex Mono', monospace",
-                        display: "inline-block",
-                        marginBottom: "0.5rem"
-                      }}>
-                        {step.cmd}
-                      </code>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                        <code style={{
+                          backgroundColor: "#161616",
+                          color: "#f4f4f4",
+                          padding: "0.25rem 0.5rem",
+                          borderRadius: "4px",
+                          fontSize: "0.875rem",
+                          fontFamily: "'IBM Plex Mono', monospace",
+                          flex: 1
+                        }}>
+                          {step.cmd}
+                        </code>
+                        <button
+                          onClick={() => copyToClipboard(step.cmd)}
+                          style={{
+                            backgroundColor: copiedCmd === step.cmd ? "#24a148" : "#0f62fe",
+                            color: "#ffffff",
+                            border: "none",
+                            borderRadius: "4px",
+                            padding: "0.25rem 0.5rem",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                            fontSize: "0.75rem",
+                            transition: "background-color 0.2s"
+                          }}
+                          title="Copy to clipboard"
+                        >
+                          {copiedCmd === step.cmd ? (
+                            <>
+                              <Checkmark size={16} />
+                              Copied
+                            </>
+                          ) : (
+                            <>
+                              <Copy size={16} />
+                              Copy
+                            </>
+                          )}
+                        </button>
+                      </div>
                       <p style={{ margin: 0, color: "#525252", fontSize: "0.875rem" }}>
                         {step.desc}
                       </p>
@@ -190,18 +227,48 @@ export default function GitWorkflowsPage() {
                 >
                   <CheckmarkFilled size={20} style={{ color: "#24a148", marginTop: "2px", flexShrink: 0 }} />
                   <div style={{ flex: 1 }}>
-                    <code style={{
-                      backgroundColor: "#161616",
-                      color: "#f4f4f4",
-                      padding: "0.25rem 0.5rem",
-                      borderRadius: "4px",
-                      fontSize: "0.875rem",
-                      fontFamily: "'IBM Plex Mono', monospace",
-                      display: "inline-block",
-                      marginBottom: "0.5rem"
-                    }}>
-                      {item.cmd}
-                    </code>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                      <code style={{
+                        backgroundColor: "#161616",
+                        color: "#f4f4f4",
+                        padding: "0.25rem 0.5rem",
+                        borderRadius: "4px",
+                        fontSize: "0.875rem",
+                        fontFamily: "'IBM Plex Mono', monospace",
+                        flex: 1
+                      }}>
+                        {item.cmd}
+                      </code>
+                      <button
+                        onClick={() => copyToClipboard(item.cmd)}
+                        style={{
+                          backgroundColor: copiedCmd === item.cmd ? "#24a148" : "#0f62fe",
+                          color: "#ffffff",
+                          border: "none",
+                          borderRadius: "4px",
+                          padding: "0.25rem 0.5rem",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.25rem",
+                          fontSize: "0.75rem",
+                          transition: "background-color 0.2s"
+                        }}
+                        title="Copy to clipboard"
+                      >
+                        {copiedCmd === item.cmd ? (
+                          <>
+                            <Checkmark size={16} />
+                            Copied
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={16} />
+                            Copy
+                          </>
+                        )}
+                      </button>
+                    </div>
                     <p style={{ margin: 0, color: "#525252", fontSize: "0.875rem" }}>
                       {item.desc}
                     </p>
@@ -214,10 +281,11 @@ export default function GitWorkflowsPage() {
 
         <Section level={3} style={{ marginBottom: "3rem" }}>
           <div style={{
-            backgroundColor: "#f4f4f4",
+            backgroundColor: "#ffffff",
             padding: "2rem",
             borderRadius: "8px",
-            border: "1px solid #e0e0e0"
+            border: "2px solid #0f62fe",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>
               <Enterprise size={24} style={{ color: "#0f62fe" }} />
