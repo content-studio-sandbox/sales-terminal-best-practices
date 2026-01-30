@@ -23,6 +23,9 @@ const routes = [
     { id: "ssh-best-practices", label: "SSH Best Practices", path: "/ssh-best-practices" },
     { id: "vim-best-practices", label: "Vim Best Practices", path: "/vim-best-practices" },
     { id: "openshift-best-practices", label: "OpenShift Best Practices", path: "/openshift-best-practices" },
+    { id: "api-authentication", label: "API Authentication", path: "/api-authentication" },
+    { id: "cpd-cli", label: "CPD CLI", path: "/cpd-cli" },
+    { id: "agentic-tools", label: "Agentic Tools", path: "/agentic-tools" },
     { id: "interactive-terminal", label: "Interactive Terminal", path: "/interactive-terminal" },
     { id: "survey-results", label: "Survey Results", path: "/survey-results" },
 ];
