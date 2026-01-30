@@ -24,6 +24,7 @@ const routes = [
     { id: "vim-best-practices", label: "Vim Best Practices", path: "/vim-best-practices" },
     { id: "openshift-best-practices", label: "OpenShift Best Practices", path: "/openshift-best-practices" },
     { id: "interactive-terminal", label: "Interactive Terminal", path: "/interactive-terminal" },
+    { id: "survey-results", label: "Survey Results", path: "/survey-results" },
 ];
 
 const APP_VERSION = "v2.5.0";

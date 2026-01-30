@@ -11,6 +11,7 @@ import SSHBestPracticesPage from './pages/SSHBestPracticesPage';
 import VimBestPracticesPage from './pages/VimBestPracticesPage';
 import OpenShiftBestPracticesPage from './pages/OpenShiftBestPracticesPage';
 import InteractiveTerminalPage from './pages/InteractiveTerminalPage';
+import SurveyResultsPage from './pages/SurveyResultsPage';
 import {AppThemeProvider} from "@/theme/ThemeProvider.tsx";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const AppContent: React.FC = () => {
           <Route path="vim-best-practices" element={<VimBestPracticesPage />} />
           <Route path="openshift-best-practices" element={<OpenShiftBestPracticesPage />} />
           <Route path="interactive-terminal" element={<InteractiveTerminalPage />} />
+          <Route path="survey-results" element={<SurveyResultsPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
