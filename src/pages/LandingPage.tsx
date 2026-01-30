@@ -41,14 +41,31 @@ export default function LandingPage() {
           <div style={{
             padding: "4rem 2rem",
             textAlign: "center",
-            backgroundColor: "#f4f4f4",
-            borderBottom: "1px solid #e0e0e0"
+            background: "linear-gradient(135deg, #0f62fe 0%, #0043ce 50%, #002d9c 100%)",
+            borderBottom: "1px solid #e0e0e0",
+            position: "relative",
+            overflow: "hidden"
           }}>
-            <Terminal size={64} style={{ color: "#0f62fe", marginBottom: "1.5rem" }} />
+            {/* Geometric Pattern Overlay */}
+            <div style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              opacity: 0.1,
+              backgroundImage: `
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px)
+              `,
+              pointerEvents: "none"
+            }} />
+            <div style={{ position: "relative", zIndex: 1 }}>
+            <Terminal size={64} style={{ color: "#ffffff", marginBottom: "1.5rem" }} />
             <h1 style={{
               fontSize: "2.5rem",
               fontWeight: 600,
-              color: "#161616",
+              color: "#ffffff",
               marginBottom: "1rem",
               lineHeight: 1.2
             }}>
@@ -56,10 +73,11 @@ export default function LandingPage() {
             </h1>
             <p style={{
               fontSize: "1.25rem",
-              color: "#525252",
+              color: "#ffffff",
               maxWidth: "700px",
               margin: "0 auto 2rem",
-              lineHeight: 1.6
+              lineHeight: 1.6,
+              opacity: 0.95
             }}>
               Master essential terminal, Git, and SSH skills for modern development workflows
             </p>
@@ -79,6 +97,7 @@ export default function LandingPage() {
               >
                 Try Interactive Terminal
               </Button>
+            </div>
             </div>
           </div>
 
