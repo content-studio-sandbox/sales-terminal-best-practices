@@ -1,10 +1,20 @@
 import { Grid, Column, Button } from "@carbon/react";
 import { ArrowRight, Terminal, Code, Security, Keyboard } from "@carbon/icons-react";
 import { useNavigate } from "react-router-dom";
+import { trackUserAction } from "../hooks/useInstana";
 import "./LandingPage.scss";
 
 export default function LandingPage() {
   const navigate = useNavigate();
+
+  const handleNavigate = (path: string, buttonName: string) => {
+    trackUserAction('button_click', {
+      button: buttonName,
+      destination: path,
+      page: 'landing'
+    });
+    navigate(path);
+  };
 
   const features = [
     {
@@ -86,14 +96,14 @@ export default function LandingPage() {
                 kind="primary"
                 size="lg"
                 renderIcon={ArrowRight}
-                onClick={() => navigate("/terminal-basics")}
+                onClick={() => handleNavigate("/terminal-basics", "Start Learning")}
               >
                 Start Learning
               </Button>
               <Button
                 kind="secondary"
                 size="lg"
-                onClick={() => navigate("/interactive-terminal")}
+                onClick={() => handleNavigate("/interactive-terminal", "Try Interactive Terminal")}
               >
                 Try Interactive Terminal
               </Button>

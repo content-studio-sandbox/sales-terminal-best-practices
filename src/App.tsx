@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -16,13 +16,37 @@ import ApiAuthenticationPage from './pages/ApiAuthenticationPage';
 import CpdCliPage from './pages/CpdCliPage';
 import AgenticToolsPage from './pages/AgenticToolsPage';
 import {AppThemeProvider} from "@/theme/ThemeProvider.tsx";
+import { useInstana } from "./hooks/useInstana";
+import RouteTracking from './RouteTracking';
 
 const queryClient = new QueryClient();
 
 // Wrapper component
 const AppContent: React.FC = () => {
+  // Generate a unique session ID for anonymous user tracking
+  const [sessionUser, setSessionUser] = useState<{id: string; name: string; role: string} | null>(null);
+  
+  useEffect(() => {
+    // Get or create a session ID for tracking
+    let sessionId = sessionStorage.getItem('instana_session_id');
+    if (!sessionId) {
+      sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      sessionStorage.setItem('instana_session_id', sessionId);
+    }
+    
+    setSessionUser({
+      id: sessionId,
+      name: 'Anonymous User',
+      role: 'visitor'
+    });
+  }, []);
+  
+  // Initialize Instana with session tracking
+  useInstana(sessionUser);
+
   return (
     <BrowserRouter>
+      <RouteTracking />
       <Routes>
         <Route path="/auth" element={<Navigate to="/" replace />} />
         <Route path="/" element={<MainLayout />}>

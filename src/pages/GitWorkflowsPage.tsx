@@ -156,7 +156,8 @@ export default function GitWorkflowsPage() {
                           borderRadius: "4px",
                           fontSize: "0.875rem",
                           fontFamily: "'IBM Plex Mono', monospace",
-                          flex: 1
+                          display: "inline-block",
+                          maxWidth: "fit-content"
                         }}>
                           {step.cmd}
                         </code>

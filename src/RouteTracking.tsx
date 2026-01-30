@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { reportInstanaEvent, setInstanaMeta } from './hooks/useInstana';
-import { useAuth } from './hooks/useAuth';
 
 declare global {
     interface Window { 
@@ -13,7 +12,6 @@ declare global {
 
 export default function RouteTracking() {
     const { pathname, search } = useLocation();
-    const { user } = useAuth();
     
     useEffect(() => {
         // Track page view in Instana
@@ -27,20 +25,12 @@ export default function RouteTracking() {
             setInstanaMeta('pageType', pageType);
         }
         
-        // Set user role metadata if available
-        const userRole = (user as any)?.role;
-        if (userRole) {
-            setInstanaMeta('userRole', userRole);
-        }
-        
         // Track route change as custom event with additional context
         reportInstanaEvent('route_change', {
             path: pathname,
             search: search,
             fullUrl: pathname + search,
             pageType: pageType || 'unknown',
-            userRole: userRole || 'anonymous',
-            isAuthenticated: !!user,
         });
         
         // Track page load performance
@@ -60,7 +50,7 @@ export default function RouteTracking() {
                 });
             }
         }
-    }, [pathname, search, user]);
+    }, [pathname, search]);
     
     return null;
 }
@@ -70,12 +60,16 @@ export default function RouteTracking() {
  */
 function getPageType(pathname: string): string | null {
     if (pathname === '/' || pathname === '/landing') return 'landing';
-    if (pathname === '/auth') return 'auth';
-    if (pathname.startsWith('/ambitions')) return 'ambitions';
-    if (pathname.startsWith('/leadership')) return 'leadership';
-    if (pathname.startsWith('/requests')) return 'requests';
-    if (pathname.startsWith('/your-projects')) return 'your-projects';
-    if (pathname.startsWith('/executive')) return 'executive-dashboard';
+    if (pathname === '/terminal-basics') return 'terminal-basics';
+    if (pathname === '/git-workflows') return 'git-workflows';
+    if (pathname === '/ssh-best-practices') return 'ssh-best-practices';
+    if (pathname === '/vim-best-practices') return 'vim-best-practices';
+    if (pathname === '/openshift-best-practices') return 'openshift-best-practices';
+    if (pathname === '/interactive-terminal') return 'interactive-terminal';
+    if (pathname === '/api-authentication') return 'api-authentication';
+    if (pathname === '/cpd-cli') return 'cpd-cli';
+    if (pathname === '/agentic-tools') return 'agentic-tools';
+    if (pathname === '/survey-results') return 'survey-results';
     return null;
 }
 

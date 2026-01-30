@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Column, Heading, Section } from "@carbon/react";
-import { Cloud, Rocket, Security } from "@carbon/icons-react";
+import { Cloud, Rocket, Security, Copy, Checkmark } from "@carbon/icons-react";
 
 export default function OpenShiftBestPracticesPage() {
+  const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCmd(text);
+    setTimeout(() => setCopiedCmd(null), 2000);
+  };
   return (
     <Grid fullWidth className="page-container">
       <Column lg={16} md={8} sm={4}>
@@ -101,17 +108,49 @@ export default function OpenShiftBestPracticesPage() {
                   <p style={{ margin: "0 0 1rem 0", color: "#525252", fontSize: "0.875rem" }}>
                     {item.desc}
                   </p>
-                  <code style={{
-                    backgroundColor: "#161616",
-                    color: "#f4f4f4",
-                    padding: "0.5rem 0.75rem",
-                    borderRadius: "4px",
-                    fontFamily: "'IBM Plex Mono', monospace",
-                    fontSize: "0.875rem",
-                    display: "inline-block"
-                  }}>
-                    {item.example}
-                  </code>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <code style={{
+                      backgroundColor: "#161616",
+                      color: "#f4f4f4",
+                      padding: "0.5rem 0.75rem",
+                      borderRadius: "4px",
+                      fontFamily: "'IBM Plex Mono', monospace",
+                      fontSize: "0.875rem",
+                      display: "inline-block",
+                      maxWidth: "fit-content"
+                    }}>
+                      {item.example}
+                    </code>
+                    <button
+                      onClick={() => copyToClipboard(item.example)}
+                      style={{
+                        backgroundColor: copiedCmd === item.example ? "#24a148" : "#0f62fe",
+                        color: "#ffffff",
+                        border: "none",
+                        borderRadius: "4px",
+                        padding: "0.25rem 0.5rem",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.25rem",
+                        fontSize: "0.75rem",
+                        transition: "background-color 0.2s"
+                      }}
+                      title="Copy to clipboard"
+                    >
+                      {copiedCmd === item.example ? (
+                        <>
+                          <Checkmark size={16} />
+                          Copied
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={16} />
+                          Copy
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

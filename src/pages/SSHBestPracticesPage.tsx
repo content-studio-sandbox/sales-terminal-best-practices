@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Column, Heading, Section } from "@carbon/react";
-import { Security, Locked, Unlocked, CheckmarkFilled, WarningAlt } from "@carbon/icons-react";
+import { Security, Locked, Unlocked, CheckmarkFilled, WarningAlt, Copy, Checkmark } from "@carbon/icons-react";
 
 export default function SSHBestPracticesPage() {
+  const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCmd(text);
+    setTimeout(() => setCopiedCmd(null), 2000);
+  };
   const sshBasics = [
     { cmd: "ssh user@hostname", desc: "Connect to remote server" },
     { cmd: "ssh -i ~/.ssh/key_name user@hostname", desc: "Connect using specific SSH key" },
@@ -112,18 +119,49 @@ Host github.com
                 >
                   <CheckmarkFilled size={20} style={{ color: "#24a148", marginTop: "2px", flexShrink: 0 }} />
                   <div style={{ flex: 1 }}>
-                    <code style={{
-                      backgroundColor: "#161616",
-                      color: "#f4f4f4",
-                      padding: "0.25rem 0.5rem",
-                      borderRadius: "4px",
-                      fontSize: "0.875rem",
-                      fontFamily: "'IBM Plex Mono', monospace",
-                      display: "inline-block",
-                      marginBottom: "0.5rem"
-                    }}>
-                      {item.cmd}
-                    </code>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                      <code style={{
+                        backgroundColor: "#161616",
+                        color: "#f4f4f4",
+                        padding: "0.25rem 0.5rem",
+                        borderRadius: "4px",
+                        fontSize: "0.875rem",
+                        fontFamily: "'IBM Plex Mono', monospace",
+                        display: "inline-block",
+                        maxWidth: "fit-content"
+                      }}>
+                        {item.cmd}
+                      </code>
+                      <button
+                        onClick={() => copyToClipboard(item.cmd)}
+                        style={{
+                          backgroundColor: copiedCmd === item.cmd ? "#24a148" : "#0f62fe",
+                          color: "#ffffff",
+                          border: "none",
+                          borderRadius: "4px",
+                          padding: "0.25rem 0.5rem",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.25rem",
+                          fontSize: "0.75rem",
+                          transition: "background-color 0.2s"
+                        }}
+                        title="Copy to clipboard"
+                      >
+                        {copiedCmd === item.cmd ? (
+                          <>
+                            <Checkmark size={16} />
+                            Copied
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={16} />
+                            Copy
+                          </>
+                        )}
+                      </button>
+                    </div>
                     <p style={{ margin: 0, color: "#525252", fontSize: "0.875rem" }}>
                       {item.desc}
                     </p>
@@ -161,18 +199,49 @@ Host github.com
                 >
                   <CheckmarkFilled size={20} style={{ color: "#24a148", marginTop: "2px", flexShrink: 0 }} />
                   <div style={{ flex: 1 }}>
-                    <code style={{
-                      backgroundColor: "#161616",
-                      color: "#f4f4f4",
-                      padding: "0.25rem 0.5rem",
-                      borderRadius: "4px",
-                      fontSize: "0.875rem",
-                      fontFamily: "'IBM Plex Mono', monospace",
-                      display: "inline-block",
-                      marginBottom: "0.5rem"
-                    }}>
-                      {item.cmd}
-                    </code>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                      <code style={{
+                        backgroundColor: "#161616",
+                        color: "#f4f4f4",
+                        padding: "0.25rem 0.5rem",
+                        borderRadius: "4px",
+                        fontSize: "0.875rem",
+                        fontFamily: "'IBM Plex Mono', monospace",
+                        display: "inline-block",
+                        maxWidth: "fit-content"
+                      }}>
+                        {item.cmd}
+                      </code>
+                      <button
+                        onClick={() => copyToClipboard(item.cmd)}
+                        style={{
+                          backgroundColor: copiedCmd === item.cmd ? "#24a148" : "#0f62fe",
+                          color: "#ffffff",
+                          border: "none",
+                          borderRadius: "4px",
+                          padding: "0.25rem 0.5rem",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.25rem",
+                          fontSize: "0.75rem",
+                          transition: "background-color 0.2s"
+                        }}
+                        title="Copy to clipboard"
+                      >
+                        {copiedCmd === item.cmd ? (
+                          <>
+                            <Checkmark size={16} />
+                            Copied
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={16} />
+                            Copy
+                          </>
+                        )}
+                      </button>
+                    </div>
                     <p style={{ margin: 0, color: "#525252", fontSize: "0.875rem" }}>
                       {item.desc}
                     </p>
