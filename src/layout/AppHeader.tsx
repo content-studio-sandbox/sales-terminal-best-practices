@@ -26,6 +26,7 @@ const routes = [
     { id: "api-authentication", label: "API Auth", path: "/api-authentication" },
     { id: "cpd-cli", label: "CPD CLI", path: "/cpd-cli" },
     { id: "agentic-tools", label: "AI Agents", path: "/agentic-tools" },
+    { id: "training-resources", label: "Training", path: "/training-resources" },
     { id: "interactive-terminal", label: "Try It", path: "/interactive-terminal" },
     { id: "survey-results", label: "Survey", path: "/survey-results" },
 ];

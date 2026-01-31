@@ -15,6 +15,7 @@ import SurveyResultsPage from './pages/SurveyResultsPage';
 import ApiAuthenticationPage from './pages/ApiAuthenticationPage';
 import CpdCliPage from './pages/CpdCliPage';
 import AgenticToolsPage from './pages/AgenticToolsPage';
+import TrainingResourcesPage from './pages/TrainingResourcesPage';
 import {AppThemeProvider} from "@/theme/ThemeProvider.tsx";
 import { useInstana } from "./hooks/useInstana";
 import RouteTracking from './RouteTracking';
@@ -61,6 +62,7 @@ const AppContent: React.FC = () => {
           <Route path="cpd-cli" element={<CpdCliPage />} />
           <Route path="agentic-tools" element={<AgenticToolsPage />} />
           <Route path="survey-results" element={<SurveyResultsPage />} />
+          <Route path="training-resources" element={<TrainingResourcesPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
