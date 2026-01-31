@@ -81,7 +81,7 @@ export default function TrainingResourcesPage() {
                     renderIcon={Download}
                     onClick={() => window.open('/terminal-basics/terminal-training-plan.html', '_blank')}
                   >
-                    View Training Plan
+                    View Training Plan (HTML)
                   </Button>
                 </div>
               </div>
