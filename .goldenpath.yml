@@ -5,3 +5,7 @@ oauth2: auto
 oauth2_args:
   # Skip the provider button for seamless SSO
   - "--skip-provider-button=true"
+  # Skip authentication for specific public paths
+  - "--skip-auth-regex=^/(terminal-basics|training-resources|interactive-terminal|survey-results|git-workflows)(/.*)?$"
+
+# Made with Bob

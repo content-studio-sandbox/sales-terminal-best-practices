@@ -25,22 +25,54 @@ const queryClient = new QueryClient();
 
 // Wrapper component
 const AppContent: React.FC = () => {
-  // Generate a unique session ID for anonymous user tracking
-  const [sessionUser, setSessionUser] = useState<{id: string; name: string; role: string} | null>(null);
+  const [sessionUser, setSessionUser] = useState<{id: string; name: string; email?: string; role: string} | null>(null);
   
   useEffect(() => {
-    // Get or create a session ID for tracking
-    let sessionId = sessionStorage.getItem('instana_session_id');
-    if (!sessionId) {
-      sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      sessionStorage.setItem('instana_session_id', sessionId);
-    }
+    // Fetch user info from OAuth2 headers via a backend endpoint
+    const fetchUserInfo = async () => {
+      try {
+        const response = await fetch('/api/user-info', {
+          credentials: 'include', // Include cookies for OAuth2
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          
+          if (data.email) {
+            // User is authenticated via OAuth2
+            setSessionUser({
+              id: data.email,
+              name: data.name || data.email,
+              email: data.email,
+              role: 'authenticated_user'
+            });
+            
+            console.log('[OAuth2] User authenticated:', {
+              email: data.email,
+              name: data.name,
+            });
+            return;
+          }
+        }
+      } catch (error) {
+        console.warn('[OAuth2] Failed to fetch user info:', error);
+      }
+      
+      // Fallback: Generate anonymous session ID
+      let sessionId = sessionStorage.getItem('instana_session_id');
+      if (!sessionId) {
+        sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        sessionStorage.setItem('instana_session_id', sessionId);
+      }
+      
+      setSessionUser({
+        id: sessionId,
+        name: 'Anonymous User',
+        role: 'visitor'
+      });
+    };
     
-    setSessionUser({
-      id: sessionId,
-      name: 'Anonymous User',
-      role: 'visitor'
-    });
+    fetchUserInfo();
   }, []);
   
   // Initialize Instana with session tracking

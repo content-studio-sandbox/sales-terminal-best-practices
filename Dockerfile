@@ -1,36 +1,44 @@
-# Multi-stage build for frontend-only Vite app
+# Multi-stage build for fullstack app (matching your-projects pattern)
 FROM node:20-alpine AS builder
 
 WORKDIR /build
 
-# Copy package files
+# Copy root package files for frontend
 COPY package*.json ./
 RUN npm ci
 
-# Copy source code
+# Copy frontend source
 COPY . .
 
 # Build frontend
 RUN npm run build
 
-# Final stage - serve with nginx
-FROM nginx:alpine
+# Build backend
+WORKDIR /build/api
+COPY api/package*.json ./
+RUN npm ci --only=production
 
-# Copy built assets to nginx
-COPY --from=builder /build/dist /usr/share/nginx/html
+# Final stage
+FROM node:20-alpine
 
-# Copy nginx config for SPA routing
-RUN echo 'server { \
-    listen 3000; \
-    location / { \
-        root /usr/share/nginx/html; \
-        index index.html; \
-        try_files $uri $uri/ /index.html; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
+WORKDIR /app
+
+# Copy frontend build
+COPY --from=builder /build/dist ./dist
+
+# Copy backend
+COPY --from=builder /build/api ./api
+COPY api/server.js ./api/
+
+# Install backend dependencies in final image
+WORKDIR /app/api
+COPY api/package*.json ./
+RUN npm ci --only=production
+
+WORKDIR /app
 
 # Expose port
 EXPOSE 3000
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the backend server (which also serves the frontend)
+CMD ["node", "api/server.js"]
