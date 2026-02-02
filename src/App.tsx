@@ -19,6 +19,7 @@ import TrainingResourcesPage from './pages/TrainingResourcesPage';
 import {AppThemeProvider} from "@/theme/ThemeProvider.tsx";
 import { useInstana } from "./hooks/useInstana";
 import RouteTracking from './RouteTracking';
+import RouteGuard from './components/RouteGuard';
 
 const queryClient = new QueryClient();
 
@@ -48,24 +49,26 @@ const AppContent: React.FC = () => {
   return (
     <BrowserRouter>
       <RouteTracking />
-      <Routes>
-        <Route path="/auth" element={<Navigate to="/" replace />} />
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<LandingPage />} />
-          <Route path="terminal-basics" element={<TerminalBasicsPage />} />
-          <Route path="git-workflows" element={<GitWorkflowsPage />} />
-          <Route path="ssh-best-practices" element={<SSHBestPracticesPage />} />
-          <Route path="vim-best-practices" element={<VimBestPracticesPage />} />
-          <Route path="openshift-best-practices" element={<OpenShiftBestPracticesPage />} />
-          <Route path="interactive-terminal" element={<InteractiveTerminalPage />} />
-          <Route path="api-authentication" element={<ApiAuthenticationPage />} />
-          <Route path="cpd-cli" element={<CpdCliPage />} />
-          <Route path="agentic-tools" element={<AgenticToolsPage />} />
-          <Route path="survey-results" element={<SurveyResultsPage />} />
-          <Route path="training-resources" element={<TrainingResourcesPage />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <RouteGuard>
+        <Routes>
+          <Route path="/auth" element={<Navigate to="/" replace />} />
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<LandingPage />} />
+            <Route path="terminal-basics" element={<TerminalBasicsPage />} />
+            <Route path="git-workflows" element={<GitWorkflowsPage />} />
+            <Route path="ssh-best-practices" element={<SSHBestPracticesPage />} />
+            <Route path="vim-best-practices" element={<VimBestPracticesPage />} />
+            <Route path="openshift-best-practices" element={<OpenShiftBestPracticesPage />} />
+            <Route path="interactive-terminal" element={<InteractiveTerminalPage />} />
+            <Route path="api-authentication" element={<ApiAuthenticationPage />} />
+            <Route path="cpd-cli" element={<CpdCliPage />} />
+            <Route path="agentic-tools" element={<AgenticToolsPage />} />
+            <Route path="survey-results" element={<SurveyResultsPage />} />
+            <Route path="training-resources" element={<TrainingResourcesPage />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </RouteGuard>
     </BrowserRouter>
   );
 };
