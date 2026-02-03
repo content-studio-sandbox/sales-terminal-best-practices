@@ -37,20 +37,19 @@ export default function LandingPage() {
     },
     {
       icon: <Keyboard size={32} />,
-      title: "Interactive Terminal",
+      title: "Terminal Simulator",
       description: "Practice commands in a safe, simulated environment with real-time feedback and guided exercises.",
       path: "/interactive-terminal"
     }
   ];
 
   return (
-    <div style={{ backgroundColor: "#ffffff" }}>
+    <div>
       {/* Hero Section - Full Width */}
       <div style={{
         padding: "4rem 2rem",
         textAlign: "center",
         background: "linear-gradient(135deg, #0f62fe 0%, #0043ce 50%, #002d9c 100%)",
-        borderBottom: "1px solid #e0e0e0",
         position: "relative",
         overflow: "hidden",
         width: "100%",
@@ -103,9 +102,9 @@ export default function LandingPage() {
               <Button
                 kind="secondary"
                 size="lg"
-                onClick={() => handleNavigate("/interactive-terminal", "Try Interactive Terminal")}
+                onClick={() => handleNavigate("/interactive-terminal", "Try Terminal Simulator")}
               >
-                Try Interactive Terminal
+                Try Terminal Simulator
               </Button>
             </div>
             </div>
@@ -135,7 +134,6 @@ export default function LandingPage() {
                 <div
                   key={index}
                   style={{
-                    backgroundColor: "#ffffff",
                     border: "1px solid #e0e0e0",
                     borderRadius: "8px",
                     padding: "2rem",
@@ -223,7 +221,7 @@ export default function LandingPage() {
                 {
                   number: "3",
                   title: "Practice Safely",
-                  description: "Use the Interactive Terminal to practice commands in a risk-free environment."
+                  description: "Use the Terminal Simulator to practice commands in a risk-free environment."
                 }
               ].map((step, index) => (
                 <div key={index} style={{ textAlign: "center" }}>
@@ -298,7 +296,7 @@ export default function LandingPage() {
                 size="lg"
                 onClick={() => navigate("/interactive-terminal")}
               >
-                Try Interactive Terminal
+                Try Terminal Simulator
               </Button>
             </div>
           </div>
