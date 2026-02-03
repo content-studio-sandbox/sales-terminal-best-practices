@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Column, Heading, Section, Button, CodeSnippet, Accordion, AccordionItem } from "@carbon/react";
+import { Grid, Column, Heading, Section, Button, CodeSnippet, Accordion, AccordionItem, Tile, Tag } from "@carbon/react";
 import { Document, Download, PresentationFile, Education, CheckmarkFilled } from "@carbon/icons-react";
 
 export default function TrainingResourcesPage() {
@@ -19,25 +19,19 @@ export default function TrainingResourcesPage() {
 
         {/* Philosophy Section */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
-          <div style={{ 
-            backgroundColor: "#e8f4ff", 
-            padding: "2rem", 
-            borderRadius: "8px",
-            marginBottom: "2rem",
-            border: "1px solid #0f62fe"
-          }}>
-            <h3 style={{ marginTop: 0, color: "#0f62fe", marginBottom: "1rem" }}>
+          <Tile style={{ padding: "2rem", marginBottom: "2rem" }}>
+            <h3 style={{ marginTop: 0, marginBottom: "1rem" }}>
               Training Philosophy
             </h3>
-            <p style={{ color: "#161616", lineHeight: 1.8, marginBottom: "1rem", fontSize: "1.125rem", fontWeight: 500 }}>
+            <p style={{ lineHeight: 1.8, marginBottom: "1rem", fontSize: "1.125rem", fontWeight: 500 }}>
               "Create your own workflow and work environment that works for <strong>you</strong>."
             </p>
-            <p style={{ color: "#161616", lineHeight: 1.8, margin: 0 }}>
-              This training is a <strong>starting point</strong> based on collective experience. 
-              The end goal is to make you as productive as possible to perform the task at hand. 
+            <p style={{ lineHeight: 1.8, margin: 0 }}>
+              This training is a <strong>starting point</strong> based on collective experience.
+              The end goal is to make you as productive as possible to perform the task at hand.
               There's no "right" way—only what works for you.
             </p>
-          </div>
+          </Tile>
         </Section>
 
         {/* Available Resources */}
@@ -557,12 +551,7 @@ chown user:group file.txt`}
 
         {/* Learning Path */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
-          <div style={{ 
-            backgroundColor: "#f4f4f4", 
-            padding: "2rem", 
-            borderRadius: "8px",
-            border: "1px solid #e0e0e0"
-          }}>
+          <Tile style={{ padding: "2rem" }}>
             <h3 style={{ marginTop: 0, marginBottom: "1.5rem" }}>Recommended Learning Path</h3>
             
             <div style={{ display: "grid", gap: "1rem" }}>
@@ -574,48 +563,30 @@ chown user:group file.txt`}
                 { week: "Month 2", task: "Start customizing with aliases and oh-my-zsh" },
                 { week: "Month 3", task: "You're dangerous now (in a good way)!" }
               ].map((item, i) => (
-                <div 
+                <Tile
                   key={i}
                   style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
                     display: "flex",
                     alignItems: "center",
-                    gap: "1rem"
+                    gap: "1rem",
+                    padding: "1rem"
                   }}
                 >
-                  <div style={{
-                    backgroundColor: "#0f62fe",
-                    color: "#ffffff",
-                    width: "80px",
-                    padding: "0.5rem",
-                    borderRadius: "4px",
-                    fontSize: "0.875rem",
-                    fontWeight: 600,
-                    textAlign: "center",
-                    flexShrink: 0
-                  }}>
+                  <Tag type="blue" size="md" style={{ flexShrink: 0, minWidth: "80px", justifyContent: "center" }}>
                     {item.week}
-                  </div>
-                  <p style={{ margin: 0, color: "#161616", fontSize: "0.9375rem" }}>
+                  </Tag>
+                  <p style={{ margin: 0, fontSize: "0.9375rem" }}>
                     {item.task}
                   </p>
-                </div>
+                </Tile>
               ))}
             </div>
-          </div>
+          </Tile>
         </Section>
 
         {/* Key Principles */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
-          <div style={{ 
-            backgroundColor: "#ffffff", 
-            padding: "2rem", 
-            borderRadius: "8px",
-            border: "1px solid #e0e0e0"
-          }}>
+          <Tile style={{ padding: "2rem" }}>
             <h3 style={{ marginTop: 0, marginBottom: "1.5rem" }}>Key Principles to Remember</h3>
             
             <div style={{ display: "grid", gap: "1rem" }}>
@@ -626,43 +597,35 @@ chown user:group file.txt`}
                 { icon: "✅", text: "Customize everything - make it yours" },
                 { icon: "✅", text: "Share knowledge - we all learn together" }
               ].map((item, i) => (
-                <div 
+                <div
                   key={i}
                   style={{
                     display: "flex",
                     alignItems: "center",
                     gap: "1rem",
-                    padding: "0.75rem",
-                    backgroundColor: "#f4f4f4",
-                    borderRadius: "4px"
+                    padding: "0.75rem"
                   }}
                 >
-                  <span style={{ fontSize: "1.5rem", flexShrink: 0 }}>{item.icon}</span>
-                  <p style={{ margin: 0, color: "#161616", fontSize: "0.9375rem" }}>
+                  <CheckmarkFilled size={24} style={{ flexShrink: 0, color: "#24a148" }} />
+                  <p style={{ margin: 0, fontSize: "0.9375rem" }}>
                     {item.text}
                   </p>
                 </div>
               ))}
             </div>
-          </div>
+          </Tile>
         </Section>
 
         {/* Credits */}
         <Section level={3} style={{ marginBottom: "2rem" }}>
-          <div style={{ 
-            backgroundColor: "#e8f4ff", 
-            padding: "1.5rem", 
-            borderRadius: "8px",
-            border: "1px solid #0f62fe",
-            textAlign: "center"
-          }}>
-            <p style={{ margin: 0, color: "#161616", fontSize: "0.9375rem" }}>
+          <Tile style={{ padding: "1.5rem", textAlign: "center" }}>
+            <p style={{ margin: 0, fontSize: "0.9375rem" }}>
               <strong>Training Materials Created By:</strong> Michael
             </p>
-            <p style={{ margin: "0.5rem 0 0 0", color: "#525252", fontSize: "0.875rem" }}>
+            <p style={{ margin: "0.5rem 0 0 0", fontSize: "0.875rem", opacity: 0.7 }}>
               Comprehensive terminal training for FSM Technical Sales teams
             </p>
-          </div>
+          </Tile>
         </Section>
       </Column>
     </Grid>
