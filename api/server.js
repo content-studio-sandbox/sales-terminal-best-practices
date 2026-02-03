@@ -86,15 +86,10 @@ app.get('/api/health', (req, res) => {
  * Golden Path builds frontend to /app/web/dist in production
  * For local development, falls back to ../dist
  */
-const distPath = process.env.WEB_ROOT ||
-  (process.env.NODE_ENV === 'production'
-    ? '/app/web/dist'
-    : path.join(__dirname, '..', 'dist'));
+const WEB_ROOT = process.env.WEB_ROOT || "/app/web/dist";
+console.log('[Server] Serving static files from:', WEB_ROOT, 'exists?', fs.existsSync(WEB_ROOT));
 
-console.log('[Server] Serving static files from:', distPath);
-console.log('[Server] Static files exist?', fs.existsSync(distPath));
-
-app.use(express.static(distPath));
+app.use(express.static(WEB_ROOT));
 
 /**
  * SPA fallback - serve index.html for all non-API routes
@@ -109,7 +104,14 @@ app.get('*', (req, res) => {
     });
   }
   
-  res.sendFile(path.join(distPath, 'index.html'));
+  // Serve React app for all other routes
+  const indexFile = path.join(WEB_ROOT, 'index.html');
+  res.sendFile(indexFile, (err) => {
+    if (err) {
+      console.error('[Server] Error serving index.html:', err);
+      res.status(500).end();
+    }
+  });
 });
 
 // Start server
