@@ -81,8 +81,14 @@ app.get('/api/health', (req, res) => {
 /**
  * Serve static frontend files
  * This must come AFTER API routes
+ *
+ * Golden Path builds frontend to /app/web/dist in production
+ * For local development, falls back to ../dist
  */
-const distPath = path.join(__dirname, '..', 'dist');
+const distPath = process.env.NODE_ENV === 'production'
+  ? '/app/web/dist'
+  : path.join(__dirname, '..', 'dist');
+
 app.use(express.static(distPath));
 
 /**
@@ -104,6 +110,7 @@ app.get('*', (req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`[Server] Running on port ${PORT}`);
+  console.log(`[Server] Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`[Server] Serving static files from: ${distPath}`);
   console.log(`[Server] Health check: http://localhost:${PORT}/api/health`);
   console.log(`[Server] User info: http://localhost:${PORT}/api/user-info`);
