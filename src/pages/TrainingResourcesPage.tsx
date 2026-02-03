@@ -538,7 +538,7 @@ chown user:group file.txt`}
             >
               <div style={{ padding: "1rem 0" }}>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "1rem" }}>
-                  <div style={{ backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "8px" }}>
+                  <Tile style={{ padding: "1rem" }}>
                     <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#0f62fe" }}>Navigation</h5>
                     <ul style={{ marginLeft: "1.5rem", fontSize: "0.875rem", lineHeight: 1.6 }}>
                       <li><code>pwd</code> - Current directory</li>
@@ -547,9 +547,9 @@ chown user:group file.txt`}
                       <li><code>cd ~</code> - Go home</li>
                       <li><code>cd ..</code> - Go up one level</li>
                     </ul>
-                  </div>
+                  </Tile>
 
-                  <div style={{ backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "8px" }}>
+                  <Tile style={{ padding: "1rem" }}>
                     <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#0f62fe" }}>File Operations</h5>
                     <ul style={{ marginLeft: "1.5rem", fontSize: "0.875rem", lineHeight: 1.6 }}>
                       <li><code>touch</code> - Create file</li>
@@ -558,9 +558,9 @@ chown user:group file.txt`}
                       <li><code>mv</code> - Move/rename</li>
                       <li><code>rm</code> - Remove</li>
                     </ul>
-                  </div>
+                  </Tile>
 
-                  <div style={{ backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "8px" }}>
+                  <Tile style={{ padding: "1rem" }}>
                     <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#0f62fe" }}>Viewing Files</h5>
                     <ul style={{ marginLeft: "1.5rem", fontSize: "0.875rem", lineHeight: 1.6 }}>
                       <li><code>cat</code> - Display file</li>
@@ -569,9 +569,9 @@ chown user:group file.txt`}
                       <li><code>tail</code> - Last 10 lines</li>
                       <li><code>grep</code> - Search in files</li>
                     </ul>
-                  </div>
+                  </Tile>
 
-                  <div style={{ backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "8px" }}>
+                  <Tile style={{ padding: "1rem" }}>
                     <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#0f62fe" }}>System Info</h5>
                     <ul style={{ marginLeft: "1.5rem", fontSize: "0.875rem", lineHeight: 1.6 }}>
                       <li><code>whoami</code> - Current user</li>
@@ -580,11 +580,11 @@ chown user:group file.txt`}
                       <li><code>df -h</code> - Disk space</li>
                       <li><code>top</code> - Running processes</li>
                     </ul>
-                  </div>
+                  </Tile>
                 </div>
 
-                <div style={{ backgroundColor: "#e8f4ff", padding: "1.5rem", borderRadius: "8px", marginTop: "1.5rem", border: "1px solid #0f62fe" }}>
-                  <h5 style={{ marginTop: 0, marginBottom: "1rem", color: "#0f62fe" }}>Pro Tips</h5>
+                <Tile style={{ padding: "1.5rem", marginTop: "1.5rem", borderLeft: "4px solid #0f62fe" }}>
+                  <h5 style={{ marginTop: 0, marginBottom: "1rem" }}>Pro Tips</h5>
                   <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8 }}>
                     <li>Use <strong>Tab</strong> for auto-completion</li>
                     <li>Use <strong>↑/↓ arrows</strong> to navigate command history</li>
@@ -592,7 +592,7 @@ chown user:group file.txt`}
                     <li>Use <strong>Ctrl+L</strong> to clear the screen</li>
                     <li>Use <strong>man command</strong> to read the manual for any command</li>
                   </ul>
-                </div>
+                </Tile>
               </div>
             </AccordionItem>
           </Accordion>
@@ -600,12 +600,8 @@ chown user:group file.txt`}
 
         {/* Learning Path */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
-          <div style={{
-            background: "linear-gradient(135deg, #0f62fe 0%, #0353e9 100%)",
-            padding: "2rem",
-            borderRadius: "4px"
-          }}>
-            <h3 style={{ marginTop: 0, marginBottom: "1.5rem", color: "#ffffff" }}>Recommended Learning Path</h3>
+          <Tile style={{ padding: "2rem" }}>
+            <h3 style={{ marginTop: 0, marginBottom: "1.5rem" }}>Recommended Learning Path</h3>
             
             <div style={{ display: "grid", gap: "1rem" }}>
               {[
@@ -616,28 +612,26 @@ chown user:group file.txt`}
                 { week: "Month 2", task: "Start customizing with aliases and oh-my-zsh", color: "#24a148" },
                 { week: "Month 3", task: "You're dangerous now (in a good way)!", color: "#24a148" }
               ].map((item, i) => (
-                <div
+                <Tile
                   key={i}
                   style={{
                     display: "flex",
                     alignItems: "center",
                     gap: "1rem",
                     padding: "1rem",
-                    backgroundColor: "rgba(255, 255, 255, 0.95)",
-                    borderRadius: "4px",
                     borderLeft: `4px solid ${item.color}`
                   }}
                 >
                   <Tag type={item.color === "#24a148" ? "green" : "blue"} size="md" style={{ flexShrink: 0, minWidth: "80px", justifyContent: "center" }}>
                     {item.week}
                   </Tag>
-                  <p style={{ margin: 0, fontSize: "0.9375rem", color: "#161616" }}>
+                  <p style={{ margin: 0, fontSize: "0.9375rem" }}>
                     {item.task}
                   </p>
-                </div>
+                </Tile>
               ))}
             </div>
-          </div>
+          </Tile>
         </Section>
 
         {/* Key Principles */}
