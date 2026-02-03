@@ -1,6 +1,8 @@
-kind: frontend
+kind: fullstack
+backend:
+  path: api
+  port: 3000
 public: true
-port: 3000
 oauth2: auto
 oauth2_args:
   # Skip the provider button for seamless SSO
