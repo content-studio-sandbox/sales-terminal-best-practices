@@ -17,6 +17,7 @@ export default function InteractiveTerminalPage() {
           </p>
         </Section>
 
+        {/* Safe Learning Environment Banner */}
         <Section level={3} style={{ marginBottom: "2rem" }}>
           <div style={{
             backgroundColor: "#e8f4ff",
@@ -31,6 +32,7 @@ export default function InteractiveTerminalPage() {
             </p>
           </div>
 
+          {/* Quick Tips */}
           <div style={{
             backgroundColor: "#f4f4f4",
             padding: "1.5rem",
@@ -50,14 +52,113 @@ export default function InteractiveTerminalPage() {
               <li>Type <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>help</code> to see all available commands</li>
             </ul>
           </div>
-
-          <InteractiveTerminal
-            welcomeMessage="🚀 FSM Terminal Practice Environment - Type 'help' to get started!"
-            initialCommands={[]}
-          />
         </Section>
 
-        <Section level={3} style={{ marginTop: "3rem" }}>
+        {/* Side-by-side layout: Terminal on left, Exercises on right */}
+        <Section level={3} style={{ marginBottom: "2rem" }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 400px",
+            gap: "2rem",
+            alignItems: "start"
+          }}>
+            {/* Terminal Simulator - Left Side */}
+            <div>
+              <InteractiveTerminal
+                welcomeMessage="🚀 FSM Terminal Practice Environment - Type 'help' to get started!"
+                initialCommands={[]}
+              />
+            </div>
+
+            {/* Practice Exercises - Right Side */}
+            <div style={{
+              position: "sticky",
+              top: "80px",
+              maxHeight: "calc(100vh - 100px)",
+              overflowY: "auto"
+            }}>
+              <div style={{
+                backgroundColor: "#f4f4f4",
+                padding: "1.5rem",
+                borderRadius: "8px",
+                border: "1px solid #e0e0e0"
+              }}>
+                <h3 style={{ marginTop: 0, fontSize: "1.125rem", fontWeight: 600, marginBottom: "1.5rem" }}>
+                  Practice Exercises
+                </h3>
+                
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 1: Basic Navigation
+                    </h4>
+                    <ol style={{ margin: 0, paddingLeft: "1.25rem", color: "#161616", lineHeight: 1.6, fontSize: "0.875rem" }}>
+                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>whoami</code> - See your username</li>
+                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>pwd</code> - Current directory</li>
+                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>ls</code> - List files</li>
+                    </ol>
+                  </div>
+
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 2: Git Commands
+                    </h4>
+                    <ol style={{ margin: 0, paddingLeft: "1.25rem", color: "#161616", lineHeight: 1.6, fontSize: "0.875rem" }}>
+                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>git status</code> - Check repo status</li>
+                      <li>Use ↑ arrow to recall commands</li>
+                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>history</code> - See all commands</li>
+                    </ol>
+                  </div>
+
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 3: Echo and Date
+                    </h4>
+                    <ol style={{ margin: 0, paddingLeft: "1.25rem", color: "#161616", lineHeight: 1.6, fontSize: "0.875rem" }}>
+                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>echo Hello World</code> - Print text</li>
+                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>date</code> - Current date/time</li>
+                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>clear</code> - Clean up terminal</li>
+                    </ol>
+                  </div>
+
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 4: SSH Demo
+                    </h4>
+                    <ol style={{ margin: 0, paddingLeft: "1.25rem", color: "#161616", lineHeight: 1.6, fontSize: "0.875rem" }}>
+                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>ssh demo</code> - Simulate SSH connection</li>
+                      <li>Observe connection message</li>
+                      <li>See what real SSH looks like</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        {/* Removed old exercises section that was below */}
+        <Section level={3} style={{ marginTop: "3rem", display: "none" }}>
           <div style={{ 
             backgroundColor: "#f4f4f4", 
             padding: "2rem", 
