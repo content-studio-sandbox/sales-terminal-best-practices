@@ -3,6 +3,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -85,9 +86,13 @@ app.get('/api/health', (req, res) => {
  * Golden Path builds frontend to /app/web/dist in production
  * For local development, falls back to ../dist
  */
-const distPath = process.env.NODE_ENV === 'production'
-  ? '/app/web/dist'
-  : path.join(__dirname, '..', 'dist');
+const distPath = process.env.WEB_ROOT ||
+  (process.env.NODE_ENV === 'production'
+    ? '/app/web/dist'
+    : path.join(__dirname, '..', 'dist'));
+
+console.log('[Server] Serving static files from:', distPath);
+console.log('[Server] Static files exist?', fs.existsSync(distPath));
 
 app.use(express.static(distPath));
 
@@ -111,7 +116,6 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`[Server] Running on port ${PORT}`);
   console.log(`[Server] Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`[Server] Serving static files from: ${distPath}`);
   console.log(`[Server] Health check: http://localhost:${PORT}/api/health`);
   console.log(`[Server] User info: http://localhost:${PORT}/api/user-info`);
 });
