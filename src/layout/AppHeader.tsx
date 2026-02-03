@@ -19,18 +19,22 @@ interface AppHeaderProps {
 }
 
 // Define which routes are currently available vs upcoming sessions
+// Order: Available sessions first, then upcoming sessions
 const routes = [
+    // Available Sessions (left side)
     { id: "terminal-basics", label: "Terminal", path: "/terminal-basics", available: true },
     { id: "git-workflows", label: "Git", path: "/git-workflows", available: true },
-    { id: "ssh-best-practices", label: "SSH", path: "/ssh-best-practices", available: false, upcoming: true },
-    { id: "vim-best-practices", label: "Vim", path: "/vim-best-practices", available: false, upcoming: true },
-    { id: "openshift-best-practices", label: "OpenShift", path: "/openshift-best-practices", available: false, upcoming: true },
-    { id: "api-authentication", label: "API Auth", path: "/api-authentication", available: false, upcoming: true },
-    { id: "cpd-cli", label: "CPD CLI", path: "/cpd-cli", available: false, upcoming: true },
-    { id: "agentic-tools", label: "AI Agents", path: "/agentic-tools", available: false, upcoming: true },
     { id: "training-resources", label: "Training", path: "/training-resources", available: true },
     { id: "interactive-terminal", label: "Try It", path: "/interactive-terminal", available: true },
     { id: "survey-results", label: "Survey", path: "/survey-results", available: true },
+    
+    // Upcoming Sessions (right side)
+    { id: "ssh-best-practices", label: "SSH", path: "/ssh-best-practices", available: false, upcoming: true },
+    { id: "vim-best-practices", label: "Vim", path: "/vim-best-practices", available: false, upcoming: true },
+    { id: "openshift-best-practices", label: "OpenShift", path: "/openshift-best-practices", available: false, upcoming: true },
+    { id: "cpd-cli", label: "CPD CLI", path: "/cpd-cli", available: false, upcoming: true },
+    { id: "api-authentication", label: "API Auth", path: "/api-authentication", available: false, upcoming: true },
+    { id: "agentic-tools", label: "AI Agents", path: "/agentic-tools", available: false, upcoming: true },
 ];
 
 const APP_VERSION = "v2.5.0";
