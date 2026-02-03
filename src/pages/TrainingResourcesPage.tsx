@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Column, Heading, Section, Button, CodeSnippet, Accordion, AccordionItem, Tile, Tag } from "@carbon/react";
-import { Document, Download, PresentationFile, Education, CheckmarkFilled } from "@carbon/icons-react";
+import { Document, Download, PresentationFile, Education, CheckmarkFilled, Terminal, Code, Edit, Folder, ArrowRight, Book } from "@carbon/icons-react";
 
 export default function TrainingResourcesPage() {
   return (
@@ -186,7 +186,14 @@ export default function TrainingResourcesPage() {
           {/* Training Content Accordion */}
           <Accordion>
             {/* Section 1: Terminal Applications */}
-            <AccordionItem title="1. Terminal Applications">
+            <AccordionItem
+              title={
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <Terminal size={20} style={{ color: "#0f62fe" }} />
+                  <span style={{ fontWeight: 600 }}>1. Terminal Applications</span>
+                </div>
+              }
+            >
               <div style={{ padding: "1rem 0" }}>
                 <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>What is a Terminal?</h4>
                 <p style={{ lineHeight: 1.8, marginBottom: "1.5rem" }}>
@@ -238,7 +245,14 @@ hostname`}
             </AccordionItem>
 
             {/* Section 2: Understanding Shells */}
-            <AccordionItem title="2. Understanding Shells">
+            <AccordionItem
+              title={
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <Code size={20} style={{ color: "#0f62fe" }} />
+                  <span style={{ fontWeight: 600 }}>2. Understanding Shells</span>
+                </div>
+              }
+            >
               <div style={{ padding: "1rem 0" }}>
                 <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>What is a Shell?</h4>
                 <p style={{ lineHeight: 1.8, marginBottom: "1.5rem" }}>
@@ -306,7 +320,14 @@ chsh -s /bin/zsh`}
             </AccordionItem>
 
             {/* Section 3: Text Editors */}
-            <AccordionItem title="3. Text Editors">
+            <AccordionItem
+              title={
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <Edit size={20} style={{ color: "#0f62fe" }} />
+                  <span style={{ fontWeight: 600 }}>3. Text Editors</span>
+                </div>
+              }
+            >
               <div style={{ padding: "1rem 0" }}>
                 <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Why Learn a Terminal Text Editor?</h4>
                 <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, marginBottom: "1.5rem" }}>
@@ -348,7 +369,14 @@ chsh -s /bin/zsh`}
             </AccordionItem>
 
             {/* Section 4: Filesystem Navigation */}
-            <AccordionItem title="4. Filesystem Navigation">
+            <AccordionItem
+              title={
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <Folder size={20} style={{ color: "#0f62fe" }} />
+                  <span style={{ fontWeight: 600 }}>4. Filesystem Navigation</span>
+                </div>
+              }
+            >
               <div style={{ padding: "1rem 0" }}>
                 <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Essential Navigation Commands</h4>
                 
@@ -398,7 +426,14 @@ rm -r directory-name`}
             </AccordionItem>
 
             {/* Section 5: Redirection & Pipes */}
-            <AccordionItem title="5. Redirection & Pipes">
+            <AccordionItem
+              title={
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <ArrowRight size={20} style={{ color: "#0f62fe" }} />
+                  <span style={{ fontWeight: 600 }}>5. Redirection & Pipes</span>
+                </div>
+              }
+            >
               <div style={{ padding: "1rem 0" }}>
                 <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Output Redirection</h4>
                 <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
@@ -439,7 +474,14 @@ du -sh * | sort -hr | head -10`}
             </AccordionItem>
 
             {/* Section 6: Advanced Topics */}
-            <AccordionItem title="6. Advanced Topics">
+            <AccordionItem
+              title={
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <Terminal size={20} style={{ color: "#24a148" }} />
+                  <span style={{ fontWeight: 600 }}>6. Advanced Topics</span>
+                </div>
+              }
+            >
               <div style={{ padding: "1rem 0" }}>
                 <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Environment Variables</h4>
                 <CodeSnippet type="multi">
@@ -486,7 +528,14 @@ chown user:group file.txt`}
             </AccordionItem>
 
             {/* Section 7: Quick Reference */}
-            <AccordionItem title="7. Quick Reference Cheat Sheet">
+            <AccordionItem
+              title={
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <Book size={20} style={{ color: "#24a148" }} />
+                  <span style={{ fontWeight: 600 }}>7. Quick Reference Cheat Sheet</span>
+                </div>
+              }
+            >
               <div style={{ padding: "1rem 0" }}>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "1rem" }}>
                   <div style={{ backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "8px" }}>
