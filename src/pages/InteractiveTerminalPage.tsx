@@ -18,11 +18,25 @@ export default function InteractiveTerminalPage() {
         </Section>
 
         <Section level={3} style={{ marginBottom: "2rem" }}>
-          <div style={{ 
-            backgroundColor: "#e8f4ff", 
-            padding: "1.5rem", 
+          <div style={{
+            backgroundColor: "#e8f4ff",
+            padding: "2rem",
             borderRadius: "8px",
             marginBottom: "2rem"
+          }}>
+            <h3 style={{ marginTop: 0, color: "#0f62fe" }}>💡 Safe Learning Environment</h3>
+            <p style={{ color: "#161616", lineHeight: 1.8, marginBottom: 0 }}>
+              This is a <strong>simulated terminal</strong> - a safe sandbox for learning. All commands are simulated and won't affect your actual system.
+              Practice freely without worrying about making mistakes! When you're comfortable, apply these skills in your real development environment.
+            </p>
+          </div>
+
+          <div style={{
+            backgroundColor: "#f4f4f4",
+            padding: "1.5rem",
+            borderRadius: "8px",
+            marginBottom: "2rem",
+            border: "1px solid #e0e0e0"
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
               <Keyboard size={24} style={{ color: "#0f62fe" }} />
@@ -31,7 +45,6 @@ export default function InteractiveTerminalPage() {
               </h3>
             </div>
             <ul style={{ margin: 0, paddingLeft: "1.5rem", color: "#161616", lineHeight: 1.8 }}>
-              <li>This is a <strong>safe, simulated terminal</strong> - perfect for learning without risk</li>
               <li>Try commands like: <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>ls</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>pwd</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>mkdir</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>cd</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>git status</code></li>
               <li>Use <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>↑</code> and <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>↓</code> arrow keys to navigate command history</li>
               <li>Type <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>help</code> to see all available commands</li>
@@ -123,13 +136,6 @@ export default function InteractiveTerminalPage() {
           </div>
         </Section>
 
-        <Section level={3} style={{ marginTop: "3rem", padding: "2rem", backgroundColor: "#e8f4ff", borderRadius: "8px" }}>
-          <h3 style={{ marginTop: 0, color: "#0f62fe" }}>💡 Safe Learning Environment</h3>
-          <p style={{ color: "#161616", lineHeight: 1.8, marginBottom: 0 }}>
-            This is a <strong>simulated terminal</strong> - a safe sandbox for learning. All commands are simulated and won't affect your actual system.
-            Practice freely without worrying about making mistakes! When you're comfortable, apply these skills in your real development environment.
-          </p>
-        </Section>
       </Column>
     </Grid>
   );
