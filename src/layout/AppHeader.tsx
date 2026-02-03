@@ -8,8 +8,9 @@ import {
     Theme,
     HeaderNavigation,
     HeaderMenuItem,
+    Tag,
 } from "@carbon/react";
-import { Moon, Sun, Chat } from "@carbon/icons-react";
+import { Moon, Sun, Chat, Locked } from "@carbon/icons-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAppTheme } from "@/theme/ThemeProvider";
 
@@ -17,18 +18,19 @@ interface AppHeaderProps {
     onFeedbackClick?: () => void;
 }
 
+// Define which routes are currently available vs upcoming sessions
 const routes = [
-    { id: "terminal-basics", label: "Terminal", path: "/terminal-basics" },
-    { id: "git-workflows", label: "Git", path: "/git-workflows" },
-    { id: "ssh-best-practices", label: "SSH", path: "/ssh-best-practices" },
-    { id: "vim-best-practices", label: "Vim", path: "/vim-best-practices" },
-    { id: "openshift-best-practices", label: "OpenShift", path: "/openshift-best-practices" },
-    { id: "api-authentication", label: "API Auth", path: "/api-authentication" },
-    { id: "cpd-cli", label: "CPD CLI", path: "/cpd-cli" },
-    { id: "agentic-tools", label: "AI Agents", path: "/agentic-tools" },
-    { id: "training-resources", label: "Training", path: "/training-resources" },
-    { id: "interactive-terminal", label: "Try It", path: "/interactive-terminal" },
-    { id: "survey-results", label: "Survey", path: "/survey-results" },
+    { id: "terminal-basics", label: "Terminal", path: "/terminal-basics", available: true },
+    { id: "git-workflows", label: "Git", path: "/git-workflows", available: true },
+    { id: "ssh-best-practices", label: "SSH", path: "/ssh-best-practices", available: false, upcoming: true },
+    { id: "vim-best-practices", label: "Vim", path: "/vim-best-practices", available: false, upcoming: true },
+    { id: "openshift-best-practices", label: "OpenShift", path: "/openshift-best-practices", available: false, upcoming: true },
+    { id: "api-authentication", label: "API Auth", path: "/api-authentication", available: false, upcoming: true },
+    { id: "cpd-cli", label: "CPD CLI", path: "/cpd-cli", available: false, upcoming: true },
+    { id: "agentic-tools", label: "AI Agents", path: "/agentic-tools", available: false, upcoming: true },
+    { id: "training-resources", label: "Training", path: "/training-resources", available: true },
+    { id: "interactive-terminal", label: "Try It", path: "/interactive-terminal", available: true },
+    { id: "survey-results", label: "Survey", path: "/survey-results", available: true },
 ];
 
 const APP_VERSION = "v2.5.0";
@@ -156,14 +158,42 @@ export default function AppHeader({ onFeedbackClick }: AppHeaderProps) {
                                 {routes.map((route) => (
                                     <HeaderMenuItem
                                         key={route.id}
-                                        href={route.path}
+                                        href={route.available ? route.path : '#'}
                                         isActive={pathname === route.path}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            navigate(route.path);
+                                            if (route.available) {
+                                                navigate(route.path);
+                                            }
+                                        }}
+                                        style={{
+                                            opacity: route.available ? 1 : 0.5,
+                                            cursor: route.available ? 'pointer' : 'not-allowed',
+                                            position: 'relative',
                                         }}
                                     >
-                                        {route.label}
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '6px',
+                                        }}>
+                                            {route.label}
+                                            {route.upcoming && (
+                                                <Tag
+                                                    size="sm"
+                                                    type="cool-gray"
+                                                    style={{
+                                                        marginLeft: '4px',
+                                                        fontSize: '10px',
+                                                        padding: '0 4px',
+                                                        height: '16px',
+                                                        minHeight: '16px',
+                                                    }}
+                                                >
+                                                    Upcoming
+                                                </Tag>
+                                            )}
+                                        </div>
                                     </HeaderMenuItem>
                                 ))}
                             </HeaderNavigation>
