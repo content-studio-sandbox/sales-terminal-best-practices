@@ -197,17 +197,17 @@ export default function TrainingResourcesPage() {
 
                 <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Mac Terminal Options</h4>
                 
-                <div style={{ backgroundColor: "#f4f4f4", padding: "1.5rem", borderRadius: "8px", marginBottom: "1rem" }}>
+                <Tile style={{ padding: "1.5rem", marginBottom: "1rem" }}>
                   <h5 style={{ marginTop: 0, marginBottom: "0.75rem" }}>Terminal.app (Built-in)</h5>
                   <p style={{ marginBottom: "0.5rem" }}><strong>Location:</strong> /Applications/Utilities/Terminal.app</p>
                   <p style={{ marginBottom: "0.5rem" }}><strong>Pros:</strong> No installation needed, reliable, integrates well with macOS</p>
                   <p style={{ marginBottom: "0.5rem" }}><strong>Cons:</strong> Limited customization, basic feature set</p>
                   <p style={{ marginBottom: 0 }}><strong>Best for:</strong> Beginners, quick tasks, system administration</p>
-                </div>
+                </Tile>
 
-                <div style={{ backgroundColor: "#e8f4ff", padding: "1.5rem", borderRadius: "8px", marginBottom: "1rem", border: "1px solid #0f62fe" }}>
-                  <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#0f62fe" }}>
-                    <CheckmarkFilled size={20} style={{ verticalAlign: "middle", marginRight: "0.5rem" }} />
+                <Tile style={{ padding: "1.5rem", marginBottom: "1rem", borderLeft: "4px solid #0f62fe" }}>
+                  <h5 style={{ marginTop: 0, marginBottom: "0.75rem" }}>
+                    <CheckmarkFilled size={20} style={{ verticalAlign: "middle", marginRight: "0.5rem", color: "#24a148" }} />
                     iTerm2 (Recommended)
                   </h5>
                   <p style={{ marginBottom: "0.5rem" }}><strong>Website:</strong> <a href="https://iterm2.com" target="_blank" rel="noopener noreferrer">https://iterm2.com</a></p>
@@ -220,7 +220,7 @@ export default function TrainingResourcesPage() {
                     <li>Better color schemes and fonts</li>
                   </ul>
                   <p style={{ marginBottom: 0 }}><strong>Best for:</strong> Power users, developers, anyone spending significant time in terminal</p>
-                </div>
+                </Tile>
 
                 <h4 style={{ color: "#0f62fe", marginTop: "2rem", marginBottom: "1rem" }}>Getting Started</h4>
                 <ol style={{ marginLeft: "1.5rem", lineHeight: 1.8 }}>
@@ -247,7 +247,7 @@ hostname`}
                   interprets and executes those commands.
                 </p>
 
-                <div style={{ backgroundColor: "#f4f4f4", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem" }}>
+                <Tile style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
                   <h5 style={{ marginTop: 0, marginBottom: "1rem" }}>Shell Architecture</h5>
                   <pre style={{ fontFamily: "monospace", fontSize: "0.875rem", margin: 0 }}>
 {`┌─────────────────┐
@@ -263,31 +263,31 @@ hostname`}
 │  System         │
 └─────────────────┘`}
                   </pre>
-                </div>
+                </Tile>
 
                 <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Common Shells</h4>
                 
                 <div style={{ display: "grid", gap: "1rem" }}>
-                  <div style={{ backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "8px" }}>
+                  <Tile style={{ padding: "1rem" }}>
                     <h5 style={{ marginTop: 0, marginBottom: "0.5rem" }}>sh (Bourne Shell)</h5>
                     <p style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>The original Unix shell (1979)</p>
                     <p style={{ fontSize: "0.875rem", margin: 0 }}><strong>Use for:</strong> Portable shell scripts, system scripts</p>
-                  </div>
+                  </Tile>
 
-                  <div style={{ backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "8px" }}>
+                  <Tile style={{ padding: "1rem" }}>
                     <h5 style={{ marginTop: 0, marginBottom: "0.5rem" }}>bash (Bourne Again Shell)</h5>
                     <p style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>GNU's enhanced version of sh (1989)</p>
                     <p style={{ fontSize: "0.875rem", margin: 0 }}><strong>Use for:</strong> General-purpose shell, scripting, system administration</p>
-                  </div>
+                  </Tile>
 
-                  <div style={{ backgroundColor: "#e8f4ff", padding: "1rem", borderRadius: "8px", border: "1px solid #0f62fe" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#0f62fe" }}>
-                      <CheckmarkFilled size={16} style={{ verticalAlign: "middle", marginRight: "0.5rem" }} />
+                  <Tile style={{ padding: "1rem", borderLeft: "4px solid #0f62fe" }}>
+                    <h5 style={{ marginTop: 0, marginBottom: "0.5rem" }}>
+                      <CheckmarkFilled size={16} style={{ verticalAlign: "middle", marginRight: "0.5rem", color: "#24a148" }} />
                       zsh (Z Shell) - Recommended
                     </h5>
                     <p style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>Modern shell with powerful features (1990)</p>
                     <p style={{ fontSize: "0.875rem", margin: 0 }}><strong>Use for:</strong> Daily use, advanced customization, oh-my-zsh framework</p>
-                  </div>
+                  </Tile>
                 </div>
 
                 <div style={{ marginTop: "1.5rem" }}>
@@ -317,7 +317,7 @@ chsh -s /bin/zsh`}
                 </ul>
 
                 <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>nano (Recommended for Beginners)</h4>
-                <div style={{ backgroundColor: "#e8f4ff", padding: "1.5rem", borderRadius: "8px", marginBottom: "1.5rem", border: "1px solid #0f62fe" }}>
+                <Tile style={{ padding: "1.5rem", marginBottom: "1.5rem", borderLeft: "4px solid #0f62fe" }}>
                   <p style={{ marginBottom: "1rem" }}><strong>Why nano?</strong> Simple, intuitive, commands shown at bottom</p>
                   <CodeSnippet type="single">nano filename.txt</CodeSnippet>
                   <p style={{ marginTop: "1rem", marginBottom: "0.5rem" }}><strong>Essential Commands:</strong></p>
@@ -328,7 +328,7 @@ chsh -s /bin/zsh`}
                     <li>Ctrl+U: Paste</li>
                     <li>Ctrl+W: Search</li>
                   </ul>
-                </div>
+                </Tile>
 
                 <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>vim (Advanced)</h4>
                 <div style={{ backgroundColor: "#f4f4f4", padding: "1.5rem", borderRadius: "8px", marginBottom: "1rem" }}>
@@ -551,37 +551,44 @@ chown user:group file.txt`}
 
         {/* Learning Path */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
-          <Tile style={{ padding: "2rem" }}>
-            <h3 style={{ marginTop: 0, marginBottom: "1.5rem" }}>Recommended Learning Path</h3>
+          <div style={{
+            background: "linear-gradient(135deg, #0f62fe 0%, #0353e9 100%)",
+            padding: "2rem",
+            borderRadius: "4px"
+          }}>
+            <h3 style={{ marginTop: 0, marginBottom: "1.5rem", color: "#ffffff" }}>Recommended Learning Path</h3>
             
             <div style={{ display: "grid", gap: "1rem" }}>
               {[
-                { week: "Week 1", task: "Pick a terminal app and get comfortable opening it" },
-                { week: "Week 2", task: "Learn basic navigation (pwd, ls, cd, mkdir, rm)" },
-                { week: "Week 3", task: "Master your editor (start with nano)" },
-                { week: "Week 4", task: "Explore pipes and redirection" },
-                { week: "Month 2", task: "Start customizing with aliases and oh-my-zsh" },
-                { week: "Month 3", task: "You're dangerous now (in a good way)!" }
+                { week: "Week 1", task: "Pick a terminal app and get comfortable opening it", color: "#0f62fe" },
+                { week: "Week 2", task: "Learn basic navigation (pwd, ls, cd, mkdir, rm)", color: "#0f62fe" },
+                { week: "Week 3", task: "Master your editor (start with nano)", color: "#0f62fe" },
+                { week: "Week 4", task: "Explore pipes and redirection", color: "#0f62fe" },
+                { week: "Month 2", task: "Start customizing with aliases and oh-my-zsh", color: "#24a148" },
+                { week: "Month 3", task: "You're dangerous now (in a good way)!", color: "#24a148" }
               ].map((item, i) => (
-                <Tile
+                <div
                   key={i}
                   style={{
                     display: "flex",
                     alignItems: "center",
                     gap: "1rem",
-                    padding: "1rem"
+                    padding: "1rem",
+                    backgroundColor: "rgba(255, 255, 255, 0.95)",
+                    borderRadius: "4px",
+                    borderLeft: `4px solid ${item.color}`
                   }}
                 >
-                  <Tag type="blue" size="md" style={{ flexShrink: 0, minWidth: "80px", justifyContent: "center" }}>
+                  <Tag type={item.color === "#24a148" ? "green" : "blue"} size="md" style={{ flexShrink: 0, minWidth: "80px", justifyContent: "center" }}>
                     {item.week}
                   </Tag>
-                  <p style={{ margin: 0, fontSize: "0.9375rem" }}>
+                  <p style={{ margin: 0, fontSize: "0.9375rem", color: "#161616" }}>
                     {item.task}
                   </p>
-                </Tile>
+                </div>
               ))}
             </div>
-          </Tile>
+          </div>
         </Section>
 
         {/* Key Principles */}
