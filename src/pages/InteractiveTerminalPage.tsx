@@ -20,36 +20,53 @@ export default function InteractiveTerminalPage() {
         {/* Safe Learning Environment Banner */}
         <Section level={3} style={{ marginBottom: "2rem" }}>
           <div style={{
-            backgroundColor: "#e8f4ff",
-            padding: "2rem",
-            borderRadius: "8px",
-            marginBottom: "2rem"
+            backgroundColor: "#ffffff",
+            padding: "1.5rem",
+            borderRadius: "4px",
+            marginBottom: "1.5rem",
+            border: "1px solid #e0e0e0",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08)",
+            borderLeft: "4px solid #0f62fe"
           }}>
-            <h3 style={{ marginTop: 0, color: "#0f62fe" }}>💡 Safe Learning Environment</h3>
-            <p style={{ color: "#161616", lineHeight: 1.8, marginBottom: 0 }}>
-              This is a <strong>simulated terminal</strong> - a safe sandbox for learning. All commands are simulated and won't affect your actual system.
-              Practice freely without worrying about making mistakes! When you're comfortable, apply these skills in your real development environment.
-            </p>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
+              <span style={{ fontSize: "1.5rem", lineHeight: 1 }}>💡</span>
+              <div>
+                <h3 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#161616", fontSize: "1.125rem", fontWeight: 600 }}>
+                  Safe Learning Environment
+                </h3>
+                <p style={{ color: "#525252", lineHeight: 1.7, marginBottom: 0, fontSize: "0.9375rem" }}>
+                  This is a <strong style={{ color: "#161616" }}>simulated terminal</strong> - a safe sandbox for learning. All commands are simulated and won't affect your actual system.
+                  Practice freely without worrying about making mistakes! When you're comfortable, apply these skills in your real development environment.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Quick Tips */}
           <div style={{
-            backgroundColor: "#f4f4f4",
+            backgroundColor: "#ffffff",
             padding: "1.5rem",
-            borderRadius: "8px",
+            borderRadius: "4px",
             marginBottom: "2rem",
-            border: "1px solid #e0e0e0"
+            border: "1px solid #e0e0e0",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08)"
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
               <Keyboard size={24} style={{ color: "#0f62fe" }} />
-              <h3 style={{ margin: 0, fontSize: "1.125rem", fontWeight: 600, color: "#0f62fe" }}>
+              <h3 style={{ margin: 0, fontSize: "1.125rem", fontWeight: 600, color: "#161616" }}>
                 Quick Tips
               </h3>
             </div>
-            <ul style={{ margin: 0, paddingLeft: "1.5rem", color: "#161616", lineHeight: 1.8 }}>
-              <li>Try commands like: <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>ls</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>pwd</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>mkdir</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>cd</code>, <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>git status</code></li>
-              <li>Use <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>↑</code> and <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>↓</code> arrow keys to navigate command history</li>
-              <li>Type <code style={{ backgroundColor: "#ffffff", padding: "2px 6px", borderRadius: "3px" }}>help</code> to see all available commands</li>
+            <ul style={{ margin: 0, paddingLeft: "1.5rem", color: "#161616", lineHeight: 1.7, fontSize: "0.9375rem" }}>
+              <li style={{ marginBottom: "0.5rem" }}>
+                Try commands like: <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ls</code>, <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>pwd</code>, <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>mkdir</code>, <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cd</code>, <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
+              </li>
+              <li style={{ marginBottom: "0.5rem" }}>
+                Use <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>↑</code> and <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>↓</code> arrow keys to navigate command history
+              </li>
+              <li>
+                Type <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>help</code> to see all available commands
+              </li>
             </ul>
           </div>
         </Section>
@@ -80,76 +97,160 @@ export default function InteractiveTerminalPage() {
               <div style={{
                 backgroundColor: "#f4f4f4",
                 padding: "1.5rem",
-                borderRadius: "8px",
-                border: "1px solid #e0e0e0"
+                borderRadius: "4px"
               }}>
-                <h3 style={{ marginTop: 0, fontSize: "1.125rem", fontWeight: 600, marginBottom: "1.5rem" }}>
+                <h3 style={{ marginTop: 0, fontSize: "1.125rem", fontWeight: 600, marginBottom: "1.5rem", color: "#161616" }}>
                   Practice Exercises
                 </h3>
                 
                 <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  {/* Exercise 1 */}
                   <div style={{
                     backgroundColor: "#ffffff",
-                    padding: "1rem",
+                    padding: "1.25rem",
                     borderRadius: "4px",
-                    border: "1px solid #e0e0e0"
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                   }}>
-                    <h4 style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 1: Basic Navigation
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 1: Environment Discovery
                     </h4>
-                    <ol style={{ margin: 0, paddingLeft: "1.25rem", color: "#161616", lineHeight: 1.6, fontSize: "0.875rem" }}>
-                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>whoami</code> - See your username</li>
-                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>pwd</code> - Current directory</li>
-                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>ls</code> - List files</li>
-                    </ol>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: You've just logged into a client's server
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>whoami</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Verify your user identity</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>pwd</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Confirm working directory</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ls -la</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ List all files (including hidden)</span>
+                      </div>
+                      <div>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>hostname</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Identify the server</span>
+                      </div>
+                    </div>
                   </div>
 
+                  {/* Exercise 2 */}
                   <div style={{
                     backgroundColor: "#ffffff",
-                    padding: "1rem",
+                    padding: "1.25rem",
                     borderRadius: "4px",
-                    border: "1px solid #e0e0e0"
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                   }}>
-                    <h4 style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 2: Git Commands
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 2: Repository Management
                     </h4>
-                    <ol style={{ margin: 0, paddingLeft: "1.25rem", color: "#161616", lineHeight: 1.6, fontSize: "0.875rem" }}>
-                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>git status</code> - Check repo status</li>
-                      <li>Use ↑ arrow to recall commands</li>
-                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>history</code> - See all commands</li>
-                    </ol>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: Checking deployment status
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Check repo state</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git branch</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ View current branch</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git log --oneline -5</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Recent commits</span>
+                      </div>
+                      <div>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git diff</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ View uncommitted changes</span>
+                      </div>
+                    </div>
                   </div>
 
+                  {/* Exercise 3 */}
                   <div style={{
                     backgroundColor: "#ffffff",
-                    padding: "1rem",
+                    padding: "1.25rem",
                     borderRadius: "4px",
-                    border: "1px solid #e0e0e0"
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                   }}>
-                    <h4 style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 3: Echo and Date
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 3: File System Operations
                     </h4>
-                    <ol style={{ margin: 0, paddingLeft: "1.25rem", color: "#161616", lineHeight: 1.6, fontSize: "0.875rem" }}>
-                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>echo Hello World</code> - Print text</li>
-                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>date</code> - Current date/time</li>
-                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>clear</code> - Clean up terminal</li>
-                    </ol>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: Organizing project files
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>mkdir -p docs/api</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Create nested directories</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>touch README.md</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Create documentation</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cp config.yml config.bak</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Backup configuration</span>
+                      </div>
+                      <div>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>find . -name "*.log"</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Locate log files</span>
+                      </div>
+                    </div>
                   </div>
 
+                  {/* Exercise 4 */}
                   <div style={{
                     backgroundColor: "#ffffff",
+                    padding: "1.25rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 4: System Diagnostics
+                    </h4>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: Troubleshooting performance issues
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>df -h</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Check disk space</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ps aux | grep node</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Find Node processes</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>tail -f app.log</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Monitor logs live</span>
+                      </div>
+                      <div>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>netstat -tuln</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Check open ports</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Pro Tip */}
+                  <div style={{
+                    backgroundColor: "#e8f4ff",
                     padding: "1rem",
                     borderRadius: "4px",
-                    border: "1px solid #e0e0e0"
+                    border: "1px solid #0f62fe",
+                    marginTop: "0.5rem"
                   }}>
-                    <h4 style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 4: SSH Demo
-                    </h4>
-                    <ol style={{ margin: 0, paddingLeft: "1.25rem", color: "#161616", lineHeight: 1.6, fontSize: "0.875rem" }}>
-                      <li><code style={{ backgroundColor: "#f4f4f4", padding: "2px 4px", borderRadius: "3px", fontSize: "0.8125rem" }}>ssh demo</code> - Simulate SSH connection</li>
-                      <li>Observe connection message</li>
-                      <li>See what real SSH looks like</li>
-                    </ol>
+                    <div style={{ fontSize: "0.875rem", color: "#161616", lineHeight: 1.6 }}>
+                      <strong style={{ color: "#0f62fe" }}>💡 Pro Tip:</strong> Use <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>↑/↓</code> arrows for command history, <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>Tab</code> for auto-complete, and <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>Ctrl+C</code> to cancel commands.
+                    </div>
                   </div>
                 </div>
               </div>

@@ -109,36 +109,40 @@ notes-backup.txt`;
             <h2 style={{ margin: 0, fontSize: "1.5rem" }}>What is a Terminal?</h2>
           </div>
           
-          <div style={{ 
-            backgroundColor: "#f4f4f4", 
-            padding: "1.5rem", 
-            borderRadius: "8px",
-            marginBottom: "2rem"
+          <div style={{
+            backgroundColor: "#ffffff",
+            padding: "1.5rem",
+            borderRadius: "4px",
+            marginBottom: "2rem",
+            border: "1px solid #e0e0e0",
+            boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
           }}>
-            <p style={{ fontSize: "1rem", lineHeight: 1.8, margin: 0 }}>
-              Think of the terminal as a direct conversation with your computer. Instead of clicking through 
-              menus and windows, you type commands in plain text. It might seem intimidating at first, but 
+            <p style={{ fontSize: "1rem", lineHeight: 1.8, margin: 0, color: "#525252" }}>
+              Think of the terminal as a direct conversation with your computer. Instead of clicking through
+              menus and windows, you type commands in plain text. It might seem intimidating at first, but
               it's actually more efficient once you learn the basics.
             </p>
           </div>
 
-          <div style={{ 
-            display: "grid", 
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", 
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
             gap: "1.5rem",
             marginBottom: "2rem"
           }}>
-            <div style={{ 
-              backgroundColor: "#e8f4ff", 
-              padding: "1.5rem", 
-              borderRadius: "8px",
-              border: "1px solid #0f62fe"
+            <div style={{
+              backgroundColor: "#ffffff",
+              padding: "1.5rem",
+              borderRadius: "4px",
+              border: "1px solid #e0e0e0",
+              boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+              borderLeft: "4px solid #0f62fe"
             }}>
-              <h3 style={{ marginTop: 0, color: "#0f62fe", fontSize: "1.125rem" }}>
-                <CheckmarkFilled size={20} style={{ verticalAlign: "middle", marginRight: "0.5rem" }} />
+              <h3 style={{ marginTop: 0, color: "#161616", fontSize: "1.125rem", fontWeight: 600 }}>
+                <CheckmarkFilled size={20} style={{ verticalAlign: "middle", marginRight: "0.5rem", color: "#0f62fe" }} />
                 Why Learn Terminal?
               </h3>
-              <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8 }}>
+              <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, color: "#525252" }}>
                 <li>Faster than clicking through menus</li>
                 <li>Required for many development tools</li>
                 <li>Essential for server management</li>
@@ -147,17 +151,19 @@ notes-backup.txt`;
               </ul>
             </div>
 
-            <div style={{ 
-              backgroundColor: "#fff3e0", 
-              padding: "1.5rem", 
-              borderRadius: "8px",
-              border: "1px solid #ff832b"
+            <div style={{
+              backgroundColor: "#ffffff",
+              padding: "1.5rem",
+              borderRadius: "4px",
+              border: "1px solid #e0e0e0",
+              boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+              borderLeft: "4px solid #0f62fe"
             }}>
-              <h3 style={{ marginTop: 0, color: "#ff832b", fontSize: "1.125rem" }}>
-                <Code size={20} style={{ verticalAlign: "middle", marginRight: "0.5rem" }} />
+              <h3 style={{ marginTop: 0, color: "#161616", fontSize: "1.125rem", fontWeight: 600 }}>
+                <Code size={20} style={{ verticalAlign: "middle", marginRight: "0.5rem", color: "#0f62fe" }} />
                 Common Use Cases
               </h3>
-              <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8 }}>
+              <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, color: "#525252" }}>
                 <li>Running development servers</li>
                 <li>Installing software packages</li>
                 <li>Managing Git repositories</li>
@@ -192,20 +198,22 @@ notes-backup.txt`;
             title="File System Structure"
           />
 
-          <div style={{ 
-            backgroundColor: "#e8f4ff", 
-            padding: "1.5rem", 
-            borderRadius: "8px",
+          <div style={{
+            backgroundColor: "#ffffff",
+            padding: "1.5rem",
+            borderRadius: "4px",
             marginTop: "1.5rem",
-            border: "1px solid #0f62fe"
+            border: "1px solid #e0e0e0",
+            boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+            borderLeft: "4px solid #0f62fe"
           }}>
-            <h3 style={{ marginTop: 0, color: "#0f62fe" }}>Key Concepts</h3>
-            <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8 }}>
-              <li><strong>Root directory (/):</strong> The top-level directory containing everything</li>
-              <li><strong>Home directory (~):</strong> Your personal folder (e.g., /home/your-username)</li>
-              <li><strong>Current directory (.):</strong> Where you are right now</li>
-              <li><strong>Parent directory (..):</strong> One level up from current directory</li>
-              <li><strong>Path:</strong> The location of a file or folder (e.g., /home/user/Documents)</li>
+            <h3 style={{ marginTop: 0, color: "#161616", fontWeight: 600 }}>Key Concepts</h3>
+            <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, color: "#525252" }}>
+              <li><strong style={{ color: "#161616" }}>Root directory (/):</strong> The top-level directory containing everything</li>
+              <li><strong style={{ color: "#161616" }}>Home directory (~):</strong> Your personal folder (e.g., /home/your-username)</li>
+              <li><strong style={{ color: "#161616" }}>Current directory (.):</strong> Where you are right now</li>
+              <li><strong style={{ color: "#161616" }}>Parent directory (..):</strong> One level up from current directory</li>
+              <li><strong style={{ color: "#161616" }}>Path:</strong> The location of a file or folder (e.g., /home/user/Documents)</li>
             </ul>
           </div>
         </Section>
@@ -328,15 +336,17 @@ notes-backup.txt`;
             <h2 style={{ margin: 0, fontSize: "1.5rem" }}>Comprehensive Training Materials</h2>
           </div>
 
-          <div style={{ 
-            backgroundColor: "#e8f4ff", 
-            padding: "2rem", 
-            borderRadius: "8px",
+          <div style={{
+            backgroundColor: "#ffffff",
+            padding: "2rem",
+            borderRadius: "4px",
             marginBottom: "2rem",
-            border: "2px solid #0f62fe"
+            border: "1px solid #e0e0e0",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08)",
+            borderLeft: "4px solid #0f62fe"
           }}>
-            <h3 style={{ marginTop: 0, color: "#0f62fe", marginBottom: "1rem" }}>
-              <Book size={24} style={{ verticalAlign: "middle", marginRight: "0.5rem" }} />
+            <h3 style={{ marginTop: 0, color: "#161616", marginBottom: "1rem", fontWeight: 600 }}>
+              <Book size={24} style={{ verticalAlign: "middle", marginRight: "0.5rem", color: "#0f62fe" }} />
               Complete Terminal Training Plan
             </h3>
             <p style={{ fontSize: "1rem", lineHeight: 1.8, marginBottom: "1.5rem" }}>
@@ -362,15 +372,15 @@ notes-backup.txt`;
               </Button>
             </div>
 
-            <div style={{ 
-              marginTop: "1.5rem", 
-              padding: "1rem", 
-              backgroundColor: "white", 
+            <div style={{
+              marginTop: "1.5rem",
+              padding: "1rem",
+              backgroundColor: "#f4f4f4",
               borderRadius: "4px",
               fontSize: "0.875rem"
             }}>
-              <strong>Training Topics Include:</strong>
-              <ul style={{ marginLeft: "1.5rem", marginTop: "0.5rem", marginBottom: 0, lineHeight: 1.8 }}>
+              <strong style={{ color: "#161616" }}>Training Topics Include:</strong>
+              <ul style={{ marginLeft: "1.5rem", marginTop: "0.5rem", marginBottom: 0, lineHeight: 1.8, color: "#525252" }}>
                 <li>Terminal Applications (iTerm2, Terminal.app)</li>
                 <li>Text Editors (vim, nano, VS Code)</li>
                 <li>Filesystem Navigation & Management</li>
@@ -477,14 +487,16 @@ notes-backup.txt`;
 
         {/* Next Steps */}
         <Section level={3} style={{ marginBottom: "2rem" }}>
-          <div style={{ 
-            backgroundColor: "#fff3e0", 
-            padding: "2rem", 
-            borderRadius: "8px",
-            border: "1px solid #ff832b"
+          <div style={{
+            backgroundColor: "#ffffff",
+            padding: "2rem",
+            borderRadius: "4px",
+            border: "1px solid #e0e0e0",
+            boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+            borderLeft: "4px solid #0f62fe"
           }}>
-            <h3 style={{ marginTop: 0, color: "#ff832b", marginBottom: "1rem" }}>
-              <Education size={24} style={{ verticalAlign: "middle", marginRight: "0.5rem" }} />
+            <h3 style={{ marginTop: 0, color: "#161616", marginBottom: "1rem", fontWeight: 600 }}>
+              <Education size={24} style={{ verticalAlign: "middle", marginRight: "0.5rem", color: "#0f62fe" }} />
               Ready for More?
             </h3>
             <p style={{ fontSize: "1rem", lineHeight: 1.8, marginBottom: "1.5rem" }}>

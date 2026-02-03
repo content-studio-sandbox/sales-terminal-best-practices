@@ -9,25 +9,27 @@ interface VisualDiagramProps {
 export default function VisualDiagram({ title, content, type = "concept" }: VisualDiagramProps) {
   return (
     <div style={{
-      backgroundColor: "#f4f4f4",
-      padding: "2rem",
-      borderRadius: "8px",
-      border: "2px solid #0f62fe",
+      backgroundColor: "#ffffff",
+      padding: "1.5rem",
+      borderRadius: "4px",
+      border: "1px solid #e0e0e0",
+      boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08)",
+      borderLeft: "4px solid #0f62fe",
       marginBottom: "2rem"
     }}>
       <h4 style={{
         margin: "0 0 1rem 0",
         fontSize: "1.125rem",
         fontWeight: 600,
-        color: "#0f62fe",
+        color: "#161616",
         display: "flex",
         alignItems: "center",
         gap: "0.5rem"
       }}>
-        📊 {title}
+        <span style={{ color: "#0f62fe" }}>📊</span> {title}
       </h4>
       <pre style={{
-        backgroundColor: "#ffffff",
+        backgroundColor: "#f4f4f4",
         padding: "1.5rem",
         borderRadius: "4px",
         border: "1px solid #e0e0e0",
