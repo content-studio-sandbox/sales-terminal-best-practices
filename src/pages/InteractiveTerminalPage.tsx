@@ -320,7 +320,17 @@ export default function InteractiveTerminalPage() {
                         <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 2: Install Oh My Zsh (Makes Zsh Beautiful)</strong>
                       </div>
                       <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem" }}>
+                        <code style={{
+                          backgroundColor: "#f4f4f4",
+                          padding: "3px 6px",
+                          borderRadius: "3px",
+                          fontFamily: "'IBM Plex Mono', monospace",
+                          fontSize: "0.75rem",
+                          display: "block",
+                          wordBreak: "break-all",
+                          whiteSpace: "pre-wrap",
+                          overflowWrap: "break-word"
+                        }}>
                           sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
                         </code>
                       </div>
