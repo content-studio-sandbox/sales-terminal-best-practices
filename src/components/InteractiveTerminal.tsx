@@ -5,6 +5,7 @@ import { WebLinksAddon } from "@xterm/addon-web-links";
 import "@xterm/xterm/css/xterm.css";
 import { Button } from "@carbon/react";
 import { Restart, Copy } from "@carbon/icons-react";
+import { trackSessionStart, trackSessionEnd, trackCommand, trackEditorUsage } from "../utils/analytics";
 
 interface InteractiveTerminalProps {
   initialCommands?: string[];
@@ -37,6 +38,10 @@ export default function InteractiveTerminal({
   const [vimMode, setVimMode] = useState<'normal' | 'insert' | 'command'>('normal');
   const [vimCommand, setVimCommand] = useState<string>('');
   const [fileContents, setFileContents] = useState<Record<string, string>>({});
+
+  // Analytics tracking state
+  const sessionStartTime = useRef<number>(Date.now());
+  const commandCount = useRef<number>(0);
 
   // Use refs to store latest state values for event handlers
   const currentLineRef = useRef(currentLine);
@@ -594,6 +599,9 @@ Last login: ${new Date().toLocaleString()}
       setEditorContent(lines);
       setVimMode('normal');
       
+      // Track editor usage
+      trackEditorUsage('vim', 'open', file);
+      
       return `Opening ${file} in vim...
 ~ VIM - Vi IMproved
 ~
@@ -632,6 +640,9 @@ ${lines.join('\n')}
       setEditorFile(file);
       editorFileRef.current = file; // Update ref immediately
       setEditorContent(lines);
+      
+      // Track editor usage
+      trackEditorUsage('nano', 'open', file);
       
       return `GNU nano 7.2                    ${file}
 
@@ -1290,6 +1301,11 @@ Type 'help' to see all available commands!`
     xtermRef.current = term;
     fitAddonRef.current = fitAddon;
 
+    // Track session start
+    trackSessionStart();
+    sessionStartTime.current = Date.now();
+    commandCount.current = 0;
+
     // Welcome message
     term.writeln(welcomeMessage);
     term.writeln("");
@@ -1316,8 +1332,13 @@ Type 'help' to see all available commands!`
       const trimmedCmd = cmd.trim();
       const commands = getCommands(); // Get fresh commands object
       
+      // Track command execution
+      commandCount.current++;
+      trackCommand(trimmedCmd, true);
+      
       // Check if git command is being run without git installed
       if (trimmedCmd.startsWith("git ") && !isGitInstalledRef.current) {
+        trackCommand(trimmedCmd, false);
         return "bash: git: command not found";
       }
       
@@ -1349,6 +1370,7 @@ Type 'help' to see all available commands!`
         return commands[command](args);
       }
       
+      trackCommand(trimmedCmd, false);
       return `Command not found: ${command}. Type 'help' for available commands.`;
     };
 
@@ -1412,6 +1434,7 @@ Type 'help' to see all available commands!`
                 [fileName]: content
               }));
               term.write('\r\n"' + fileName + '" written');
+              trackEditorUsage('vim', 'save', fileName);
             }
             if (cmd === 'q' || cmd === 'wq') {
               // Quit editor
@@ -1419,6 +1442,7 @@ Type 'help' to see all available commands!`
               setVimMode('normal');
               term.write('\r\n');
               term.write(getPrompt());
+              trackEditorUsage('vim', 'close', fileName);
               return;
             }
             // If invalid command, show error
@@ -1442,9 +1466,11 @@ Type 'help' to see all available commands!`
       else if (mode === 'nano') {
         // Handle Ctrl+X (code 24) - Exit
         if (code === 24) {
+          const fileName = editorFileRef.current;
           setEditorMode('none');
           term.write('\r\nExiting nano...\r\n');
           term.write(getPrompt());
+          trackEditorUsage('nano', 'close', fileName);
           return;
         }
         // Handle Ctrl+O (code 15) - Save
@@ -1456,6 +1482,7 @@ Type 'help' to see all available commands!`
             [fileName]: content
           }));
           term.write('\r\n[ Wrote ' + editorContentRef.current.length + ' lines ]\r\n');
+          trackEditorUsage('nano', 'save', fileName);
         }
         // Handle Enter
         else if (code === 13) {
@@ -1602,6 +1629,10 @@ Type 'help' to see all available commands!`
     terminalRef.current.addEventListener("click", handleClick);
 
     return () => {
+      // Track session end
+      const duration = Date.now() - sessionStartTime.current;
+      trackSessionEnd(duration, commandCount.current);
+      
       window.removeEventListener("resize", handleResize);
       if (terminalRef.current) {
         terminalRef.current.removeEventListener("click", handleClick);

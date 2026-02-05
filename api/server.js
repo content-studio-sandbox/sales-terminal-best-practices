@@ -69,6 +69,30 @@ app.get('/api/user-info', (req, res) => {
 });
 
 /**
+ * Log terminal usage analytics
+ * Tracks user interactions with the interactive terminal
+ */
+app.post('/api/terminal-analytics', (req, res) => {
+  const email = getUserEmailFromHeaders(req);
+  const name = getUserNameFromHeaders(req);
+  const { event, data } = req.body;
+  
+  // Log analytics event (will be captured by Instana)
+  console.log('[Terminal Analytics]', {
+    event,
+    user: {
+      email: email || 'anonymous',
+      name: name || 'anonymous',
+    },
+    data,
+    timestamp: new Date().toISOString(),
+    userAgent: req.get('user-agent'),
+  });
+  
+  res.json({ success: true });
+});
+
+/**
  * Health check endpoint
  */
 app.get('/api/health', (req, res) => {
