@@ -1105,6 +1105,23 @@ Type 'help' to see all available commands!`
     term.writeln(welcomeMessage);
     term.writeln("");
     
+    // Function to write output with realistic typing delay
+    const writeOutputWithDelay = async (term: Terminal, output: string, delayMs: number = 8) => {
+      const lines = output.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        // Write each character with a small delay for realistic effect
+        for (const char of line) {
+          term.write(char);
+          await new Promise(resolve => setTimeout(resolve, delayMs));
+        }
+        // Add newline after each line except the last one
+        if (i < lines.length - 1) {
+          term.writeln('');
+        }
+      }
+    };
+    
     // Define executeCommand inside useEffect to access current state
     const executeCommand = (cmd: string): string => {
       const trimmedCmd = cmd.trim();
@@ -1170,14 +1187,20 @@ Type 'help' to see all available commands!`
           setCommandHistory(prev => [...prev, trimmedLine]);
           const output = executeCommand(trimmedLine);
           if (output) {
-            // Write each line separately to avoid indentation issues
-            output.split('\n').forEach(line => term.writeln(line));
+            // Write output with realistic typing delay
+            writeOutputWithDelay(term, output, 8).then(() => {
+              term.writeln('');
+              term.write(getPrompt());
+            });
+          } else {
+            term.write(getPrompt());
           }
+        } else {
+          term.write(getPrompt());
         }
         
         setCurrentLine("");
         setHistoryIndex(-1);
-        term.write(getPrompt());
       }
       // Handle Backspace
       else if (code === 127) {

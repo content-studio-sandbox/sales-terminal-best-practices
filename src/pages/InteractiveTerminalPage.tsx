@@ -281,6 +281,70 @@ export default function InteractiveTerminalPage() {
                 {/* Lab 2: Git Workflows */}
                 {selectedLab === "lab2" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  {/* Exercise -1: Install Zsh (Optional but Recommended) */}
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1.25rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                    borderLeft: "4px solid #24a148"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#24a148" }}>
+                      Exercise -1: Install Zsh (Optional but Recommended) ⭐
+                    </h4>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: Set up a modern, powerful shell with Oh My Zsh for better terminal experience
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#f4f4f4", borderRadius: "3px" }}>
+                        <strong style={{ color: "#161616" }}>💡 Why Zsh?</strong>
+                        <p style={{ margin: "0.5rem 0 0 0", color: "#525252", fontSize: "0.8125rem" }}>
+                          Zsh provides better auto-completion, syntax highlighting, and a beautiful prompt with git branch info - exactly like what you see in this simulator!
+                        </p>
+                      </div>
+                      
+                      <div style={{ marginBottom: "0.75rem", paddingTop: "0.5rem", borderTop: "1px solid #e0e0e0" }}>
+                        <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 1: Install Zsh</strong>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>brew install zsh</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ macOS (Homebrew)</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>sudo apt-get install zsh</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Ubuntu/Debian</span>
+                      </div>
+                      
+                      <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                        <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 2: Install Oh My Zsh (Makes Zsh Beautiful)</strong>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem" }}>
+                          sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+                        </code>
+                      </div>
+                      
+                      <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                        <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 3: Make Zsh Your Default Shell</strong>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>chsh -s $(which zsh)</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Set as default</span>
+                      </div>
+                      <div style={{ paddingLeft: "1rem", marginTop: "0.5rem" }}>
+                        <span style={{ color: "#525252", fontSize: "0.8125rem" }}>Then restart your terminal to see the magic! ✨</span>
+                      </div>
+                      
+                      <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderRadius: "3px", borderLeft: "3px solid #24a148" }}>
+                        <strong style={{ color: "#24a148", fontSize: "0.8125rem" }}>🎯 Pro Tip:</strong>
+                        <p style={{ margin: "0.5rem 0 0 0", color: "#161616", fontSize: "0.8125rem" }}>
+                          After installing Oh My Zsh, your terminal will look just like this simulator with colorful prompts and git branch info!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Exercise 0: Check Git Installation */}
                   <div style={{
                     backgroundColor: "#ffffff",
