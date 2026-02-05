@@ -23,6 +23,8 @@ export default function InteractiveTerminal({
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [currentDir, setCurrentDir] = useState("/home/sales-user/projects");
   const [currentBranch, setCurrentBranch] = useState("main");
+  const [isZshInstalled, setIsZshInstalled] = useState(false);
+  const [isGitInstalled, setIsGitInstalled] = useState(false);
 
   const [fileSystem, setFileSystem] = useState<Record<string, string[]>>({
     "/home/sales-user/projects": ["project1/", "project2/", "README.md", "notes.txt"]
@@ -32,6 +34,8 @@ export default function InteractiveTerminal({
   const currentLineRef = useRef(currentLine);
   const currentDirRef = useRef(currentDir);
   const currentBranchRef = useRef(currentBranch);
+  const isZshInstalledRef = useRef(isZshInstalled);
+  const isGitInstalledRef = useRef(isGitInstalled);
   const fileSystemRef = useRef(fileSystem);
   const commandHistoryRef = useRef(commandHistory);
 
@@ -49,6 +53,14 @@ export default function InteractiveTerminal({
   }, [currentBranch]);
 
   useEffect(() => {
+    isZshInstalledRef.current = isZshInstalled;
+  }, [isZshInstalled]);
+
+  useEffect(() => {
+    isGitInstalledRef.current = isGitInstalled;
+  }, [isGitInstalled]);
+
+  useEffect(() => {
     fileSystemRef.current = fileSystem;
   }, [fileSystem]);
 
@@ -56,12 +68,17 @@ export default function InteractiveTerminal({
     commandHistoryRef.current = commandHistory;
   }, [commandHistory]);
 
-  // Generate zsh-style prompt with colors
+  // Generate prompt - bash initially, then zsh after installation
   const getPrompt = (): string => {
     const dir = currentDirRef.current.replace("/home/sales-user", "~");
-    const branch = currentBranchRef.current;
     
-    // ANSI color codes
+    // If zsh is not installed, show basic bash prompt
+    if (!isZshInstalledRef.current) {
+      return `$ `;
+    }
+    
+    // After zsh is installed, show beautiful colorful prompt
+    const branch = currentBranchRef.current;
     const cyan = "\x1b[36m";      // Cyan for username@host
     const blue = "\x1b[34m";      // Blue for directory
     const green = "\x1b[32m";     // Green for git branch
@@ -590,8 +607,16 @@ usage: git commit -m "message"`;
     
     which: (args?: string) => {
       const cmd = args?.trim() || "";
+      
+      // Check if git is being queried and it's not installed
+      if (cmd === "git" && !isGitInstalledRef.current) {
+        return "git not found";
+      }
+      
       const paths: Record<string, string> = {
         git: "/usr/bin/git",
+        zsh: "/bin/zsh",
+        bash: "/bin/bash",
         ssh: "/usr/bin/ssh",
         "ssh-keygen": "/usr/bin/ssh-keygen",
         "ssh-agent": "/usr/bin/ssh-agent",
@@ -608,6 +633,40 @@ usage: git commit -m "message"`;
       }
       
       return `${cmd} not found`;
+    },
+    
+    brew: (args?: string) => {
+      if (!args || !args.trim()) {
+        return "usage: brew install <package>";
+      }
+      
+      const pkg = args.trim().replace("install ", "");
+      
+      if (pkg === "zsh") {
+        setIsZshInstalled(true);
+        return `==> Downloading zsh...
+==> Installing zsh...
+🍺  /opt/homebrew/Cellar/zsh/5.9: 1,532 files, 15.2MB
+==> Running \`brew cleanup zsh\`...
+
+✨ Zsh installed successfully!
+💡 Your prompt will now transform to show beautiful colors and git branch info!
+🔄 Restart your terminal or run: exec zsh`;
+      }
+      
+      if (pkg === "git") {
+        setIsGitInstalled(true);
+        return `==> Downloading git...
+==> Installing git...
+🍺  /opt/homebrew/Cellar/git/2.39.3: 1,631 files, 48.4MB
+==> Running \`brew cleanup git\`...
+
+✅ Git installed successfully! You can now use git commands.`;
+      }
+      
+      return `==> Downloading ${pkg}...
+==> Installing ${pkg}...
+✓ ${pkg} installed successfully via Homebrew`;
     },
     
     // SSH key generation and management
@@ -667,37 +726,7 @@ Identity added: ${keyPath} (your.email@ibm.com)
 
 ✓ SSH key added to agent successfully`;
     },
-    
-    // Package managers
-    brew: (args?: string) => {
-      if (!args || !args.trim()) {
-        return `Example usage:
-  brew install git
-  brew update
-  brew upgrade`;
-      }
-      
-      const trimmedArgs = args.trim();
-      
-      if (trimmedArgs.startsWith("install")) {
-        const pkg = trimmedArgs.split(/\s+/)[1] || "package";
-        return `==> Downloading ${pkg}
-==> Pouring ${pkg}--2.39.3.arm64_ventura.bottle.tar.gz
-🍺  ${pkg} 2.39.3 is installed
-
-✓ ${pkg} installed successfully via Homebrew`;
-      }
-      
-      if (trimmedArgs === "update") {
-        return `==> Updating Homebrew...
-==> Auto-updated Homebrew!
-Updated 2 taps (homebrew/core and homebrew/cask).
-
-✓ Homebrew updated successfully`;
-      }
-      
-      return "Homebrew command executed";
-    },
+    // Package managers (apt for Ubuntu/Debian)
     
     apt: (args?: string) => {
       return `Reading package lists... Done
@@ -1126,6 +1155,11 @@ Type 'help' to see all available commands!`
     const executeCommand = (cmd: string): string => {
       const trimmedCmd = cmd.trim();
       const commands = getCommands(); // Get fresh commands object
+      
+      // Check if git command is being run without git installed
+      if (trimmedCmd.startsWith("git ") && !isGitInstalledRef.current) {
+        return "bash: git: command not found";
+      }
       
       // Handle echo command
       if (trimmedCmd.startsWith("echo ")) {
