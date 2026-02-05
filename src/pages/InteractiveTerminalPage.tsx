@@ -281,7 +281,7 @@ export default function InteractiveTerminalPage() {
                 {/* Lab 2: Git Workflows */}
                 {selectedLab === "lab2" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                  {/* Exercise 1: Git Setup */}
+                  {/* Exercise 0: Check Git Installation */}
                   <div style={{
                     backgroundColor: "#ffffff",
                     padding: "1.25rem",
@@ -290,10 +290,91 @@ export default function InteractiveTerminalPage() {
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                   }}>
                     <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 1: Git Configuration
+                      Exercise 0: Verify Git Installation
                     </h4>
                     <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: Setting up Git for the first time
+                      Scenario: First time using Git - check if it's installed
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git --version</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Check Git version</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>which git</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Find Git location</span>
+                      </div>
+                      <div style={{ marginBottom: "0.75rem", paddingTop: "0.5rem", borderTop: "1px solid #e0e0e0" }}>
+                        <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>📝 If Git is not installed:</strong>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>brew install git</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ macOS (Homebrew)</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>sudo apt-get install git</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Ubuntu/Debian</span>
+                      </div>
+                      <div style={{ paddingLeft: "1rem" }}>
+                        <span style={{ color: "#525252", fontSize: "0.8125rem" }}>Windows: Download from git-scm.com</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Exercise 1: SSH Key Setup */}
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1.25rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 1: Set Up SSH Keys
+                    </h4>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: Secure authentication with GitHub/Enterprise Git
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ssh-keygen -t ed25519 -C "your.email@ibm.com"</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Generate SSH key</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>eval "$(ssh-agent -s)"</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Start SSH agent</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ssh-add ~/.ssh/id_ed25519</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Add key to agent</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cat ~/.ssh/id_ed25519.pub</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Display public key</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ssh -T git@github.ibm.com</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Test connection</span>
+                      </div>
+                      <div style={{ marginTop: "0.75rem", paddingTop: "0.5rem", borderTop: "1px solid #e0e0e0", fontSize: "0.8125rem", color: "#525252" }}>
+                        💡 Copy the public key and add it to GitHub Settings → SSH Keys
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Exercise 2: Git Configuration */}
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1.25rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 2: Configure Git
+                    </h4>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: Set up your Git identity and preferences
                     </p>
                     <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
                       <div style={{ marginBottom: "0.5rem" }}>
@@ -305,13 +386,17 @@ export default function InteractiveTerminalPage() {
                         <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Set your email</span>
                       </div>
                       <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git config --global init.defaultBranch main</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Set default branch</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
                         <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git config --list</code>
                         <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Verify configuration</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Exercise 2: Clone and Explore */}
+                  {/* Exercise 3: Clone and Explore */}
                   <div style={{
                     backgroundColor: "#ffffff",
                     padding: "1.25rem",
@@ -320,7 +405,7 @@ export default function InteractiveTerminalPage() {
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                   }}>
                     <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 2: Clone and Explore Repository
+                      Exercise 3: Clone and Explore Repository
                     </h4>
                     <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
                       Scenario: Starting work on a project
@@ -345,7 +430,7 @@ export default function InteractiveTerminalPage() {
                     </div>
                   </div>
 
-                  {/* Exercise 3: Branching */}
+                  {/* Exercise 4: Branching */}
                   <div style={{
                     backgroundColor: "#ffffff",
                     padding: "1.25rem",
@@ -354,7 +439,7 @@ export default function InteractiveTerminalPage() {
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                   }}>
                     <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 3: Create and Switch Branches
+                      Exercise 4: Create and Switch Branches
                     </h4>
                     <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
                       Scenario: Working on a new feature
@@ -379,7 +464,7 @@ export default function InteractiveTerminalPage() {
                     </div>
                   </div>
 
-                  {/* Exercise 4: Commit Workflow */}
+                  {/* Exercise 5: Commit Workflow */}
                   <div style={{
                     backgroundColor: "#ffffff",
                     padding: "1.25rem",
@@ -388,7 +473,7 @@ export default function InteractiveTerminalPage() {
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                   }}>
                     <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 4: Stage and Commit Changes
+                      Exercise 5: Stage and Commit Changes
                     </h4>
                     <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
                       Scenario: Saving your work
@@ -413,7 +498,7 @@ export default function InteractiveTerminalPage() {
                     </div>
                   </div>
 
-                  {/* Exercise 5: Push and Pull */}
+                  {/* Exercise 6: Push and Pull */}
                   <div style={{
                     backgroundColor: "#ffffff",
                     padding: "1.25rem",
@@ -422,7 +507,7 @@ export default function InteractiveTerminalPage() {
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                   }}>
                     <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 5: Sync with Remote
+                      Exercise 6: Sync with Remote
                     </h4>
                     <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
                       Scenario: Sharing your work with the team
