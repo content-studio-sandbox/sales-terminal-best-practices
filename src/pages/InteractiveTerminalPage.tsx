@@ -1,9 +1,15 @@
-import React from "react";
-import { Grid, Column, Heading, Section } from "@carbon/react";
-import { Terminal, Keyboard } from "@carbon/icons-react";
+import React, { useState } from "react";
+import { Grid, Column, Heading, Section, Dropdown } from "@carbon/react";
+import { Terminal, Keyboard, Branch } from "@carbon/icons-react";
 import InteractiveTerminal from "../components/InteractiveTerminal";
 
 export default function InteractiveTerminalPage() {
+  const [selectedLab, setSelectedLab] = useState("lab1");
+
+  const labs = [
+    { id: "lab1", text: "Lab 1: Terminal Basics" },
+    { id: "lab2", text: "Lab 2: Git Workflows" }
+  ];
   return (
     <Grid fullWidth className="page-container">
       <Column lg={16} md={8} sm={4}>
@@ -99,10 +105,27 @@ export default function InteractiveTerminalPage() {
                 padding: "1.5rem",
                 borderRadius: "4px"
               }}>
-                <h3 style={{ marginTop: 0, fontSize: "1.125rem", fontWeight: 600, marginBottom: "1.5rem", color: "#161616" }}>
-                  Practice Exercises
-                </h3>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem" }}>
+                  <h3 style={{ margin: 0, fontSize: "1.125rem", fontWeight: 600, color: "#161616" }}>
+                    Practice Exercises
+                  </h3>
+                </div>
                 
+                {/* Lab Selector Dropdown */}
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <Dropdown
+                    id="lab-selector"
+                    titleText="Select Lab"
+                    label="Choose a lab"
+                    items={labs}
+                    itemToString={(item) => (item ? item.text : "")}
+                    selectedItem={labs.find(lab => lab.id === selectedLab)}
+                    onChange={({ selectedItem }) => setSelectedLab(selectedItem?.id || "lab1")}
+                  />
+                </div>
+                
+                {/* Lab 1: Terminal Basics */}
+                {selectedLab === "lab1" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   {/* Exercise 1 */}
                   <div style={{
@@ -253,6 +276,187 @@ export default function InteractiveTerminalPage() {
                     </div>
                   </div>
                 </div>
+                )}
+
+                {/* Lab 2: Git Workflows */}
+                {selectedLab === "lab2" && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  {/* Exercise 1: Git Setup */}
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1.25rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 1: Git Configuration
+                    </h4>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: Setting up Git for the first time
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git config --global user.name "Your Name"</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Set your name</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git config --global user.email "you@ibm.com"</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Set your email</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git config --list</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Verify configuration</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Exercise 2: Clone and Explore */}
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1.25rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 2: Clone and Explore Repository
+                    </h4>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: Starting work on a project
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git clone https://github.com/example/repo.git</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Clone repository</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cd repo</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Enter directory</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Check status</span>
+                      </div>
+                      <div>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git log --oneline -5</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ View recent commits</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Exercise 3: Branching */}
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1.25rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 3: Create and Switch Branches
+                    </h4>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: Working on a new feature
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git branch</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ List branches</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git checkout -b feature/new-feature</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Create & switch branch</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git branch</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Verify current branch</span>
+                      </div>
+                      <div>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git checkout main</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Switch back to main</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Exercise 4: Commit Workflow */}
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1.25rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 4: Stage and Commit Changes
+                    </h4>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: Saving your work
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>touch newfile.txt</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Create a file</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ See untracked file</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git add newfile.txt</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Stage the file</span>
+                      </div>
+                      <div>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git commit -m "Add new file"</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Commit changes</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Exercise 5: Push and Pull */}
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1.25rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 5: Sync with Remote
+                    </h4>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      Scenario: Sharing your work with the team
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git pull origin main</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Get latest changes</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git push origin feature/new-feature</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Push your branch</span>
+                      </div>
+                      <div>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git diff main</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Compare with main</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Pro Tip for Git */}
+                  <div style={{
+                    backgroundColor: "#e8f4ff",
+                    padding: "1rem",
+                    borderRadius: "4px",
+                    border: "1px solid #0f62fe",
+                    marginTop: "0.5rem"
+                  }}>
+                    <div style={{ fontSize: "0.875rem", color: "#161616", lineHeight: 1.6 }}>
+                      <strong style={{ color: "#0f62fe" }}>💡 Pro Tip:</strong> Always <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git pull</code> before starting work and <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code> frequently to stay aware of your changes.
+                    </div>
+                  </div>
+                </div>
+                )}
               </div>
             </div>
           </div>
