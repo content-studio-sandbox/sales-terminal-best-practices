@@ -30,6 +30,14 @@ export default function InteractiveTerminal({
     "/home/sales-user/projects": ["project1/", "project2/", "README.md", "notes.txt"]
   });
 
+  // Editor mode state
+  const [editorMode, setEditorMode] = useState<'none' | 'vim' | 'nano'>('none');
+  const [editorFile, setEditorFile] = useState<string>('');
+  const [editorContent, setEditorContent] = useState<string[]>([]);
+  const [vimMode, setVimMode] = useState<'normal' | 'insert' | 'command'>('normal');
+  const [vimCommand, setVimCommand] = useState<string>('');
+  const [fileContents, setFileContents] = useState<Record<string, string>>({});
+
   // Use refs to store latest state values for event handlers
   const currentLineRef = useRef(currentLine);
   const currentDirRef = useRef(currentDir);
@@ -38,6 +46,12 @@ export default function InteractiveTerminal({
   const isGitInstalledRef = useRef(isGitInstalled);
   const fileSystemRef = useRef(fileSystem);
   const commandHistoryRef = useRef(commandHistory);
+  const editorModeRef = useRef(editorMode);
+  const editorFileRef = useRef(editorFile);
+  const editorContentRef = useRef(editorContent);
+  const vimModeRef = useRef(vimMode);
+  const vimCommandRef = useRef(vimCommand);
+  const fileContentsRef = useRef(fileContents);
 
   // Update refs when state changes
   useEffect(() => {
@@ -67,6 +81,30 @@ export default function InteractiveTerminal({
   useEffect(() => {
     commandHistoryRef.current = commandHistory;
   }, [commandHistory]);
+
+  useEffect(() => {
+    editorModeRef.current = editorMode;
+  }, [editorMode]);
+
+  useEffect(() => {
+    editorFileRef.current = editorFile;
+  }, [editorFile]);
+
+  useEffect(() => {
+    editorContentRef.current = editorContent;
+  }, [editorContent]);
+
+  useEffect(() => {
+    vimModeRef.current = vimMode;
+  }, [vimMode]);
+
+  useEffect(() => {
+    vimCommandRef.current = vimCommand;
+  }, [vimCommand]);
+
+  useEffect(() => {
+    fileContentsRef.current = fileContents;
+  }, [fileContents]);
 
   // Generate prompt - bash initially, then zsh after installation
   const getPrompt = (): string => {
@@ -345,6 +383,11 @@ export default function TerminalBasicsPage() {
         return `cat: ${fileName}: No such file or directory`;
       }
       
+      // Check if file has saved content from editor
+      if (fileContentsRef.current[fileName]) {
+        return fileContentsRef.current[fileName];
+      }
+      
       if (fileName === "README.md") {
         return "# Sales Terminal Best Practices\n\nA comprehensive guide for mastering terminal commands and Git workflows.\n\n## Features\n- Interactive terminal simulator\n- Git workflow tutorials\n- Real-world examples\n\n## Getting Started\nExplore the src/ directory to see the codebase.";
       }
@@ -540,21 +583,32 @@ Last login: ${new Date().toLocaleString()}
         }));
       }
       
+      // Load existing file content or start with empty
+      const content = fileContentsRef.current[file] || '';
+      const lines = content ? content.split('\n') : [''];
+      
+      // Enter vim editor mode
+      setEditorMode('vim');
+      setEditorFile(file);
+      editorFileRef.current = file; // Update ref immediately
+      setEditorContent(lines);
+      setVimMode('normal');
+      
       return `Opening ${file} in vim...
 ~ VIM - Vi IMproved
 ~
 ~ version 9.0
 ~ by Bram Moolenaar et al.
 ~
-~ type  :help<Enter>       for information
-~ type  :q<Enter>          to exit
-~ type  :wq<Enter>         to save and exit
+~ Press 'i' to enter INSERT mode
+~ Press ESC to return to NORMAL mode
+~ Type ':w' to save, ':q' to quit, ':wq' to save and quit
 ~
-"${file}" [New File]
--- INSERT --
+"${file}" ${content ? `${lines.length}L, ${content.length}C` : '[New File]'}
 
-✏️  File opened in vim. Changes saved automatically.
-💡 In a real terminal, you would edit the file interactively.`;
+${lines.join('\n')}
+
+-- NORMAL MODE -- (Press 'i' for INSERT mode)`;
     },
     
     nano: (args?: string) => {
@@ -569,17 +623,25 @@ Last login: ${new Date().toLocaleString()}
         }));
       }
       
+      // Load existing file content or start with empty
+      const content = fileContentsRef.current[file] || '';
+      const lines = content ? content.split('\n') : [''];
+      
+      // Enter nano editor mode
+      setEditorMode('nano');
+      setEditorFile(file);
+      editorFileRef.current = file; // Update ref immediately
+      setEditorContent(lines);
+      
       return `GNU nano 7.2                    ${file}
 
-
-  
+${lines.join('\n')}
 
 
 ^G Help     ^O Write Out ^W Where Is  ^K Cut
 ^X Exit     ^R Read File ^\\ Replace   ^U Paste
 
-✏️  File opened in nano. Changes saved automatically.
-💡 In a real terminal, you would edit the file interactively.`;
+-- INSERT MODE -- (Type to edit, Ctrl+X to exit, Ctrl+O to save)`;
     },
     
     // Git commands
@@ -1290,6 +1352,140 @@ Type 'help' to see all available commands!`
       return `Command not found: ${command}. Type 'help' for available commands.`;
     };
 
+    // Handle editor input (vim/nano)
+    const handleEditorInput = (term: Terminal, data: string, code: number) => {
+      const mode = editorModeRef.current;
+      
+      if (mode === 'vim') {
+        const vimModeVal = vimModeRef.current;
+        
+        // Handle ESC key (code 27)
+        if (code === 27) {
+          setVimMode('normal');
+          return;
+        }
+        
+        // NORMAL MODE
+        if (vimModeVal === 'normal') {
+          if (data === 'i') {
+            setVimMode('insert');
+          } else if (data === ':') {
+            setVimMode('command');
+            setVimCommand('');
+            term.write('\r\n:');
+          }
+        }
+        // INSERT MODE
+        else if (vimModeVal === 'insert') {
+          if (code === 13) { // Enter
+            setEditorContent(prev => [...prev, '']);
+            term.write('\r\n');
+          } else if (code === 127) { // Backspace
+            setEditorContent(prev => {
+              const newContent = [...prev];
+              const lastLine = newContent[newContent.length - 1];
+              if (lastLine.length > 0) {
+                newContent[newContent.length - 1] = lastLine.slice(0, -1);
+                term.write('\b \b');
+              }
+              return newContent;
+            });
+          } else if (code >= 32 && code < 127) {
+            setEditorContent(prev => {
+              const newContent = [...prev];
+              newContent[newContent.length - 1] += data;
+              return newContent;
+            });
+            term.write(data);
+          }
+        }
+        // COMMAND MODE
+        else if (vimModeVal === 'command') {
+          if (code === 13) { // Enter - execute command
+            const cmd = vimCommandRef.current;
+            const fileName = editorFileRef.current;
+            if (cmd === 'w' || cmd === 'wq') {
+              // Save file
+              const content = editorContentRef.current.join('\n');
+              setFileContents(prev => ({
+                ...prev,
+                [fileName]: content
+              }));
+              term.write('\r\n"' + fileName + '" written');
+            }
+            if (cmd === 'q' || cmd === 'wq') {
+              // Quit editor
+              setEditorMode('none');
+              setVimMode('normal');
+              term.write('\r\n');
+              term.write(getPrompt());
+              return;
+            }
+            // If invalid command, show error
+            if (cmd && cmd !== 'w' && cmd !== 'q' && cmd !== 'wq') {
+              term.write('\r\nE492: Not an editor command: ' + cmd);
+            }
+            setVimMode('normal');
+          } else if (code === 127) { // Backspace
+            setVimCommand(prev => {
+              const newCmd = prev.slice(0, -1);
+              term.write('\b \b');
+              return newCmd;
+            });
+          } else if (code >= 32 && code < 127) {
+            setVimCommand(prev => prev + data);
+            term.write(data);
+          }
+        }
+      }
+      // NANO MODE (always in insert mode)
+      else if (mode === 'nano') {
+        // Handle Ctrl+X (code 24) - Exit
+        if (code === 24) {
+          setEditorMode('none');
+          term.write('\r\nExiting nano...\r\n');
+          term.write(getPrompt());
+          return;
+        }
+        // Handle Ctrl+O (code 15) - Save
+        else if (code === 15) {
+          const fileName = editorFileRef.current;
+          const content = editorContentRef.current.join('\n');
+          setFileContents(prev => ({
+            ...prev,
+            [fileName]: content
+          }));
+          term.write('\r\n[ Wrote ' + editorContentRef.current.length + ' lines ]\r\n');
+        }
+        // Handle Enter
+        else if (code === 13) {
+          setEditorContent(prev => [...prev, '']);
+          term.write('\r\n');
+        }
+        // Handle Backspace
+        else if (code === 127) {
+          setEditorContent(prev => {
+            const newContent = [...prev];
+            const lastLine = newContent[newContent.length - 1];
+            if (lastLine.length > 0) {
+              newContent[newContent.length - 1] = lastLine.slice(0, -1);
+              term.write('\b \b');
+            }
+            return newContent;
+          });
+        }
+        // Handle regular characters
+        else if (code >= 32 && code < 127) {
+          setEditorContent(prev => {
+            const newContent = [...prev];
+            newContent[newContent.length - 1] += data;
+            return newContent;
+          });
+          term.write(data);
+        }
+      }
+    };
+
     // Run initial commands
     initialCommands.forEach(cmd => {
       term.write(getPrompt());
@@ -1310,6 +1506,12 @@ Type 'help' to see all available commands!`
     term.onData((data) => {
       const code = data.charCodeAt(0);
 
+      // Check if we're in editor mode
+      if (editorModeRef.current !== 'none') {
+        handleEditorInput(term, data, code);
+        return;
+      }
+
       // Handle Enter
       if (code === 13) {
         term.write("\r\n");
@@ -1322,10 +1524,16 @@ Type 'help' to see all available commands!`
             // Write output with realistic typing delay
             writeOutputWithDelay(term, output, 8).then(() => {
               term.writeln('');
-              term.write(getPrompt());
+              // Only show prompt if we're not in editor mode
+              if (editorModeRef.current === 'none') {
+                term.write(getPrompt());
+              }
             });
           } else {
-            term.write(getPrompt());
+            // Only show prompt if we're not in editor mode
+            if (editorModeRef.current === 'none') {
+              term.write(getPrompt());
+            }
           }
         } else {
           term.write(getPrompt());

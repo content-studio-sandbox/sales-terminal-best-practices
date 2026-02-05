@@ -1,15 +1,30 @@
 import React, { useState } from "react";
 import { Grid, Column, Heading, Section, Dropdown } from "@carbon/react";
-import { Terminal, Keyboard, Branch } from "@carbon/icons-react";
+import { Terminal, Keyboard, Branch, ChevronDown, ChevronUp } from "@carbon/icons-react";
 import InteractiveTerminal from "../components/InteractiveTerminal";
+import ExerciseCard from "../components/ExerciseCard";
+import { CodeWithCopy } from "../components/CodeWithCopy";
 
 export default function InteractiveTerminalPage() {
   const [selectedLab, setSelectedLab] = useState("lab1");
+  const [expandedExercises, setExpandedExercises] = useState<Set<string>>(new Set());
 
   const labs = [
     { id: "lab1", text: "Lab 1: Terminal Basics" },
     { id: "lab2", text: "Lab 2: Git Workflows" }
   ];
+
+  const toggleExercise = (exerciseId: string) => {
+    setExpandedExercises(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(exerciseId)) {
+        newSet.delete(exerciseId);
+      } else {
+        newSet.add(exerciseId);
+      }
+      return newSet;
+    });
+  };
   return (
     <Grid fullWidth className="page-container">
       <Column lg={16} md={8} sm={4}>
@@ -120,140 +135,60 @@ export default function InteractiveTerminalPage() {
                 {selectedLab === "lab1" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   {/* Exercise 1 */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 1: Environment Discovery
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: You've just logged into a client's server
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>whoami</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Verify your user identity</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>pwd</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Confirm working directory</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ls -la</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ List all files (including hidden)</span>
-                      </div>
-                      <div>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>hostname</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Identify the server</span>
-                      </div>
-                    </div>
-                  </div>
+                  <ExerciseCard
+                    id="lab1-ex1"
+                    title="Exercise 1: Environment Discovery"
+                    scenario="Scenario: You've just logged into a client's server"
+                    isExpanded={expandedExercises.has('lab1-ex1')}
+                    onToggle={toggleExercise}
+                  >
+                    <CodeWithCopy code="whoami" description="Verify your user identity" />
+                    <CodeWithCopy code="pwd" description="Confirm working directory" />
+                    <CodeWithCopy code="ls -la" description="List all files (including hidden)" />
+                    <CodeWithCopy code="hostname" description="Identify the server" />
+                  </ExerciseCard>
 
                   {/* Exercise 2 */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 2: Repository Management
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: Checking deployment status
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Check repo state</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git branch</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ View current branch</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git log --oneline -5</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Recent commits</span>
-                      </div>
-                      <div>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git diff</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ View uncommitted changes</span>
-                      </div>
-                    </div>
-                  </div>
+                  <ExerciseCard
+                    id="lab1-ex2"
+                    title="Exercise 2: Repository Management"
+                    scenario="Scenario: Checking deployment status"
+                    isExpanded={expandedExercises.has('lab1-ex2')}
+                    onToggle={toggleExercise}
+                  >
+                    <CodeWithCopy code="git status" description="Check repo state" />
+                    <CodeWithCopy code="git branch" description="View current branch" />
+                    <CodeWithCopy code="git log --oneline -5" description="Recent commits" />
+                    <CodeWithCopy code="git diff" description="View uncommitted changes" />
+                  </ExerciseCard>
 
                   {/* Exercise 3 */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 3: File System Operations
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: Organizing project files
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>mkdir -p docs/api</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Create nested directories</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>touch README.md</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Create documentation</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cp config.yml config.bak</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Backup configuration</span>
-                      </div>
-                      <div>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>find . -name "*.log"</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Locate log files</span>
-                      </div>
-                    </div>
-                  </div>
+                  <ExerciseCard
+                    id="lab1-ex3"
+                    title="Exercise 3: File System Operations"
+                    scenario="Scenario: Organizing project files"
+                    isExpanded={expandedExercises.has('lab1-ex3')}
+                    onToggle={toggleExercise}
+                  >
+                    <CodeWithCopy code="mkdir -p docs/api" description="Create nested directories" />
+                    <CodeWithCopy code="touch README.md" description="Create documentation" />
+                    <CodeWithCopy code="cp config.yml config.bak" description="Backup configuration" />
+                    <CodeWithCopy code='find . -name "*.log"' description="Locate log files" />
+                  </ExerciseCard>
 
                   {/* Exercise 4 */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 4: System Diagnostics
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: Troubleshooting performance issues
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>df -h</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Check disk space</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ps aux | grep node</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Find Node processes</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>tail -f app.log</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Monitor logs live</span>
-                      </div>
-                      <div>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>netstat -tuln</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Check open ports</span>
-                      </div>
-                    </div>
-                  </div>
+                  <ExerciseCard
+                    id="lab1-ex4"
+                    title="Exercise 4: System Diagnostics"
+                    scenario="Scenario: Troubleshooting performance issues"
+                    isExpanded={expandedExercises.has('lab1-ex4')}
+                    onToggle={toggleExercise}
+                  >
+                    <CodeWithCopy code="df -h" description="Check disk space" />
+                    <CodeWithCopy code="ps aux | grep node" description="Find Node processes" />
+                    <CodeWithCopy code="tail -f app.log" description="Monitor logs live" />
+                    <CodeWithCopy code="netstat -tuln" description="Check open ports" />
+                  </ExerciseCard>
 
                   {/* Pro Tip */}
                   <div style={{
@@ -274,21 +209,14 @@ export default function InteractiveTerminalPage() {
                 {selectedLab === "lab2" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   {/* Exercise -1: Install Zsh (Optional but Recommended) */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
-                    borderLeft: "4px solid #24a148"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#24a148" }}>
-                      Exercise -1: Install Zsh (Optional but Recommended) ⭐
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: Set up a modern, powerful shell with Oh My Zsh for better terminal experience
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                  <ExerciseCard
+                    id="lab2-ex-1"
+                    title="Exercise -1: Install Zsh (Optional but Recommended) ⭐"
+                    scenario="Scenario: Set up a modern, powerful shell with Oh My Zsh for better terminal experience"
+                    isExpanded={expandedExercises.has('lab2-ex-1')}
+                    onToggle={toggleExercise}
+                    special={true}
+                  >
                       <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#f4f4f4", borderRadius: "3px" }}>
                         <strong style={{ color: "#161616" }}>💡 Why Zsh?</strong>
                         <p style={{ margin: "0.5rem 0 0 0", color: "#525252", fontSize: "0.8125rem" }}>
@@ -299,40 +227,26 @@ export default function InteractiveTerminalPage() {
                       <div style={{ marginBottom: "0.75rem", paddingTop: "0.5rem", borderTop: "1px solid #e0e0e0" }}>
                         <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 1: Install Zsh</strong>
                       </div>
-                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>brew install zsh</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ macOS (Homebrew)</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>sudo apt-get install zsh</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Ubuntu/Debian</span>
+                      <div style={{ paddingLeft: "1rem" }}>
+                        <CodeWithCopy code="brew install zsh" description="macOS (Homebrew)" />
+                        <CodeWithCopy code="sudo apt-get install zsh" description="Ubuntu/Debian" />
                       </div>
                       
                       <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
                         <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 2: Install Oh My Zsh (Makes Zsh Beautiful)</strong>
                       </div>
-                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
-                        <code style={{
-                          backgroundColor: "#f4f4f4",
-                          padding: "3px 6px",
-                          borderRadius: "3px",
-                          fontFamily: "'IBM Plex Mono', monospace",
-                          fontSize: "0.75rem",
-                          display: "block",
-                          wordBreak: "break-all",
-                          whiteSpace: "pre-wrap",
-                          overflowWrap: "break-word"
-                        }}>
-                          sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-                        </code>
+                      <div style={{ paddingLeft: "1rem" }}>
+                        <CodeWithCopy
+                          code='sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+                          block={true}
+                        />
                       </div>
                       
                       <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
                         <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 3: Make Zsh Your Default Shell</strong>
                       </div>
-                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>chsh -s $(which zsh)</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Set as default</span>
+                      <div style={{ paddingLeft: "1rem" }}>
+                        <CodeWithCopy code="chsh -s $(which zsh)" description="Set as default" />
                       </div>
                       <div style={{ paddingLeft: "1rem", marginTop: "0.5rem" }}>
                         <span style={{ color: "#525252", fontSize: "0.8125rem" }}>Then restart your terminal to see the magic! ✨</span>
@@ -344,139 +258,70 @@ export default function InteractiveTerminalPage() {
                           After installing Oh My Zsh, your terminal will look just like this simulator with colorful prompts and git branch info!
                         </p>
                       </div>
-                    </div>
-                  </div>
+                  </ExerciseCard>
 
                   {/* Exercise 0: Check Git Installation */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 0: Verify Git Installation
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: First time using Git - check if it's installed
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git --version</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Check Git version</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>which git</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Find Git location</span>
-                      </div>
+                  <ExerciseCard
+                    id="lab2-ex0"
+                    title="Exercise 0: Verify Git Installation"
+                    scenario="First time using Git - check if it's installed"
+                    isExpanded={expandedExercises.has('lab2-ex0')}
+                    onToggle={toggleExercise}
+                  >
+                      <CodeWithCopy code="git --version" description="Check Git version" />
+                      <CodeWithCopy code="which git" description="Find Git location" />
                       <div style={{ marginBottom: "0.75rem", paddingTop: "0.5rem", borderTop: "1px solid #e0e0e0" }}>
                         <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>📝 If Git is not installed:</strong>
                       </div>
-                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>brew install git</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ macOS (Homebrew)</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem", paddingLeft: "1rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>sudo apt-get install git</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Ubuntu/Debian</span>
+                      <div style={{ paddingLeft: "1rem" }}>
+                        <CodeWithCopy code="brew install git" description="macOS (Homebrew)" />
+                        <CodeWithCopy code="sudo apt-get install git" description="Ubuntu/Debian" />
                       </div>
                       <div style={{ paddingLeft: "1rem" }}>
                         <span style={{ color: "#525252", fontSize: "0.8125rem" }}>Windows: Download from git-scm.com</span>
                       </div>
-                    </div>
-                  </div>
+                  </ExerciseCard>
 
                   {/* Exercise 1: SSH Key Setup */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 1: Set Up SSH Keys
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: Secure authentication with GitHub/Enterprise Git
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ssh-keygen -t ed25519 -C "your.email@ibm.com"</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Generate SSH key</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>eval "$(ssh-agent -s)"</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Start SSH agent</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ssh-add ~/.ssh/id_ed25519</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Add key to agent</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cat ~/.ssh/id_ed25519.pub</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Display public key</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ssh -T git@github.ibm.com</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Test connection</span>
-                      </div>
+                  <ExerciseCard
+                    id="lab2-ex1"
+                    title="Exercise 1: Set Up SSH Keys"
+                    scenario="Secure authentication with GitHub/Enterprise Git"
+                    isExpanded={expandedExercises.has('lab2-ex1')}
+                    onToggle={toggleExercise}
+                  >
+                      <CodeWithCopy code='ssh-keygen -t ed25519 -C "your.email@ibm.com"' description="Generate SSH key" />
+                      <CodeWithCopy code='eval "$(ssh-agent -s)"' description="Start SSH agent" />
+                      <CodeWithCopy code="ssh-add ~/.ssh/id_ed25519" description="Add key to agent" />
+                      <CodeWithCopy code="cat ~/.ssh/id_ed25519.pub" description="Display public key" />
+                      <CodeWithCopy code="ssh -T git@github.ibm.com" description="Test connection" />
                       <div style={{ marginTop: "0.75rem", paddingTop: "0.5rem", borderTop: "1px solid #e0e0e0", fontSize: "0.8125rem", color: "#525252" }}>
                         💡 Copy the public key and add it to GitHub Settings → SSH Keys
                       </div>
-                    </div>
-                  </div>
+                  </ExerciseCard>
 
                   {/* Exercise 2: Git Configuration */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 2: Configure Git
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: Set up your Git identity and preferences
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git config --global user.name "Your Name"</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Set your name</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git config --global user.email "you@ibm.com"</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Set your email</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git config --global init.defaultBranch main</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Set default branch</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git config --list</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Verify configuration</span>
-                      </div>
-                    </div>
-                  </div>
+                  <ExerciseCard
+                    id="lab2-ex2"
+                    title="Exercise 2: Configure Git"
+                    scenario="Set up your Git identity and preferences"
+                    isExpanded={expandedExercises.has('lab2-ex2')}
+                    onToggle={toggleExercise}
+                  >
+                      <CodeWithCopy code='git config --global user.name "Your Name"' description="Set your name" />
+                      <CodeWithCopy code='git config --global user.email "you@ibm.com"' description="Set your email" />
+                      <CodeWithCopy code="git config --global init.defaultBranch main" description="Set default branch" />
+                      <CodeWithCopy code="git config --list" description="Verify configuration" />
+                  </ExerciseCard>
 
                   {/* Exercise 3: Real-World Feature Implementation */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 3: Clone Real Repo & Implement Feature
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      🎯 Real Scenario: Add a new terminal tip to this very app!
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                  <ExerciseCard
+                    id="lab2-ex3"
+                    title="Exercise 3: Clone Real Repo & Implement Feature"
+                    scenario="🎯 Real Scenario: Add a new terminal tip to this very app!"
+                    isExpanded={expandedExercises.has('lab2-ex3')}
+                    onToggle={toggleExercise}
+                  >
                       <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
                         <strong style={{ color: "#0f62fe" }}>📦 Your Mission:</strong> Clone the sales-terminal-best-practices repo and add a new tip to the Terminal Basics page
                       </div>
@@ -484,53 +329,32 @@ export default function InteractiveTerminalPage() {
                       <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 1: Clone the repository
                       </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem", display: "block", wordBreak: "break-all", whiteSpace: "pre-wrap", overflowWrap: "break-word" }}>
-                          git clone https://github.com/content-studio-sandbox/sales-terminal-best-practices.git
-                        </code>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cd sales-terminal-best-practices</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Enter the project</span>
-                      </div>
+                      <CodeWithCopy
+                        code="git clone https://github.com/content-studio-sandbox/sales-terminal-best-practices.git"
+                        block={true}
+                      />
+                      <CodeWithCopy code="cd sales-terminal-best-practices" description="Enter the project" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 2: Explore the codebase
                       </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ls -la</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ See project structure</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git log --oneline -5</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ View recent commits</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cat README.md</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Read project docs</span>
-                      </div>
+                      <CodeWithCopy code="ls -la" description="See project structure" />
+                      <CodeWithCopy code="git log --oneline -5" description="View recent commits" />
+                      <CodeWithCopy code="cat README.md" description="Read project docs" />
                       
                       <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderLeft: "3px solid #f1c21b", borderRadius: "3px", fontSize: "0.8125rem" }}>
                         💡 <strong>Pro Tip:</strong> Always explore a repo before making changes. Check the README, recent commits, and project structure!
                       </div>
-                    </div>
-                  </div>
+                  </ExerciseCard>
 
                   {/* Exercise 4: Feature Branch & Implementation */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 4: Create Feature Branch & Make Changes
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      🚀 Real Scenario: Implement the "Add Terminal Tip" feature
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                  <ExerciseCard
+                    id="lab2-ex4"
+                    title="Exercise 4: Create Feature Branch & Make Changes"
+                    scenario="🚀 Real Scenario: Implement the 'Add Terminal Tip' feature"
+                    isExpanded={expandedExercises.has('lab2-ex4')}
+                    onToggle={toggleExercise}
+                  >
                       <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
                         <strong style={{ color: "#0f62fe" }}>🎯 Your Task:</strong> Add a new tip about using <code style={{ backgroundColor: "#e0e0e0", padding: "2px 4px", borderRadius: "2px" }}>git status</code> frequently
                       </div>
@@ -538,26 +362,14 @@ export default function InteractiveTerminalPage() {
                       <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 1: Create a feature branch
                       </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git checkout -b feature/add-git-status-tip</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Create & switch to feature branch</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git branch</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Verify you're on the new branch</span>
-                      </div>
+                      <CodeWithCopy code="git checkout -b feature/add-git-status-tip" description="Create & switch to feature branch" />
+                      <CodeWithCopy code="git branch" description="Verify you're on the new branch" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 2: Find the file to edit
                       </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ls src/pages/</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ List page files</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cat src/pages/TerminalBasicsPage.tsx | head -50</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Preview the file</span>
-                      </div>
+                      <CodeWithCopy code="ls src/pages/" description="List page files" />
+                      <CodeWithCopy code="cat src/pages/TerminalBasicsPage.tsx | head -50" description="Preview the file" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 3: Make your changes
@@ -572,44 +384,27 @@ export default function InteractiveTerminalPage() {
                           {`}`}
                         </div>
                       </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>nano src/pages/TerminalBasicsPage.tsx</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Edit the file (or use vim/code)</span>
-                      </div>
+                      <CodeWithCopy code="nano src/pages/TerminalBasicsPage.tsx" description="Edit the file (or use vim/code)" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 4: Check what changed
                       </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ See modified files</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git diff src/pages/TerminalBasicsPage.tsx</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ View exact changes</span>
-                      </div>
+                      <CodeWithCopy code="git status" description="See modified files" />
+                      <CodeWithCopy code="git diff src/pages/TerminalBasicsPage.tsx" description="View exact changes" />
                       
                       <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderLeft: "3px solid #f1c21b", borderRadius: "3px", fontSize: "0.8125rem" }}>
                         💡 <strong>Best Practice:</strong> Always review your changes with <code style={{ backgroundColor: "#e0e0e0", padding: "2px 4px", borderRadius: "2px" }}>git diff</code> before committing!
                       </div>
-                    </div>
-                  </div>
+                  </ExerciseCard>
 
                   {/* Exercise 5: Commit Your Feature */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 5: Stage and Commit Your Changes
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      📝 Real Scenario: Save your terminal tip feature with a good commit message
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                  <ExerciseCard
+                    id="lab2-ex5"
+                    title="Exercise 5: Stage and Commit Your Changes"
+                    scenario="📝 Real Scenario: Save your terminal tip feature with a good commit message"
+                    isExpanded={expandedExercises.has('lab2-ex5')}
+                    onToggle={toggleExercise}
+                  >
                       <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
                         <strong style={{ color: "#0f62fe" }}>🎯 Goal:</strong> Create a clean, professional commit for your feature
                       </div>
@@ -617,39 +412,23 @@ export default function InteractiveTerminalPage() {
                       <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 1: Stage your changes
                       </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Confirm what changed</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git add src/pages/TerminalBasicsPage.tsx</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Stage the modified file</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Verify file is staged (green)</span>
-                      </div>
+                      <CodeWithCopy code="git status" description="Confirm what changed" />
+                      <CodeWithCopy code="git add src/pages/TerminalBasicsPage.tsx" description="Stage the modified file" />
+                      <CodeWithCopy code="git status" description="Verify file is staged (green)" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 2: Write a good commit message
                       </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem", display: "block", wordBreak: "break-all", whiteSpace: "pre-wrap", overflowWrap: "break-word" }}>
-                          git commit -m "feat: add git status tip to Terminal Basics page"
-                        </code>
-                      </div>
+                      <CodeWithCopy
+                        code='git commit -m "feat: add git status tip to Terminal Basics page"'
+                        block={true}
+                      />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 3: Verify your commit
                       </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git log --oneline -1</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ See your latest commit</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git show</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ View commit details</span>
-                      </div>
+                      <CodeWithCopy code="git log --oneline -1" description="See your latest commit" />
+                      <CodeWithCopy code="git show" description="View commit details" />
                       
                       <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderLeft: "3px solid #24a148", borderRadius: "3px", fontSize: "0.8125rem" }}>
                         ✅ <strong>Commit Message Best Practices:</strong>
@@ -660,24 +439,16 @@ export default function InteractiveTerminalPage() {
                           <li>Explain WHAT and WHY, not HOW</li>
                         </ul>
                       </div>
-                    </div>
-                  </div>
+                  </ExerciseCard>
 
                   {/* Exercise 6: Push and Create PR */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 6: Push Branch & Create Pull Request
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      🚀 Real Scenario: Share your feature with the team for review
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                  <ExerciseCard
+                    id="lab2-ex6"
+                    title="Exercise 6: Push Branch & Create Pull Request"
+                    scenario="🚀 Real Scenario: Share your feature with the team for review"
+                    isExpanded={expandedExercises.has('lab2-ex6')}
+                    onToggle={toggleExercise}
+                  >
                       <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
                         <strong style={{ color: "#0f62fe" }}>🎯 Goal:</strong> Push your feature branch and open a PR for team review
                       </div>
@@ -685,28 +456,18 @@ export default function InteractiveTerminalPage() {
                       <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 1: Sync with remote main
                       </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git checkout main</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Switch to main branch</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git pull origin main</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Get latest changes</span>
-                      </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git checkout feature/add-git-status-tip</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Back to your branch</span>
-                      </div>
+                      <CodeWithCopy code="git checkout main" description="Switch to main branch" />
+                      <CodeWithCopy code="git pull origin main" description="Get latest changes" />
+                      <CodeWithCopy code="git checkout feature/add-git-status-tip" description="Back to your branch" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 2: Push your feature branch
                       </div>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem", display: "block", wordBreak: "break-all", whiteSpace: "pre-wrap", overflowWrap: "break-word" }}>
-                          git push -u origin feature/add-git-status-tip
-                        </code>
-                        <span style={{ color: "#525252", marginTop: "0.25rem", display: "block" }}>→ Push and set upstream tracking</span>
-                      </div>
+                      <CodeWithCopy
+                        code="git push -u origin feature/add-git-status-tip"
+                        description="Push and set upstream tracking"
+                        block={true}
+                      />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 3: Create Pull Request
@@ -747,8 +508,7 @@ export default function InteractiveTerminalPage() {
                           <li>✅ Pushed and created a PR</li>
                         </ul>
                       </div>
-                    </div>
-                  </div>
+                  </ExerciseCard>
 
                   {/* Pro Tip for Git */}
                   <div style={{
@@ -765,6 +525,17 @@ export default function InteractiveTerminalPage() {
                 </div>
                 )}
               </div>
+            </div>
+
+            {/* Terminal Simulator - Right Side */}
+            <div style={{
+              maxWidth: "100%",
+              overflow: "hidden"
+            }}>
+              <InteractiveTerminal
+                welcomeMessage="🚀 FSM Terminal Practice Environment - Type 'help' to get started!"
+                initialCommands={[]}
+              />
             </div>
           </div>
         </Section>
