@@ -72,6 +72,10 @@ export default function InteractiveTerminal({
   echo [text]     - Echo text back
 
 🔧 Git Commands:
+  git --version   - Check Git version
+  git config      - Configure Git settings
+  git add [file]  - Stage files for commit
+  git commit -m   - Commit staged changes
   git status      - Show git status
   git clone [url] - Clone repository
   git log         - Show commit history
@@ -83,6 +87,9 @@ export default function InteractiveTerminal({
 
 🌐 Network & SSH:
   ssh [host]      - SSH into remote server
+  ssh-keygen      - Generate SSH key pair
+  ssh-agent       - Start SSH agent
+  ssh-add [key]   - Add SSH key to agent
   scp [file]      - Secure copy files
   ping [host]     - Ping a host
   curl [url]      - Make HTTP request
@@ -105,11 +112,17 @@ export default function InteractiveTerminal({
 
 💻 System:
   whoami          - Display current user
+  which [cmd]     - Locate a command
   date            - Show date and time
   top             - Show processes
   df -h           - Disk usage
   free -h         - Memory usage
   ps aux          - List processes
+  
+📦 Package Managers:
+  brew [cmd]      - Homebrew (macOS)
+  apt-get [cmd]   - APT (Debian/Ubuntu)
+  sudo [cmd]      - Run command as admin
   
 📚 Utilities:
   clear           - Clear terminal
@@ -222,6 +235,14 @@ export default function InteractiveTerminal({
         return "cat: missing file operand";
       }
       const fileName = args.trim();
+      
+      // Handle SSH public key file specially
+      if (fileName === "~/.ssh/id_ed25519.pub" || fileName === ".ssh/id_ed25519.pub" || fileName.includes("id_ed25519.pub")) {
+        return `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl your.email@ibm.com
+
+✓ This is your SSH public key - copy this and add it to GitHub Settings → SSH Keys`;
+      }
+      
       const files = fileSystemRef.current[currentDirRef.current] || [];
       
       if (!files.includes(fileName)) {
@@ -478,6 +499,228 @@ index abc123d..def456e 100644
 +    await this.initialize();
    }
  }`,
+    
+    // Git configuration commands
+    "git config": (args?: string) => {
+      if (!args || !args.trim()) {
+        return `usage: git config [--global] <key> <value>
+   or: git config --list`;
+      }
+      
+      const trimmedArgs = args.trim();
+      
+      if (trimmedArgs === "--list" || trimmedArgs === "-l") {
+        return `user.name=Sales User
+user.email=sales@ibm.com
+init.defaultBranch=main
+core.editor=vim
+color.ui=auto
+push.default=simple`;
+      }
+      
+      if (trimmedArgs.includes("--global")) {
+        const parts = trimmedArgs.split(/\s+/);
+        if (parts.length >= 3) {
+          const key = parts[1];
+          const value = parts.slice(2).join(" ").replace(/['"]/g, "");
+          return `✓ Set ${key} to "${value}"`;
+        }
+      }
+      
+      return "Configuration updated successfully";
+    },
+    
+    "git add": (args?: string) => {
+      if (!args || !args.trim()) {
+        return "Nothing specified, nothing added.\nMaybe you wanted to say 'git add .'?";
+      }
+      
+      const files = args.trim();
+      if (files === ".") {
+        return "✓ Staged all changes";
+      }
+      
+      return `✓ Staged: ${files}`;
+    },
+    
+    "git commit": (args?: string) => {
+      if (!args || !args.includes("-m")) {
+        return `error: no commit message provided
+usage: git commit -m "message"`;
+      }
+      
+      const match = args.match(/-m\s+["']([^"']+)["']/);
+      const message = match ? match[1] : "Update files";
+      
+      return `[main abc123d] ${message}
+ 1 file changed, 5 insertions(+), 2 deletions(-)`;
+    },
+    
+    // Git setup and utility commands
+    "git --version": () => "git version 2.39.3",
+    
+    "git version": () => "git version 2.39.3",
+    
+    which: (args?: string) => {
+      const cmd = args?.trim() || "";
+      const paths: Record<string, string> = {
+        git: "/usr/bin/git",
+        ssh: "/usr/bin/ssh",
+        "ssh-keygen": "/usr/bin/ssh-keygen",
+        "ssh-agent": "/usr/bin/ssh-agent",
+        "ssh-add": "/usr/bin/ssh-add",
+        brew: "/opt/homebrew/bin/brew",
+        node: "/usr/local/bin/node",
+        npm: "/usr/local/bin/npm",
+        docker: "/usr/local/bin/docker",
+        kubectl: "/usr/local/bin/kubectl"
+      };
+      
+      if (paths[cmd]) {
+        return paths[cmd];
+      }
+      
+      return `${cmd} not found`;
+    },
+    
+    // SSH key generation and management
+    "ssh-keygen": (args?: string) => {
+      if (!args || !args.includes("-t")) {
+        return `usage: ssh-keygen -t ed25519 -C "your.email@example.com"`;
+      }
+      
+      return `Generating public/private ed25519 key pair.
+Enter file in which to save the key (/Users/sales-user/.ssh/id_ed25519): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/sales-user/.ssh/id_ed25519
+Your public key has been saved in /Users/sales-user/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:abc123def456ghi789jkl012mno345pqr678stu901 your.email@ibm.com
+The key's randomart image is:
++--[ED25519 256]--+
+|        .o+      |
+|       . o =     |
+|        o B +    |
+|       . = B o   |
+|        S = * .  |
+|         o * =   |
+|          + B    |
+|         . + o   |
+|          E.o    |
++----[SHA256]-----+
+
+✓ SSH key pair generated successfully!
+✓ Public key: ~/.ssh/id_ed25519.pub
+✓ Private key: ~/.ssh/id_ed25519`;
+    },
+    
+    eval: (args?: string) => {
+      if (args?.includes("ssh-agent")) {
+        return `Agent pid 12345
+SSH_AUTH_SOCK=/tmp/ssh-XXXXXX/agent.12345; export SSH_AUTH_SOCK;
+SSH_AGENT_PID=12345; export SSH_AGENT_PID;
+echo Agent pid 12345;
+
+✓ SSH agent started successfully`;
+      }
+      return "eval: command evaluation simulated";
+    },
+    
+    "ssh-agent": () => {
+      return `SSH_AUTH_SOCK=/tmp/ssh-XXXXXX/agent.12345; export SSH_AUTH_SOCK;
+SSH_AGENT_PID=12345; export SSH_AGENT_PID;
+echo Agent pid 12345;`;
+    },
+    
+    "ssh-add": (args?: string) => {
+      const keyPath = args?.trim() || "~/.ssh/id_ed25519";
+      return `Enter passphrase for ${keyPath}: 
+Identity added: ${keyPath} (your.email@ibm.com)
+
+✓ SSH key added to agent successfully`;
+    },
+    
+    // Package managers
+    brew: (args?: string) => {
+      if (!args || !args.trim()) {
+        return `Example usage:
+  brew install git
+  brew update
+  brew upgrade`;
+      }
+      
+      const trimmedArgs = args.trim();
+      
+      if (trimmedArgs.startsWith("install")) {
+        const pkg = trimmedArgs.split(/\s+/)[1] || "package";
+        return `==> Downloading ${pkg}
+==> Pouring ${pkg}--2.39.3.arm64_ventura.bottle.tar.gz
+🍺  ${pkg} 2.39.3 is installed
+
+✓ ${pkg} installed successfully via Homebrew`;
+      }
+      
+      if (trimmedArgs === "update") {
+        return `==> Updating Homebrew...
+==> Auto-updated Homebrew!
+Updated 2 taps (homebrew/core and homebrew/cask).
+
+✓ Homebrew updated successfully`;
+      }
+      
+      return "Homebrew command executed";
+    },
+    
+    apt: (args?: string) => {
+      return `Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  git
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+
+✓ Package installed successfully via apt`;
+    },
+    
+    "apt-get": (args?: string) => {
+      if (args?.includes("install git")) {
+        return `Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  git git-man liberror-perl
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 8,524 kB of archives.
+After this operation, 43.6 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 git amd64 1:2.34.1-1ubuntu1 [3,165 kB]
+Fetched 8,524 kB in 2s (4,262 kB/s)
+Selecting previously unselected package git.
+Unpacking git (1:2.34.1-1ubuntu1) ...
+Setting up git (1:2.34.1-1ubuntu1) ...
+
+✓ Git installed successfully via apt-get`;
+      }
+      return "apt-get command executed";
+    },
+    
+    sudo: (args?: string) => {
+      if (!args) {
+        return "usage: sudo <command>";
+      }
+      
+      // Simulate sudo by running the command
+      const command = args.trim();
+      if (command.startsWith("apt-get install git")) {
+        return `[sudo] password for sales-user: 
+Reading package lists... Done
+Building dependency tree... Done
+Git installed successfully`;
+      }
+      
+      return `[sudo] password for sales-user: 
+Command executed with sudo privileges`;
+    },
     
     // Network commands
     ssh: (args?: string) => {
