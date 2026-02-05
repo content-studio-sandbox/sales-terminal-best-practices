@@ -35,6 +35,8 @@ export default function InteractiveTerminal({
   const [editorMode, setEditorMode] = useState<'none' | 'vim' | 'nano'>('none');
   const [editorFile, setEditorFile] = useState<string>('');
   const [editorContent, setEditorContent] = useState<string[]>([]);
+  const [cursorRow, setCursorRow] = useState<number>(0);
+  const [cursorCol, setCursorCol] = useState<number>(0);
   const [vimMode, setVimMode] = useState<'normal' | 'insert' | 'command'>('normal');
   const [vimCommand, setVimCommand] = useState<string>('');
   const [fileContents, setFileContents] = useState<Record<string, string>>({});
@@ -54,6 +56,8 @@ export default function InteractiveTerminal({
   const editorModeRef = useRef(editorMode);
   const editorFileRef = useRef(editorFile);
   const editorContentRef = useRef(editorContent);
+  const cursorRowRef = useRef(cursorRow);
+  const cursorColRef = useRef(cursorCol);
   const vimModeRef = useRef(vimMode);
   const vimCommandRef = useRef(vimCommand);
   const fileContentsRef = useRef(fileContents);
@@ -111,6 +115,14 @@ export default function InteractiveTerminal({
     fileContentsRef.current = fileContents;
   }, [fileContents]);
 
+  useEffect(() => {
+    cursorRowRef.current = cursorRow;
+  }, [cursorRow]);
+
+  useEffect(() => {
+    cursorColRef.current = cursorCol;
+  }, [cursorCol]);
+
   // Generate prompt - bash initially, then zsh after installation
   const getPrompt = (): string => {
     const dir = currentDirRef.current.replace("/home/sales-user", "~");
@@ -130,6 +142,64 @@ export default function InteractiveTerminal({
     
     // Build prompt: sales-user@ibm ~/projects (main) ❯
     return `${cyan}${bold}sales-user@ibm${reset} ${blue}${dir}${reset} ${green}(${branch})${reset} ❯ `;
+  };
+
+  // Helper function to get file content (used by cat, vim, nano)
+  const getFileContent = (fileName: string): string => {
+    // Check if file has saved content from editor (use ref to avoid stale closure)
+    if (fileContentsRef.current[fileName]) {
+      return fileContentsRef.current[fileName];
+    }
+    
+    // Handle SSH public key file
+    if (fileName === "~/.ssh/id_ed25519.pub" || fileName === ".ssh/id_ed25519.pub" || fileName.includes("id_ed25519.pub")) {
+      return `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl your.email@ibm.com`;
+    }
+    
+    // Handle special files in cloned repo
+    if (fileName.includes("TerminalBasicsPage.tsx") || fileName.includes("src/pages/TerminalBasicsPage.tsx")) {
+      return `import React from 'react';
+import { Button } from '@carbon/react';
+
+export default function TerminalBasicsPage() {
+  const tips = [
+    {
+      icon: "⌨️",
+      title: "Use Tab Completion",
+      description: "Press Tab to auto-complete file and directory names."
+    },
+    {
+      icon: "🔍",
+      title: "Search Command History",
+      description: "Press Ctrl+R to search through your command history."
+    },
+    {
+      icon: "📂",
+      title: "Navigate Efficiently",
+      description: "Use 'cd -' to go back to the previous directory."
+    }
+  ];
+
+  return (
+    <div>
+      <h1>Terminal Basics</h1>
+      {tips.map((tip, index) => (
+        <div key={index}>
+          <span>{tip.icon}</span>
+          <h3>{tip.title}</h3>
+          <p>{tip.description}</p>
+        </div>
+      ))}
+    </div>
+  );
+}`;
+    }
+    
+    if (fileName === "README.md") {
+      return "# Sales Terminal Best Practices\n\nA comprehensive guide for mastering terminal commands and Git workflows.\n\n## Features\n- Interactive terminal simulator\n- Git workflow tutorials\n- Real-world examples\n\n## Getting Started\nExplore the src/ directory to see the codebase.";
+    }
+    
+    return ""; // Empty file
   };
 
   // Move commands inside useEffect or use a function that returns commands
@@ -579,7 +649,14 @@ Last login: ${new Date().toLocaleString()}
     vim: (args?: string) => {
       const file = args?.trim() || "untitled";
       
-      // Create file if it doesn't exist
+      // Load file content using helper function
+      const content = getFileContent(file);
+      const lines = content ? content.split('\n') : [''];
+      
+      // Determine if this is a new file or existing file
+      const isNewFile = !content && !fileContentsRef.current[file];
+      
+      // Create file in filesystem if it doesn't exist
       const files = fileSystemRef.current[currentDirRef.current] || [];
       if (!files.includes(file) && file !== "untitled") {
         setFileSystem(prev => ({
@@ -588,15 +665,13 @@ Last login: ${new Date().toLocaleString()}
         }));
       }
       
-      // Load existing file content or start with empty
-      const content = fileContentsRef.current[file] || '';
-      const lines = content ? content.split('\n') : [''];
-      
       // Enter vim editor mode
       setEditorMode('vim');
       setEditorFile(file);
       editorFileRef.current = file; // Update ref immediately
       setEditorContent(lines);
+      setCursorRow(0);
+      setCursorCol(0);
       setVimMode('normal');
       
       // Track editor usage
@@ -612,7 +687,7 @@ Last login: ${new Date().toLocaleString()}
 ~ Press ESC to return to NORMAL mode
 ~ Type ':w' to save, ':q' to quit, ':wq' to save and quit
 ~
-"${file}" ${content ? `${lines.length}L, ${content.length}C` : '[New File]'}
+"${file}" ${isNewFile ? '[New File]' : `${lines.length}L, ${content.length}C`}
 
 ${lines.join('\n')}
 
@@ -622,7 +697,11 @@ ${lines.join('\n')}
     nano: (args?: string) => {
       const file = args?.trim() || "untitled";
       
-      // Create file if it doesn't exist
+      // Load file content using helper function
+      const content = getFileContent(file);
+      const lines = content ? content.split('\n') : [''];
+      
+      // Create file in filesystem if it doesn't exist
       const files = fileSystemRef.current[currentDirRef.current] || [];
       if (!files.includes(file) && file !== "untitled") {
         setFileSystem(prev => ({
@@ -631,15 +710,13 @@ ${lines.join('\n')}
         }));
       }
       
-      // Load existing file content or start with empty
-      const content = fileContentsRef.current[file] || '';
-      const lines = content ? content.split('\n') : [''];
-      
       // Enter nano editor mode
       setEditorMode('nano');
       setEditorFile(file);
       editorFileRef.current = file; // Update ref immediately
       setEditorContent(lines);
+      setCursorRow(0);
+      setCursorCol(0);
       
       // Track editor usage
       trackEditorUsage('nano', 'open', file);
@@ -1378,12 +1455,86 @@ Type 'help' to see all available commands!`
     const handleEditorInput = (term: Terminal, data: string, code: number) => {
       const mode = editorModeRef.current;
       
+      // Handle arrow keys (escape sequences)
+      if (data.startsWith('\x1b[')) {
+        const currentRow = cursorRowRef.current;
+        const currentCol = cursorColRef.current;
+        const content = editorContentRef.current;
+        const vimModeVal = vimModeRef.current;
+        
+        // Arrow Up
+        if (data === '\x1b[A') {
+          if (currentRow > 0) {
+            const newRow = currentRow - 1;
+            setCursorRow(newRow);
+            cursorRowRef.current = newRow;
+            // Adjust column if new line is shorter
+            const newLineLength = content[newRow]?.length || 0;
+            if (currentCol > newLineLength) {
+              setCursorCol(newLineLength);
+              cursorColRef.current = newLineLength;
+            }
+            // Show visual feedback in NORMAL mode
+            if (mode === 'vim' && vimModeVal === 'normal') {
+              term.write('\r\n↑ Moved to line ' + (newRow + 1));
+            }
+          }
+          return;
+        }
+        // Arrow Down
+        else if (data === '\x1b[B') {
+          if (currentRow < content.length - 1) {
+            const newRow = currentRow + 1;
+            setCursorRow(newRow);
+            cursorRowRef.current = newRow;
+            // Adjust column if new line is shorter
+            const newLineLength = content[newRow]?.length || 0;
+            if (currentCol > newLineLength) {
+              setCursorCol(newLineLength);
+              cursorColRef.current = newLineLength;
+            }
+            // Show visual feedback in NORMAL mode
+            if (mode === 'vim' && vimModeVal === 'normal') {
+              term.write('\r\n↓ Moved to line ' + (newRow + 1));
+            }
+          }
+          return;
+        }
+        // Arrow Right
+        else if (data === '\x1b[C') {
+          const currentLineLength = content[currentRow]?.length || 0;
+          if (currentCol < currentLineLength) {
+            const newCol = currentCol + 1;
+            setCursorCol(newCol);
+            cursorColRef.current = newCol;
+          }
+          return;
+        }
+        // Arrow Left
+        else if (data === '\x1b[D') {
+          if (currentCol > 0) {
+            const newCol = currentCol - 1;
+            setCursorCol(newCol);
+            cursorColRef.current = newCol;
+          }
+          return;
+        }
+      }
+      
       if (mode === 'vim') {
         const vimModeVal = vimModeRef.current;
         
         // Handle ESC key (code 27)
         if (code === 27) {
           setVimMode('normal');
+          // Show updated file content
+          const content = editorContentRef.current;
+          term.write('\r\n\nFile content:\r\n');
+          content.forEach((line, idx) => {
+            const marker = idx === cursorRowRef.current ? '> ' : '  ';
+            term.write(`${marker}${line}\r\n`);
+          });
+          term.write('\r\n-- NORMAL MODE -- (Press \'i\' for INSERT, arrow keys to navigate)');
           return;
         }
         
@@ -1391,6 +1542,11 @@ Type 'help' to see all available commands!`
         if (vimModeVal === 'normal') {
           if (data === 'i') {
             setVimMode('insert');
+            // Show which line is being edited
+            const currentRow = cursorRowRef.current;
+            const currentLine = editorContentRef.current[currentRow] || '';
+            term.write(`\r\n-- INSERT MODE -- (Editing line ${currentRow + 1})\r\n`);
+            term.write(`> ${currentLine}`);
           } else if (data === ':') {
             setVimMode('command');
             setVimCommand('');
@@ -1399,25 +1555,63 @@ Type 'help' to see all available commands!`
         }
         // INSERT MODE
         else if (vimModeVal === 'insert') {
+          const currentRow = cursorRowRef.current;
+          const currentCol = cursorColRef.current;
+          
           if (code === 13) { // Enter
-            setEditorContent(prev => [...prev, '']);
-            term.write('\r\n');
-          } else if (code === 127) { // Backspace
             setEditorContent(prev => {
               const newContent = [...prev];
-              const lastLine = newContent[newContent.length - 1];
-              if (lastLine.length > 0) {
-                newContent[newContent.length - 1] = lastLine.slice(0, -1);
-                term.write('\b \b');
-              }
+              const currentLine = newContent[currentRow] || '';
+              // Split line at cursor position
+              const beforeCursor = currentLine.slice(0, currentCol);
+              const afterCursor = currentLine.slice(currentCol);
+              newContent[currentRow] = beforeCursor;
+              newContent.splice(currentRow + 1, 0, afterCursor);
               return newContent;
             });
+            // Move cursor to start of new line
+            setCursorRow(currentRow + 1);
+            cursorRowRef.current = currentRow + 1;
+            setCursorCol(0);
+            cursorColRef.current = 0;
+            term.write('\r\n');
+          } else if (code === 127) { // Backspace
+            if (currentCol > 0) {
+              setEditorContent(prev => {
+                const newContent = [...prev];
+                const currentLine = newContent[currentRow] || '';
+                newContent[currentRow] = currentLine.slice(0, currentCol - 1) + currentLine.slice(currentCol);
+                return newContent;
+              });
+              setCursorCol(currentCol - 1);
+              cursorColRef.current = currentCol - 1;
+              term.write('\b \b');
+            } else if (currentRow > 0) {
+              // Backspace at start of line - merge with previous line
+              setEditorContent(prev => {
+                const newContent = [...prev];
+                const prevLine = newContent[currentRow - 1] || '';
+                const currentLine = newContent[currentRow] || '';
+                newContent[currentRow - 1] = prevLine + currentLine;
+                newContent.splice(currentRow, 1);
+                return newContent;
+              });
+              const prevLineLength = editorContentRef.current[currentRow - 1]?.length || 0;
+              setCursorRow(currentRow - 1);
+              cursorRowRef.current = currentRow - 1;
+              setCursorCol(prevLineLength);
+              cursorColRef.current = prevLineLength;
+            }
           } else if (code >= 32 && code < 127) {
             setEditorContent(prev => {
               const newContent = [...prev];
-              newContent[newContent.length - 1] += data;
+              const currentLine = newContent[currentRow] || '';
+              // Insert character at cursor position
+              newContent[currentRow] = currentLine.slice(0, currentCol) + data + currentLine.slice(currentCol);
               return newContent;
             });
+            setCursorCol(currentCol + 1);
+            cursorColRef.current = currentCol + 1;
             term.write(data);
           }
         }
@@ -1464,6 +1658,9 @@ Type 'help' to see all available commands!`
       }
       // NANO MODE (always in insert mode)
       else if (mode === 'nano') {
+        const currentRow = cursorRowRef.current;
+        const currentCol = cursorColRef.current;
+        
         // Handle Ctrl+X (code 24) - Exit
         if (code === 24) {
           const fileName = editorFileRef.current;
@@ -1486,28 +1683,63 @@ Type 'help' to see all available commands!`
         }
         // Handle Enter
         else if (code === 13) {
-          setEditorContent(prev => [...prev, '']);
+          setEditorContent(prev => {
+            const newContent = [...prev];
+            const currentLine = newContent[currentRow] || '';
+            // Split line at cursor position
+            const beforeCursor = currentLine.slice(0, currentCol);
+            const afterCursor = currentLine.slice(currentCol);
+            newContent[currentRow] = beforeCursor;
+            newContent.splice(currentRow + 1, 0, afterCursor);
+            return newContent;
+          });
+          // Move cursor to start of new line
+          setCursorRow(currentRow + 1);
+          cursorRowRef.current = currentRow + 1;
+          setCursorCol(0);
+          cursorColRef.current = 0;
           term.write('\r\n');
         }
         // Handle Backspace
         else if (code === 127) {
-          setEditorContent(prev => {
-            const newContent = [...prev];
-            const lastLine = newContent[newContent.length - 1];
-            if (lastLine.length > 0) {
-              newContent[newContent.length - 1] = lastLine.slice(0, -1);
-              term.write('\b \b');
-            }
-            return newContent;
-          });
+          if (currentCol > 0) {
+            setEditorContent(prev => {
+              const newContent = [...prev];
+              const currentLine = newContent[currentRow] || '';
+              newContent[currentRow] = currentLine.slice(0, currentCol - 1) + currentLine.slice(currentCol);
+              return newContent;
+            });
+            setCursorCol(currentCol - 1);
+            cursorColRef.current = currentCol - 1;
+            term.write('\b \b');
+          } else if (currentRow > 0) {
+            // Backspace at start of line - merge with previous line
+            setEditorContent(prev => {
+              const newContent = [...prev];
+              const prevLine = newContent[currentRow - 1] || '';
+              const currentLine = newContent[currentRow] || '';
+              newContent[currentRow - 1] = prevLine + currentLine;
+              newContent.splice(currentRow, 1);
+              return newContent;
+            });
+            const prevLineLength = editorContentRef.current[currentRow - 1]?.length || 0;
+            setCursorRow(currentRow - 1);
+            cursorRowRef.current = currentRow - 1;
+            setCursorCol(prevLineLength);
+            cursorColRef.current = prevLineLength;
+          }
         }
         // Handle regular characters
         else if (code >= 32 && code < 127) {
           setEditorContent(prev => {
             const newContent = [...prev];
-            newContent[newContent.length - 1] += data;
+            const currentLine = newContent[currentRow] || '';
+            // Insert character at cursor position
+            newContent[currentRow] = currentLine.slice(0, currentCol) + data + currentLine.slice(currentCol);
             return newContent;
           });
+          setCursorCol(currentCol + 1);
+          cursorColRef.current = currentCol + 1;
           term.write(data);
         }
       }
