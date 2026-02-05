@@ -845,6 +845,7 @@ export default function InteractiveTerminalPage() {
                   <li>This demonstrates what you'll see when connecting to real servers</li>
                 </ol>
               </div>
+            </div>
 
             {/* Terminal Simulator - Right Side */}
             <div>
@@ -852,7 +853,6 @@ export default function InteractiveTerminalPage() {
                 welcomeMessage="🚀 FSM Terminal Practice Environment - Type 'help' to get started!"
                 initialCommands={[]}
               />
-            </div>
             </div>
           </div>
         </Section>
