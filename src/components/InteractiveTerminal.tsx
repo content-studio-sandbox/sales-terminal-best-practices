@@ -22,6 +22,7 @@ export default function InteractiveTerminal({
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [currentDir, setCurrentDir] = useState("/home/sales-user/projects");
+  const [currentBranch, setCurrentBranch] = useState("main");
 
   const [fileSystem, setFileSystem] = useState<Record<string, string[]>>({
     "/home/sales-user/projects": ["project1/", "project2/", "README.md", "notes.txt"]
@@ -30,6 +31,7 @@ export default function InteractiveTerminal({
   // Use refs to store latest state values for event handlers
   const currentLineRef = useRef(currentLine);
   const currentDirRef = useRef(currentDir);
+  const currentBranchRef = useRef(currentBranch);
   const fileSystemRef = useRef(fileSystem);
   const commandHistoryRef = useRef(commandHistory);
 
@@ -43,12 +45,32 @@ export default function InteractiveTerminal({
   }, [currentDir]);
 
   useEffect(() => {
+    currentBranchRef.current = currentBranch;
+  }, [currentBranch]);
+
+  useEffect(() => {
     fileSystemRef.current = fileSystem;
   }, [fileSystem]);
 
   useEffect(() => {
     commandHistoryRef.current = commandHistory;
   }, [commandHistory]);
+
+  // Generate zsh-style prompt with colors
+  const getPrompt = (): string => {
+    const dir = currentDirRef.current.replace("/home/sales-user", "~");
+    const branch = currentBranchRef.current;
+    
+    // ANSI color codes
+    const cyan = "\x1b[36m";      // Cyan for username@host
+    const blue = "\x1b[34m";      // Blue for directory
+    const green = "\x1b[32m";     // Green for git branch
+    const reset = "\x1b[0m";      // Reset color
+    const bold = "\x1b[1m";       // Bold text
+    
+    // Build prompt: sales-user@ibm ~/projects (main) ❯
+    return `${cyan}${bold}sales-user@ibm${reset} ${blue}${dir}${reset} ${green}(${branch})${reset} ❯ `;
+  };
 
   // Move commands inside useEffect or use a function that returns commands
   const getCommands = (): Record<string, (args?: string) => string> => ({
@@ -462,7 +484,12 @@ Last login: ${new Date().toLocaleString()}
       if (!args || !args.trim()) {
         return "error: you must specify a branch name";
       }
-      return `Switched to branch '${args.trim()}'`;
+      const branch = args.trim().replace("-b ", "");
+      setCurrentBranch(branch);
+      if (args.includes("-b")) {
+        return `Switched to a new branch '${branch}'`;
+      }
+      return `Switched to branch '${branch}'`;
     },
     
     "git pull": () => `remote: Enumerating objects: 15, done.
@@ -1116,7 +1143,8 @@ Type 'help' to see all available commands!`
 
     // Run initial commands
     initialCommands.forEach(cmd => {
-      term.writeln(`$ ${cmd}`);
+      term.write(getPrompt());
+      term.writeln(cmd);
       const output = executeCommand(cmd);
       if (output) {
         // Write each line separately to avoid indentation issues
@@ -1124,7 +1152,7 @@ Type 'help' to see all available commands!`
       }
     });
     
-    term.write("$ ");
+    term.write(getPrompt());
     
     // Focus terminal on mount
     term.focus();
@@ -1149,7 +1177,7 @@ Type 'help' to see all available commands!`
         
         setCurrentLine("");
         setHistoryIndex(-1);
-        term.write("$ ");
+        term.write(getPrompt());
       }
       // Handle Backspace
       else if (code === 127) {
@@ -1166,7 +1194,8 @@ Type 'help' to see all available commands!`
           const cmd = commandHistory[commandHistory.length - 1 - newIndex];
           
           // Clear current line
-          term.write("\r\x1b[K$ ");
+          term.write("\r\x1b[K");
+          term.write(getPrompt());
           term.write(cmd);
           setCurrentLine(cmd);
         }
@@ -1179,12 +1208,14 @@ Type 'help' to see all available commands!`
           const cmd = commandHistory[commandHistory.length - 1 - newIndex];
           
           // Clear current line
-          term.write("\r\x1b[K$ ");
+          term.write("\r\x1b[K");
+          term.write(getPrompt());
           term.write(cmd);
           setCurrentLine(cmd);
         } else if (historyIndex === 0) {
           setHistoryIndex(-1);
-          term.write("\r\x1b[K$ ");
+          term.write("\r\x1b[K");
+          term.write(getPrompt());
           setCurrentLine("");
         }
       }
@@ -1221,11 +1252,12 @@ Type 'help' to see all available commands!`
       xtermRef.current.clear();
       xtermRef.current.writeln(welcomeMessage);
       xtermRef.current.writeln("");
-      xtermRef.current.write("$ ");
+      xtermRef.current.write(getPrompt());
       setCurrentLine("");
       setCommandHistory([]);
       setHistoryIndex(-1);
       setCurrentDir("/home/sales-user/projects");
+      setCurrentBranch("main");
       setFileSystem({
         "/home/sales-user/projects": ["project1/", "project2/", "README.md", "notes.txt"]
       });
