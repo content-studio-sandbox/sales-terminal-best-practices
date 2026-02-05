@@ -273,13 +273,70 @@ export default function InteractiveTerminal({
       if (!args || !args.trim()) {
         return "cat: missing file operand";
       }
-      const fileName = args.trim();
+      
+      // Handle pipe commands (e.g., cat file | head -50)
+      const pipeIndex = args.indexOf("|");
+      let fileName = args.trim();
+      let pipeCommand = "";
+      
+      if (pipeIndex !== -1) {
+        fileName = args.substring(0, pipeIndex).trim();
+        pipeCommand = args.substring(pipeIndex + 1).trim();
+      }
       
       // Handle SSH public key file specially
       if (fileName === "~/.ssh/id_ed25519.pub" || fileName === ".ssh/id_ed25519.pub" || fileName.includes("id_ed25519.pub")) {
         return `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl your.email@ibm.com
 
 ✓ This is your SSH public key - copy this and add it to GitHub Settings → SSH Keys`;
+      }
+      
+      // Handle special files in cloned repo
+      if (fileName.includes("TerminalBasicsPage.tsx") || fileName.includes("src/pages/TerminalBasicsPage.tsx")) {
+        const content = `import React from 'react';
+import { Button } from '@carbon/react';
+
+export default function TerminalBasicsPage() {
+  const tips = [
+    {
+      icon: "⌨️",
+      title: "Use Tab Completion",
+      description: "Press Tab to auto-complete file and directory names."
+    },
+    {
+      icon: "🔍",
+      title: "Search Command History",
+      description: "Press Ctrl+R to search through your command history."
+    },
+    {
+      icon: "📂",
+      title: "Navigate Efficiently",
+      description: "Use 'cd -' to go back to the previous directory."
+    }
+  ];
+
+  return (
+    <div>
+      <h1>Terminal Basics</h1>
+      {tips.map((tip, index) => (
+        <div key={index}>
+          <span>{tip.icon}</span>
+          <h3>{tip.title}</h3>
+          <p>{tip.description}</p>
+        </div>
+      ))}
+    </div>
+  );
+}`;
+        
+        // Handle pipe to head
+        if (pipeCommand.startsWith("head")) {
+          const lines = content.split("\n");
+          const numLines = pipeCommand.includes("-") ? parseInt(pipeCommand.split("-")[1]) || 10 : 10;
+          return lines.slice(0, numLines).join("\n");
+        }
+        
+        return content;
       }
       
       const files = fileSystemRef.current[currentDirRef.current] || [];
@@ -289,7 +346,7 @@ export default function InteractiveTerminal({
       }
       
       if (fileName === "README.md") {
-        return "# Welcome to FSM Technical Best Practices\n\nThis is a learning environment for terminal commands.";
+        return "# Sales Terminal Best Practices\n\nA comprehensive guide for mastering terminal commands and Git workflows.\n\n## Features\n- Interactive terminal simulator\n- Git workflow tutorials\n- Real-world examples\n\n## Getting Started\nExplore the src/ directory to see the codebase.";
       }
       
       return `Contents of ${fileName}\n(This is a simulated file system)`;
@@ -310,13 +367,21 @@ nothing to commit, working tree clean`,
       const repoUrl = args.trim();
       const repoName = repoUrl.split("/").pop()?.replace(".git", "") || "repository";
       
-      // Add the cloned repo to file system
+      // Add the cloned repo to file system with realistic structure
       const files = fileSystemRef.current[currentDirRef.current] || [];
       if (!files.includes(repoName + "/")) {
+        const repoPath = `${currentDirRef.current}/${repoName}`;
+        const srcPath = `${repoPath}/src`;
+        const pagesPath = `${srcPath}/pages`;
+        const componentsPath = `${srcPath}/components`;
+        
         setFileSystem(prev => ({
           ...prev,
           [currentDirRef.current]: [...files, repoName + "/"],
-          [`${currentDirRef.current}/${repoName}`]: ["README.md", "src/", "package.json"]
+          [repoPath]: ["README.md", "src/", "package.json", ".gitignore", "tsconfig.json"],
+          [srcPath]: ["pages/", "components/", "App.tsx", "index.tsx"],
+          [pagesPath]: ["TerminalBasicsPage.tsx", "GitWorkflowsPage.tsx", "InteractiveTerminalPage.tsx"],
+          [componentsPath]: ["InteractiveTerminal.tsx", "Header.tsx", "Footer.tsx"]
         }));
       }
       
@@ -462,9 +527,19 @@ Last login: ${new Date().toLocaleString()}
       return matches.map(f => `./${f}`).join("\n");
     },
     
-    // Text editors
+    // Text editors - Interactive simulation
     vim: (args?: string) => {
       const file = args?.trim() || "untitled";
+      
+      // Create file if it doesn't exist
+      const files = fileSystemRef.current[currentDirRef.current] || [];
+      if (!files.includes(file) && file !== "untitled") {
+        setFileSystem(prev => ({
+          ...prev,
+          [currentDirRef.current]: [...files, file]
+        }));
+      }
+      
       return `Opening ${file} in vim...
 ~ VIM - Vi IMproved
 ~
@@ -476,11 +551,24 @@ Last login: ${new Date().toLocaleString()}
 ~ type  :wq<Enter>         to save and exit
 ~
 "${file}" [New File]
--- INSERT --`;
+-- INSERT --
+
+✏️  File opened in vim. Changes saved automatically.
+💡 In a real terminal, you would edit the file interactively.`;
     },
     
     nano: (args?: string) => {
       const file = args?.trim() || "untitled";
+      
+      // Create file if it doesn't exist
+      const files = fileSystemRef.current[currentDirRef.current] || [];
+      if (!files.includes(file) && file !== "untitled") {
+        setFileSystem(prev => ({
+          ...prev,
+          [currentDirRef.current]: [...files, file]
+        }));
+      }
+      
       return `GNU nano 7.2                    ${file}
 
 
@@ -488,14 +576,24 @@ Last login: ${new Date().toLocaleString()}
 
 
 ^G Help     ^O Write Out ^W Where Is  ^K Cut
-^X Exit     ^R Read File ^\\ Replace   ^U Paste`;
+^X Exit     ^R Read File ^\\ Replace   ^U Paste
+
+✏️  File opened in nano. Changes saved automatically.
+💡 In a real terminal, you would edit the file interactively.`;
     },
     
     // Git commands
-    "git branch": () => `* main
-  develop
-  feature/new-dashboard
-  hotfix/security-patch`,
+    "git branch": () => {
+      const currentBranch = currentBranchRef.current;
+      const branches = ["main", "develop", "feature/new-dashboard", "hotfix/security-patch"];
+      
+      // Add current branch if it's not in the list
+      if (!branches.includes(currentBranch)) {
+        branches.push(currentBranch);
+      }
+      
+      return branches.map(b => b === currentBranch ? `* ${b}` : `  ${b}`).join("\n");
+    },
     
     "git checkout": (args?: string) => {
       if (!args || !args.trim()) {
