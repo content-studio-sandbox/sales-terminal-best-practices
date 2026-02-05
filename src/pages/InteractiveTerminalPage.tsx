@@ -470,7 +470,7 @@ export default function InteractiveTerminalPage() {
                     </div>
                   </div>
 
-                  {/* Exercise 3: Clone and Explore */}
+                  {/* Exercise 3: Real-World Feature Implementation */}
                   <div style={{
                     backgroundColor: "#ffffff",
                     padding: "1.25rem",
@@ -479,32 +479,52 @@ export default function InteractiveTerminalPage() {
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                   }}>
                     <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 3: Clone and Explore Repository
+                      Exercise 3: Clone Real Repo & Implement Feature
                     </h4>
                     <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: Starting work on a project
+                      🎯 Real Scenario: Add a new terminal tip to this very app!
                     </p>
                     <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git clone https://github.com/example/repo.git</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Clone repository</span>
+                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
+                        <strong style={{ color: "#0f62fe" }}>📦 Your Mission:</strong> Clone the sales-terminal-best-practices repo and add a new tip to the Terminal Basics page
+                      </div>
+                      
+                      <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 1: Clone the repository
                       </div>
                       <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cd repo</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Enter directory</span>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem", display: "block", wordBreak: "break-all", whiteSpace: "pre-wrap", overflowWrap: "break-word" }}>
+                          git clone https://github.com/content-studio-sandbox/sales-terminal-best-practices.git
+                        </code>
                       </div>
                       <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Check status</span>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cd sales-terminal-best-practices</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Enter the project</span>
                       </div>
-                      <div>
+                      
+                      <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 2: Explore the codebase
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ls -la</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ See project structure</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
                         <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git log --oneline -5</code>
                         <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ View recent commits</span>
                       </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cat README.md</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Read project docs</span>
+                      </div>
+                      
+                      <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderLeft: "3px solid #f1c21b", borderRadius: "3px", fontSize: "0.8125rem" }}>
+                        💡 <strong>Pro Tip:</strong> Always explore a repo before making changes. Check the README, recent commits, and project structure!
+                      </div>
                     </div>
                   </div>
 
-                  {/* Exercise 4: Branching */}
+                  {/* Exercise 4: Feature Branch & Implementation */}
                   <div style={{
                     backgroundColor: "#ffffff",
                     padding: "1.25rem",
@@ -513,66 +533,77 @@ export default function InteractiveTerminalPage() {
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                   }}>
                     <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 4: Create and Switch Branches
+                      Exercise 4: Create Feature Branch & Make Changes
                     </h4>
                     <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: Working on a new feature
+                      🚀 Real Scenario: Implement the "Add Terminal Tip" feature
                     </p>
                     <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
+                        <strong style={{ color: "#0f62fe" }}>🎯 Your Task:</strong> Add a new tip about using <code style={{ backgroundColor: "#e0e0e0", padding: "2px 4px", borderRadius: "2px" }}>git status</code> frequently
+                      </div>
+                      
+                      <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 1: Create a feature branch
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git checkout -b feature/add-git-status-tip</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Create & switch to feature branch</span>
+                      </div>
                       <div style={{ marginBottom: "0.5rem" }}>
                         <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git branch</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ List branches</span>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Verify you're on the new branch</span>
+                      </div>
+                      
+                      <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 2: Find the file to edit
                       </div>
                       <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git checkout -b feature/new-feature</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Create & switch branch</span>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>ls src/pages/</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ List page files</span>
                       </div>
                       <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git branch</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Verify current branch</span>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>cat src/pages/TerminalBasicsPage.tsx | head -50</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Preview the file</span>
                       </div>
-                      <div>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git checkout main</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Switch back to main</span>
+                      
+                      <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 3: Make your changes
                       </div>
-                    </div>
-                  </div>
-
-                  {/* Exercise 5: Commit Workflow */}
-                  <div style={{
-                    backgroundColor: "#ffffff",
-                    padding: "1.25rem",
-                    borderRadius: "4px",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 5: Stage and Commit Changes
-                    </h4>
-                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: Saving your work
-                    </p>
-                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "0.5rem", padding: "0.75rem", backgroundColor: "#f4f4f4", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem" }}>
+                        <div style={{ color: "#24a148", marginBottom: "0.25rem" }}>// Add this new tip to the tips array:</div>
+                        <div style={{ color: "#161616" }}>
+                          {`{`}<br/>
+                          &nbsp;&nbsp;icon: "💡",<br/>
+                          &nbsp;&nbsp;title: "Check Status Often",<br/>
+                          &nbsp;&nbsp;description: "Run 'git status' frequently to see what files have changed and what's staged for commit."<br/>
+                          {`}`}
+                        </div>
+                      </div>
                       <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>touch newfile.txt</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Create a file</span>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>nano src/pages/TerminalBasicsPage.tsx</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Edit the file (or use vim/code)</span>
+                      </div>
+                      
+                      <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 4: Check what changed
                       </div>
                       <div style={{ marginBottom: "0.5rem" }}>
                         <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ See untracked file</span>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ See modified files</span>
                       </div>
                       <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git add newfile.txt</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Stage the file</span>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git diff src/pages/TerminalBasicsPage.tsx</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ View exact changes</span>
                       </div>
-                      <div>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git commit -m "Add new file"</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Commit changes</span>
+                      
+                      <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderLeft: "3px solid #f1c21b", borderRadius: "3px", fontSize: "0.8125rem" }}>
+                        💡 <strong>Best Practice:</strong> Always review your changes with <code style={{ backgroundColor: "#e0e0e0", padding: "2px 4px", borderRadius: "2px" }}>git diff</code> before committing!
                       </div>
                     </div>
                   </div>
 
-                  {/* Exercise 6: Push and Pull */}
+                  {/* Exercise 5: Commit Your Feature */}
                   <div style={{
                     backgroundColor: "#ffffff",
                     padding: "1.25rem",
@@ -581,23 +612,148 @@ export default function InteractiveTerminalPage() {
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
                   }}>
                     <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
-                      Exercise 6: Sync with Remote
+                      Exercise 5: Stage and Commit Your Changes
                     </h4>
                     <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
-                      Scenario: Sharing your work with the team
+                      📝 Real Scenario: Save your terminal tip feature with a good commit message
                     </p>
                     <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
+                        <strong style={{ color: "#0f62fe" }}>🎯 Goal:</strong> Create a clean, professional commit for your feature
+                      </div>
+                      
+                      <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 1: Stage your changes
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Confirm what changed</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git add src/pages/TerminalBasicsPage.tsx</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Stage the modified file</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Verify file is staged (green)</span>
+                      </div>
+                      
+                      <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 2: Write a good commit message
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem", display: "block", wordBreak: "break-all", whiteSpace: "pre-wrap", overflowWrap: "break-word" }}>
+                          git commit -m "feat: add git status tip to Terminal Basics page"
+                        </code>
+                      </div>
+                      
+                      <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 3: Verify your commit
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git log --oneline -1</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ See your latest commit</span>
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git show</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ View commit details</span>
+                      </div>
+                      
+                      <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderLeft: "3px solid #24a148", borderRadius: "3px", fontSize: "0.8125rem" }}>
+                        ✅ <strong>Commit Message Best Practices:</strong>
+                        <ul style={{ margin: "0.5rem 0 0 1.25rem", paddingLeft: 0 }}>
+                          <li>Start with a type: feat, fix, docs, style, refactor, test, chore</li>
+                          <li>Use present tense: "add" not "added"</li>
+                          <li>Be specific but concise</li>
+                          <li>Explain WHAT and WHY, not HOW</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Exercise 6: Push and Create PR */}
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "1.25rem",
+                    borderRadius: "4px",
+                    border: "1px solid #e0e0e0",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: 600, color: "#0f62fe" }}>
+                      Exercise 6: Push Branch & Create Pull Request
+                    </h4>
+                    <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem", color: "#525252", fontStyle: "italic" }}>
+                      🚀 Real Scenario: Share your feature with the team for review
+                    </p>
+                    <div style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "#161616" }}>
+                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
+                        <strong style={{ color: "#0f62fe" }}>🎯 Goal:</strong> Push your feature branch and open a PR for team review
+                      </div>
+                      
+                      <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 1: Sync with remote main
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git checkout main</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Switch to main branch</span>
+                      </div>
                       <div style={{ marginBottom: "0.5rem" }}>
                         <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git pull origin main</code>
                         <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Get latest changes</span>
                       </div>
                       <div style={{ marginBottom: "0.5rem" }}>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git push origin feature/new-feature</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Push your branch</span>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git checkout feature/add-git-status-tip</code>
+                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Back to your branch</span>
                       </div>
-                      <div>
-                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git diff main</code>
-                        <span style={{ color: "#525252", marginLeft: "0.5rem" }}>→ Compare with main</span>
+                      
+                      <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 2: Push your feature branch
+                      </div>
+                      <div style={{ marginBottom: "0.5rem" }}>
+                        <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem", display: "block", wordBreak: "break-all", whiteSpace: "pre-wrap", overflowWrap: "break-word" }}>
+                          git push -u origin feature/add-git-status-tip
+                        </code>
+                        <span style={{ color: "#525252", marginTop: "0.25rem", display: "block" }}>→ Push and set upstream tracking</span>
+                      </div>
+                      
+                      <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 3: Create Pull Request
+                      </div>
+                      <div style={{ marginBottom: "0.5rem", padding: "0.75rem", backgroundColor: "#f4f4f4", borderRadius: "3px", fontSize: "0.8125rem" }}>
+                        <div style={{ marginBottom: "0.5rem" }}>
+                          <strong>1.</strong> Go to: <a href="https://github.com/content-studio-sandbox/sales-terminal-best-practices" target="_blank" rel="noopener noreferrer" style={{ color: "#0f62fe", textDecoration: "none" }}>github.com/content-studio-sandbox/sales-terminal-best-practices</a>
+                        </div>
+                        <div style={{ marginBottom: "0.5rem" }}>
+                          <strong>2.</strong> Click "Compare & pull request" button
+                        </div>
+                        <div style={{ marginBottom: "0.5rem" }}>
+                          <strong>3.</strong> Write PR description:
+                          <div style={{ marginTop: "0.5rem", padding: "0.5rem", backgroundColor: "#ffffff", border: "1px solid #e0e0e0", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem" }}>
+                            ## What Changed<br/>
+                            Added new tip about using git status frequently<br/>
+                            <br/>
+                            ## Why<br/>
+                            Helps users understand the importance of checking repo state<br/>
+                            <br/>
+                            ## Testing<br/>
+                            - Verified tip displays correctly<br/>
+                            - Checked formatting and styling
+                          </div>
+                        </div>
+                        <div>
+                          <strong>4.</strong> Click "Create pull request"
+                        </div>
+                      </div>
+                      
+                      <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderLeft: "3px solid #24a148", borderRadius: "3px", fontSize: "0.8125rem" }}>
+                        🎉 <strong>Congratulations!</strong> You've completed a full feature development workflow:
+                        <ul style={{ margin: "0.5rem 0 0 1.25rem", paddingLeft: 0 }}>
+                          <li>✅ Cloned a real repository</li>
+                          <li>✅ Created a feature branch</li>
+                          <li>✅ Made meaningful changes</li>
+                          <li>✅ Committed with a good message</li>
+                          <li>✅ Pushed and created a PR</li>
+                        </ul>
                       </div>
                     </div>
                   </div>
