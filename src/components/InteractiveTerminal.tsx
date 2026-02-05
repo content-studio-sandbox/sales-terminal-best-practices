@@ -5,6 +5,7 @@ import { WebLinksAddon } from "@xterm/addon-web-links";
 import "@xterm/xterm/css/xterm.css";
 import { Button } from "@carbon/react";
 import { Restart, Copy } from "@carbon/icons-react";
+import { trackSessionStart, trackSessionEnd, trackCommand, trackEditorUsage } from "../utils/analytics";
 
 interface InteractiveTerminalProps {
   initialCommands?: string[];
@@ -23,17 +24,39 @@ export default function InteractiveTerminal({
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [currentDir, setCurrentDir] = useState("/home/sales-user/projects");
   const [currentBranch, setCurrentBranch] = useState("main");
+  const [isZshInstalled, setIsZshInstalled] = useState(false);
+  const [isGitInstalled, setIsGitInstalled] = useState(false);
 
   const [fileSystem, setFileSystem] = useState<Record<string, string[]>>({
     "/home/sales-user/projects": ["project1/", "project2/", "README.md", "notes.txt"]
   });
 
+  // Editor mode state
+  const [editorMode, setEditorMode] = useState<'none' | 'vim' | 'nano'>('none');
+  const [editorFile, setEditorFile] = useState<string>('');
+  const [editorContent, setEditorContent] = useState<string[]>([]);
+  const [vimMode, setVimMode] = useState<'normal' | 'insert' | 'command'>('normal');
+  const [vimCommand, setVimCommand] = useState<string>('');
+  const [fileContents, setFileContents] = useState<Record<string, string>>({});
+
+  // Analytics tracking state
+  const sessionStartTime = useRef<number>(Date.now());
+  const commandCount = useRef<number>(0);
+
   // Use refs to store latest state values for event handlers
   const currentLineRef = useRef(currentLine);
   const currentDirRef = useRef(currentDir);
   const currentBranchRef = useRef(currentBranch);
+  const isZshInstalledRef = useRef(isZshInstalled);
+  const isGitInstalledRef = useRef(isGitInstalled);
   const fileSystemRef = useRef(fileSystem);
   const commandHistoryRef = useRef(commandHistory);
+  const editorModeRef = useRef(editorMode);
+  const editorFileRef = useRef(editorFile);
+  const editorContentRef = useRef(editorContent);
+  const vimModeRef = useRef(vimMode);
+  const vimCommandRef = useRef(vimCommand);
+  const fileContentsRef = useRef(fileContents);
 
   // Update refs when state changes
   useEffect(() => {
@@ -49,6 +72,14 @@ export default function InteractiveTerminal({
   }, [currentBranch]);
 
   useEffect(() => {
+    isZshInstalledRef.current = isZshInstalled;
+  }, [isZshInstalled]);
+
+  useEffect(() => {
+    isGitInstalledRef.current = isGitInstalled;
+  }, [isGitInstalled]);
+
+  useEffect(() => {
     fileSystemRef.current = fileSystem;
   }, [fileSystem]);
 
@@ -56,12 +87,41 @@ export default function InteractiveTerminal({
     commandHistoryRef.current = commandHistory;
   }, [commandHistory]);
 
-  // Generate zsh-style prompt with colors
+  useEffect(() => {
+    editorModeRef.current = editorMode;
+  }, [editorMode]);
+
+  useEffect(() => {
+    editorFileRef.current = editorFile;
+  }, [editorFile]);
+
+  useEffect(() => {
+    editorContentRef.current = editorContent;
+  }, [editorContent]);
+
+  useEffect(() => {
+    vimModeRef.current = vimMode;
+  }, [vimMode]);
+
+  useEffect(() => {
+    vimCommandRef.current = vimCommand;
+  }, [vimCommand]);
+
+  useEffect(() => {
+    fileContentsRef.current = fileContents;
+  }, [fileContents]);
+
+  // Generate prompt - bash initially, then zsh after installation
   const getPrompt = (): string => {
     const dir = currentDirRef.current.replace("/home/sales-user", "~");
-    const branch = currentBranchRef.current;
     
-    // ANSI color codes
+    // If zsh is not installed, show basic bash prompt
+    if (!isZshInstalledRef.current) {
+      return `$ `;
+    }
+    
+    // After zsh is installed, show beautiful colorful prompt
+    const branch = currentBranchRef.current;
     const cyan = "\x1b[36m";      // Cyan for username@host
     const blue = "\x1b[34m";      // Blue for directory
     const green = "\x1b[32m";     // Green for git branch
@@ -256,7 +316,16 @@ export default function InteractiveTerminal({
       if (!args || !args.trim()) {
         return "cat: missing file operand";
       }
-      const fileName = args.trim();
+      
+      // Handle pipe commands (e.g., cat file | head -50)
+      const pipeIndex = args.indexOf("|");
+      let fileName = args.trim();
+      let pipeCommand = "";
+      
+      if (pipeIndex !== -1) {
+        fileName = args.substring(0, pipeIndex).trim();
+        pipeCommand = args.substring(pipeIndex + 1).trim();
+      }
       
       // Handle SSH public key file specially
       if (fileName === "~/.ssh/id_ed25519.pub" || fileName === ".ssh/id_ed25519.pub" || fileName.includes("id_ed25519.pub")) {
@@ -265,14 +334,67 @@ export default function InteractiveTerminal({
 ✓ This is your SSH public key - copy this and add it to GitHub Settings → SSH Keys`;
       }
       
+      // Handle special files in cloned repo
+      if (fileName.includes("TerminalBasicsPage.tsx") || fileName.includes("src/pages/TerminalBasicsPage.tsx")) {
+        const content = `import React from 'react';
+import { Button } from '@carbon/react';
+
+export default function TerminalBasicsPage() {
+  const tips = [
+    {
+      icon: "⌨️",
+      title: "Use Tab Completion",
+      description: "Press Tab to auto-complete file and directory names."
+    },
+    {
+      icon: "🔍",
+      title: "Search Command History",
+      description: "Press Ctrl+R to search through your command history."
+    },
+    {
+      icon: "📂",
+      title: "Navigate Efficiently",
+      description: "Use 'cd -' to go back to the previous directory."
+    }
+  ];
+
+  return (
+    <div>
+      <h1>Terminal Basics</h1>
+      {tips.map((tip, index) => (
+        <div key={index}>
+          <span>{tip.icon}</span>
+          <h3>{tip.title}</h3>
+          <p>{tip.description}</p>
+        </div>
+      ))}
+    </div>
+  );
+}`;
+        
+        // Handle pipe to head
+        if (pipeCommand.startsWith("head")) {
+          const lines = content.split("\n");
+          const numLines = pipeCommand.includes("-") ? parseInt(pipeCommand.split("-")[1]) || 10 : 10;
+          return lines.slice(0, numLines).join("\n");
+        }
+        
+        return content;
+      }
+      
       const files = fileSystemRef.current[currentDirRef.current] || [];
       
       if (!files.includes(fileName)) {
         return `cat: ${fileName}: No such file or directory`;
       }
       
+      // Check if file has saved content from editor
+      if (fileContentsRef.current[fileName]) {
+        return fileContentsRef.current[fileName];
+      }
+      
       if (fileName === "README.md") {
-        return "# Welcome to FSM Technical Best Practices\n\nThis is a learning environment for terminal commands.";
+        return "# Sales Terminal Best Practices\n\nA comprehensive guide for mastering terminal commands and Git workflows.\n\n## Features\n- Interactive terminal simulator\n- Git workflow tutorials\n- Real-world examples\n\n## Getting Started\nExplore the src/ directory to see the codebase.";
       }
       
       return `Contents of ${fileName}\n(This is a simulated file system)`;
@@ -293,13 +415,21 @@ nothing to commit, working tree clean`,
       const repoUrl = args.trim();
       const repoName = repoUrl.split("/").pop()?.replace(".git", "") || "repository";
       
-      // Add the cloned repo to file system
+      // Add the cloned repo to file system with realistic structure
       const files = fileSystemRef.current[currentDirRef.current] || [];
       if (!files.includes(repoName + "/")) {
+        const repoPath = `${currentDirRef.current}/${repoName}`;
+        const srcPath = `${repoPath}/src`;
+        const pagesPath = `${srcPath}/pages`;
+        const componentsPath = `${srcPath}/components`;
+        
         setFileSystem(prev => ({
           ...prev,
           [currentDirRef.current]: [...files, repoName + "/"],
-          [`${currentDirRef.current}/${repoName}`]: ["README.md", "src/", "package.json"]
+          [repoPath]: ["README.md", "src/", "package.json", ".gitignore", "tsconfig.json"],
+          [srcPath]: ["pages/", "components/", "App.tsx", "index.tsx"],
+          [pagesPath]: ["TerminalBasicsPage.tsx", "GitWorkflowsPage.tsx", "InteractiveTerminalPage.tsx"],
+          [componentsPath]: ["InteractiveTerminal.tsx", "Header.tsx", "Footer.tsx"]
         }));
       }
       
@@ -445,40 +575,98 @@ Last login: ${new Date().toLocaleString()}
       return matches.map(f => `./${f}`).join("\n");
     },
     
-    // Text editors
+    // Text editors - Interactive simulation
     vim: (args?: string) => {
       const file = args?.trim() || "untitled";
+      
+      // Create file if it doesn't exist
+      const files = fileSystemRef.current[currentDirRef.current] || [];
+      if (!files.includes(file) && file !== "untitled") {
+        setFileSystem(prev => ({
+          ...prev,
+          [currentDirRef.current]: [...files, file]
+        }));
+      }
+      
+      // Load existing file content or start with empty
+      const content = fileContentsRef.current[file] || '';
+      const lines = content ? content.split('\n') : [''];
+      
+      // Enter vim editor mode
+      setEditorMode('vim');
+      setEditorFile(file);
+      editorFileRef.current = file; // Update ref immediately
+      setEditorContent(lines);
+      setVimMode('normal');
+      
+      // Track editor usage
+      trackEditorUsage('vim', 'open', file);
+      
       return `Opening ${file} in vim...
 ~ VIM - Vi IMproved
 ~
 ~ version 9.0
 ~ by Bram Moolenaar et al.
 ~
-~ type  :help<Enter>       for information
-~ type  :q<Enter>          to exit
-~ type  :wq<Enter>         to save and exit
+~ Press 'i' to enter INSERT mode
+~ Press ESC to return to NORMAL mode
+~ Type ':w' to save, ':q' to quit, ':wq' to save and quit
 ~
-"${file}" [New File]
--- INSERT --`;
+"${file}" ${content ? `${lines.length}L, ${content.length}C` : '[New File]'}
+
+${lines.join('\n')}
+
+-- NORMAL MODE -- (Press 'i' for INSERT mode)`;
     },
     
     nano: (args?: string) => {
       const file = args?.trim() || "untitled";
+      
+      // Create file if it doesn't exist
+      const files = fileSystemRef.current[currentDirRef.current] || [];
+      if (!files.includes(file) && file !== "untitled") {
+        setFileSystem(prev => ({
+          ...prev,
+          [currentDirRef.current]: [...files, file]
+        }));
+      }
+      
+      // Load existing file content or start with empty
+      const content = fileContentsRef.current[file] || '';
+      const lines = content ? content.split('\n') : [''];
+      
+      // Enter nano editor mode
+      setEditorMode('nano');
+      setEditorFile(file);
+      editorFileRef.current = file; // Update ref immediately
+      setEditorContent(lines);
+      
+      // Track editor usage
+      trackEditorUsage('nano', 'open', file);
+      
       return `GNU nano 7.2                    ${file}
 
-
-  
+${lines.join('\n')}
 
 
 ^G Help     ^O Write Out ^W Where Is  ^K Cut
-^X Exit     ^R Read File ^\\ Replace   ^U Paste`;
+^X Exit     ^R Read File ^\\ Replace   ^U Paste
+
+-- INSERT MODE -- (Type to edit, Ctrl+X to exit, Ctrl+O to save)`;
     },
     
     // Git commands
-    "git branch": () => `* main
-  develop
-  feature/new-dashboard
-  hotfix/security-patch`,
+    "git branch": () => {
+      const currentBranch = currentBranchRef.current;
+      const branches = ["main", "develop", "feature/new-dashboard", "hotfix/security-patch"];
+      
+      // Add current branch if it's not in the list
+      if (!branches.includes(currentBranch)) {
+        branches.push(currentBranch);
+      }
+      
+      return branches.map(b => b === currentBranch ? `* ${b}` : `  ${b}`).join("\n");
+    },
     
     "git checkout": (args?: string) => {
       if (!args || !args.trim()) {
@@ -590,8 +778,16 @@ usage: git commit -m "message"`;
     
     which: (args?: string) => {
       const cmd = args?.trim() || "";
+      
+      // Check if git is being queried and it's not installed
+      if (cmd === "git" && !isGitInstalledRef.current) {
+        return "git not found";
+      }
+      
       const paths: Record<string, string> = {
         git: "/usr/bin/git",
+        zsh: "/bin/zsh",
+        bash: "/bin/bash",
         ssh: "/usr/bin/ssh",
         "ssh-keygen": "/usr/bin/ssh-keygen",
         "ssh-agent": "/usr/bin/ssh-agent",
@@ -608,6 +804,40 @@ usage: git commit -m "message"`;
       }
       
       return `${cmd} not found`;
+    },
+    
+    brew: (args?: string) => {
+      if (!args || !args.trim()) {
+        return "usage: brew install <package>";
+      }
+      
+      const pkg = args.trim().replace("install ", "");
+      
+      if (pkg === "zsh") {
+        setIsZshInstalled(true);
+        return `==> Downloading zsh...
+==> Installing zsh...
+🍺  /opt/homebrew/Cellar/zsh/5.9: 1,532 files, 15.2MB
+==> Running \`brew cleanup zsh\`...
+
+✨ Zsh installed successfully!
+💡 Your prompt will now transform to show beautiful colors and git branch info!
+🔄 Restart your terminal or run: exec zsh`;
+      }
+      
+      if (pkg === "git") {
+        setIsGitInstalled(true);
+        return `==> Downloading git...
+==> Installing git...
+🍺  /opt/homebrew/Cellar/git/2.39.3: 1,631 files, 48.4MB
+==> Running \`brew cleanup git\`...
+
+✅ Git installed successfully! You can now use git commands.`;
+      }
+      
+      return `==> Downloading ${pkg}...
+==> Installing ${pkg}...
+✓ ${pkg} installed successfully via Homebrew`;
     },
     
     // SSH key generation and management
@@ -667,37 +897,7 @@ Identity added: ${keyPath} (your.email@ibm.com)
 
 ✓ SSH key added to agent successfully`;
     },
-    
-    // Package managers
-    brew: (args?: string) => {
-      if (!args || !args.trim()) {
-        return `Example usage:
-  brew install git
-  brew update
-  brew upgrade`;
-      }
-      
-      const trimmedArgs = args.trim();
-      
-      if (trimmedArgs.startsWith("install")) {
-        const pkg = trimmedArgs.split(/\s+/)[1] || "package";
-        return `==> Downloading ${pkg}
-==> Pouring ${pkg}--2.39.3.arm64_ventura.bottle.tar.gz
-🍺  ${pkg} 2.39.3 is installed
-
-✓ ${pkg} installed successfully via Homebrew`;
-      }
-      
-      if (trimmedArgs === "update") {
-        return `==> Updating Homebrew...
-==> Auto-updated Homebrew!
-Updated 2 taps (homebrew/core and homebrew/cask).
-
-✓ Homebrew updated successfully`;
-      }
-      
-      return "Homebrew command executed";
-    },
+    // Package managers (apt for Ubuntu/Debian)
     
     apt: (args?: string) => {
       return `Reading package lists... Done
@@ -1101,14 +1301,46 @@ Type 'help' to see all available commands!`
     xtermRef.current = term;
     fitAddonRef.current = fitAddon;
 
+    // Track session start
+    trackSessionStart();
+    sessionStartTime.current = Date.now();
+    commandCount.current = 0;
+
     // Welcome message
     term.writeln(welcomeMessage);
     term.writeln("");
+    
+    // Function to write output with realistic typing delay
+    const writeOutputWithDelay = async (term: Terminal, output: string, delayMs: number = 8) => {
+      const lines = output.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        // Write each character with a small delay for realistic effect
+        for (const char of line) {
+          term.write(char);
+          await new Promise(resolve => setTimeout(resolve, delayMs));
+        }
+        // Add newline after each line except the last one
+        if (i < lines.length - 1) {
+          term.writeln('');
+        }
+      }
+    };
     
     // Define executeCommand inside useEffect to access current state
     const executeCommand = (cmd: string): string => {
       const trimmedCmd = cmd.trim();
       const commands = getCommands(); // Get fresh commands object
+      
+      // Track command execution
+      commandCount.current++;
+      trackCommand(trimmedCmd, true);
+      
+      // Check if git command is being run without git installed
+      if (trimmedCmd.startsWith("git ") && !isGitInstalledRef.current) {
+        trackCommand(trimmedCmd, false);
+        return "bash: git: command not found";
+      }
       
       // Handle echo command
       if (trimmedCmd.startsWith("echo ")) {
@@ -1138,7 +1370,147 @@ Type 'help' to see all available commands!`
         return commands[command](args);
       }
       
+      trackCommand(trimmedCmd, false);
       return `Command not found: ${command}. Type 'help' for available commands.`;
+    };
+
+    // Handle editor input (vim/nano)
+    const handleEditorInput = (term: Terminal, data: string, code: number) => {
+      const mode = editorModeRef.current;
+      
+      if (mode === 'vim') {
+        const vimModeVal = vimModeRef.current;
+        
+        // Handle ESC key (code 27)
+        if (code === 27) {
+          setVimMode('normal');
+          return;
+        }
+        
+        // NORMAL MODE
+        if (vimModeVal === 'normal') {
+          if (data === 'i') {
+            setVimMode('insert');
+          } else if (data === ':') {
+            setVimMode('command');
+            setVimCommand('');
+            term.write('\r\n:');
+          }
+        }
+        // INSERT MODE
+        else if (vimModeVal === 'insert') {
+          if (code === 13) { // Enter
+            setEditorContent(prev => [...prev, '']);
+            term.write('\r\n');
+          } else if (code === 127) { // Backspace
+            setEditorContent(prev => {
+              const newContent = [...prev];
+              const lastLine = newContent[newContent.length - 1];
+              if (lastLine.length > 0) {
+                newContent[newContent.length - 1] = lastLine.slice(0, -1);
+                term.write('\b \b');
+              }
+              return newContent;
+            });
+          } else if (code >= 32 && code < 127) {
+            setEditorContent(prev => {
+              const newContent = [...prev];
+              newContent[newContent.length - 1] += data;
+              return newContent;
+            });
+            term.write(data);
+          }
+        }
+        // COMMAND MODE
+        else if (vimModeVal === 'command') {
+          if (code === 13) { // Enter - execute command
+            const cmd = vimCommandRef.current;
+            const fileName = editorFileRef.current;
+            if (cmd === 'w' || cmd === 'wq') {
+              // Save file
+              const content = editorContentRef.current.join('\n');
+              setFileContents(prev => ({
+                ...prev,
+                [fileName]: content
+              }));
+              term.write('\r\n"' + fileName + '" written');
+              trackEditorUsage('vim', 'save', fileName);
+            }
+            if (cmd === 'q' || cmd === 'wq') {
+              // Quit editor
+              setEditorMode('none');
+              setVimMode('normal');
+              term.write('\r\n');
+              term.write(getPrompt());
+              trackEditorUsage('vim', 'close', fileName);
+              return;
+            }
+            // If invalid command, show error
+            if (cmd && cmd !== 'w' && cmd !== 'q' && cmd !== 'wq') {
+              term.write('\r\nE492: Not an editor command: ' + cmd);
+            }
+            setVimMode('normal');
+          } else if (code === 127) { // Backspace
+            setVimCommand(prev => {
+              const newCmd = prev.slice(0, -1);
+              term.write('\b \b');
+              return newCmd;
+            });
+          } else if (code >= 32 && code < 127) {
+            setVimCommand(prev => prev + data);
+            term.write(data);
+          }
+        }
+      }
+      // NANO MODE (always in insert mode)
+      else if (mode === 'nano') {
+        // Handle Ctrl+X (code 24) - Exit
+        if (code === 24) {
+          const fileName = editorFileRef.current;
+          setEditorMode('none');
+          term.write('\r\nExiting nano...\r\n');
+          term.write(getPrompt());
+          trackEditorUsage('nano', 'close', fileName);
+          return;
+        }
+        // Handle Ctrl+O (code 15) - Save
+        else if (code === 15) {
+          const fileName = editorFileRef.current;
+          const content = editorContentRef.current.join('\n');
+          setFileContents(prev => ({
+            ...prev,
+            [fileName]: content
+          }));
+          term.write('\r\n[ Wrote ' + editorContentRef.current.length + ' lines ]\r\n');
+          trackEditorUsage('nano', 'save', fileName);
+        }
+        // Handle Enter
+        else if (code === 13) {
+          setEditorContent(prev => [...prev, '']);
+          term.write('\r\n');
+        }
+        // Handle Backspace
+        else if (code === 127) {
+          setEditorContent(prev => {
+            const newContent = [...prev];
+            const lastLine = newContent[newContent.length - 1];
+            if (lastLine.length > 0) {
+              newContent[newContent.length - 1] = lastLine.slice(0, -1);
+              term.write('\b \b');
+            }
+            return newContent;
+          });
+        }
+        // Handle regular characters
+        else if (code >= 32 && code < 127) {
+          setEditorContent(prev => {
+            const newContent = [...prev];
+            newContent[newContent.length - 1] += data;
+            return newContent;
+          });
+          term.write(data);
+        }
+      }
     };
 
     // Run initial commands
@@ -1161,6 +1533,12 @@ Type 'help' to see all available commands!`
     term.onData((data) => {
       const code = data.charCodeAt(0);
 
+      // Check if we're in editor mode
+      if (editorModeRef.current !== 'none') {
+        handleEditorInput(term, data, code);
+        return;
+      }
+
       // Handle Enter
       if (code === 13) {
         term.write("\r\n");
@@ -1170,14 +1548,26 @@ Type 'help' to see all available commands!`
           setCommandHistory(prev => [...prev, trimmedLine]);
           const output = executeCommand(trimmedLine);
           if (output) {
-            // Write each line separately to avoid indentation issues
-            output.split('\n').forEach(line => term.writeln(line));
+            // Write output with realistic typing delay
+            writeOutputWithDelay(term, output, 8).then(() => {
+              term.writeln('');
+              // Only show prompt if we're not in editor mode
+              if (editorModeRef.current === 'none') {
+                term.write(getPrompt());
+              }
+            });
+          } else {
+            // Only show prompt if we're not in editor mode
+            if (editorModeRef.current === 'none') {
+              term.write(getPrompt());
+            }
           }
+        } else {
+          term.write(getPrompt());
         }
         
         setCurrentLine("");
         setHistoryIndex(-1);
-        term.write(getPrompt());
       }
       // Handle Backspace
       else if (code === 127) {
@@ -1239,6 +1629,10 @@ Type 'help' to see all available commands!`
     terminalRef.current.addEventListener("click", handleClick);
 
     return () => {
+      // Track session end
+      const duration = Date.now() - sessionStartTime.current;
+      trackSessionEnd(duration, commandCount.current);
+      
       window.removeEventListener("resize", handleResize);
       if (terminalRef.current) {
         terminalRef.current.removeEventListener("click", handleClick);
