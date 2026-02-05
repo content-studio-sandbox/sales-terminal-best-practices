@@ -77,23 +77,15 @@ export default function InteractiveTerminalPage() {
           </div>
         </Section>
 
-        {/* Side-by-side layout: Terminal on left, Exercises on right */}
+        {/* Side-by-side layout: Exercises on left, Terminal on right */}
         <Section level={3} style={{ marginBottom: "2rem" }}>
           <div style={{
             display: "grid",
-            gridTemplateColumns: "1fr 400px",
+            gridTemplateColumns: "400px 1fr",
             gap: "2rem",
             alignItems: "start"
           }}>
-            {/* Terminal Simulator - Left Side */}
-            <div>
-              <InteractiveTerminal
-                welcomeMessage="🚀 FSM Terminal Practice Environment - Type 'help' to get started!"
-                initialCommands={[]}
-              />
-            </div>
-
-            {/* Practice Exercises - Right Side */}
+            {/* Practice Exercises - Left Side */}
             <div style={{
               position: "sticky",
               top: "80px",
@@ -853,6 +845,14 @@ export default function InteractiveTerminalPage() {
                   <li>This demonstrates what you'll see when connecting to real servers</li>
                 </ol>
               </div>
+
+            {/* Terminal Simulator - Right Side */}
+            <div>
+              <InteractiveTerminal
+                welcomeMessage="🚀 FSM Terminal Practice Environment - Type 'help' to get started!"
+                initialCommands={[]}
+              />
+            </div>
             </div>
           </div>
         </Section>
