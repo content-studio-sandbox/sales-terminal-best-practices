@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { trackOrchestrateInit, trackOrchestrateError, initInstanaRUM } from '../utils/instanaRUM';
 
 // Watson Orchestrate configuration
 declare global {
@@ -21,6 +22,9 @@ const WatsonOrchestrate = () => {
     const initializeWatson = async () => {
       try {
         console.log('🚀 Initializing Watson Orchestrate...');
+        
+        // Initialize Instana RUM
+        initInstanaRUM();
         
         // Get user email from SSO session
         const userEmail = user?.email;
@@ -157,9 +161,19 @@ const WatsonOrchestrate = () => {
             console.log('✅ Watson Orchestrate script loaded');
             window.wxoLoader.init();
             console.log('✅ Watson Orchestrate initialized successfully');
+            
+            // Track successful initialization
+            trackOrchestrateInit(
+              window.wxOConfiguration.chatOptions.agentId,
+              userEmail
+            );
           });
           script.addEventListener('error', function(e) {
             console.error('❌ Failed to load Watson Orchestrate script:', e);
+            trackOrchestrateError(
+              `Failed to load Watson Orchestrate script: ${e}`,
+              userEmail
+            );
           });
           document.head.appendChild(script);
           console.log('📥 Script tag added to document');
@@ -167,6 +181,10 @@ const WatsonOrchestrate = () => {
 
       } catch (error) {
         console.error('❌ Error initializing Watson Orchestrate:', error);
+        trackOrchestrateError(
+          `Error initializing Watson Orchestrate: ${error}`,
+          user?.email
+        );
       }
     };
 

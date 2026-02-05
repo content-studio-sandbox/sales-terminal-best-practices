@@ -10,15 +10,50 @@ export default function GitWorkflowsPage() {
     setCopiedCmd(text);
     setTimeout(() => setCopiedCmd(null), 2000);
   };
+  
   const workflows = [
     {
-      title: "Getting Started with Git",
+      title: "Step 1: Install Git",
+      icon: <Laptop size={24} style={{ color: "#0f62fe" }} />,
+      steps: [
+        { cmd: "# macOS: Install with Homebrew", desc: "Recommended method for Mac users" },
+        { cmd: "brew install git", desc: "Install Git using Homebrew" },
+        { cmd: "# Windows: Download from git-scm.com", desc: "Get the official Windows installer" },
+        { cmd: "# Linux: Use your package manager", desc: "apt-get install git (Ubuntu) or dnf install git (Fedora)" },
+        { cmd: "git --version", desc: "Verify Git is installed correctly" },
+      ]
+    },
+    {
+      title: "Step 2: Set Up SSH Keys",
+      icon: <Enterprise size={24} style={{ color: "#0f62fe" }} />,
+      steps: [
+        { cmd: "ssh-keygen -t ed25519 -C \"your.email@ibm.com\"", desc: "Generate a new SSH key (press Enter for defaults)" },
+        { cmd: "eval \"$(ssh-agent -s)\"", desc: "Start the SSH agent" },
+        { cmd: "ssh-add ~/.ssh/id_ed25519", desc: "Add your SSH key to the agent" },
+        { cmd: "cat ~/.ssh/id_ed25519.pub", desc: "Display your public key to copy" },
+        { cmd: "# Add the public key to GitHub/Enterprise Git", desc: "Go to Settings → SSH Keys and paste your public key" },
+        { cmd: "ssh -T git@github.ibm.com", desc: "Test your SSH connection to IBM Enterprise Git" },
+      ]
+    },
+    {
+      title: "Step 3: Configure Git",
       icon: <Commit size={24} style={{ color: "#0f62fe" }} />,
       steps: [
-        { cmd: "git config --global user.name \"Your Name\"", desc: "Set your name" },
-        { cmd: "git config --global user.email \"your.email@ibm.com\"", desc: "Set your email" },
-        { cmd: "git clone <repository-url>", desc: "Clone a repository" },
+        { cmd: "git config --global user.name \"Your Name\"", desc: "Set your name for commits" },
+        { cmd: "git config --global user.email \"your.email@ibm.com\"", desc: "Set your IBM email" },
+        { cmd: "git config --global init.defaultBranch main", desc: "Use 'main' as default branch name" },
+        { cmd: "git config --global core.editor \"code --wait\"", desc: "Set VS Code as default editor (optional)" },
+        { cmd: "git config --list", desc: "Verify your configuration" },
+      ]
+    },
+    {
+      title: "Step 4: Clone Your First Repository",
+      icon: <Branch size={24} style={{ color: "#0f62fe" }} />,
+      steps: [
+        { cmd: "git clone git@github.ibm.com:team/project.git", desc: "Clone using SSH (recommended)" },
+        { cmd: "cd project", desc: "Navigate into the cloned repository" },
         { cmd: "git status", desc: "Check repository status" },
+        { cmd: "git branch", desc: "See which branch you're on" },
       ]
     },
     {
@@ -69,6 +104,50 @@ export default function GitWorkflowsPage() {
     }
   ];
 
+  const advancedWorkflows = [
+    {
+      title: "Handling Merge Conflicts",
+      icon: <PullRequest size={24} style={{ color: "#da1e28" }} />,
+      steps: [
+        { cmd: "git pull origin main", desc: "Try to pull latest changes (conflict may occur)" },
+        { cmd: "# Git will tell you which files have conflicts", desc: "Look for files marked as 'CONFLICT'" },
+        { cmd: "# Open conflicted files and look for conflict markers", desc: "Search for <<<<<<< HEAD, =======, >>>>>>> markers" },
+        { cmd: "# Edit the file to keep the correct version", desc: "Remove conflict markers and choose what to keep" },
+        { cmd: "git add <resolved-file>", desc: "Stage the resolved file" },
+        { cmd: "git commit -m \"Resolve merge conflict\"", desc: "Complete the merge" },
+        { cmd: "git push", desc: "Push the resolved changes" },
+      ]
+    },
+    {
+      title: "Using Git Stash",
+      icon: <Commit size={24} style={{ color: "#0f62fe" }} />,
+      steps: [
+        { cmd: "# You're working on feature A but need to switch to fix a bug", desc: "Common scenario" },
+        { cmd: "git stash save \"WIP: feature A changes\"", desc: "Save your current work temporarily" },
+        { cmd: "git checkout main", desc: "Switch to main branch" },
+        { cmd: "git checkout -b hotfix/urgent-bug", desc: "Create branch for the bug fix" },
+        { cmd: "# Fix the bug and commit", desc: "Make your urgent changes" },
+        { cmd: "git checkout feature-a", desc: "Go back to your feature branch" },
+        { cmd: "git stash list", desc: "See all your stashed changes" },
+        { cmd: "git stash pop", desc: "Restore your work-in-progress changes" },
+      ]
+    },
+    {
+      title: "Undoing Mistakes",
+      icon: <Branch size={24} style={{ color: "#da1e28" }} />,
+      steps: [
+        { cmd: "# Undo changes to a file (before commit)", desc: "Discard local changes" },
+        { cmd: "git checkout -- <file>", desc: "Restore file to last commit" },
+        { cmd: "# Undo last commit (keep changes)", desc: "Made a mistake in commit message" },
+        { cmd: "git reset --soft HEAD~1", desc: "Undo commit but keep your changes staged" },
+        { cmd: "# Undo last commit (discard changes)", desc: "Want to completely remove last commit" },
+        { cmd: "git reset --hard HEAD~1", desc: "⚠️ CAREFUL: This deletes your changes!" },
+        { cmd: "# Undo a pushed commit", desc: "Create a new commit that reverses changes" },
+        { cmd: "git revert <commit-hash>", desc: "Safe way to undo a commit that's been pushed" },
+      ]
+    },
+  ];
+
   const bestPractices = [
     "Write clear, descriptive commit messages",
     "Commit often with small, logical changes",
@@ -77,16 +156,22 @@ export default function GitWorkflowsPage() {
     "Review changes before committing",
     "Never commit sensitive information (passwords, keys)",
     "Use .gitignore for files that shouldn't be tracked",
-    "Keep your branches up to date with main"
+    "Keep your branches up to date with main",
+    "Test your SSH connection before cloning",
+    "Use meaningful branch names (feature/, fix/, docs/)"
   ];
 
   const commonCommands = [
     { cmd: "git log", desc: "View commit history" },
+    { cmd: "git log --oneline", desc: "Compact commit history" },
     { cmd: "git diff", desc: "See changes not yet staged" },
+    { cmd: "git diff --staged", desc: "See changes that are staged" },
     { cmd: "git stash", desc: "Temporarily save changes" },
     { cmd: "git stash pop", desc: "Restore stashed changes" },
-    { cmd: "git reset --hard HEAD", desc: "Discard all local changes (careful!)" },
-    { cmd: "git revert <commit>", desc: "Undo a specific commit" },
+    { cmd: "git stash list", desc: "List all stashed changes" },
+    { cmd: "git branch -a", desc: "List all branches (local and remote)" },
+    { cmd: "git remote -v", desc: "Show remote repositories" },
+    { cmd: "git fetch --prune", desc: "Update remote branch list" },
   ];
 
   return (
@@ -98,8 +183,35 @@ export default function GitWorkflowsPage() {
             <Heading style={{ margin: 0 }}>Git Workflows for Sales Teams</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px" }}>
-            Learn essential Git workflows to collaborate effectively, manage code versions, and contribute to team projects.
+            Complete guide from installation to advanced workflows. Learn Git from scratch and master essential commands for daily work.
           </p>
+        </Section>
+
+        {/* Getting Started Section */}
+        <Section level={2} style={{ marginBottom: "2rem" }}>
+          <div style={{ 
+            backgroundColor: "#e8f4ff", 
+            padding: "1.5rem", 
+            borderRadius: "8px",
+            border: "2px solid #0f62fe",
+            marginBottom: "2rem"
+          }}>
+            <h2 style={{ 
+              margin: 0, 
+              fontSize: "1.5rem", 
+              fontWeight: 600,
+              color: "#0f62fe",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem"
+            }}>
+              <Laptop size={28} />
+              Getting Started - Complete Setup
+            </h2>
+            <p style={{ margin: "0.5rem 0 0 0", color: "#161616" }}>
+              Follow these steps in order to set up Git from scratch. Perfect for complete beginners!
+            </p>
+          </div>
         </Section>
 
         {workflows.map((workflow, idx) => (
@@ -132,7 +244,7 @@ export default function GitWorkflowsPage() {
                     }}
                   >
                     <div style={{
-                      backgroundColor: "#0f62fe",
+                      backgroundColor: step.cmd.startsWith("#") ? "#8d8d8d" : "#0f62fe",
                       color: "#ffffff",
                       width: "24px",
                       height: "24px",
@@ -150,46 +262,179 @@ export default function GitWorkflowsPage() {
                     <div style={{ flex: 1 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
                         <code style={{
-                          backgroundColor: "#161616",
-                          color: "#f4f4f4",
+                          backgroundColor: step.cmd.startsWith("#") ? "#f4f4f4" : "#161616",
+                          color: step.cmd.startsWith("#") ? "#525252" : "#f4f4f4",
                           padding: "0.25rem 0.5rem",
                           borderRadius: "4px",
                           fontSize: "0.875rem",
                           fontFamily: "'IBM Plex Mono', monospace",
                           display: "inline-block",
-                          maxWidth: "fit-content"
+                          maxWidth: "fit-content",
+                          fontStyle: step.cmd.startsWith("#") ? "italic" : "normal"
                         }}>
                           {step.cmd}
                         </code>
-                        <button
-                          onClick={() => copyToClipboard(step.cmd)}
-                          style={{
-                            backgroundColor: copiedCmd === step.cmd ? "#24a148" : "#0f62fe",
-                            color: "#ffffff",
-                            border: "none",
-                            borderRadius: "4px",
-                            padding: "0.25rem 0.5rem",
-                            cursor: "pointer",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.25rem",
-                            fontSize: "0.75rem",
-                            transition: "background-color 0.2s"
-                          }}
-                          title="Copy to clipboard"
-                        >
-                          {copiedCmd === step.cmd ? (
-                            <>
-                              <Checkmark size={16} />
-                              Copied
-                            </>
-                          ) : (
-                            <>
-                              <Copy size={16} />
-                              Copy
-                            </>
-                          )}
-                        </button>
+                        {!step.cmd.startsWith("#") && (
+                          <button
+                            onClick={() => copyToClipboard(step.cmd)}
+                            style={{
+                              backgroundColor: copiedCmd === step.cmd ? "#24a148" : "#0f62fe",
+                              color: "#ffffff",
+                              border: "none",
+                              borderRadius: "4px",
+                              padding: "0.25rem 0.5rem",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.25rem",
+                              fontSize: "0.75rem",
+                              transition: "background-color 0.2s"
+                            }}
+                            title="Copy to clipboard"
+                          >
+                            {copiedCmd === step.cmd ? (
+                              <>
+                                <Checkmark size={16} />
+                                Copied
+                              </>
+                            ) : (
+                              <>
+                                <Copy size={16} />
+                                Copy
+                              </>
+                            )}
+                          </button>
+                        )}
+                      </div>
+                      <p style={{ margin: 0, color: "#525252", fontSize: "0.875rem" }}>
+                        {step.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Section>
+        ))}
+
+        {/* Advanced Workflows Section */}
+        <Section level={2} style={{ marginTop: "4rem", marginBottom: "2rem" }}>
+          <div style={{ 
+            backgroundColor: "#fff1f1", 
+            padding: "1.5rem", 
+            borderRadius: "8px",
+            border: "2px solid #da1e28",
+            marginBottom: "2rem"
+          }}>
+            <h2 style={{ 
+              margin: 0, 
+              fontSize: "1.5rem", 
+              fontWeight: 600,
+              color: "#da1e28",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem"
+            }}>
+              <PullRequest size={28} />
+              Advanced Git Workflows
+            </h2>
+            <p style={{ margin: "0.5rem 0 0 0", color: "#525252" }}>
+              Master these workflows to handle complex scenarios like merge conflicts, stashing work, and undoing mistakes.
+            </p>
+          </div>
+        </Section>
+
+        {advancedWorkflows.map((workflow, idx) => (
+          <Section key={idx} level={3} style={{ marginBottom: "3rem" }}>
+            <div style={{ 
+              backgroundColor: "#f4f4f4", 
+              padding: "2rem", 
+              borderRadius: "8px",
+              border: "1px solid #e0e0e0"
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>
+                {workflow.icon}
+                <h3 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 600 }}>
+                  {workflow.title}
+                </h3>
+              </div>
+              
+              <div style={{ display: "grid", gap: "1rem" }}>
+                {workflow.steps.map((step, i) => (
+                  <div 
+                    key={i}
+                    style={{
+                      backgroundColor: "#ffffff",
+                      padding: "1rem",
+                      borderRadius: "4px",
+                      border: "1px solid #e0e0e0",
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "1rem"
+                    }}
+                  >
+                    <div style={{
+                      backgroundColor: step.cmd.startsWith("#") ? "#8d8d8d" : "#0f62fe",
+                      color: "#ffffff",
+                      width: "24px",
+                      height: "24px",
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      flexShrink: 0,
+                      marginTop: "2px"
+                    }}>
+                      {i + 1}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                        <code style={{
+                          backgroundColor: step.cmd.startsWith("#") ? "#f4f4f4" : "#161616",
+                          color: step.cmd.startsWith("#") ? "#525252" : "#f4f4f4",
+                          padding: "0.25rem 0.5rem",
+                          borderRadius: "4px",
+                          fontSize: "0.875rem",
+                          fontFamily: "'IBM Plex Mono', monospace",
+                          display: "inline-block",
+                          maxWidth: "fit-content",
+                          fontStyle: step.cmd.startsWith("#") ? "italic" : "normal"
+                        }}>
+                          {step.cmd}
+                        </code>
+                        {!step.cmd.startsWith("#") && (
+                          <button
+                            onClick={() => copyToClipboard(step.cmd)}
+                            style={{
+                              backgroundColor: copiedCmd === step.cmd ? "#24a148" : "#0f62fe",
+                              color: "#ffffff",
+                              border: "none",
+                              borderRadius: "4px",
+                              padding: "0.25rem 0.5rem",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.25rem",
+                              fontSize: "0.75rem",
+                              transition: "background-color 0.2s"
+                            }}
+                            title="Copy to clipboard"
+                          >
+                            {copiedCmd === step.cmd ? (
+                              <>
+                                <Checkmark size={16} />
+                                Copied
+                              </>
+                            ) : (
+                              <>
+                                <Copy size={16} />
+                                Copy
+                              </>
+                            )}
+                          </button>
+                        )}
                       </div>
                       <p style={{ margin: 0, color: "#525252", fontSize: "0.875rem" }}>
                         {step.desc}
@@ -350,3 +595,5 @@ export default function GitWorkflowsPage() {
     </Grid>
   );
 }
+
+// Made with Bob
