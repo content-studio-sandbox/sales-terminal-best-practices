@@ -366,20 +366,35 @@ export default function InteractiveTerminalPage() {
                       <CodeWithCopy code="git branch" description="Verify you're on the new branch" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
-                        Step 2: Create a new OpenShift page
+                        Step 2: Create the OpenShift page/tab from the navigation bar
                       </div>
                       <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px", fontSize: "0.8125rem" }}>
-                        📋 <strong>Instructions:</strong> Copy the OpenShift page code from the <a href="/openshift-best-practices" target="_blank" style={{ color: "#0f62fe", textDecoration: "underline" }}>OpenShift Best Practices</a> page and paste it into a new file.
+                        📋 <strong>Instructions:</strong> Copy the OpenShift page code from <a href="https://gist.github.ibm.com/Oscar-Ricaud/1f51bc2e06070dc0306ab15a1d1c869a" target="_blank" rel="noopener noreferrer" style={{ color: "#0f62fe", textDecoration: "underline" }}>this GitHub gist</a> and paste it into a new file.
                       </div>
                       <CodeWithCopy code="ls src/pages/" description="List existing page files" />
-                      <CodeWithCopy code="touch src/pages/OpenShiftBestPracticesPage.tsx" description="Create new file" />
-                      <CodeWithCopy code="code src/pages/OpenShiftBestPracticesPage.tsx" description="Open in VS Code (or use nano/vim)" />
+                      <CodeWithCopy
+                        code="touch src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="Create new file"
+                        block={true}
+                      />
+                      <CodeWithCopy
+                        code="code src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="Open in VS Code (or nano/vim)"
+                        block={true}
+                      />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 3: Verify the file was created
                       </div>
-                      <CodeWithCopy code="ls src/pages/ | grep OpenShift" description="Confirm file exists" />
-                      <CodeWithCopy code="wc -l src/pages/OpenShiftBestPracticesPage.tsx" description="Check line count (~444 lines)" />
+                      <CodeWithCopy
+                        code="ls src/pages/ | grep OpenShift"
+                        description="Confirm file exists"
+                      />
+                      <CodeWithCopy
+                        code="wc -l src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="Check line count (~444 lines)"
+                        block={true}
+                      />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 4: Check what changed
@@ -408,12 +423,20 @@ export default function InteractiveTerminalPage() {
                         Step 1: Check what changed
                       </div>
                       <CodeWithCopy code="git status" description="See new file (untracked)" />
-                      <CodeWithCopy code="git diff src/pages/OpenShiftBestPracticesPage.tsx" description="View the new file content" />
+                      <CodeWithCopy
+                        code="git diff src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="View the new file content"
+                        block={true}
+                      />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 2: Stage your new file
                       </div>
-                      <CodeWithCopy code="git add src/pages/OpenShiftBestPracticesPage.tsx" description="Stage the new file" />
+                      <CodeWithCopy
+                        code="git add src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="Stage the new file"
+                        block={true}
+                      />
                       <CodeWithCopy code="git status" description="Verify file is staged (green)" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
