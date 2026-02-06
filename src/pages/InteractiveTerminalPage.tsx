@@ -366,25 +366,20 @@ export default function InteractiveTerminalPage() {
                       <CodeWithCopy code="git branch" description="Verify you're on the new branch" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
-                        Step 2: Find the file to edit
+                        Step 2: Create a new OpenShift page
                       </div>
-                      <CodeWithCopy code="ls src/pages/" description="List page files" />
-                      <CodeWithCopy code="cat src/pages/TerminalBasicsPage.tsx | head -50" description="Preview the file" />
+                      <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px", fontSize: "0.8125rem" }}>
+                        📋 <strong>Instructions:</strong> Copy the OpenShift page code from the <a href="/openshift-best-practices" target="_blank" style={{ color: "#0f62fe", textDecoration: "underline" }}>OpenShift Best Practices</a> page and paste it into a new file.
+                      </div>
+                      <CodeWithCopy code="ls src/pages/" description="List existing page files" />
+                      <CodeWithCopy code="touch src/pages/OpenShiftBestPracticesPage.tsx" description="Create new file" />
+                      <CodeWithCopy code="code src/pages/OpenShiftBestPracticesPage.tsx" description="Open in VS Code (or use nano/vim)" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
-                        Step 3: Make your changes
+                        Step 3: Verify the file was created
                       </div>
-                      <div style={{ marginBottom: "0.5rem", padding: "0.75rem", backgroundColor: "#f4f4f4", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem" }}>
-                        <div style={{ color: "#24a148", marginBottom: "0.25rem" }}>// Add this new tip to the tips array:</div>
-                        <div style={{ color: "#161616" }}>
-                          {`{`}<br/>
-                          &nbsp;&nbsp;icon: "💡",<br/>
-                          &nbsp;&nbsp;title: "Check Status Often",<br/>
-                          &nbsp;&nbsp;description: "Run 'git status' frequently to see what files have changed and what's staged for commit."<br/>
-                          {`}`}
-                        </div>
-                      </div>
-                      <CodeWithCopy code="nano src/pages/TerminalBasicsPage.tsx" description="Edit the file (or use vim/code)" />
+                      <CodeWithCopy code="ls src/pages/ | grep OpenShift" description="Confirm file exists" />
+                      <CodeWithCopy code="wc -l src/pages/OpenShiftBestPracticesPage.tsx" description="Check line count (~444 lines)" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 4: Check what changed
@@ -401,26 +396,31 @@ export default function InteractiveTerminalPage() {
                   <ExerciseCard
                     id="lab2-ex5"
                     title="Exercise 5: Stage and Commit Your Changes"
-                    scenario="📝 Real Scenario: Save your terminal tip feature with a good commit message"
+                    scenario="📝 Real Scenario: Save your new OpenShift page with a good commit message"
                     isExpanded={expandedExercises.has('lab2-ex5')}
                     onToggle={toggleExercise}
                   >
                       <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
-                        <strong style={{ color: "#0f62fe" }}>🎯 Goal:</strong> Create a clean, professional commit for your feature
+                        <strong style={{ color: "#0f62fe" }}>🎯 Goal:</strong> Create a clean, professional commit for your new page
                       </div>
                       
                       <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
-                        Step 1: Stage your changes
+                        Step 1: Check what changed
                       </div>
-                      <CodeWithCopy code="git status" description="Confirm what changed" />
-                      <CodeWithCopy code="git add src/pages/TerminalBasicsPage.tsx" description="Stage the modified file" />
+                      <CodeWithCopy code="git status" description="See new file (untracked)" />
+                      <CodeWithCopy code="git diff src/pages/OpenShiftBestPracticesPage.tsx" description="View the new file content" />
+                      
+                      <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 2: Stage your new file
+                      </div>
+                      <CodeWithCopy code="git add src/pages/OpenShiftBestPracticesPage.tsx" description="Stage the new file" />
                       <CodeWithCopy code="git status" description="Verify file is staged (green)" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
-                        Step 2: Write a good commit message
+                        Step 3: Write a good commit message
                       </div>
                       <CodeWithCopy
-                        code='git commit -m "feat: add git status tip to Terminal Basics page"'
+                        code='git commit -m "feat: add OpenShift Best Practices page for tech sellers"'
                         block={true}
                       />
                       
