@@ -1006,6 +1006,51 @@ usage: git commit -m "message"`;
 ✓ ${pkg} installed successfully via Homebrew`;
     },
     
+    chsh: (args?: string) => {
+      if (!args || !args.includes("-s")) {
+        return "usage: chsh -s /path/to/shell";
+      }
+      
+      return `Changing shell for sales-user.
+Password for sales-user:
+✓ Shell changed successfully to zsh
+🎉 Restart your terminal to see the new shell in action!`;
+    },
+    
+    sh: (args?: string) => {
+      if (!args || !args.includes("-c")) {
+        return "usage: sh -c 'command'";
+      }
+      
+      // Simulate Oh My Zsh installation
+      if (args.includes("ohmyzsh")) {
+        return `Cloning Oh My Zsh...
+remote: Enumerating objects: 1234, done.
+remote: Counting objects: 100% (1234/1234), done.
+remote: Compressing objects: 100% (890/890), done.
+remote: Total 1234 (delta 456), reused 1100 (delta 400)
+Receiving objects: 100% (1234/1234), 825.50 KiB | 2.50 MiB/s, done.
+Resolving deltas: 100% (456/456), done.
+
+Looking for an existing zsh config...
+Using the Oh My Zsh template file and adding it to ~/.zshrc.
+
+         __                                     __
+  ____  / /_     ____ ___  __  __   ____  _____/ /_
+ / __ \\/ __ \\   / __ \`__ \\/ / / /  /_  / / ___/ __ \\
+/ /_/ / / / /  / / / / / / /_/ /    / /_(__  ) / / /
+\\____/_/ /_/  /_/ /_/ /_/\\__, /    /___/____/_/ /_/
+                        /____/                       ....is now installed!
+
+Please look over the ~/.zshrc file to select plugins, themes, and options.
+
+🎉 Oh My Zsh installed successfully!
+💡 Restart your terminal to see the beautiful new prompt!`;
+      }
+      
+      return "sh: command executed";
+    },
+    
     // SSH key generation and management
     "ssh-keygen": (args?: string) => {
       if (!args || !args.includes("-t")) {
