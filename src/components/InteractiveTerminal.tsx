@@ -502,10 +502,12 @@ export default function TerminalBasicsPage() {
       const chars = content.length;
       
       if (hasLineFlag) {
-        return `${lines} ${fileName}`;
+        // Format: right-aligned number, space, filename
+        return `${String(lines).padStart(7)} ${fileName}`;
       }
       
-      return `  ${lines}  ${words} ${chars} ${fileName}`;
+      // Format: lines, words, chars (all right-aligned), then filename
+      return `${String(lines).padStart(7)} ${String(words).padStart(7)} ${String(chars).padStart(7)} ${fileName}`;
     },
     
     date: () => new Date().toString(),
@@ -576,6 +578,30 @@ Author: Sales User <sales@ibm.com>
 Date:   ${new Date(Date.now() - 86400000).toDateString()}
 
 Updated documentation`,
+    
+    "git show": () => {
+      const branch = currentBranchRef.current;
+      const staged = stagedFilesRef.current;
+      const lastCommitFile = staged.length > 0 ? staged[0] : 'src/pages/OpenShiftBestPracticesPage.tsx';
+      
+      return `commit abc123def456 (HEAD -> ${branch})
+Author: Sales User <sales@ibm.com>
+Date:   ${new Date().toDateString()}
+
+    feat: add OpenShift Best Practices page for tech sellers
+
+diff --git a/${lastCommitFile} b/${lastCommitFile}
+new file mode 100644
+index 0000000..def456e
+--- /dev/null
++++ b/${lastCommitFile}
+@@ -0,0 +1,5 @@
++import React from 'react';
++
++export default function OpenShiftBestPracticesPage() {
++  return <div>OpenShift Best Practices</div>;
++}`;
+    },
     
     "ssh demo": () => `Connecting to demo-server.ibm.com...
 Welcome to IBM Demo Server
@@ -1451,7 +1477,21 @@ Type 'help' to see all available commands!`
     term.writeln("");
     
     // Function to write output with realistic typing delay
-    const writeOutputWithDelay = async (term: Terminal, output: string, delayMs: number = 8) => {
+    // For cat command and file content, write instantly (no delay)
+    const writeOutputWithDelay = async (term: Terminal, output: string, delayMs: number = 8, instant: boolean = false) => {
+      if (instant) {
+        // Write instantly for cat and file content
+        const lines = output.split('\n');
+        lines.forEach((line, i) => {
+          if (i < lines.length - 1) {
+            term.writeln(line);
+          } else {
+            term.write(line);
+          }
+        });
+        return;
+      }
+      
       const lines = output.split('\n');
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
@@ -1843,8 +1883,11 @@ Type 'help' to see all available commands!`
           setCommandHistory(prev => [...prev, trimmedLine]);
           const output = executeCommand(trimmedLine);
           if (output) {
-            // Write output with realistic typing delay
-            writeOutputWithDelay(term, output, 8).then(() => {
+            // Check if command is cat or wc - use instant output for file content
+            const isInstantCommand = trimmedLine.startsWith('cat ') || trimmedLine.startsWith('wc ');
+            
+            // Write output with realistic typing delay (or instant for cat/wc)
+            writeOutputWithDelay(term, output, 8, isInstantCommand).then(() => {
               term.writeln('');
               // Only show prompt if we're not in editor mode
               if (editorModeRef.current === 'none') {
