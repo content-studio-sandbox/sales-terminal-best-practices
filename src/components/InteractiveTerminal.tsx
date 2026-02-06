@@ -40,6 +40,7 @@ export default function InteractiveTerminal({
   const [vimMode, setVimMode] = useState<'normal' | 'insert' | 'command'>('normal');
   const [vimCommand, setVimCommand] = useState<string>('');
   const [fileContents, setFileContents] = useState<Record<string, string>>({});
+  const [stagedFiles, setStagedFiles] = useState<string[]>([]);
 
   // Analytics tracking state
   const sessionStartTime = useRef<number>(Date.now());
@@ -61,6 +62,7 @@ export default function InteractiveTerminal({
   const vimModeRef = useRef(vimMode);
   const vimCommandRef = useRef(vimCommand);
   const fileContentsRef = useRef(fileContents);
+  const stagedFilesRef = useRef(stagedFiles);
 
   // Update refs when state changes
   useEffect(() => {
@@ -114,6 +116,10 @@ export default function InteractiveTerminal({
   useEffect(() => {
     fileContentsRef.current = fileContents;
   }, [fileContents]);
+
+  useEffect(() => {
+    stagedFilesRef.current = stagedFiles;
+  }, [stagedFiles]);
 
   useEffect(() => {
     cursorRowRef.current = cursorRow;
@@ -470,12 +476,59 @@ export default function TerminalBasicsPage() {
       return `Contents of ${fileName}\n(This is a simulated file system)`;
     },
     
+    wc: (args?: string) => {
+      if (!args || !args.trim()) {
+        return "wc: missing file operand\nTry 'wc --help' for more information.";
+      }
+      
+      const parts = args.trim().split(/\s+/);
+      const hasLineFlag = parts.includes('-l');
+      const fileName = parts.find(p => !p.startsWith('-')) || '';
+      
+      if (!fileName) {
+        return "wc: missing file operand";
+      }
+      
+      // Check if file exists
+      const files = fileSystemRef.current[currentDirRef.current] || [];
+      if (!files.includes(fileName) && !fileName.includes('/')) {
+        return `wc: ${fileName}: No such file or directory`;
+      }
+      
+      // Get file content
+      const content = getFileContent(fileName);
+      const lines = content.split('\n').length;
+      const words = content.split(/\s+/).filter(w => w.length > 0).length;
+      const chars = content.length;
+      
+      if (hasLineFlag) {
+        return `${lines} ${fileName}`;
+      }
+      
+      return `  ${lines}  ${words} ${chars} ${fileName}`;
+    },
+    
     date: () => new Date().toString(),
     
-    "git status": () => `On branch main
-Your branch is up to date with 'origin/main'.
+    "git status": () => {
+      const branch = currentBranchRef.current;
+      const staged = stagedFilesRef.current;
+      
+      if (staged.length === 0) {
+        return `On branch ${branch}
+Your branch is up to date with 'origin/${branch}'.
 
-nothing to commit, working tree clean`,
+nothing to commit, working tree clean`;
+      }
+      
+      return `On branch ${branch}
+Your branch is up to date with 'origin/${branch}'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+${staged.map(f => `\t\x1b[32mnew file:   ${f}\x1b[0m`).join('\n')}
+`;
+    },
     
     "git clone": (args?: string) => {
       if (!args || !args.trim()) {
@@ -829,9 +882,14 @@ push.default=simple`;
       
       const files = args.trim();
       if (files === ".") {
+        // Add all files in current directory
+        const currentFiles = fileSystemRef.current[currentDirRef.current] || [];
+        setStagedFiles(prev => [...new Set([...prev, ...currentFiles.filter(f => !f.endsWith('/'))])]);
         return "✓ Staged all changes";
       }
       
+      // Add specific file
+      setStagedFiles(prev => [...new Set([...prev, files])]);
       return `✓ Staged: ${files}`;
     },
     
@@ -843,9 +901,14 @@ usage: git commit -m "message"`;
       
       const match = args.match(/-m\s+["']([^"']+)["']/);
       const message = match ? match[1] : "Update files";
+      const branch = currentBranchRef.current;
+      const fileCount = stagedFilesRef.current.length;
       
-      return `[main abc123d] ${message}
- 1 file changed, 5 insertions(+), 2 deletions(-)`;
+      // Clear staged files after commit
+      setStagedFiles([]);
+      
+      return `[${branch} abc123d] ${message}
+ ${fileCount} file${fileCount !== 1 ? 's' : ''} changed, 5 insertions(+), 2 deletions(-)`;
     },
     
     // Git setup and utility commands
