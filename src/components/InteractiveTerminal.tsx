@@ -857,7 +857,28 @@ Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
 To github.com:ibm/demo-repo.git
    def456e..ghi789j  main -> main`,
     
-    "git diff": () => `diff --git a/src/app.ts b/src/app.ts
+    "git diff": (args?: string) => {
+      const staged = stagedFilesRef.current;
+      const fileContents = fileContentsRef.current;
+      
+      // If there are staged files, show their diff
+      if (staged.length > 0) {
+        const fileName = staged[0];
+        const content = fileContents[fileName] || '';
+        const lines = content.split('\n');
+        const lineCount = lines.length;
+        
+        return `diff --git a/${fileName} b/${fileName}
+new file mode 100644
+index 0000000..abc1234
+--- /dev/null
++++ b/${fileName}
+@@ -0,0 +1,${lineCount} @@
+${lines.map(line => '+' + line).join('\n')}`;
+      }
+      
+      // Default diff if no staged files
+      return `diff --git a/src/app.ts b/src/app.ts
 index abc123d..def456e 100644
 --- a/src/app.ts
 +++ b/src/app.ts
@@ -869,7 +890,8 @@ index abc123d..def456e 100644
      console.log('Starting application...');
 +    await this.initialize();
    }
- }`,
+ }`;
+    },
     
     // Git configuration commands
     "git config": (args?: string) => {
@@ -1708,14 +1730,16 @@ Type 'help' to see all available commands!`
           
           // Handle pasted content (multi-line or multi-character)
           if (data.length > 1 || data.includes('\n') || data.includes('\r')) {
-            const lines = data.split(/\r?\n/);
+            const lines = data.split(/\r?\n/).filter(line => line !== ''); // Remove empty lines from split
             setEditorContent(prev => {
               const newContent = [...prev];
               const currentLine = newContent[currentRow] || '';
               const beforeCursor = currentLine.slice(0, currentCol);
               const afterCursor = currentLine.slice(currentCol);
               
-              if (lines.length === 1) {
+              if (lines.length === 0) {
+                return newContent;
+              } else if (lines.length === 1) {
                 // Single line paste
                 newContent[currentRow] = beforeCursor + lines[0] + afterCursor;
                 setCursorCol(currentCol + lines[0].length);
@@ -1723,19 +1747,22 @@ Type 'help' to see all available commands!`
               } else {
                 // Multi-line paste
                 newContent[currentRow] = beforeCursor + lines[0];
-                for (let i = 1; i < lines.length - 1; i++) {
+                // Insert middle lines
+                for (let i = 1; i < lines.length; i++) {
                   newContent.splice(currentRow + i, 0, lines[i]);
                 }
-                const lastLine = lines[lines.length - 1];
-                newContent.splice(currentRow + lines.length - 1, 0, lastLine + afterCursor);
-                setCursorRow(currentRow + lines.length - 1);
-                cursorRowRef.current = currentRow + lines.length - 1;
-                setCursorCol(lastLine.length);
-                cursorColRef.current = lastLine.length;
+                // Append afterCursor to the last inserted line
+                const lastLineIndex = currentRow + lines.length - 1;
+                newContent[lastLineIndex] = newContent[lastLineIndex] + afterCursor;
+                
+                setCursorRow(lastLineIndex);
+                cursorRowRef.current = lastLineIndex;
+                setCursorCol(lines[lines.length - 1].length);
+                cursorColRef.current = lines[lines.length - 1].length;
               }
               return newContent;
             });
-            term.write(data.replace(/\n/g, '\r\n'));
+            term.write(data.replace(/\n/g, '\r\n').replace(/\r\r/g, '\r'));
             return;
           }
           
@@ -1864,14 +1891,16 @@ Type 'help' to see all available commands!`
         }
         // Handle pasted content (multi-line or multi-character)
         else if (data.length > 1 || data.includes('\n') || data.includes('\r')) {
-          const lines = data.split(/\r?\n/);
+          const lines = data.split(/\r?\n/).filter(line => line !== ''); // Remove empty lines from split
           setEditorContent(prev => {
             const newContent = [...prev];
             const currentLine = newContent[currentRow] || '';
             const beforeCursor = currentLine.slice(0, currentCol);
             const afterCursor = currentLine.slice(currentCol);
             
-            if (lines.length === 1) {
+            if (lines.length === 0) {
+              return newContent;
+            } else if (lines.length === 1) {
               // Single line paste
               newContent[currentRow] = beforeCursor + lines[0] + afterCursor;
               setCursorCol(currentCol + lines[0].length);
@@ -1879,19 +1908,22 @@ Type 'help' to see all available commands!`
             } else {
               // Multi-line paste
               newContent[currentRow] = beforeCursor + lines[0];
-              for (let i = 1; i < lines.length - 1; i++) {
+              // Insert middle lines
+              for (let i = 1; i < lines.length; i++) {
                 newContent.splice(currentRow + i, 0, lines[i]);
               }
-              const lastLine = lines[lines.length - 1];
-              newContent.splice(currentRow + lines.length - 1, 0, lastLine + afterCursor);
-              setCursorRow(currentRow + lines.length - 1);
-              cursorRowRef.current = currentRow + lines.length - 1;
-              setCursorCol(lastLine.length);
-              cursorColRef.current = lastLine.length;
+              // Append afterCursor to the last inserted line
+              const lastLineIndex = currentRow + lines.length - 1;
+              newContent[lastLineIndex] = newContent[lastLineIndex] + afterCursor;
+              
+              setCursorRow(lastLineIndex);
+              cursorRowRef.current = lastLineIndex;
+              setCursorCol(lines[lines.length - 1].length);
+              cursorColRef.current = lines[lines.length - 1].length;
             }
             return newContent;
           });
-          term.write(data.replace(/\n/g, '\r\n'));
+          term.write(data.replace(/\n/g, '\r\n').replace(/\r\r/g, '\r'));
         }
         // Handle Enter
         else if (code === 13) {
