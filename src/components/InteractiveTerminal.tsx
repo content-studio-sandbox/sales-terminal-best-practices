@@ -1706,6 +1706,39 @@ Type 'help' to see all available commands!`
           const currentRow = cursorRowRef.current;
           const currentCol = cursorColRef.current;
           
+          // Handle pasted content (multi-line or multi-character)
+          if (data.length > 1 || data.includes('\n') || data.includes('\r')) {
+            const lines = data.split(/\r?\n/);
+            setEditorContent(prev => {
+              const newContent = [...prev];
+              const currentLine = newContent[currentRow] || '';
+              const beforeCursor = currentLine.slice(0, currentCol);
+              const afterCursor = currentLine.slice(currentCol);
+              
+              if (lines.length === 1) {
+                // Single line paste
+                newContent[currentRow] = beforeCursor + lines[0] + afterCursor;
+                setCursorCol(currentCol + lines[0].length);
+                cursorColRef.current = currentCol + lines[0].length;
+              } else {
+                // Multi-line paste
+                newContent[currentRow] = beforeCursor + lines[0];
+                for (let i = 1; i < lines.length - 1; i++) {
+                  newContent.splice(currentRow + i, 0, lines[i]);
+                }
+                const lastLine = lines[lines.length - 1];
+                newContent.splice(currentRow + lines.length - 1, 0, lastLine + afterCursor);
+                setCursorRow(currentRow + lines.length - 1);
+                cursorRowRef.current = currentRow + lines.length - 1;
+                setCursorCol(lastLine.length);
+                cursorColRef.current = lastLine.length;
+              }
+              return newContent;
+            });
+            term.write(data.replace(/\n/g, '\r\n'));
+            return;
+          }
+          
           if (code === 13) { // Enter
             setEditorContent(prev => {
               const newContent = [...prev];
@@ -1828,6 +1861,37 @@ Type 'help' to see all available commands!`
           }));
           term.write('\r\n[ Wrote ' + editorContentRef.current.length + ' lines ]\r\n');
           trackEditorUsage('nano', 'save', fileName);
+        }
+        // Handle pasted content (multi-line or multi-character)
+        else if (data.length > 1 || data.includes('\n') || data.includes('\r')) {
+          const lines = data.split(/\r?\n/);
+          setEditorContent(prev => {
+            const newContent = [...prev];
+            const currentLine = newContent[currentRow] || '';
+            const beforeCursor = currentLine.slice(0, currentCol);
+            const afterCursor = currentLine.slice(currentCol);
+            
+            if (lines.length === 1) {
+              // Single line paste
+              newContent[currentRow] = beforeCursor + lines[0] + afterCursor;
+              setCursorCol(currentCol + lines[0].length);
+              cursorColRef.current = currentCol + lines[0].length;
+            } else {
+              // Multi-line paste
+              newContent[currentRow] = beforeCursor + lines[0];
+              for (let i = 1; i < lines.length - 1; i++) {
+                newContent.splice(currentRow + i, 0, lines[i]);
+              }
+              const lastLine = lines[lines.length - 1];
+              newContent.splice(currentRow + lines.length - 1, 0, lastLine + afterCursor);
+              setCursorRow(currentRow + lines.length - 1);
+              cursorRowRef.current = currentRow + lines.length - 1;
+              setCursorCol(lastLine.length);
+              cursorColRef.current = lastLine.length;
+            }
+            return newContent;
+          });
+          term.write(data.replace(/\n/g, '\r\n'));
         }
         // Handle Enter
         else if (code === 13) {
