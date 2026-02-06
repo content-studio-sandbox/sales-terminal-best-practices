@@ -1,6 +1,27 @@
 import React from "react";
 import { Grid, Column, Heading, Section, CodeSnippet, Tile, Breadcrumb, BreadcrumbItem } from "@carbon/react";
-import { Code, ArrowLeft, CheckmarkFilled } from "@carbon/icons-react";
+import {
+  Code,
+  ArrowLeft,
+  CheckmarkFilled,
+  Book,
+  Time,
+  Cube,
+  Package,
+  Archive,
+  Camera,
+  Edit,
+  FolderOpen,
+  TreeViewAlt,
+  Checkmark,
+  WarningAlt,
+  Collaborate,
+  Flow,
+  Renew,
+  Information,
+  Rocket,
+  DocumentTasks
+} from "@carbon/icons-react";
 import { useNavigate } from "react-router-dom";
 
 export default function GitConceptsPage() {
@@ -31,8 +52,9 @@ export default function GitConceptsPage() {
 
         {/* The Big Picture */}
         <div style={{ backgroundColor: "#e8f4ff", padding: "2rem", borderRadius: "8px", marginBottom: "3rem", border: "1px solid #0f62fe" }}>
-          <h3 style={{ marginTop: 0, color: "#0f62fe", marginBottom: "1.5rem", fontSize: "1.5rem" }}>
-            🎯 The Big Picture: Why Mental Models Matter
+          <h3 style={{ marginTop: 0, color: "#0f62fe", marginBottom: "1.5rem", fontSize: "1.5rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <Information size={28} style={{ color: "#0f62fe" }} />
+            The Big Picture: Why Mental Models Matter
           </h3>
           <p style={{ lineHeight: 1.8, marginBottom: "1rem", fontSize: "1.125rem" }}>
             Imagine trying to drive a car by just memorizing: "Turn the wheel left, press the pedal, turn the wheel right..."
@@ -47,8 +69,9 @@ export default function GitConceptsPage() {
         {/* The Story Analogy */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
           <Tile style={{ padding: "2rem", backgroundColor: "#fff3e0", border: "2px solid #ff832b" }}>
-            <h3 style={{ marginTop: 0, marginBottom: "1.5rem", color: "#ff832b" }}>
-              📖 Think of Git Like Writing a Book with Your Team
+            <h3 style={{ marginTop: 0, marginBottom: "1.5rem", color: "#ff832b", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <Book size={28} style={{ color: "#ff832b" }} />
+              Think of Git Like Writing a Book with Your Team
             </h3>
             <div style={{ lineHeight: 1.8, fontSize: "1.0625rem" }}>
               <p style={{ marginBottom: "1rem" }}>
@@ -72,7 +95,7 @@ export default function GitConceptsPage() {
               </ul>
               <p style={{ marginBottom: 0, fontWeight: 600, color: "#24a148", fontSize: "1.125rem" }}>
                 <strong>Git's Way:</strong> One book, complete history, everyone works in parallel, no confusion.
-                That's the magic! ✨
+                That's the magic!
               </p>
             </div>
           </Tile>
@@ -80,8 +103,9 @@ export default function GitConceptsPage() {
 
         {/* What is Version Control - Enhanced */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
-          <h2 style={{ marginBottom: "1.5rem", fontSize: "1.75rem", fontWeight: 600 }}>
-            🕰️ Git is a Time Machine for Your Code
+          <h2 style={{ marginBottom: "1.5rem", fontSize: "1.75rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <Time size={32} style={{ color: "#0f62fe" }} />
+            Git is a Time Machine for Your Code
           </h2>
           
           <Tile style={{ padding: "2rem", marginBottom: "2rem", backgroundColor: "#f4f4f4" }}>
@@ -146,21 +170,24 @@ export default function GitConceptsPage() {
 
         {/* Three States - Enhanced */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
-          <h2 style={{ marginBottom: "1.5rem", fontSize: "1.75rem", fontWeight: 600 }}>
-            📦 The Three States: Your Work's Journey
+          <h2 style={{ marginBottom: "1.5rem", fontSize: "1.75rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <Package size={32} style={{ color: "#0f62fe" }} />
+            The Three States: Your Work's Journey
           </h2>
           
           <Tile style={{ padding: "2rem", marginBottom: "2rem", backgroundColor: "#fff3e0", border: "2px solid #ff832b" }}>
-            <h4 style={{ marginTop: 0, marginBottom: "1rem", color: "#ff832b" }}>
-              🎨 Think of It Like Creating Art for a Museum
+            <h4 style={{ marginTop: 0, marginBottom: "1rem", color: "#ff832b", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <Edit size={24} style={{ color: "#ff832b" }} />
+              Think of It Like Creating Art for a Museum
             </h4>
             <p style={{ lineHeight: 1.8, fontSize: "1.0625rem", marginBottom: "1.5rem" }}>
               Imagine you're an artist preparing work for a museum exhibition:
             </p>
             <div style={{ display: "grid", gap: "1.5rem" }}>
               <div style={{ padding: "1.5rem", backgroundColor: "#ffffff", borderRadius: "8px", borderLeft: "6px solid #da1e28" }}>
-                <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#da1e28", fontSize: "1.125rem" }}>
-                  🎨 1. Your Studio (Working Directory)
+                <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#da1e28", fontSize: "1.125rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <Edit size={20} style={{ color: "#da1e28" }} />
+                  1. Your Studio (Working Directory)
                 </h5>
                 <p style={{ marginBottom: "0.75rem", fontSize: "1.0625rem" }}>
                   <strong>What it is:</strong> Your messy studio where you're actively painting
@@ -174,8 +201,9 @@ export default function GitConceptsPage() {
               </div>
 
               <div style={{ padding: "1.5rem", backgroundColor: "#ffffff", borderRadius: "8px", borderLeft: "6px solid #ff832b" }}>
-                <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#ff832b", fontSize: "1.125rem" }}>
-                  📦 2. The Shipping Box (Staging Area)
+                <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#ff832b", fontSize: "1.125rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <Package size={20} style={{ color: "#ff832b" }} />
+                  2. The Shipping Box (Staging Area)
                 </h5>
                 <p style={{ marginBottom: "0.75rem", fontSize: "1.0625rem" }}>
                   <strong>What it is:</strong> You've selected which paintings to send to the museum
@@ -189,8 +217,9 @@ export default function GitConceptsPage() {
               </div>
 
               <div style={{ padding: "1.5rem", backgroundColor: "#ffffff", borderRadius: "8px", borderLeft: "6px solid #24a148" }}>
-                <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#24a148", fontSize: "1.125rem" }}>
-                  🏛️ 3. The Museum (Repository)
+                <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#24a148", fontSize: "1.125rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <Archive size={20} style={{ color: "#24a148" }} />
+                  3. The Museum (Repository)
                 </h5>
                 <p style={{ marginBottom: "0.75rem", fontSize: "1.0625rem" }}>
                   <strong>What it is:</strong> Your work is now permanently displayed in the museum
@@ -206,8 +235,9 @@ export default function GitConceptsPage() {
           </Tile>
 
           <Tile style={{ padding: "2rem", marginBottom: "2rem", backgroundColor: "#e8f4ff", border: "2px solid #0f62fe" }}>
-            <h4 style={{ marginTop: 0, marginBottom: "1.5rem", color: "#0f62fe" }}>
-              🎬 The Complete Workflow (Like Making a Movie)
+            <h4 style={{ marginTop: 0, marginBottom: "1.5rem", color: "#0f62fe", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <Camera size={24} style={{ color: "#0f62fe" }} />
+              The Complete Workflow (Like Making a Movie)
             </h4>
             <pre style={{ fontFamily: "monospace", fontSize: "0.9375rem", margin: 0, lineHeight: 1.8, backgroundColor: "#ffffff", padding: "1.5rem", borderRadius: "8px" }}>
 {`🎨 STUDIO              📦 EDITING ROOM         🏛️ CINEMA
@@ -231,20 +261,22 @@ REAL EXAMPLE:
 3. You run: git commit -m "Add hero section"
    Status: Committed (saved in history)
 
-💡 Pro Tip: Run 'git status' anytime to see where your files are!`}
+Pro Tip: Run 'git status' anytime to see where your files are!`}
             </pre>
           </Tile>
         </Section>
 
         {/* Branches - Enhanced */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
-          <h2 style={{ marginBottom: "1.5rem", fontSize: "1.75rem", fontWeight: 600 }}>
-            🌳 Branches: Parallel Universes for Your Code
+          <h2 style={{ marginBottom: "1.5rem", fontSize: "1.75rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <TreeViewAlt size={32} style={{ color: "#0f62fe" }} />
+            Branches: Parallel Universes for Your Code
           </h2>
           
           <Tile style={{ padding: "2rem", marginBottom: "2rem", backgroundColor: "#defbe6", border: "2px solid #24a148" }}>
-            <h4 style={{ marginTop: 0, marginBottom: "1rem", color: "#24a148" }}>
-              🎮 Think of It Like a Video Game with Save Points
+            <h4 style={{ marginTop: 0, marginBottom: "1rem", color: "#24a148", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <Rocket size={24} style={{ color: "#24a148" }} />
+              Think of It Like a Video Game with Save Points
             </h4>
             <p style={{ lineHeight: 1.8, fontSize: "1.0625rem", marginBottom: "1.5rem" }}>
               Imagine you're playing a video game and you reach a fork in the road:
@@ -286,29 +318,30 @@ Friday:    Dark mode is done and tested
            Merge back: git checkout main
                       git merge feature/dark-mode
            
-Result:    Main now has dark mode! 🎉
+Result:    Main now has dark mode!
 
-💡 The Magic: While you worked on dark mode, your teammate
+The Magic: While you worked on dark mode, your teammate
    fixed bugs on a different branch. No conflicts!`}
             </pre>
           </Tile>
 
           <Tile style={{ padding: "1.5rem", backgroundColor: "#fff3e0", border: "1px solid #ff832b" }}>
-            <h5 style={{ marginTop: 0, marginBottom: "1rem", color: "#ff832b" }}>
-              🎯 Why Branches Are a Superpower
+            <h5 style={{ marginTop: 0, marginBottom: "1rem", color: "#ff832b", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <Rocket size={20} style={{ color: "#ff832b" }} />
+              Why Branches Are a Superpower
             </h5>
             <div style={{ display: "grid", gap: "1rem" }}>
               <div style={{ padding: "1rem", backgroundColor: "#ffffff", borderRadius: "4px" }}>
-                <strong>✅ Experiment Safely:</strong> Try crazy ideas without breaking anything
+                <strong><Checkmark size={16} style={{ color: "#24a148", marginRight: "0.25rem" }} /> Experiment Safely:</strong> Try crazy ideas without breaking anything
               </div>
               <div style={{ padding: "1rem", backgroundColor: "#ffffff", borderRadius: "4px" }}>
-                <strong>✅ Work in Parallel:</strong> 5 people, 5 features, zero conflicts
+                <strong><Checkmark size={16} style={{ color: "#24a148", marginRight: "0.25rem" }} /> Work in Parallel:</strong> 5 people, 5 features, zero conflicts
               </div>
               <div style={{ padding: "1rem", backgroundColor: "#ffffff", borderRadius: "4px" }}>
-                <strong>✅ Easy Rollback:</strong> Feature didn't work? Delete the branch, done!
+                <strong><Checkmark size={16} style={{ color: "#24a148", marginRight: "0.25rem" }} /> Easy Rollback:</strong> Feature didn't work? Delete the branch, done!
               </div>
               <div style={{ padding: "1rem", backgroundColor: "#ffffff", borderRadius: "4px" }}>
-                <strong>✅ Code Review:</strong> Team reviews your branch before merging to main
+                <strong><Checkmark size={16} style={{ color: "#24a148", marginRight: "0.25rem" }} /> Code Review:</strong> Team reviews your branch before merging to main
               </div>
             </div>
           </Tile>
@@ -325,7 +358,10 @@ Result:    Main now has dark mode! 🎉
           
           <div style={{ display: "grid", gap: "1rem", marginBottom: "2rem" }}>
             <Tile style={{ padding: "1rem" }}>
-              <h5 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#24a148" }}>✅ Fast-Forward Merge</h5>
+              <h5 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#24a148", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <Checkmark size={20} style={{ color: "#24a148" }} />
+                Fast-Forward Merge
+              </h5>
               <p style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>
                 When no changes happened on main, Git just moves the pointer forward
               </p>
@@ -338,7 +374,10 @@ After:   main: A ─── B ─── C ─── D`}
             </Tile>
 
             <Tile style={{ padding: "1rem" }}>
-              <h5 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#0f62fe" }}>🔀 Three-Way Merge</h5>
+              <h5 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#0f62fe", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <Flow size={20} style={{ color: "#0f62fe" }} />
+                Three-Way Merge
+              </h5>
               <p style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>
                 When both branches have changes, Git creates a merge commit
               </p>
@@ -352,7 +391,10 @@ After:   main: A ─── B ─── C ─── F (merge commit)
             </Tile>
 
             <Tile style={{ padding: "1rem", borderLeft: "4px solid #da1e28" }}>
-              <h5 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#da1e28" }}>⚠️ Merge Conflicts</h5>
+              <h5 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#da1e28", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <WarningAlt size={20} style={{ color: "#da1e28" }} />
+                Merge Conflicts
+              </h5>
               <p style={{ fontSize: "0.875rem", margin: 0 }}>
                 When the same lines were changed in both branches, Git asks you to decide which to keep. 
                 This is normal and not scary - Git marks the conflicts and you choose what to keep.
@@ -434,11 +476,11 @@ git branch -d feature/new-feature`}
           </h2>
           <div style={{ display: "grid", gap: "0.75rem" }}>
             {[
-              { icon: "💡", text: "Commit often - small, focused commits are better than large ones" },
-              { icon: "💡", text: "Write clear commit messages - your future self will thank you" },
-              { icon: "💡", text: "Pull before you push - stay in sync with your team" },
-              { icon: "💡", text: "Branch for every feature - keep main stable" },
-              { icon: "💡", text: "Don't fear mistakes - Git can undo almost anything" }
+              { text: "Commit often - small, focused commits are better than large ones" },
+              { text: "Write clear commit messages - your future self will thank you" },
+              { text: "Pull before you push - stay in sync with your team" },
+              { text: "Branch for every feature - keep main stable" },
+              { text: "Don't fear mistakes - Git can undo almost anything" }
             ].map((item, i) => (
               <div
                 key={i}
@@ -451,7 +493,7 @@ git branch -d feature/new-feature`}
                   borderRadius: "4px"
                 }}
               >
-                <span style={{ fontSize: "1.25rem", flexShrink: 0 }}>{item.icon}</span>
+                <Information size={20} style={{ color: "#0f62fe", flexShrink: 0, marginTop: "2px" }} />
                 <p style={{ margin: 0, fontSize: "0.9375rem", lineHeight: 1.6 }}>
                   {item.text}
                 </p>
