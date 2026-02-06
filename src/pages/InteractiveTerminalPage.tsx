@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Column, Heading, Section, Dropdown } from "@carbon/react";
-import { Terminal, Keyboard, Branch, ChevronDown, ChevronUp } from "@carbon/icons-react";
+import { Terminal, Keyboard, Branch, ChevronDown, ChevronUp, Rocket, Checkmark, Information, Idea, FlagFilled, DocumentTasks, WarningAlt } from "@carbon/icons-react";
 import InteractiveTerminal from "../components/InteractiveTerminal";
 import ExerciseCard from "../components/ExerciseCard";
 import { CodeWithCopy } from "../components/CodeWithCopy";
@@ -50,7 +50,7 @@ export default function InteractiveTerminalPage() {
             borderLeft: "4px solid #0f62fe"
           }}>
             <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
-              <span style={{ fontSize: "1.5rem", lineHeight: 1 }}>💡</span>
+              <Idea size={32} style={{ color: "#0f62fe", flexShrink: 0 }} />
               <div>
                 <h3 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#161616", fontSize: "1.125rem", fontWeight: 600 }}>
                   Safe Learning Environment
@@ -198,8 +198,11 @@ export default function InteractiveTerminalPage() {
                     border: "1px solid #0f62fe",
                     marginTop: "0.5rem"
                   }}>
-                    <div style={{ fontSize: "0.875rem", color: "#161616", lineHeight: 1.6 }}>
-                      <strong style={{ color: "#0f62fe" }}>💡 Pro Tip:</strong> Use <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>↑/↓</code> arrows for command history, <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>Tab</code> for auto-complete, and <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>Ctrl+C</code> to cancel commands.
+                    <div style={{ fontSize: "0.875rem", color: "#161616", lineHeight: 1.6, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <Information size={20} style={{ color: "#0f62fe", flexShrink: 0 }} />
+                      <div>
+                        <strong style={{ color: "#0f62fe" }}>Pro Tip:</strong> Use <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>↑/↓</code> arrows for command history, <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>Tab</code> for auto-complete, and <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>Ctrl+C</code> to cancel commands.
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -217,11 +220,14 @@ export default function InteractiveTerminalPage() {
                     onToggle={toggleExercise}
                     special={true}
                   >
-                      <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#f4f4f4", borderRadius: "3px" }}>
-                        <strong style={{ color: "#161616" }}>💡 Why Zsh?</strong>
-                        <p style={{ margin: "0.5rem 0 0 0", color: "#525252", fontSize: "0.8125rem" }}>
-                          Zsh provides better auto-completion, syntax highlighting, and a beautiful prompt with git branch info - exactly like what you see in this simulator!
-                        </p>
+                      <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#f4f4f4", borderRadius: "3px", display: "flex", alignItems: "flex-start", gap: "0.5rem" }}>
+                        <Information size={20} style={{ color: "#0f62fe", flexShrink: 0, marginTop: "0.125rem" }} />
+                        <div>
+                          <strong style={{ color: "#161616" }}>Why Zsh?</strong>
+                          <p style={{ margin: "0.5rem 0 0 0", color: "#525252", fontSize: "0.8125rem" }}>
+                            Zsh provides better auto-completion, syntax highlighting, and a beautiful prompt with git branch info - exactly like what you see in this simulator!
+                          </p>
+                        </div>
                       </div>
                       
                       <div style={{ marginBottom: "0.75rem", paddingTop: "0.5rem", borderTop: "1px solid #e0e0e0" }}>
@@ -252,11 +258,14 @@ export default function InteractiveTerminalPage() {
                         <span style={{ color: "#525252", fontSize: "0.8125rem" }}>Then restart your terminal to see the magic! ✨</span>
                       </div>
                       
-                      <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderRadius: "3px", borderLeft: "3px solid #24a148" }}>
-                        <strong style={{ color: "#24a148", fontSize: "0.8125rem" }}>🎯 Pro Tip:</strong>
-                        <p style={{ margin: "0.5rem 0 0 0", color: "#161616", fontSize: "0.8125rem" }}>
-                          After installing Oh My Zsh, your terminal will look just like this simulator with colorful prompts and git branch info!
-                        </p>
+                      <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderRadius: "3px", borderLeft: "3px solid #24a148", display: "flex", alignItems: "flex-start", gap: "0.5rem" }}>
+                        <FlagFilled size={20} style={{ color: "#24a148", flexShrink: 0, marginTop: "0.125rem" }} />
+                        <div>
+                          <strong style={{ color: "#24a148", fontSize: "0.8125rem" }}>Pro Tip:</strong>
+                          <p style={{ margin: "0.5rem 0 0 0", color: "#161616", fontSize: "0.8125rem" }}>
+                            After installing Oh My Zsh, your terminal will look just like this simulator with colorful prompts and git branch info!
+                          </p>
+                        </div>
                       </div>
                   </ExerciseCard>
 
@@ -295,8 +304,9 @@ export default function InteractiveTerminalPage() {
                       <CodeWithCopy code="ssh-add ~/.ssh/id_ed25519" description="Add key to agent" />
                       <CodeWithCopy code="cat ~/.ssh/id_ed25519.pub" description="Display public key" />
                       <CodeWithCopy code="ssh -T git@github.ibm.com" description="Test connection" />
-                      <div style={{ marginTop: "0.75rem", paddingTop: "0.5rem", borderTop: "1px solid #e0e0e0", fontSize: "0.8125rem", color: "#525252" }}>
-                        💡 Copy the public key and add it to GitHub Settings → SSH Keys
+                      <div style={{ marginTop: "0.75rem", paddingTop: "0.5rem", borderTop: "1px solid #e0e0e0", fontSize: "0.8125rem", color: "#525252", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <Information size={16} style={{ color: "#0f62fe", flexShrink: 0 }} />
+                        <span>Copy the public key and add it to GitHub Settings → SSH Keys</span>
                       </div>
                   </ExerciseCard>
 
@@ -318,12 +328,13 @@ export default function InteractiveTerminalPage() {
                   <ExerciseCard
                     id="lab2-ex3"
                     title="Exercise 3: Clone Real Repo & Implement Feature"
-                    scenario="🎯 Real Scenario: Add a new terminal tip to this very app!"
+                    scenario="Real Scenario: Add a new terminal tip to this very app!"
                     isExpanded={expandedExercises.has('lab2-ex3')}
                     onToggle={toggleExercise}
                   >
-                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
-                        <strong style={{ color: "#0f62fe" }}>📦 Your Mission:</strong> Clone the sales-terminal-best-practices repo and add a new tip to the Terminal Basics page
+                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <FlagFilled size={20} style={{ color: "#0f62fe", flexShrink: 0 }} />
+                        <div><strong style={{ color: "#0f62fe" }}>Your Mission:</strong> Clone the sales-terminal-best-practices repo and add a new tip to the Terminal Basics page</div>
                       </div>
                       
                       <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
@@ -342,8 +353,9 @@ export default function InteractiveTerminalPage() {
                       <CodeWithCopy code="git log --oneline -5" description="View recent commits" />
                       <CodeWithCopy code="cat README.md" description="Read project docs" />
                       
-                      <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderLeft: "3px solid #f1c21b", borderRadius: "3px", fontSize: "0.8125rem" }}>
-                        💡 <strong>Pro Tip:</strong> Always explore a repo before making changes. Check the README, recent commits, and project structure!
+                      <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderLeft: "3px solid #f1c21b", borderRadius: "3px", fontSize: "0.8125rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <Information size={20} style={{ color: "#f1c21b", flexShrink: 0 }} />
+                        <div><strong>Pro Tip:</strong> Always explore a repo before making changes. Check the README, recent commits, and project structure!</div>
                       </div>
                   </ExerciseCard>
 
@@ -351,40 +363,52 @@ export default function InteractiveTerminalPage() {
                   <ExerciseCard
                     id="lab2-ex4"
                     title="Exercise 4: Create Feature Branch & Make Changes"
-                    scenario="🚀 Real Scenario: Implement the 'Add Terminal Tip' feature"
+                    scenario="Real Scenario: Implement the 'Add Terminal Tip' feature"
                     isExpanded={expandedExercises.has('lab2-ex4')}
                     onToggle={toggleExercise}
                   >
-                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
-                        <strong style={{ color: "#0f62fe" }}>🎯 Your Task:</strong> Add a new tip about using <code style={{ backgroundColor: "#e0e0e0", padding: "2px 4px", borderRadius: "2px" }}>git status</code> frequently
+                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <FlagFilled size={20} style={{ color: "#0f62fe", flexShrink: 0 }} />
+                        <div><strong style={{ color: "#0f62fe" }}>Your Task:</strong> Add a new OpenShift Best Practices page to the application</div>
                       </div>
                       
                       <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 1: Create a feature branch
                       </div>
-                      <CodeWithCopy code="git checkout -b feature/add-git-status-tip" description="Create & switch to feature branch" />
+                      <CodeWithCopy code="git checkout -b feature/add-openshift-page" description="Create & switch to feature branch" />
                       <CodeWithCopy code="git branch" description="Verify you're on the new branch" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
-                        Step 2: Find the file to edit
+                        Step 2: Create the OpenShift page/tab from the navigation bar
                       </div>
-                      <CodeWithCopy code="ls src/pages/" description="List page files" />
-                      <CodeWithCopy code="cat src/pages/TerminalBasicsPage.tsx | head -50" description="Preview the file" />
+                      <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px", fontSize: "0.8125rem", display: "flex", alignItems: "flex-start", gap: "0.5rem" }}>
+                        <DocumentTasks size={20} style={{ color: "#0f62fe", flexShrink: 0, marginTop: "0.125rem" }} />
+                        <div><strong>Instructions:</strong> Copy the OpenShift page code from <a href="https://gist.github.ibm.com/Oscar-Ricaud/1f51bc2e06070dc0306ab15a1d1c869a" target="_blank" rel="noopener noreferrer" style={{ color: "#0f62fe", textDecoration: "underline" }}>this GitHub gist</a> and paste it into vim when you open the file.</div>
+                      </div>
+                      <CodeWithCopy code="ls src/pages/" description="List existing page files" />
+                      <CodeWithCopy
+                        code="touch src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="Create new file"
+                        block={true}
+                      />
+                      <CodeWithCopy
+                        code="vim src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="Open in vim, press 'i' for INSERT mode, paste gist content, ESC then :wq to save"
+                        block={true}
+                      />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
-                        Step 3: Make your changes
+                        Step 3: Verify the file was created
                       </div>
-                      <div style={{ marginBottom: "0.5rem", padding: "0.75rem", backgroundColor: "#f4f4f4", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem" }}>
-                        <div style={{ color: "#24a148", marginBottom: "0.25rem" }}>// Add this new tip to the tips array:</div>
-                        <div style={{ color: "#161616" }}>
-                          {`{`}<br/>
-                          &nbsp;&nbsp;icon: "💡",<br/>
-                          &nbsp;&nbsp;title: "Check Status Often",<br/>
-                          &nbsp;&nbsp;description: "Run 'git status' frequently to see what files have changed and what's staged for commit."<br/>
-                          {`}`}
-                        </div>
-                      </div>
-                      <CodeWithCopy code="nano src/pages/TerminalBasicsPage.tsx" description="Edit the file (or use vim/code)" />
+                      <CodeWithCopy
+                        code="ls src/pages/ | grep OpenShift"
+                        description="Confirm file exists"
+                      />
+                      <CodeWithCopy
+                        code="wc -l src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="Check line count (~444 lines)"
+                        block={true}
+                      />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 4: Check what changed
@@ -392,8 +416,9 @@ export default function InteractiveTerminalPage() {
                       <CodeWithCopy code="git status" description="See modified files" />
                       <CodeWithCopy code="git diff src/pages/TerminalBasicsPage.tsx" description="View exact changes" />
                       
-                      <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderLeft: "3px solid #f1c21b", borderRadius: "3px", fontSize: "0.8125rem" }}>
-                        💡 <strong>Best Practice:</strong> Always review your changes with <code style={{ backgroundColor: "#e0e0e0", padding: "2px 4px", borderRadius: "2px" }}>git diff</code> before committing!
+                      <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderLeft: "3px solid #f1c21b", borderRadius: "3px", fontSize: "0.8125rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <Information size={20} style={{ color: "#f1c21b", flexShrink: 0 }} />
+                        <div><strong>Best Practice:</strong> Always review your changes with <code style={{ backgroundColor: "#e0e0e0", padding: "2px 4px", borderRadius: "2px" }}>git diff</code> before committing!</div>
                       </div>
                   </ExerciseCard>
 
@@ -401,26 +426,40 @@ export default function InteractiveTerminalPage() {
                   <ExerciseCard
                     id="lab2-ex5"
                     title="Exercise 5: Stage and Commit Your Changes"
-                    scenario="📝 Real Scenario: Save your terminal tip feature with a good commit message"
+                    scenario="📝 Real Scenario: Save your new OpenShift page with a good commit message"
                     isExpanded={expandedExercises.has('lab2-ex5')}
                     onToggle={toggleExercise}
                   >
-                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
-                        <strong style={{ color: "#0f62fe" }}>🎯 Goal:</strong> Create a clean, professional commit for your feature
+                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <FlagFilled size={20} style={{ color: "#0f62fe", flexShrink: 0 }} />
+                        <div><strong style={{ color: "#0f62fe" }}>Goal:</strong> Create a clean, professional commit for your new page</div>
                       </div>
                       
                       <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
-                        Step 1: Stage your changes
+                        Step 1: Check what changed
                       </div>
-                      <CodeWithCopy code="git status" description="Confirm what changed" />
-                      <CodeWithCopy code="git add src/pages/TerminalBasicsPage.tsx" description="Stage the modified file" />
+                      <CodeWithCopy code="git status" description="See new file (untracked)" />
+                      <CodeWithCopy
+                        code="git diff src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="View the new file content"
+                        block={true}
+                      />
+                      
+                      <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
+                        Step 2: Stage your new file
+                      </div>
+                      <CodeWithCopy
+                        code="git add src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="Stage the new file"
+                        block={true}
+                      />
                       <CodeWithCopy code="git status" description="Verify file is staged (green)" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
-                        Step 2: Write a good commit message
+                        Step 3: Write a good commit message
                       </div>
                       <CodeWithCopy
-                        code='git commit -m "feat: add git status tip to Terminal Basics page"'
+                        code='git commit -m "feat: add OpenShift Best Practices page for tech sellers"'
                         block={true}
                       />
                       
@@ -431,7 +470,10 @@ export default function InteractiveTerminalPage() {
                       <CodeWithCopy code="git show" description="View commit details" />
                       
                       <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderLeft: "3px solid #24a148", borderRadius: "3px", fontSize: "0.8125rem" }}>
-                        ✅ <strong>Commit Message Best Practices:</strong>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                          <Checkmark size={20} style={{ color: "#24a148", flexShrink: 0 }} />
+                          <strong>Commit Message Best Practices:</strong>
+                        </div>
                         <ul style={{ margin: "0.5rem 0 0 1.25rem", paddingLeft: 0 }}>
                           <li>Start with a type: feat, fix, docs, style, refactor, test, chore</li>
                           <li>Use present tense: "add" not "added"</li>
@@ -445,26 +487,25 @@ export default function InteractiveTerminalPage() {
                   <ExerciseCard
                     id="lab2-ex6"
                     title="Exercise 6: Push Branch & Create Pull Request"
-                    scenario="🚀 Real Scenario: Share your feature with the team for review"
+                    scenario="Real Scenario: Share your feature with the team for review"
                     isExpanded={expandedExercises.has('lab2-ex6')}
                     onToggle={toggleExercise}
                   >
-                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px" }}>
-                        <strong style={{ color: "#0f62fe" }}>🎯 Goal:</strong> Push your feature branch and open a PR for team review
+                      <div style={{ marginBottom: "1rem", padding: "0.75rem", backgroundColor: "#f0f7ff", borderLeft: "3px solid #0f62fe", borderRadius: "3px", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <Rocket size={20} style={{ color: "#0f62fe", flexShrink: 0 }} />
+                        <div><strong style={{ color: "#0f62fe" }}>Goal:</strong> Push your feature branch and open a PR for team review</div>
                       </div>
                       
                       <div style={{ marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
-                        Step 1: Sync with remote main
+                        Step 1: Verify you're on the correct branch
                       </div>
-                      <CodeWithCopy code="git checkout main" description="Switch to main branch" />
-                      <CodeWithCopy code="git pull origin main" description="Get latest changes" />
-                      <CodeWithCopy code="git checkout feature/add-git-status-tip" description="Back to your branch" />
+                      <CodeWithCopy code="git status" description="Confirm you're on feature/add-openshift-page" />
                       
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 2: Push your feature branch
                       </div>
                       <CodeWithCopy
-                        code="git push -u origin feature/add-git-status-tip"
+                        code="git push -u origin feature/add-openshift-page"
                         description="Push and set upstream tracking"
                         block={true}
                       />
@@ -483,14 +524,15 @@ export default function InteractiveTerminalPage() {
                           <strong>3.</strong> Write PR description:
                           <div style={{ marginTop: "0.5rem", padding: "0.5rem", backgroundColor: "#ffffff", border: "1px solid #e0e0e0", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem" }}>
                             ## What Changed<br/>
-                            Added new tip about using git status frequently<br/>
+                            Added new OpenShift Best Practices page<br/>
                             <br/>
                             ## Why<br/>
-                            Helps users understand the importance of checking repo state<br/>
+                            Provides comprehensive OpenShift guidance for developers<br/>
                             <br/>
                             ## Testing<br/>
-                            - Verified tip displays correctly<br/>
-                            - Checked formatting and styling
+                            - Verified page displays correctly<br/>
+                            - Checked all links and navigation<br/>
+                            - Validated content formatting
                           </div>
                         </div>
                         <div>
@@ -499,13 +541,31 @@ export default function InteractiveTerminalPage() {
                       </div>
                       
                       <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderLeft: "3px solid #24a148", borderRadius: "3px", fontSize: "0.8125rem" }}>
-                        🎉 <strong>Congratulations!</strong> You've completed a full feature development workflow:
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                          <Checkmark size={20} style={{ color: "#24a148", flexShrink: 0 }} />
+                          <strong>Congratulations!</strong> You've completed a full feature development workflow:
+                        </div>
                         <ul style={{ margin: "0.5rem 0 0 1.25rem", paddingLeft: 0 }}>
-                          <li>✅ Cloned a real repository</li>
-                          <li>✅ Created a feature branch</li>
-                          <li>✅ Made meaningful changes</li>
-                          <li>✅ Committed with a good message</li>
-                          <li>✅ Pushed and created a PR</li>
+                          <li style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                            <Checkmark size={16} style={{ color: "#24a148", flexShrink: 0 }} />
+                            <span>Cloned a real repository</span>
+                          </li>
+                          <li style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                            <Checkmark size={16} style={{ color: "#24a148", flexShrink: 0 }} />
+                            <span>Created a feature branch</span>
+                          </li>
+                          <li style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                            <Checkmark size={16} style={{ color: "#24a148", flexShrink: 0 }} />
+                            <span>Made meaningful changes</span>
+                          </li>
+                          <li style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                            <Checkmark size={16} style={{ color: "#24a148", flexShrink: 0 }} />
+                            <span>Committed with a good message</span>
+                          </li>
+                          <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                            <Checkmark size={16} style={{ color: "#24a148", flexShrink: 0 }} />
+                            <span>Pushed and created a PR</span>
+                          </li>
                         </ul>
                       </div>
                   </ExerciseCard>
@@ -518,8 +578,11 @@ export default function InteractiveTerminalPage() {
                     border: "1px solid #0f62fe",
                     marginTop: "0.5rem"
                   }}>
-                    <div style={{ fontSize: "0.875rem", color: "#161616", lineHeight: 1.6 }}>
-                      <strong style={{ color: "#0f62fe" }}>💡 Pro Tip:</strong> Always <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git pull</code> before starting work and <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code> frequently to stay aware of your changes.
+                    <div style={{ fontSize: "0.875rem", color: "#161616", lineHeight: 1.6, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <Information size={20} style={{ color: "#0f62fe", flexShrink: 0 }} />
+                      <div>
+                        <strong style={{ color: "#0f62fe" }}>Pro Tip:</strong> Always <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git pull</code> before starting work and <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>git status</code> frequently to stay aware of your changes.
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -533,7 +596,7 @@ export default function InteractiveTerminalPage() {
               overflow: "hidden"
             }}>
               <InteractiveTerminal
-                welcomeMessage="🚀 FSM Terminal Practice Environment - Type 'help' to get started!"
+                welcomeMessage="FSM Terminal Practice Environment - Type 'help' to get started!"
                 initialCommands={[]}
               />
             </div>
