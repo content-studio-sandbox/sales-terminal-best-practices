@@ -413,8 +413,17 @@ export default function InteractiveTerminalPage() {
                       <div style={{ marginTop: "1rem", marginBottom: "0.75rem", fontWeight: 600, color: "#161616" }}>
                         Step 4: Check what changed
                       </div>
-                      <CodeWithCopy code="git status" description="See modified files" />
-                      <CodeWithCopy code="git diff src/pages/TerminalBasicsPage.tsx" description="View exact changes" />
+                      <CodeWithCopy code="git status" description="See new file" />
+                      <CodeWithCopy
+                        code="git diff src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="View the new file (shows as new file before staging)"
+                        block={true}
+                      />
+                      <CodeWithCopy
+                        code="cat src/pages/OpenShiftBestPracticesPage.tsx"
+                        description="Or view file content directly"
+                        block={true}
+                      />
                       
                       <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderLeft: "3px solid #f1c21b", borderRadius: "3px", fontSize: "0.8125rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                         <Information size={20} style={{ color: "#f1c21b", flexShrink: 0 }} />

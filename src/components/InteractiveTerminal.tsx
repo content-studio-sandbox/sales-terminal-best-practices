@@ -45,6 +45,10 @@ export default function InteractiveTerminal({
   // Analytics tracking state
   const sessionStartTime = useRef<number>(Date.now());
   const commandCount = useRef<number>(0);
+  
+  // Paste buffer for handling multi-line pastes
+  const pasteBufferRef = useRef<string>('');
+  const pasteTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Use refs to store latest state values for event handlers
   const currentLineRef = useRef(currentLine);
@@ -502,10 +506,12 @@ export default function TerminalBasicsPage() {
       const chars = content.length;
       
       if (hasLineFlag) {
-        return `${lines} ${fileName}`;
+        // Format: right-aligned number, space, filename
+        return `${String(lines).padStart(7)} ${fileName}`;
       }
       
-      return `  ${lines}  ${words} ${chars} ${fileName}`;
+      // Format: lines, words, chars (all right-aligned), then filename
+      return `${String(lines).padStart(7)} ${String(words).padStart(7)} ${String(chars).padStart(7)} ${fileName}`;
     },
     
     date: () => new Date().toString(),
@@ -576,6 +582,30 @@ Author: Sales User <sales@ibm.com>
 Date:   ${new Date(Date.now() - 86400000).toDateString()}
 
 Updated documentation`,
+    
+    "git show": () => {
+      const branch = currentBranchRef.current;
+      const staged = stagedFilesRef.current;
+      const lastCommitFile = staged.length > 0 ? staged[0] : 'src/pages/OpenShiftBestPracticesPage.tsx';
+      
+      return `commit abc123def456 (HEAD -> ${branch})
+Author: Sales User <sales@ibm.com>
+Date:   ${new Date().toDateString()}
+
+    feat: add OpenShift Best Practices page for tech sellers
+
+diff --git a/${lastCommitFile} b/${lastCommitFile}
+new file mode 100644
+index 0000000..def456e
+--- /dev/null
++++ b/${lastCommitFile}
+@@ -0,0 +1,5 @@
++import React from 'react';
++
++export default function OpenShiftBestPracticesPage() {
++  return <div>OpenShift Best Practices</div>;
++}`;
+    },
     
     "ssh demo": () => `Connecting to demo-server.ibm.com...
 Welcome to IBM Demo Server
@@ -831,7 +861,54 @@ Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
 To github.com:ibm/demo-repo.git
    def456e..ghi789j  main -> main`,
     
-    "git diff": () => `diff --git a/src/app.ts b/src/app.ts
+    "git diff": (args?: string) => {
+      const fileContents = fileContentsRef.current;
+      
+      // If a specific file is requested
+      if (args && args.trim()) {
+        const fileName = args.trim();
+        const content = fileContents[fileName] || '';
+        
+        if (content) {
+          const lines = content.split('\n');
+          const lineCount = lines.length;
+          
+          return `diff --git a/${fileName} b/${fileName}
+new file mode 100644
+index 0000000..abc1234
+--- /dev/null
++++ b/${fileName}
+@@ -0,0 +1,${lineCount} @@
+${lines.map(line => '+' + line).join('\n')}`;
+        } else {
+          return `diff --git a/${fileName} b/${fileName}
+new file mode 100644
+--- /dev/null
++++ b/${fileName}
+@@ -0,0 +1 @@
++// File not yet created or empty`;
+        }
+      }
+      
+      // If there are staged files, show their diff
+      const staged = stagedFilesRef.current;
+      if (staged.length > 0) {
+        const fileName = staged[0];
+        const content = fileContents[fileName] || '';
+        const lines = content.split('\n');
+        const lineCount = lines.length;
+        
+        return `diff --git a/${fileName} b/${fileName}
+new file mode 100644
+index 0000000..abc1234
+--- /dev/null
++++ b/${fileName}
+@@ -0,0 +1,${lineCount} @@
+${lines.map(line => '+' + line).join('\n')}`;
+      }
+      
+      // Default diff if no staged files
+      return `diff --git a/src/app.ts b/src/app.ts
 index abc123d..def456e 100644
 --- a/src/app.ts
 +++ b/src/app.ts
@@ -843,7 +920,8 @@ index abc123d..def456e 100644
      console.log('Starting application...');
 +    await this.initialize();
    }
- }`,
+ }`;
+    },
     
     // Git configuration commands
     "git config": (args?: string) => {
@@ -978,6 +1056,51 @@ usage: git commit -m "message"`;
       return `==> Downloading ${pkg}...
 ==> Installing ${pkg}...
 ✓ ${pkg} installed successfully via Homebrew`;
+    },
+    
+    chsh: (args?: string) => {
+      if (!args || !args.includes("-s")) {
+        return "usage: chsh -s /path/to/shell";
+      }
+      
+      return `Changing shell for sales-user.
+Password for sales-user:
+✓ Shell changed successfully to zsh
+🎉 Restart your terminal to see the new shell in action!`;
+    },
+    
+    sh: (args?: string) => {
+      if (!args || !args.includes("-c")) {
+        return "usage: sh -c 'command'";
+      }
+      
+      // Simulate Oh My Zsh installation
+      if (args.includes("ohmyzsh")) {
+        return `Cloning Oh My Zsh...
+remote: Enumerating objects: 1234, done.
+remote: Counting objects: 100% (1234/1234), done.
+remote: Compressing objects: 100% (890/890), done.
+remote: Total 1234 (delta 456), reused 1100 (delta 400)
+Receiving objects: 100% (1234/1234), 825.50 KiB | 2.50 MiB/s, done.
+Resolving deltas: 100% (456/456), done.
+
+Looking for an existing zsh config...
+Using the Oh My Zsh template file and adding it to ~/.zshrc.
+
+         __                                     __
+  ____  / /_     ____ ___  __  __   ____  _____/ /_
+ / __ \\/ __ \\   / __ \`__ \\/ / / /  /_  / / ___/ __ \\
+/ /_/ / / / /  / / / / / / /_/ /    / /_(__  ) / / /
+\\____/_/ /_/  /_/ /_/ /_/\\__, /    /___/____/_/ /_/
+                        /____/                       ....is now installed!
+
+Please look over the ~/.zshrc file to select plugins, themes, and options.
+
+🎉 Oh My Zsh installed successfully!
+💡 Restart your terminal to see the beautiful new prompt!`;
+      }
+      
+      return "sh: command executed";
     },
     
     // SSH key generation and management
@@ -1451,7 +1574,21 @@ Type 'help' to see all available commands!`
     term.writeln("");
     
     // Function to write output with realistic typing delay
-    const writeOutputWithDelay = async (term: Terminal, output: string, delayMs: number = 8) => {
+    // For cat command and file content, write instantly (no delay)
+    const writeOutputWithDelay = async (term: Terminal, output: string, delayMs: number = 8, instant: boolean = false) => {
+      if (instant) {
+        // Write instantly for cat and file content
+        const lines = output.split('\n');
+        lines.forEach((line, i) => {
+          if (i < lines.length - 1) {
+            term.writeln(line);
+          } else {
+            term.write(line);
+          }
+        });
+        return;
+      }
+      
       const lines = output.split('\n');
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
@@ -1621,6 +1758,46 @@ Type 'help' to see all available commands!`
           const currentRow = cursorRowRef.current;
           const currentCol = cursorColRef.current;
           
+          // Handle pasted content (multi-line or multi-character)
+          // Check for newlines first, then multi-character
+          if (data.includes('\n') || data.includes('\r') || data.length > 1) {
+            console.log('Paste detected:', { dataLength: data.length, hasNewline: data.includes('\n'), data: data.substring(0, 100) });
+            const lines = data.split(/\r?\n/).filter(line => line !== ''); // Remove empty lines from split
+            setEditorContent(prev => {
+              const newContent = [...prev];
+              const currentLine = newContent[currentRow] || '';
+              const beforeCursor = currentLine.slice(0, currentCol);
+              const afterCursor = currentLine.slice(currentCol);
+              
+              if (lines.length === 0) {
+                return newContent;
+              } else if (lines.length === 1) {
+                // Single line paste
+                newContent[currentRow] = beforeCursor + lines[0] + afterCursor;
+                setCursorCol(currentCol + lines[0].length);
+                cursorColRef.current = currentCol + lines[0].length;
+              } else {
+                // Multi-line paste
+                newContent[currentRow] = beforeCursor + lines[0];
+                // Insert middle lines
+                for (let i = 1; i < lines.length; i++) {
+                  newContent.splice(currentRow + i, 0, lines[i]);
+                }
+                // Append afterCursor to the last inserted line
+                const lastLineIndex = currentRow + lines.length - 1;
+                newContent[lastLineIndex] = newContent[lastLineIndex] + afterCursor;
+                
+                setCursorRow(lastLineIndex);
+                cursorRowRef.current = lastLineIndex;
+                setCursorCol(lines[lines.length - 1].length);
+                cursorColRef.current = lines[lines.length - 1].length;
+              }
+              return newContent;
+            });
+            term.write(data.replace(/\n/g, '\r\n').replace(/\r\r/g, '\r'));
+            return;
+          }
+          
           if (code === 13) { // Enter
             setEditorContent(prev => {
               const newContent = [...prev];
@@ -1744,6 +1921,42 @@ Type 'help' to see all available commands!`
           term.write('\r\n[ Wrote ' + editorContentRef.current.length + ' lines ]\r\n');
           trackEditorUsage('nano', 'save', fileName);
         }
+        // Handle pasted content (multi-line or multi-character)
+        else if (data.length > 1 || data.includes('\n') || data.includes('\r')) {
+          const lines = data.split(/\r?\n/).filter(line => line !== ''); // Remove empty lines from split
+          setEditorContent(prev => {
+            const newContent = [...prev];
+            const currentLine = newContent[currentRow] || '';
+            const beforeCursor = currentLine.slice(0, currentCol);
+            const afterCursor = currentLine.slice(currentCol);
+            
+            if (lines.length === 0) {
+              return newContent;
+            } else if (lines.length === 1) {
+              // Single line paste
+              newContent[currentRow] = beforeCursor + lines[0] + afterCursor;
+              setCursorCol(currentCol + lines[0].length);
+              cursorColRef.current = currentCol + lines[0].length;
+            } else {
+              // Multi-line paste
+              newContent[currentRow] = beforeCursor + lines[0];
+              // Insert middle lines
+              for (let i = 1; i < lines.length; i++) {
+                newContent.splice(currentRow + i, 0, lines[i]);
+              }
+              // Append afterCursor to the last inserted line
+              const lastLineIndex = currentRow + lines.length - 1;
+              newContent[lastLineIndex] = newContent[lastLineIndex] + afterCursor;
+              
+              setCursorRow(lastLineIndex);
+              cursorRowRef.current = lastLineIndex;
+              setCursorCol(lines[lines.length - 1].length);
+              cursorColRef.current = lines[lines.length - 1].length;
+            }
+            return newContent;
+          });
+          term.write(data.replace(/\n/g, '\r\n').replace(/\r\r/g, '\r'));
+        }
         // Handle Enter
         else if (code === 13) {
           setEditorContent(prev => {
@@ -1843,8 +2056,11 @@ Type 'help' to see all available commands!`
           setCommandHistory(prev => [...prev, trimmedLine]);
           const output = executeCommand(trimmedLine);
           if (output) {
-            // Write output with realistic typing delay
-            writeOutputWithDelay(term, output, 8).then(() => {
+            // Check if command is cat or wc - use instant output for file content
+            const isInstantCommand = trimmedLine.startsWith('cat ') || trimmedLine.startsWith('wc ');
+            
+            // Write output with realistic typing delay (or instant for cat/wc)
+            writeOutputWithDelay(term, output, 8, isInstantCommand).then(() => {
               term.writeln('');
               // Only show prompt if we're not in editor mode
               if (editorModeRef.current === 'none') {
