@@ -13,8 +13,8 @@ export default function TrainingResourcesPage() {
       description: "Learn about terminal emulators, iTerm2, and getting started with command-line interfaces",
       icon: Terminal,
       color: "#0f62fe",
-      status: "Available",
-      route: "/training/terminal-applications"
+      status: "Coming Soon",
+      route: null
     },
     {
       id: "shells",
@@ -22,8 +22,8 @@ export default function TrainingResourcesPage() {
       description: "Explore sh, bash, zsh, and oh-my-zsh. Understand the shell architecture and customization",
       icon: Code,
       color: "#0f62fe",
-      status: "Available",
-      route: "/training/shells"
+      status: "Coming Soon",
+      route: null
     },
     {
       id: "git-concepts",
@@ -41,8 +41,8 @@ export default function TrainingResourcesPage() {
       description: "Master nano and vim for editing files directly in the terminal",
       icon: Edit,
       color: "#0f62fe",
-      status: "Available",
-      route: "/training/text-editors"
+      status: "Coming Soon",
+      route: null
     },
     {
       id: "filesystem",
@@ -50,8 +50,8 @@ export default function TrainingResourcesPage() {
       description: "Navigate directories, manage files, and understand Unix filesystem structure",
       icon: Folder,
       color: "#0f62fe",
-      status: "Available",
-      route: "/training/filesystem-navigation"
+      status: "Coming Soon",
+      route: null
     },
     {
       id: "redirection",
@@ -59,8 +59,8 @@ export default function TrainingResourcesPage() {
       description: "Chain commands together with pipes and redirect input/output",
       icon: ArrowRight,
       color: "#0f62fe",
-      status: "Available",
-      route: "/training/redirection-pipes"
+      status: "Coming Soon",
+      route: null
     },
     {
       id: "advanced",
@@ -68,8 +68,8 @@ export default function TrainingResourcesPage() {
       description: "Environment variables, aliases, permissions, and power user techniques",
       icon: Terminal,
       color: "#24a148",
-      status: "Available",
-      route: "/training/advanced-topics"
+      status: "Coming Soon",
+      route: null
     },
     {
       id: "quick-reference",
@@ -77,8 +77,8 @@ export default function TrainingResourcesPage() {
       description: "Cheat sheet with essential commands and keyboard shortcuts",
       icon: Book,
       color: "#24a148",
-      status: "Available",
-      route: "/training/quick-reference"
+      status: "Coming Soon",
+      route: null
     }
   ];
 
@@ -271,27 +271,37 @@ export default function TrainingResourcesPage() {
           }}>
             {trainingTopics.map((topic) => {
               const IconComponent = topic.icon;
+              const isAvailable = topic.route !== null;
               return (
                 <div
                   key={topic.id}
-                  onClick={() => navigate(topic.route)}
+                  onClick={() => {
+                    if (isAvailable && topic.route) {
+                      navigate(topic.route);
+                    }
+                  }}
                   style={{
-                    backgroundColor: "#ffffff",
+                    backgroundColor: isAvailable ? "#ffffff" : "#f4f4f4",
                     border: topic.featured ? "2px solid #24a148" : "1px solid #e0e0e0",
                     borderRadius: "8px",
                     padding: "1.5rem",
-                    cursor: "pointer",
+                    cursor: isAvailable ? "pointer" : "not-allowed",
                     transition: "all 0.2s ease",
                     boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-                    position: "relative"
+                    position: "relative",
+                    opacity: isAvailable ? 1 : 0.7
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
-                    e.currentTarget.style.transform = "translateY(-2px)";
+                    if (isAvailable) {
+                      e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                    }
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1)";
-                    e.currentTarget.style.transform = "translateY(0)";
+                    if (isAvailable) {
+                      e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1)";
+                      e.currentTarget.style.transform = "translateY(0)";
+                    }
                   }}
                 >
                   {topic.featured && (
@@ -343,17 +353,30 @@ export default function TrainingResourcesPage() {
                     {topic.description}
                   </p>
                   
-                  <div style={{ 
-                    display: "flex", 
-                    alignItems: "center", 
-                    gap: "0.5rem",
-                    color: "#0f62fe",
-                    fontWeight: 600,
-                    fontSize: "0.9375rem"
-                  }}>
-                    <span>Explore Topic</span>
-                    <Launch size={16} />
-                  </div>
+                  {isAvailable ? (
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      color: "#0f62fe",
+                      fontWeight: 600,
+                      fontSize: "0.9375rem"
+                    }}>
+                      <span>Explore Topic</span>
+                      <Launch size={16} />
+                    </div>
+                  ) : (
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      color: "#8d8d8d",
+                      fontWeight: 600,
+                      fontSize: "0.9375rem"
+                    }}>
+                      <span>Coming Soon</span>
+                    </div>
+                  )}
                 </div>
               );
             })}
