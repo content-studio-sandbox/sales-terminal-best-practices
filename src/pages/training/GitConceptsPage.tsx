@@ -29,41 +29,95 @@ export default function GitConceptsPage() {
           </p>
         </Section>
 
-        {/* Why This Matters */}
-        <div style={{ backgroundColor: "#e8f4ff", padding: "1.5rem", borderRadius: "8px", marginBottom: "2rem", border: "1px solid #0f62fe" }}>
-          <h4 style={{ marginTop: 0, color: "#0f62fe", marginBottom: "1rem" }}>
-            Why Conceptual Understanding Comes First
-          </h4>
-          <p style={{ lineHeight: 1.8, margin: 0 }}>
-            Before jumping into Git commands, it's crucial to understand <strong>what Git is doing</strong> and 
-            <strong>why</strong>. Think of this as learning the rules of chess before memorizing opening moves. 
-            Once you understand the mental model, the commands will make sense.
+        {/* The Big Picture */}
+        <div style={{ backgroundColor: "#e8f4ff", padding: "2rem", borderRadius: "8px", marginBottom: "3rem", border: "1px solid #0f62fe" }}>
+          <h3 style={{ marginTop: 0, color: "#0f62fe", marginBottom: "1.5rem", fontSize: "1.5rem" }}>
+            🎯 The Big Picture: Why Mental Models Matter
+          </h3>
+          <p style={{ lineHeight: 1.8, marginBottom: "1rem", fontSize: "1.125rem" }}>
+            Imagine trying to drive a car by just memorizing: "Turn the wheel left, press the pedal, turn the wheel right..."
+            You'd crash immediately! You need to understand <strong>what the car does</strong> and <strong>why</strong>.
+          </p>
+          <p style={{ lineHeight: 1.8, margin: 0, fontSize: "1.125rem" }}>
+            Git is the same way. Before learning commands like <code>git add</code> and <code>git commit</code>,
+            you need to understand the mental model. Once you "get it," the commands become obvious.
           </p>
         </div>
 
-        {/* What is Version Control */}
+        {/* The Story Analogy */}
+        <Section level={3} style={{ marginBottom: "3rem" }}>
+          <Tile style={{ padding: "2rem", backgroundColor: "#fff3e0", border: "2px solid #ff832b" }}>
+            <h3 style={{ marginTop: 0, marginBottom: "1.5rem", color: "#ff832b" }}>
+              📖 Think of Git Like Writing a Book with Your Team
+            </h3>
+            <div style={{ lineHeight: 1.8, fontSize: "1.0625rem" }}>
+              <p style={{ marginBottom: "1rem" }}>
+                <strong>The Problem:</strong> You and 5 friends are writing a book together. How do you:
+              </p>
+              <ul style={{ marginLeft: "1.5rem", marginBottom: "1.5rem" }}>
+                <li>Keep track of who wrote what?</li>
+                <li>Go back to yesterday's version if today's changes are terrible?</li>
+                <li>Work on different chapters without interfering with each other?</li>
+                <li>Combine everyone's work at the end?</li>
+              </ul>
+              <p style={{ marginBottom: "1rem" }}>
+                <strong>The Old Way:</strong> Email files back and forth with names like:
+              </p>
+              <ul style={{ marginLeft: "1.5rem", marginBottom: "1.5rem", fontFamily: "monospace", fontSize: "0.9375rem" }}>
+                <li>book_draft_v1.docx</li>
+                <li>book_draft_v2_johns_edits.docx</li>
+                <li>book_draft_v3_FINAL.docx</li>
+                <li>book_draft_v3_FINAL_REALLY_FINAL.docx</li>
+                <li>book_draft_v3_FINAL_USE_THIS_ONE.docx</li>
+              </ul>
+              <p style={{ marginBottom: 0, fontWeight: 600, color: "#24a148", fontSize: "1.125rem" }}>
+                <strong>Git's Way:</strong> One book, complete history, everyone works in parallel, no confusion.
+                That's the magic! ✨
+              </p>
+            </div>
+          </Tile>
+        </Section>
+
+        {/* What is Version Control - Enhanced */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
           <h2 style={{ marginBottom: "1.5rem", fontSize: "1.75rem", fontWeight: 600 }}>
-            What is Version Control?
+            🕰️ Git is a Time Machine for Your Code
           </h2>
-          <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
-            Imagine you're writing a novel. You might save versions like:
-          </p>
-          <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, marginBottom: "1.5rem" }}>
-            <li><code>novel_draft1.docx</code></li>
-            <li><code>novel_draft2_edited.docx</code></li>
-            <li><code>novel_draft3_final.docx</code></li>
-            <li><code>novel_draft3_final_REALLY_FINAL.docx</code></li>
-          </ul>
-          <p style={{ lineHeight: 1.8, marginBottom: "1.5rem" }}>
-            This gets messy fast. <strong>Version control systems</strong> like Git solve this by:
-          </p>
-          <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, marginBottom: "2rem" }}>
-            <li>Tracking every change you make</li>
-            <li>Letting you go back to any previous version</li>
-            <li>Allowing multiple people to work on the same files simultaneously</li>
-            <li>Keeping a complete history of who changed what and when</li>
-          </ul>
+          
+          <Tile style={{ padding: "2rem", marginBottom: "2rem", backgroundColor: "#f4f4f4" }}>
+            <h4 style={{ marginTop: 0, marginBottom: "1rem", color: "#0f62fe" }}>
+              The Time Machine Analogy
+            </h4>
+            <p style={{ lineHeight: 1.8, marginBottom: "1rem", fontSize: "1.0625rem" }}>
+              Imagine you have a time machine for your project:
+            </p>
+            <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, fontSize: "1.0625rem" }}>
+              <li><strong>Take snapshots</strong> - Like taking photos at different moments in time</li>
+              <li><strong>Travel back</strong> - Go back to any snapshot if something breaks</li>
+              <li><strong>Parallel universes</strong> - Try different ideas without affecting the main timeline</li>
+              <li><strong>Merge timelines</strong> - Bring the best ideas from different universes together</li>
+              <li><strong>See the history</strong> - Know exactly what changed, when, and why</li>
+            </ul>
+            <p style={{ lineHeight: 1.8, marginTop: "1.5rem", marginBottom: 0, fontSize: "1.0625rem", fontWeight: 600, color: "#24a148" }}>
+              That's Git! It's not just "saving files" - it's managing the entire history of your project.
+            </p>
+          </Tile>
+
+          <Tile style={{ padding: "2rem", marginBottom: "2rem" }}>
+            <h4 style={{ marginTop: 0, marginBottom: "1rem", color: "#0f62fe" }}>
+              Why This Matters for Teams
+            </h4>
+            <div style={{ display: "grid", gap: "1rem" }}>
+              <div style={{ padding: "1rem", backgroundColor: "#e8f4ff", borderRadius: "4px", borderLeft: "4px solid #0f62fe" }}>
+                <strong>Without Git:</strong> "Hey, did you get my email with the updated file? Wait, which version are you working on?
+                Oh no, I just overwrote your changes!"
+              </div>
+              <div style={{ padding: "1rem", backgroundColor: "#defbe6", borderRadius: "4px", borderLeft: "4px solid #24a148" }}>
+                <strong>With Git:</strong> Everyone works independently, Git tracks everything, and merging happens automatically.
+                No lost work, no confusion, no stress.
+              </div>
+            </div>
+          </Tile>
         </Section>
 
         {/* Git Mental Model */}
@@ -90,90 +144,173 @@ export default function GitConceptsPage() {
           </Tile>
         </Section>
 
-        {/* Three States */}
+        {/* Three States - Enhanced */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
           <h2 style={{ marginBottom: "1.5rem", fontSize: "1.75rem", fontWeight: 600 }}>
-            The Three States of Git
+            📦 The Three States: Your Work's Journey
           </h2>
-          <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
-            This is the most important concept to understand. Your files can be in three states:
-          </p>
           
-          <div style={{ display: "grid", gap: "1rem", marginBottom: "2rem" }}>
-            <Tile style={{ padding: "1.5rem", borderLeft: "4px solid #da1e28" }}>
-              <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#da1e28" }}>
-                1. Working Directory (Modified)
-              </h5>
-              <p style={{ marginBottom: "0.5rem" }}><strong>What it is:</strong> Your actual files on disk that you're editing</p>
-              <p style={{ marginBottom: "0.5rem" }}><strong>Analogy:</strong> Your messy desk while you're working</p>
-              <p style={{ marginBottom: 0 }}><strong>Status:</strong> Files you've changed but haven't told Git about yet</p>
-            </Tile>
+          <Tile style={{ padding: "2rem", marginBottom: "2rem", backgroundColor: "#fff3e0", border: "2px solid #ff832b" }}>
+            <h4 style={{ marginTop: 0, marginBottom: "1rem", color: "#ff832b" }}>
+              🎨 Think of It Like Creating Art for a Museum
+            </h4>
+            <p style={{ lineHeight: 1.8, fontSize: "1.0625rem", marginBottom: "1.5rem" }}>
+              Imagine you're an artist preparing work for a museum exhibition:
+            </p>
+            <div style={{ display: "grid", gap: "1.5rem" }}>
+              <div style={{ padding: "1.5rem", backgroundColor: "#ffffff", borderRadius: "8px", borderLeft: "6px solid #da1e28" }}>
+                <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#da1e28", fontSize: "1.125rem" }}>
+                  🎨 1. Your Studio (Working Directory)
+                </h5>
+                <p style={{ marginBottom: "0.75rem", fontSize: "1.0625rem" }}>
+                  <strong>What it is:</strong> Your messy studio where you're actively painting
+                </p>
+                <p style={{ marginBottom: "0.75rem", fontSize: "1.0625rem" }}>
+                  <strong>Real example:</strong> You're editing <code>HomePage.tsx</code> in VS Code
+                </p>
+                <p style={{ marginBottom: 0, fontSize: "1.0625rem", fontStyle: "italic", color: "#525252" }}>
+                  "I'm working on this, but it's not ready to show anyone yet"
+                </p>
+              </div>
 
-            <Tile style={{ padding: "1.5rem", borderLeft: "4px solid #ff832b" }}>
-              <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#ff832b" }}>
-                2. Staging Area (Staged)
-              </h5>
-              <p style={{ marginBottom: "0.5rem" }}><strong>What it is:</strong> A holding area for changes you want to commit</p>
-              <p style={{ marginBottom: "0.5rem" }}><strong>Analogy:</strong> A box where you put items you want to ship</p>
-              <p style={{ marginBottom: 0 }}><strong>Status:</strong> Files you've marked to be included in the next commit</p>
-            </Tile>
+              <div style={{ padding: "1.5rem", backgroundColor: "#ffffff", borderRadius: "8px", borderLeft: "6px solid #ff832b" }}>
+                <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#ff832b", fontSize: "1.125rem" }}>
+                  📦 2. The Shipping Box (Staging Area)
+                </h5>
+                <p style={{ marginBottom: "0.75rem", fontSize: "1.0625rem" }}>
+                  <strong>What it is:</strong> You've selected which paintings to send to the museum
+                </p>
+                <p style={{ marginBottom: "0.75rem", fontSize: "1.0625rem" }}>
+                  <strong>Real example:</strong> You run <code>git add HomePage.tsx</code>
+                </p>
+                <p style={{ marginBottom: 0, fontSize: "1.0625rem", fontStyle: "italic", color: "#525252" }}>
+                  "These changes are ready. I want to save them together as one snapshot"
+                </p>
+              </div>
 
-            <Tile style={{ padding: "1.5rem", borderLeft: "4px solid #24a148" }}>
-              <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#24a148" }}>
-                3. Repository (Committed)
-              </h5>
-              <p style={{ marginBottom: "0.5rem" }}><strong>What it is:</strong> Permanent snapshots stored in Git's database</p>
-              <p style={{ marginBottom: "0.5rem" }}><strong>Analogy:</strong> Photos in your photo album - permanent and safe</p>
-              <p style={{ marginBottom: 0 }}><strong>Status:</strong> Changes that are permanently saved in Git history</p>
-            </Tile>
-          </div>
+              <div style={{ padding: "1.5rem", backgroundColor: "#ffffff", borderRadius: "8px", borderLeft: "6px solid #24a148" }}>
+                <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#24a148", fontSize: "1.125rem" }}>
+                  🏛️ 3. The Museum (Repository)
+                </h5>
+                <p style={{ marginBottom: "0.75rem", fontSize: "1.0625rem" }}>
+                  <strong>What it is:</strong> Your work is now permanently displayed in the museum
+                </p>
+                <p style={{ marginBottom: "0.75rem", fontSize: "1.0625rem" }}>
+                  <strong>Real example:</strong> You run <code>git commit -m "Add new homepage"</code>
+                </p>
+                <p style={{ marginBottom: 0, fontSize: "1.0625rem", fontStyle: "italic", color: "#525252" }}>
+                  "This snapshot is permanent. I can always come back to this exact moment"
+                </p>
+              </div>
+            </div>
+          </Tile>
 
-          <Tile style={{ padding: "1.5rem", marginBottom: "2rem", backgroundColor: "#f4f4f4" }}>
-            <h5 style={{ marginTop: 0, marginBottom: "1rem" }}>The Git Workflow Visualized</h5>
-            <pre style={{ fontFamily: "monospace", fontSize: "0.875rem", margin: 0, lineHeight: 1.6 }}>
-{`Working Directory          Staging Area           Repository
-(Your files)              (git add)              (git commit)
-─────────────────         ──────────────         ────────────
-                                                              
-📝 Edit files      ──────>  📦 Stage changes  ──────>  📸 Commit snapshot
-                  git add                    git commit
-                                                              
-Example:
-1. Edit file.txt           2. git add file.txt    3. git commit -m "message"
-   (modified)                 (staged)               (committed)
-                                                              
-You can always check status with: git status`}
+          <Tile style={{ padding: "2rem", marginBottom: "2rem", backgroundColor: "#e8f4ff", border: "2px solid #0f62fe" }}>
+            <h4 style={{ marginTop: 0, marginBottom: "1.5rem", color: "#0f62fe" }}>
+              🎬 The Complete Workflow (Like Making a Movie)
+            </h4>
+            <pre style={{ fontFamily: "monospace", fontSize: "0.9375rem", margin: 0, lineHeight: 1.8, backgroundColor: "#ffffff", padding: "1.5rem", borderRadius: "8px" }}>
+{`🎨 STUDIO              📦 EDITING ROOM         🏛️ CINEMA
+(Working Directory)    (Staging Area)          (Repository)
+─────────────────      ─────────────────       ─────────────
+
+You're filming...      Select best takes       Premiere night!
+Changes not saved      Ready to publish        Permanent record
+
+📝 Edit code      ──────>  📦 git add      ──────>  📸 git commit
+   (modified)              (staged)                (saved forever)
+
+REAL EXAMPLE:
+─────────────────────────────────────────────────────────────
+1. You edit HomePage.tsx in VS Code
+   Status: Modified (red in git status)
+   
+2. You run: git add HomePage.tsx
+   Status: Staged (green in git status)
+   
+3. You run: git commit -m "Add hero section"
+   Status: Committed (saved in history)
+
+💡 Pro Tip: Run 'git status' anytime to see where your files are!`}
             </pre>
           </Tile>
         </Section>
 
-        {/* Branches */}
+        {/* Branches - Enhanced */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
           <h2 style={{ marginBottom: "1.5rem", fontSize: "1.75rem", fontWeight: 600 }}>
-            Branches: Parallel Universes for Your Code
+            🌳 Branches: Parallel Universes for Your Code
           </h2>
-          <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
-            Branches are one of Git's superpowers. Think of them as parallel timelines:
-          </p>
           
-          <Tile style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
-            <h5 style={{ marginTop: 0, marginBottom: "1rem" }}>The Branch Concept</h5>
-            <pre style={{ fontFamily: "monospace", fontSize: "0.875rem", backgroundColor: "#ffffff", padding: "1rem", borderRadius: "4px", overflow: "auto" }}>
-{`main branch:     A ─── B ─── C ─── D ─── E
-                              │
-                              └─── F ─── G    (feature branch)
-                                    │
-                                    └─── H    (bugfix branch)
-
-• Each letter is a commit (snapshot)
-• Branches let you work on features without affecting main
-• You can switch between branches instantly
-• Merging brings changes back together`}
-            </pre>
-            <p style={{ lineHeight: 1.8, marginTop: "1rem", marginBottom: 0 }}>
-              <strong>Why this matters:</strong> You can work on a new feature while someone else fixes a bug, 
-              and neither of you interferes with the other's work. When ready, you merge your changes back.
+          <Tile style={{ padding: "2rem", marginBottom: "2rem", backgroundColor: "#defbe6", border: "2px solid #24a148" }}>
+            <h4 style={{ marginTop: 0, marginBottom: "1rem", color: "#24a148" }}>
+              🎮 Think of It Like a Video Game with Save Points
+            </h4>
+            <p style={{ lineHeight: 1.8, fontSize: "1.0625rem", marginBottom: "1.5rem" }}>
+              Imagine you're playing a video game and you reach a fork in the road:
             </p>
+            <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, fontSize: "1.0625rem", marginBottom: "1.5rem" }}>
+              <li><strong>Main path (main branch):</strong> Your main game progress - always stable and working</li>
+              <li><strong>Side quest (feature branch):</strong> Try a risky new strategy without messing up your main save</li>
+              <li><strong>If it works:</strong> Merge it back into your main game</li>
+              <li><strong>If it fails:</strong> Just delete that save and go back to main - no harm done!</li>
+            </ul>
+            <p style={{ lineHeight: 1.8, fontSize: "1.0625rem", marginBottom: 0, fontWeight: 600, color: "#24a148" }}>
+              This is exactly how professional developers work! They never risk breaking the main code.
+            </p>
+          </Tile>
+
+          <Tile style={{ padding: "2rem", marginBottom: "1.5rem", backgroundColor: "#f4f4f4" }}>
+            <h5 style={{ marginTop: 0, marginBottom: "1.5rem", color: "#0f62fe" }}>Visual: How Branches Work</h5>
+            <pre style={{ fontFamily: "monospace", fontSize: "0.9375rem", backgroundColor: "#ffffff", padding: "1.5rem", borderRadius: "8px", overflow: "auto", lineHeight: 1.8 }}>
+{`🌳 THE MAIN TREE (main branch - always stable)
+═══════════════════════════════════════════════════════
+
+main:  A ─── B ─── C ─── D ─── E ─── F ─── G
+                    │           │
+                    │           └─── Merge feature back!
+                    │
+                    └─── H ─── I    (feature/new-homepage)
+                          │
+                          └─── J    (bugfix/typo)
+
+REAL WORLD EXAMPLE:
+───────────────────────────────────────────────────────
+Monday:    You're on 'main' - everything works ✅
+           Create branch: git checkout -b feature/dark-mode
+           
+Tue-Thu:   Work on dark mode feature on your branch
+           Main branch is untouched - still works! ✅
+           
+Friday:    Dark mode is done and tested
+           Merge back: git checkout main
+                      git merge feature/dark-mode
+           
+Result:    Main now has dark mode! 🎉
+
+💡 The Magic: While you worked on dark mode, your teammate
+   fixed bugs on a different branch. No conflicts!`}
+            </pre>
+          </Tile>
+
+          <Tile style={{ padding: "1.5rem", backgroundColor: "#fff3e0", border: "1px solid #ff832b" }}>
+            <h5 style={{ marginTop: 0, marginBottom: "1rem", color: "#ff832b" }}>
+              🎯 Why Branches Are a Superpower
+            </h5>
+            <div style={{ display: "grid", gap: "1rem" }}>
+              <div style={{ padding: "1rem", backgroundColor: "#ffffff", borderRadius: "4px" }}>
+                <strong>✅ Experiment Safely:</strong> Try crazy ideas without breaking anything
+              </div>
+              <div style={{ padding: "1rem", backgroundColor: "#ffffff", borderRadius: "4px" }}>
+                <strong>✅ Work in Parallel:</strong> 5 people, 5 features, zero conflicts
+              </div>
+              <div style={{ padding: "1rem", backgroundColor: "#ffffff", borderRadius: "4px" }}>
+                <strong>✅ Easy Rollback:</strong> Feature didn't work? Delete the branch, done!
+              </div>
+              <div style={{ padding: "1rem", backgroundColor: "#ffffff", borderRadius: "4px" }}>
+                <strong>✅ Code Review:</strong> Team reviews your branch before merging to main
+              </div>
+            </div>
           </Tile>
         </Section>
 
