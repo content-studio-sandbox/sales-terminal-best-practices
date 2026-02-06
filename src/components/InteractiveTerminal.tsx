@@ -862,10 +862,36 @@ To github.com:ibm/demo-repo.git
    def456e..ghi789j  main -> main`,
     
     "git diff": (args?: string) => {
-      const staged = stagedFilesRef.current;
       const fileContents = fileContentsRef.current;
       
+      // If a specific file is requested
+      if (args && args.trim()) {
+        const fileName = args.trim();
+        const content = fileContents[fileName] || '';
+        
+        if (content) {
+          const lines = content.split('\n');
+          const lineCount = lines.length;
+          
+          return `diff --git a/${fileName} b/${fileName}
+new file mode 100644
+index 0000000..abc1234
+--- /dev/null
++++ b/${fileName}
+@@ -0,0 +1,${lineCount} @@
+${lines.map(line => '+' + line).join('\n')}`;
+        } else {
+          return `diff --git a/${fileName} b/${fileName}
+new file mode 100644
+--- /dev/null
++++ b/${fileName}
+@@ -0,0 +1 @@
++// File not yet created or empty`;
+        }
+      }
+      
       // If there are staged files, show their diff
+      const staged = stagedFilesRef.current;
       if (staged.length > 0) {
         const fileName = staged[0];
         const content = fileContents[fileName] || '';
