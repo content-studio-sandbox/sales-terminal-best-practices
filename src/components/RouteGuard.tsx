@@ -5,6 +5,7 @@ import { InlineNotification } from '@carbon/react';
 // Define allowed paths for restricted users
 const ALLOWED_PATHS = [
   '/training-resources',
+  '/training', // Allow all training subpages
   '/interactive-terminal',
   '/survey-results',
   '/terminal-basics',

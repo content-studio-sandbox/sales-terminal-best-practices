@@ -1,8 +1,87 @@
 import React from "react";
-import { Grid, Column, Heading, Section, Button, CodeSnippet, Accordion, AccordionItem, Tile, Tag } from "@carbon/react";
-import { Document, Download, PresentationFile, Education, CheckmarkFilled, Terminal, Code, Edit, Folder, ArrowRight, Book } from "@carbon/icons-react";
+import { Grid, Column, Heading, Section, Button, Tile, Tag } from "@carbon/react";
+import { Document, Download, PresentationFile, Education, Terminal, Code, Edit, Folder, ArrowRight, Book, Rocket, Launch } from "@carbon/icons-react";
+import { useNavigate } from "react-router-dom";
 
 export default function TrainingResourcesPage() {
+  const navigate = useNavigate();
+
+  const trainingTopics = [
+    {
+      id: "terminal-apps",
+      title: "Terminal Applications",
+      description: "Learn about terminal emulators, iTerm2, and getting started with command-line interfaces",
+      icon: Terminal,
+      color: "#0f62fe",
+      status: "Coming Soon",
+      route: null
+    },
+    {
+      id: "shells",
+      title: "Understanding Shells",
+      description: "Explore sh, bash, zsh, and oh-my-zsh. Understand the shell architecture and customization",
+      icon: Code,
+      color: "#0f62fe",
+      status: "Coming Soon",
+      route: null
+    },
+    {
+      id: "git-concepts",
+      title: "Git & Version Control",
+      description: "Master Git mental models: snapshots, three states, branching, merging, and workflows",
+      icon: Code,
+      color: "#24a148",
+      status: "Available",
+      route: "/training/git-concepts",
+      featured: true
+    },
+    {
+      id: "text-editors",
+      title: "Text Editors",
+      description: "Master nano and vim for editing files directly in the terminal",
+      icon: Edit,
+      color: "#0f62fe",
+      status: "Coming Soon",
+      route: null
+    },
+    {
+      id: "filesystem",
+      title: "Filesystem Navigation",
+      description: "Navigate directories, manage files, and understand Unix filesystem structure",
+      icon: Folder,
+      color: "#0f62fe",
+      status: "Coming Soon",
+      route: null
+    },
+    {
+      id: "redirection",
+      title: "Redirection & Pipes",
+      description: "Chain commands together with pipes and redirect input/output",
+      icon: ArrowRight,
+      color: "#0f62fe",
+      status: "Coming Soon",
+      route: null
+    },
+    {
+      id: "advanced",
+      title: "Advanced Topics",
+      description: "Environment variables, aliases, permissions, and power user techniques",
+      icon: Terminal,
+      color: "#24a148",
+      status: "Coming Soon",
+      route: null
+    },
+    {
+      id: "quick-reference",
+      title: "Quick Reference",
+      description: "Cheat sheet with essential commands and keyboard shortcuts",
+      icon: Book,
+      color: "#24a148",
+      status: "Coming Soon",
+      route: null
+    }
+  ];
+
   return (
     <Grid fullWidth className="page-container">
       <Column lg={16} md={8} sm={4}>
@@ -160,7 +239,7 @@ export default function TrainingResourcesPage() {
           </div>
         </Section>
 
-        {/* Interactive Training Content */}
+        {/* Interactive Training Catalog */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
           <div style={{ 
             backgroundColor: "#e8f4ff", 
@@ -171,707 +250,137 @@ export default function TrainingResourcesPage() {
           }}>
             <h2 style={{ marginTop: 0, color: "#0f62fe", marginBottom: "1rem" }}>
               <Education size={24} style={{ verticalAlign: "middle", marginRight: "0.5rem" }} />
-              Interactive Training Content
+              Interactive Training Catalog
             </h2>
             <p style={{ color: "#161616", lineHeight: 1.8, marginBottom: "1rem" }}>
-              Explore key sections from the comprehensive training plan below. Each section includes 
-              practical examples, code snippets, and hands-on exercises.
+              Explore comprehensive training topics below. Each topic includes practical examples, 
+              visual diagrams, and hands-on exercises. Click any tile to dive deep into that subject.
             </p>
             <div style={{ fontFamily: "monospace", fontSize: "0.875rem", color: "#161616", lineHeight: 1.8 }}>
               <div><strong>Learning Path:</strong></div>
-              <div>Terminal Apps → Shells → Text Editors → Navigation → Redirection → Advanced Topics</div>
+              <div>Terminal Apps → Shells → Git Concepts → Text Editors → Navigation → Redirection → Advanced Topics</div>
             </div>
           </div>
 
-          {/* Training Content Accordion */}
-          <Accordion>
-            {/* Section 1: Terminal Applications */}
-            <AccordionItem
-              title={
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <Terminal size={20} style={{ color: "#0f62fe" }} />
-                  <span style={{ fontWeight: 600 }}>1. Terminal Applications</span>
-                </div>
-              }
-            >
-              <div style={{ padding: "1rem 0" }}>
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>What is a Terminal?</h4>
-                <p style={{ lineHeight: 1.8, marginBottom: "1.5rem" }}>
-                  A terminal (or terminal emulator) is an application that provides a text-based interface to interact 
-                  with your computer's operating system. It allows you to execute commands, run programs, and manage 
-                  files using text commands instead of graphical interfaces.
-                </p>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Mac Terminal Options</h4>
-                
-                <Tile style={{ padding: "1.5rem", marginBottom: "1rem" }}>
-                  <h5 style={{ marginTop: 0, marginBottom: "0.75rem" }}>Terminal.app (Built-in)</h5>
-                  <p style={{ marginBottom: "0.5rem" }}><strong>Location:</strong> /Applications/Utilities/Terminal.app</p>
-                  <p style={{ marginBottom: "0.5rem" }}><strong>Pros:</strong> No installation needed, reliable, integrates well with macOS</p>
-                  <p style={{ marginBottom: "0.5rem" }}><strong>Cons:</strong> Limited customization, basic feature set</p>
-                  <p style={{ marginBottom: 0 }}><strong>Best for:</strong> Beginners, quick tasks, system administration</p>
-                </Tile>
-
-                <Tile style={{ padding: "1.5rem", marginBottom: "1rem", borderLeft: "4px solid #0f62fe" }}>
-                  <h5 style={{ marginTop: 0, marginBottom: "0.75rem" }}>
-                    <CheckmarkFilled size={20} style={{ verticalAlign: "middle", marginRight: "0.5rem", color: "#24a148" }} />
-                    iTerm2 (Recommended)
-                  </h5>
-                  <p style={{ marginBottom: "0.5rem" }}><strong>Website:</strong> <a href="https://iterm2.com" target="_blank" rel="noopener noreferrer">https://iterm2.com</a></p>
-                  <p style={{ marginBottom: "0.5rem" }}><strong>Pros:</strong></p>
-                  <ul style={{ marginLeft: "1.5rem", marginBottom: "0.5rem" }}>
-                    <li>Split panes for multiple sessions</li>
-                    <li>Extensive customization options</li>
-                    <li>Search functionality</li>
-                    <li>Hotkey window for quick access</li>
-                    <li>Better color schemes and fonts</li>
-                  </ul>
-                  <p style={{ marginBottom: 0 }}><strong>Best for:</strong> Power users, developers, anyone spending significant time in terminal</p>
-                </Tile>
-
-                <h4 style={{ color: "#0f62fe", marginTop: "2rem", marginBottom: "1rem" }}>Getting Started</h4>
-                <ol style={{ marginLeft: "1.5rem", lineHeight: 1.8 }}>
-                  <li>Open your terminal application (Mac: Press Cmd + Space, type "Terminal", press Enter)</li>
-                  <li>Try your first commands:</li>
-                </ol>
-                <div style={{ marginTop: "1rem" }}>
-                  <CodeSnippet type="multi">
-{`echo "Hello, Terminal!"
-whoami
-hostname`}
-                  </CodeSnippet>
-                </div>
-              </div>
-            </AccordionItem>
-
-            {/* Section 2: Understanding Shells */}
-            <AccordionItem
-              title={
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <Code size={20} style={{ color: "#0f62fe" }} />
-                  <span style={{ fontWeight: 600 }}>2. Understanding Shells</span>
-                </div>
-              }
-            >
-              <div style={{ padding: "1rem 0" }}>
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>What is a Shell?</h4>
-                <p style={{ lineHeight: 1.8, marginBottom: "1.5rem" }}>
-                  A shell is a command-line interpreter that provides a user interface to access the operating system's 
-                  services. When you type commands in a terminal, you're actually interacting with a shell program that 
-                  interprets and executes those commands.
-                </p>
-
-                <Tile style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
-                  <h5 style={{ marginTop: 0, marginBottom: "1rem" }}>Shell Architecture</h5>
-                  <pre style={{ fontFamily: "monospace", fontSize: "0.875rem", margin: 0 }}>
-{`┌─────────────────┐
-│   Terminal App  │  (iTerm2, Terminal.app, etc.)
-└────────┬────────┘
-         │
-┌────────▼────────┐
-│     Shell       │  (bash, zsh, sh, etc.)
-└────────┬────────┘
-         │
-┌────────▼────────┐
-│  Operating      │
-│  System         │
-└─────────────────┘`}
-                  </pre>
-                </Tile>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Common Shells</h4>
-                
-                <div style={{ display: "grid", gap: "1rem" }}>
-                  <Tile style={{ padding: "1rem" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.5rem" }}>sh (Bourne Shell)</h5>
-                    <p style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>The original Unix shell (1979)</p>
-                    <p style={{ fontSize: "0.875rem", margin: 0 }}><strong>Use for:</strong> Portable shell scripts, system scripts</p>
-                  </Tile>
-
-                  <Tile style={{ padding: "1rem" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.5rem" }}>bash (Bourne Again Shell)</h5>
-                    <p style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>GNU's enhanced version of sh (1989)</p>
-                    <p style={{ fontSize: "0.875rem", margin: 0 }}><strong>Use for:</strong> General-purpose shell, scripting, system administration</p>
-                  </Tile>
-
-                  <Tile style={{ padding: "1rem", borderLeft: "4px solid #0f62fe" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.5rem" }}>
-                      <CheckmarkFilled size={16} style={{ verticalAlign: "middle", marginRight: "0.5rem", color: "#24a148" }} />
-                      zsh (Z Shell) - Recommended
-                    </h5>
-                    <p style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>Modern shell with powerful features (1990)</p>
-                    <p style={{ fontSize: "0.875rem", margin: 0 }}><strong>Use for:</strong> Daily use, advanced customization, oh-my-zsh framework</p>
-                  </Tile>
-                </div>
-
-                <div style={{ marginTop: "1.5rem" }}>
-                  <CodeSnippet type="multi">
-{`# Check your current shell
-echo $SHELL
-
-# Check zsh version
-zsh --version
-
-# Switch to zsh
-chsh -s /bin/zsh`}
-                  </CodeSnippet>
-                </div>
-              </div>
-            </AccordionItem>
-
-            {/* Section 3: Git & Version Control Concepts */}
-            <AccordionItem
-              title={
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <Code size={20} style={{ color: "#24a148" }} />
-                  <span style={{ fontWeight: 600 }}>3. Git & Version Control - Mental Models</span>
-                </div>
-              }
-            >
-              <div style={{ padding: "1rem 0" }}>
-                <div style={{ backgroundColor: "#e8f4ff", padding: "1.5rem", borderRadius: "8px", marginBottom: "2rem", border: "1px solid #0f62fe" }}>
-                  <h4 style={{ marginTop: 0, color: "#0f62fe", marginBottom: "1rem" }}>
-                    Why This Section Comes First
-                  </h4>
-                  <p style={{ lineHeight: 1.8, margin: 0 }}>
-                    Before jumping into Git commands, it's crucial to understand <strong>what Git is doing</strong> and
-                    <strong>why</strong>. Think of this as learning the rules of chess before memorizing opening moves.
-                    Once you understand the mental model, the commands will make sense.
-                  </p>
-                </div>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>What is Version Control?</h4>
-                <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
-                  Imagine you're writing a novel. You might save versions like:
-                </p>
-                <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, marginBottom: "1.5rem" }}>
-                  <li><code>novel_draft1.docx</code></li>
-                  <li><code>novel_draft2_edited.docx</code></li>
-                  <li><code>novel_draft3_final.docx</code></li>
-                  <li><code>novel_draft3_final_REALLY_FINAL.docx</code></li>
-                </ul>
-                <p style={{ lineHeight: 1.8, marginBottom: "1.5rem" }}>
-                  This gets messy fast. <strong>Version control systems</strong> like Git solve this by:
-                </p>
-                <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, marginBottom: "2rem" }}>
-                  <li>Tracking every change you make</li>
-                  <li>Letting you go back to any previous version</li>
-                  <li>Allowing multiple people to work on the same files simultaneously</li>
-                  <li>Keeping a complete history of who changed what and when</li>
-                </ul>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>The Git Mental Model: Snapshots, Not Differences</h4>
-                <Tile style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
-                  <p style={{ marginBottom: "1rem", fontWeight: 600 }}>Key Concept: Git takes snapshots of your entire project</p>
-                  <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
-                    Unlike some version control systems that track file differences, Git takes a complete snapshot
-                    of your project at each commit. Think of it like taking photos of your desk at different times:
-                  </p>
-                  <pre style={{ fontFamily: "monospace", fontSize: "0.875rem", backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "4px", overflow: "auto" }}>
-{`Commit 1 (Photo 1):     Commit 2 (Photo 2):     Commit 3 (Photo 3):
-📄 file1.txt v1         📄 file1.txt v2         📄 file1.txt v2
-📄 file2.txt v1         📄 file2.txt v1         📄 file2.txt v2
-                        📄 file3.txt v1         📄 file3.txt v1`}
-                  </pre>
-                  <p style={{ lineHeight: 1.8, margin: 0 }}>
-                    Each commit is a complete snapshot. If a file didn't change, Git just links to the previous version
-                    (efficient!). This makes branching and merging incredibly fast.
-                  </p>
-                </Tile>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>The Three States of Git</h4>
-                <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
-                  This is the most important concept to understand. Your files can be in three states:
-                </p>
-                
-                <div style={{ display: "grid", gap: "1rem", marginBottom: "2rem" }}>
-                  <Tile style={{ padding: "1.5rem", borderLeft: "4px solid #da1e28" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#da1e28" }}>
-                      1. Working Directory (Modified)
-                    </h5>
-                    <p style={{ marginBottom: "0.5rem" }}><strong>What it is:</strong> Your actual files on disk that you're editing</p>
-                    <p style={{ marginBottom: "0.5rem" }}><strong>Analogy:</strong> Your messy desk while you're working</p>
-                    <p style={{ marginBottom: 0 }}><strong>Status:</strong> Files you've changed but haven't told Git about yet</p>
-                  </Tile>
-
-                  <Tile style={{ padding: "1.5rem", borderLeft: "4px solid #ff832b" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#ff832b" }}>
-                      2. Staging Area (Staged)
-                    </h5>
-                    <p style={{ marginBottom: "0.5rem" }}><strong>What it is:</strong> A holding area for changes you want to commit</p>
-                    <p style={{ marginBottom: "0.5rem" }}><strong>Analogy:</strong> A box where you put items you want to ship</p>
-                    <p style={{ marginBottom: 0 }}><strong>Status:</strong> Files you've marked to be included in the next commit</p>
-                  </Tile>
-
-                  <Tile style={{ padding: "1.5rem", borderLeft: "4px solid #24a148" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#24a148" }}>
-                      3. Repository (Committed)
-                    </h5>
-                    <p style={{ marginBottom: "0.5rem" }}><strong>What it is:</strong> Permanent snapshots stored in Git's database</p>
-                    <p style={{ marginBottom: "0.5rem" }}><strong>Analogy:</strong> Photos in your photo album - permanent and safe</p>
-                    <p style={{ marginBottom: 0 }}><strong>Status:</strong> Changes that are permanently saved in Git history</p>
-                  </Tile>
-                </div>
-
-                <Tile style={{ padding: "1.5rem", marginBottom: "2rem", backgroundColor: "#f4f4f4" }}>
-                  <h5 style={{ marginTop: 0, marginBottom: "1rem" }}>The Git Workflow Visualized</h5>
-                  <pre style={{ fontFamily: "monospace", fontSize: "0.875rem", margin: 0, lineHeight: 1.6 }}>
-{`Working Directory          Staging Area           Repository
-(Your files)              (git add)              (git commit)
-─────────────────         ──────────────         ────────────
-                                                              
-📝 Edit files      ──────>  📦 Stage changes  ──────>  📸 Commit snapshot
-                  git add                    git commit
-                                                              
-Example:
-1. Edit file.txt           2. git add file.txt    3. git commit -m "message"
-   (modified)                 (staged)               (committed)
-                                                              
-You can always check status with: git status`}
-                  </pre>
-                </Tile>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Branches: Parallel Universes for Your Code</h4>
-                <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
-                  Branches are one of Git's superpowers. Think of them as parallel timelines:
-                </p>
-                
-                <Tile style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
-                  <h5 style={{ marginTop: 0, marginBottom: "1rem" }}>The Branch Concept</h5>
-                  <pre style={{ fontFamily: "monospace", fontSize: "0.875rem", backgroundColor: "#ffffff", padding: "1rem", borderRadius: "4px", overflow: "auto" }}>
-{`main branch:     A ─── B ─── C ─── D ─── E
-                              │
-                              └─── F ─── G    (feature branch)
-                                    │
-                                    └─── H    (bugfix branch)
-
-• Each letter is a commit (snapshot)
-• Branches let you work on features without affecting main
-• You can switch between branches instantly
-• Merging brings changes back together`}
-                  </pre>
-                  <p style={{ lineHeight: 1.8, marginTop: "1rem", marginBottom: 0 }}>
-                    <strong>Why this matters:</strong> You can work on a new feature while someone else fixes a bug,
-                    and neither of you interferes with the other's work. When ready, you merge your changes back.
-                  </p>
-                </Tile>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Merging: Bringing Changes Together</h4>
-                <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
-                  Merging combines changes from different branches. Git is smart about this:
-                </p>
-                
-                <div style={{ display: "grid", gap: "1rem", marginBottom: "2rem" }}>
-                  <Tile style={{ padding: "1rem" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#24a148" }}>✅ Fast-Forward Merge</h5>
-                    <p style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>
-                      When no changes happened on main, Git just moves the pointer forward
-                    </p>
-                    <pre style={{ fontFamily: "monospace", fontSize: "0.75rem", margin: 0 }}>
-{`Before:  main: A ─── B
-         feature:    └─── C ─── D
-
-After:   main: A ─── B ─── C ─── D`}
-                    </pre>
-                  </Tile>
-
-                  <Tile style={{ padding: "1rem" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#0f62fe" }}>🔀 Three-Way Merge</h5>
-                    <p style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>
-                      When both branches have changes, Git creates a merge commit
-                    </p>
-                    <pre style={{ fontFamily: "monospace", fontSize: "0.75rem", margin: 0 }}>
-{`Before:  main: A ─── B ─── C
-         feature:    └─── D ─── E
-
-After:   main: A ─── B ─── C ─── F (merge commit)
-                      └─── D ─── E ─┘`}
-                    </pre>
-                  </Tile>
-
-                  <Tile style={{ padding: "1rem", borderLeft: "4px solid #da1e28" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#da1e28" }}>⚠️ Merge Conflicts</h5>
-                    <p style={{ fontSize: "0.875rem", margin: 0 }}>
-                      When the same lines were changed in both branches, Git asks you to decide which to keep.
-                      This is normal and not scary - Git marks the conflicts and you choose what to keep.
-                    </p>
-                  </Tile>
-                </div>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Remote Repositories: Collaboration Hub</h4>
-                <Tile style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
-                  <p style={{ marginBottom: "1rem", fontWeight: 600 }}>
-                    Your local Git repository can sync with remote repositories (like GitHub)
-                  </p>
-                  <pre style={{ fontFamily: "monospace", fontSize: "0.875rem", backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "4px", overflow: "auto" }}>
-{`Your Computer                    GitHub (Remote)
-─────────────                    ───────────────
-
-Local Repository  ─── push ──>   Remote Repository
-                                 (origin/main)
-                  <── pull ───
-                  <── fetch ──
-
-• push: Send your commits to remote
-• pull: Get commits from remote (fetch + merge)
-• fetch: Download commits but don't merge yet
-• clone: Copy entire repository to your computer`}
-                  </pre>
-                </Tile>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Common Git Workflows</h4>
-                <Tile style={{ padding: "1.5rem", marginBottom: "1.5rem", borderLeft: "4px solid #0f62fe" }}>
-                  <h5 style={{ marginTop: 0, marginBottom: "1rem" }}>Feature Branch Workflow (Most Common)</h5>
-                  <ol style={{ marginLeft: "1.5rem", lineHeight: 1.8 }}>
-                    <li><strong>Create branch:</strong> Start from main, create feature branch</li>
-                    <li><strong>Make changes:</strong> Edit files, commit regularly</li>
-                    <li><strong>Push branch:</strong> Share your work on remote</li>
-                    <li><strong>Create Pull Request:</strong> Ask team to review</li>
-                    <li><strong>Review & Merge:</strong> Team reviews, then merge to main</li>
-                    <li><strong>Delete branch:</strong> Clean up after merge</li>
-                  </ol>
-                  <div style={{ marginTop: "1rem" }}>
-                    <CodeSnippet type="multi">
-{`# 1. Create and switch to feature branch
-git checkout -b feature/new-feature
-
-# 2. Make changes and commit
-git add .
-git commit -m "Add new feature"
-
-# 3. Push to remote
-git push origin feature/new-feature
-
-# 4. Create PR on GitHub (via web interface)
-
-# 5. After merge, update local main
-git checkout main
-git pull origin main
-
-# 6. Delete local branch
-git branch -d feature/new-feature`}
-                    </CodeSnippet>
-                  </div>
-                </Tile>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Key Principles to Remember</h4>
-                <div style={{ display: "grid", gap: "0.75rem" }}>
-                  {[
-                    { icon: "💡", text: "Commit often - small, focused commits are better than large ones" },
-                    { icon: "💡", text: "Write clear commit messages - your future self will thank you" },
-                    { icon: "💡", text: "Pull before you push - stay in sync with your team" },
-                    { icon: "💡", text: "Branch for every feature - keep main stable" },
-                    { icon: "💡", text: "Don't fear mistakes - Git can undo almost anything" }
-                  ].map((item, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        gap: "0.75rem",
-                        padding: "0.75rem",
-                        backgroundColor: "#f4f4f4",
-                        borderRadius: "4px"
-                      }}
-                    >
-                      <span style={{ fontSize: "1.25rem", flexShrink: 0 }}>{item.icon}</span>
-                      <p style={{ margin: 0, fontSize: "0.9375rem", lineHeight: 1.6 }}>
-                        {item.text}
-                      </p>
+          {/* Training Topic Tiles */}
+          <div style={{ 
+            display: "grid", 
+            gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))", 
+            gap: "1.5rem",
+            marginBottom: "2rem"
+          }}>
+            {trainingTopics.map((topic) => {
+              const IconComponent = topic.icon;
+              const isAvailable = topic.route !== null;
+              return (
+                <div
+                  key={topic.id}
+                  onClick={() => {
+                    if (isAvailable && topic.route) {
+                      navigate(topic.route);
+                    }
+                  }}
+                  style={{
+                    backgroundColor: isAvailable ? "#ffffff" : "#f4f4f4",
+                    border: topic.featured ? "2px solid #24a148" : "1px solid #e0e0e0",
+                    borderRadius: "8px",
+                    padding: "1.5rem",
+                    cursor: isAvailable ? "pointer" : "not-allowed",
+                    transition: "all 0.2s ease",
+                    boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+                    position: "relative",
+                    opacity: isAvailable ? 1 : 0.7
+                  }}
+                  onMouseEnter={(e) => {
+                    if (isAvailable) {
+                      e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (isAvailable) {
+                      e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1)";
+                      e.currentTarget.style.transform = "translateY(0)";
+                    }
+                  }}
+                >
+                  {topic.featured && (
+                    <div style={{
+                      position: "absolute",
+                      top: "1rem",
+                      right: "1rem"
+                    }}>
+                      <Tag type="green" size="sm">
+                        <Rocket size={16} style={{ marginRight: "0.25rem" }} />
+                        New
+                      </Tag>
                     </div>
-                  ))}
-                </div>
-
-                <div style={{ backgroundColor: "#e8f4ff", padding: "1.5rem", borderRadius: "8px", marginTop: "2rem", border: "1px solid #0f62fe" }}>
-                  <h5 style={{ marginTop: 0, color: "#0f62fe", marginBottom: "1rem" }}>
-                    Now You're Ready for Commands!
-                  </h5>
-                  <p style={{ lineHeight: 1.8, margin: 0 }}>
-                    With these mental models in place, Git commands will make sense. You're not just memorizing
-                    syntax - you understand <strong>what's happening</strong> and <strong>why</strong>.
-                    Head to the Interactive Terminal to practice these concepts hands-on!
+                  )}
+                  
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
+                    <div style={{
+                      backgroundColor: topic.color,
+                      borderRadius: "8px",
+                      padding: "0.75rem",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}>
+                      <IconComponent size={24} style={{ color: "#ffffff" }} />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <h3 style={{ 
+                        margin: 0, 
+                        marginBottom: "0.5rem", 
+                        color: "#161616",
+                        fontSize: "1.125rem",
+                        fontWeight: 600
+                      }}>
+                        {topic.title}
+                      </h3>
+                      <Tag type={topic.status === "Available" ? "blue" : "gray"} size="sm">
+                        {topic.status}
+                      </Tag>
+                    </div>
+                  </div>
+                  
+                  <p style={{ 
+                    color: "#525252", 
+                    lineHeight: 1.6,
+                    marginBottom: "1rem",
+                    fontSize: "0.9375rem"
+                  }}>
+                    {topic.description}
                   </p>
+                  
+                  {isAvailable ? (
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      color: "#0f62fe",
+                      fontWeight: 600,
+                      fontSize: "0.9375rem"
+                    }}>
+                      <span>Explore Topic</span>
+                      <Launch size={16} />
+                    </div>
+                  ) : (
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      color: "#8d8d8d",
+                      fontWeight: 600,
+                      fontSize: "0.9375rem"
+                    }}>
+                      <span>Coming Soon</span>
+                    </div>
+                  )}
                 </div>
-              </div>
-            </AccordionItem>
-
-            {/* Section 4: Text Editors */}
-            <AccordionItem
-              title={
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <Edit size={20} style={{ color: "#0f62fe" }} />
-                  <span style={{ fontWeight: 600 }}>4. Text Editors</span>
-                </div>
-              }
-            >
-              <div style={{ padding: "1rem 0" }}>
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Why Learn a Terminal Text Editor?</h4>
-                <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, marginBottom: "1.5rem" }}>
-                  <li>Edit files on remote servers via SSH</li>
-                  <li>Quick edits without leaving the terminal</li>
-                  <li>Work in environments without GUI</li>
-                  <li>Faster for small changes</li>
-                </ul>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>nano (Recommended for Beginners)</h4>
-                <Tile style={{ padding: "1.5rem", marginBottom: "1.5rem", borderLeft: "4px solid #0f62fe" }}>
-                  <p style={{ marginBottom: "1rem" }}><strong>Why nano?</strong> Simple, intuitive, commands shown at bottom</p>
-                  <CodeSnippet type="single">nano filename.txt</CodeSnippet>
-                  <p style={{ marginTop: "1rem", marginBottom: "0.5rem" }}><strong>Essential Commands:</strong></p>
-                  <ul style={{ marginLeft: "1.5rem", fontSize: "0.875rem" }}>
-                    <li>Ctrl+O: Save (Write Out)</li>
-                    <li>Ctrl+X: Exit</li>
-                    <li>Ctrl+K: Cut line</li>
-                    <li>Ctrl+U: Paste</li>
-                    <li>Ctrl+W: Search</li>
-                  </ul>
-                </Tile>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>vim (Advanced)</h4>
-                <div style={{ backgroundColor: "#f4f4f4", padding: "1.5rem", borderRadius: "8px", marginBottom: "1rem" }}>
-                  <p style={{ marginBottom: "1rem" }}><strong>Why vim?</strong> Powerful, ubiquitous, highly efficient once mastered</p>
-                  <CodeSnippet type="single">vim filename.txt</CodeSnippet>
-                  <p style={{ marginTop: "1rem", marginBottom: "0.5rem" }}><strong>Basic Survival Commands:</strong></p>
-                  <ul style={{ marginLeft: "1.5rem", fontSize: "0.875rem" }}>
-                    <li>i: Enter insert mode (start typing)</li>
-                    <li>Esc: Exit insert mode</li>
-                    <li>:w: Save</li>
-                    <li>:q: Quit</li>
-                    <li>:wq: Save and quit</li>
-                    <li>:q!: Quit without saving</li>
-                  </ul>
-                </div>
-              </div>
-            </AccordionItem>
-
-            {/* Section 5: Filesystem Navigation */}
-            <AccordionItem
-              title={
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <Folder size={20} style={{ color: "#0f62fe" }} />
-                  <span style={{ fontWeight: 600 }}>5. Filesystem Navigation</span>
-                </div>
-              }
-            >
-              <div style={{ padding: "1rem 0" }}>
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Essential Navigation Commands</h4>
-                
-                <div style={{ display: "grid", gap: "1rem", marginBottom: "1.5rem" }}>
-                  <div style={{ backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "8px" }}>
-                    <code style={{ color: "#0f62fe", fontWeight: "bold" }}>pwd</code>
-                    <p style={{ margin: "0.5rem 0 0 0", fontSize: "0.875rem" }}>Print Working Directory - shows where you are</p>
-                  </div>
-                  <div style={{ backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "8px" }}>
-                    <code style={{ color: "#0f62fe", fontWeight: "bold" }}>ls</code>
-                    <p style={{ margin: "0.5rem 0 0 0", fontSize: "0.875rem" }}>List - shows files and folders in current directory</p>
-                  </div>
-                  <div style={{ backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "8px" }}>
-                    <code style={{ color: "#0f62fe", fontWeight: "bold" }}>cd</code>
-                    <p style={{ margin: "0.5rem 0 0 0", fontSize: "0.875rem" }}>Change Directory - move to a different folder</p>
-                  </div>
-                </div>
-
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>File Operations</h4>
-                <CodeSnippet type="multi">
-{`# Create directory
-mkdir my-project
-
-# Create file
-touch README.md
-
-# Copy file
-cp file.txt backup.txt
-
-# Move/rename file
-mv old-name.txt new-name.txt
-
-# Remove file (careful!)
-rm file.txt
-
-# Remove directory
-rm -r directory-name`}
-                </CodeSnippet>
-
-                <div style={{ backgroundColor: "#fff3e0", padding: "1rem", borderRadius: "8px", marginTop: "1rem", border: "1px solid #ff832b" }}>
-                  <p style={{ margin: 0, fontSize: "0.875rem" }}>
-                    <strong>⚠️ Warning:</strong> The <code>rm</code> command permanently deletes files. There's no trash/recycle bin. 
-                    Always double-check before using <code>rm -rf</code>!
-                  </p>
-                </div>
-              </div>
-            </AccordionItem>
-
-            {/* Section 6: Redirection & Pipes */}
-            <AccordionItem
-              title={
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <ArrowRight size={20} style={{ color: "#0f62fe" }} />
-                  <span style={{ fontWeight: 600 }}>6. Redirection & Pipes</span>
-                </div>
-              }
-            >
-              <div style={{ padding: "1rem 0" }}>
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Output Redirection</h4>
-                <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
-                  Redirect command output to files instead of the screen.
-                </p>
-                <CodeSnippet type="multi">
-{`# Redirect output to file (overwrite)
-echo "Hello" > file.txt
-
-# Append to file
-echo "World" >> file.txt
-
-# Redirect errors
-command 2> errors.log
-
-# Redirect both output and errors
-command > output.log 2>&1`}
-                </CodeSnippet>
-
-                <h4 style={{ color: "#0f62fe", marginTop: "2rem", marginBottom: "1rem" }}>Pipes</h4>
-                <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
-                  Connect commands together - output of one becomes input of another.
-                </p>
-                <CodeSnippet type="multi">
-{`# Count lines in output
-ls -l | wc -l
-
-# Search in output
-ps aux | grep python
-
-# Chain multiple commands
-cat file.txt | grep "error" | sort | uniq
-
-# Real-world example: Find large files
-du -sh * | sort -hr | head -10`}
-                </CodeSnippet>
-              </div>
-            </AccordionItem>
-
-            {/* Section 7: Advanced Topics */}
-            <AccordionItem
-              title={
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <Terminal size={20} style={{ color: "#24a148" }} />
-                  <span style={{ fontWeight: 600 }}>7. Advanced Topics</span>
-                </div>
-              }
-            >
-              <div style={{ padding: "1rem 0" }}>
-                <h4 style={{ color: "#0f62fe", marginBottom: "1rem" }}>Environment Variables</h4>
-                <CodeSnippet type="multi">
-{`# View all environment variables
-env
-
-# View specific variable
-echo $PATH
-
-# Set temporary variable
-export MY_VAR="value"
-
-# Add to PATH
-export PATH="$PATH:/new/path"`}
-                </CodeSnippet>
-
-                <h4 style={{ color: "#0f62fe", marginTop: "2rem", marginBottom: "1rem" }}>Aliases</h4>
-                <p style={{ lineHeight: 1.8, marginBottom: "1rem" }}>
-                  Create shortcuts for commonly used commands.
-                </p>
-                <CodeSnippet type="multi">
-{`# Create alias
-alias ll='ls -lah'
-alias gs='git status'
-alias ..='cd ..'
-
-# Add to ~/.zshrc or ~/.bashrc to make permanent
-echo "alias ll='ls -lah'" >> ~/.zshrc`}
-                </CodeSnippet>
-
-                <h4 style={{ color: "#0f62fe", marginTop: "2rem", marginBottom: "1rem" }}>File Permissions</h4>
-                <CodeSnippet type="multi">
-{`# View permissions
-ls -l
-
-# Change permissions
-chmod 755 script.sh  # rwxr-xr-x
-chmod +x script.sh   # Make executable
-
-# Change owner
-chown user:group file.txt`}
-                </CodeSnippet>
-              </div>
-            </AccordionItem>
-
-            {/* Section 8: Quick Reference */}
-            <AccordionItem
-              title={
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <Book size={20} style={{ color: "#24a148" }} />
-                  <span style={{ fontWeight: 600 }}>8. Quick Reference Cheat Sheet</span>
-                </div>
-              }
-            >
-              <div style={{ padding: "1rem 0" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "1rem" }}>
-                  <Tile style={{ padding: "1rem" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#0f62fe" }}>Navigation</h5>
-                    <ul style={{ marginLeft: "1.5rem", fontSize: "0.875rem", lineHeight: 1.6 }}>
-                      <li><code>pwd</code> - Current directory</li>
-                      <li><code>ls</code> - List files</li>
-                      <li><code>cd</code> - Change directory</li>
-                      <li><code>cd ~</code> - Go home</li>
-                      <li><code>cd ..</code> - Go up one level</li>
-                    </ul>
-                  </Tile>
-
-                  <Tile style={{ padding: "1rem" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#0f62fe" }}>File Operations</h5>
-                    <ul style={{ marginLeft: "1.5rem", fontSize: "0.875rem", lineHeight: 1.6 }}>
-                      <li><code>touch</code> - Create file</li>
-                      <li><code>mkdir</code> - Create directory</li>
-                      <li><code>cp</code> - Copy</li>
-                      <li><code>mv</code> - Move/rename</li>
-                      <li><code>rm</code> - Remove</li>
-                    </ul>
-                  </Tile>
-
-                  <Tile style={{ padding: "1rem" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#0f62fe" }}>Viewing Files</h5>
-                    <ul style={{ marginLeft: "1.5rem", fontSize: "0.875rem", lineHeight: 1.6 }}>
-                      <li><code>cat</code> - Display file</li>
-                      <li><code>less</code> - Page through file</li>
-                      <li><code>head</code> - First 10 lines</li>
-                      <li><code>tail</code> - Last 10 lines</li>
-                      <li><code>grep</code> - Search in files</li>
-                    </ul>
-                  </Tile>
-
-                  <Tile style={{ padding: "1rem" }}>
-                    <h5 style={{ marginTop: 0, marginBottom: "0.75rem", color: "#0f62fe" }}>System Info</h5>
-                    <ul style={{ marginLeft: "1.5rem", fontSize: "0.875rem", lineHeight: 1.6 }}>
-                      <li><code>whoami</code> - Current user</li>
-                      <li><code>hostname</code> - Computer name</li>
-                      <li><code>date</code> - Current date/time</li>
-                      <li><code>df -h</code> - Disk space</li>
-                      <li><code>top</code> - Running processes</li>
-                    </ul>
-                  </Tile>
-                </div>
-
-                <Tile style={{ padding: "1.5rem", marginTop: "1.5rem", borderLeft: "4px solid #0f62fe" }}>
-                  <h5 style={{ marginTop: 0, marginBottom: "1rem" }}>Pro Tips</h5>
-                  <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8 }}>
-                    <li>Use <strong>Tab</strong> for auto-completion</li>
-                    <li>Use <strong>↑/↓ arrows</strong> to navigate command history</li>
-                    <li>Use <strong>Ctrl+C</strong> to cancel a running command</li>
-                    <li>Use <strong>Ctrl+L</strong> to clear the screen</li>
-                    <li>Use <strong>man command</strong> to read the manual for any command</li>
-                  </ul>
-                </Tile>
-              </div>
-            </AccordionItem>
-          </Accordion>
+              );
+            })}
+          </div>
         </Section>
 
         {/* Learning Path */}
@@ -905,38 +414,6 @@ chown user:group file.txt`}
                     {item.task}
                   </p>
                 </Tile>
-              ))}
-            </div>
-          </Tile>
-        </Section>
-
-        {/* Key Principles */}
-        <Section level={3} style={{ marginBottom: "3rem" }}>
-          <Tile style={{ padding: "2rem" }}>
-            <h3 style={{ marginTop: 0, marginBottom: "1.5rem" }}>Key Principles to Remember</h3>
-            
-            <div style={{ display: "grid", gap: "1rem" }}>
-              {[
-                { icon: "✅", text: "There's no \"right\" way - only what works for you" },
-                { icon: "✅", text: "Start simple - complexity comes with time" },
-                { icon: "✅", text: "Practice daily - even 5 minutes counts" },
-                { icon: "✅", text: "Customize everything - make it yours" },
-                { icon: "✅", text: "Share knowledge - we all learn together" }
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                    padding: "0.75rem"
-                  }}
-                >
-                  <CheckmarkFilled size={24} style={{ flexShrink: 0, color: "#24a148" }} />
-                  <p style={{ margin: 0, fontSize: "0.9375rem" }}>
-                    {item.text}
-                  </p>
-                </div>
               ))}
             </div>
           </Tile>
