@@ -45,6 +45,10 @@ export default function InteractiveTerminal({
   // Analytics tracking state
   const sessionStartTime = useRef<number>(Date.now());
   const commandCount = useRef<number>(0);
+  
+  // Paste buffer for handling multi-line pastes
+  const pasteBufferRef = useRef<string>('');
+  const pasteTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Use refs to store latest state values for event handlers
   const currentLineRef = useRef(currentLine);
@@ -1729,7 +1733,9 @@ Type 'help' to see all available commands!`
           const currentCol = cursorColRef.current;
           
           // Handle pasted content (multi-line or multi-character)
-          if (data.length > 1 || data.includes('\n') || data.includes('\r')) {
+          // Check for newlines first, then multi-character
+          if (data.includes('\n') || data.includes('\r') || data.length > 1) {
+            console.log('Paste detected:', { dataLength: data.length, hasNewline: data.includes('\n'), data: data.substring(0, 100) });
             const lines = data.split(/\r?\n/).filter(line => line !== ''); // Remove empty lines from split
             setEditorContent(prev => {
               const newContent = [...prev];
