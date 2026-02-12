@@ -193,7 +193,7 @@ export default function AppHeader({ onFeedbackClick }: AppHeaderProps) {
                                                         minHeight: '16px',
                                                     }}
                                                 >
-                                                    Upcoming
+                                                    TBD
                                                 </Tag>
                                             )}
                                         </div>
