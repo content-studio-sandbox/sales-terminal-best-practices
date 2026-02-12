@@ -21,11 +21,11 @@ interface AppHeaderProps {
 
 // Primary navigation items (always visible)
 const primaryRoutes = [
+    { id: "training-resources", label: "Playbooks", path: "/training-resources" },
     { id: "terminal-basics", label: "Command Line", path: "/terminal-basics" },
     { id: "git-workflows", label: "Git & PRs", path: "/git-workflows" },
     { id: "local-setup", label: "Local Setup", path: "/local-setup" },
     { id: "interactive-terminal", label: "Practice Lab", path: "/interactive-terminal" },
-    { id: "training-resources", label: "Playbooks", path: "/training-resources" },
 ];
 
 // Secondary navigation items (under "More" dropdown)
