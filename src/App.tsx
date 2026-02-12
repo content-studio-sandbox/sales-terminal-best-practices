@@ -16,6 +16,9 @@ import CpdCliPage from './pages/CpdCliPage';
 import AgenticToolsPage from './pages/AgenticToolsPage';
 import TrainingResourcesPage from './pages/TrainingResourcesPage';
 import GitConceptsPage from './pages/training/GitConceptsPage';
+import LocalSetupPage from './pages/LocalSetupPage';
+import NodeRuntimePage from './pages/NodeRuntimePage';
+import PythonRuntimePage from './pages/PythonRuntimePage';
 import {AppThemeProvider} from "@/theme/ThemeProvider.tsx";
 import { useInstana } from "./hooks/useInstana";
 import RouteTracking from './RouteTracking';
@@ -97,6 +100,9 @@ const AppContent: React.FC = () => {
             <Route path="agentic-tools" element={<AgenticToolsPage />} />
             <Route path="training-resources" element={<TrainingResourcesPage />} />
             <Route path="training/git-concepts" element={<GitConceptsPage />} />
+            <Route path="local-setup" element={<LocalSetupPage />} />
+            <Route path="local-setup/node" element={<NodeRuntimePage />} />
+            <Route path="local-setup/python" element={<PythonRuntimePage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -89,9 +89,9 @@ notes-backup.txt`;
             <Heading style={{ margin: 0 }}>Command Line Basics for Tech Sellers</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6 }}>
-            The terminal (also called command line or shell) is a text-based interface to your computer. 
-            Instead of clicking icons, you type commands. It's faster, more powerful, and essential for 
-            working with development tools, servers, and automation.
+            The command line (often called the terminal or shell) is a text-based way to interact with your computer.
+            Instead of clicking through menus, you run commands. It’s essential for running demos locally, troubleshooting
+            setups, and supporting deployments.
           </p>
         </Section>
 
@@ -106,7 +106,7 @@ notes-backup.txt`;
             borderBottom: "2px solid #e0e0e0"
           }}>
             <Information size={24} style={{ color: "#0f62fe" }} />
-            <h2 style={{ margin: 0, fontSize: "1.5rem" }}>What is a Terminal?</h2>
+            <h2 style={{ margin: 0, fontSize: "1.5rem" }}>What is the Command Line?</h2>
           </div>
           
           <div style={{
@@ -118,9 +118,8 @@ notes-backup.txt`;
             boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
           }}>
             <p style={{ fontSize: "1rem", lineHeight: 1.8, margin: 0, color: "#525252" }}>
-              Think of the terminal as a direct conversation with your computer. Instead of clicking through
-              menus and windows, you type commands in plain text. It might seem intimidating at first, but
-              it's actually more efficient once you learn the basics.
+              Think of the command line as a direct conversation with your computer. Instead of clicking through menus,
+              you run short commands. You don’t need to “learn to code” to use it—this is about getting productive and unblocked.
             </p>
           </div>
 
@@ -140,13 +139,13 @@ notes-backup.txt`;
             }}>
               <h3 style={{ marginTop: 0, color: "#161616", fontSize: "1.125rem", fontWeight: 600 }}>
                 <CheckmarkFilled size={20} style={{ verticalAlign: "middle", marginRight: "0.5rem", color: "#0f62fe" }} />
-                Why Learn Terminal?
+                Why This Matters
               </h3>
               <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, color: "#525252" }}>
                 <li>Faster than clicking through menus</li>
-                <li>Required for many development tools</li>
-                <li>Essential for server management</li>
-                <li>Enables automation of repetitive tasks</li>
+                <li>Required for many deployment and demo workflows</li>
+                <li>Helps you troubleshoot faster when something breaks</li>
+                <li>Enables repeatable setup steps (less “works on my machine”)</li>
                 <li>Universal across different systems</li>
               </ul>
             </div>
@@ -164,7 +163,7 @@ notes-backup.txt`;
                 Common Use Cases
               </h3>
               <ul style={{ marginLeft: "1.5rem", lineHeight: 1.8, color: "#525252" }}>
-                <li>Running development servers</li>
+                <li>Running demos and local services</li>
                 <li>Installing software packages</li>
                 <li>Managing Git repositories</li>
                 <li>Connecting to remote servers</li>
@@ -333,7 +332,7 @@ notes-backup.txt`;
             borderBottom: "2px solid #e0e0e0"
           }}>
             <Education size={24} style={{ color: "#0f62fe" }} />
-            <h2 style={{ margin: 0, fontSize: "1.5rem" }}>Comprehensive Training Materials</h2>
+            <h2 style={{ margin: 0, fontSize: "1.5rem" }}>Playbooks & Deep Dives</h2>
           </div>
 
           <div style={{
@@ -347,12 +346,10 @@ notes-backup.txt`;
           }}>
             <h3 style={{ marginTop: 0, color: "#161616", marginBottom: "1rem", fontWeight: 600 }}>
               <Book size={24} style={{ verticalAlign: "middle", marginRight: "0.5rem", color: "#0f62fe" }} />
-              Complete Terminal Training Plan
+              Command Line Playbook
             </h3>
             <p style={{ fontSize: "1rem", lineHeight: 1.8, marginBottom: "1.5rem" }}>
-              Ready to dive deeper? Access our comprehensive terminal training materials covering everything 
-              from terminal applications and text editors to advanced topics like redirection, pipes, and 
-              shell scripting. These materials include hands-on exercises and real-world examples.
+              Want the full reference? Use this playbook when you’re setting up a new machine, running a repo locally, or troubleshooting a deployment workflow. Includes hands-on exercises and real-world examples.
             </p>
             
             <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
@@ -403,7 +400,7 @@ notes-backup.txt`;
             borderBottom: "2px solid #e0e0e0"
           }}>
             <CheckmarkFilled size={24} style={{ color: "#0f62fe" }} />
-            <h2 style={{ margin: 0, fontSize: "1.5rem" }}>Tips for Learning</h2>
+            <h2 style={{ margin: 0, fontSize: "1.5rem" }}>Tips for Getting Fluent</h2>
           </div>
 
           <div style={{ 
@@ -452,7 +449,7 @@ notes-backup.txt`;
               padding: "1.5rem", 
               borderRadius: "8px"
             }}>
-              <h3 style={{ marginTop: 0, color: "#0f62fe", fontSize: "1.125rem" }}>Don't Fear Mistakes</h3>
+              <h3 style={{ marginTop: 0, color: "#0f62fe", fontSize: "1.125rem" }}>Make Safe Changes</h3>
               <p style={{ lineHeight: 1.8, margin: 0 }}>
                 The terminal will usually warn you before doing something destructive. Read error messages 
                 carefully - they often tell you exactly what went wrong.
@@ -476,9 +473,9 @@ notes-backup.txt`;
               padding: "1.5rem", 
               borderRadius: "8px"
             }}>
-              <h3 style={{ marginTop: 0, color: "#0f62fe", fontSize: "1.125rem" }}>Use man Pages</h3>
+              <h3 style={{ marginTop: 0, color: "#0f62fe", fontSize: "1.125rem" }}>Use Built-in Help</h3>
               <p style={{ lineHeight: 1.8, margin: 0 }}>
-                Type "man [command]" to see the manual for any command. For example, "man ls" shows all 
+                Use "man [command]" to see the manual for any command. For example, "man ls" shows all 
                 options for the ls command. Press 'q' to exit.
               </p>
             </div>
@@ -500,15 +497,14 @@ notes-backup.txt`;
               Ready for More?
             </h3>
             <p style={{ fontSize: "1rem", lineHeight: 1.8, marginBottom: "1.5rem" }}>
-              Once you're comfortable with these basics, explore our comprehensive training materials for 
-              advanced topics including shell scripting, Git workflows, SSH connections, and automation.
+              Next up: practice these commands in the Practice Lab, then move to Lab 2 (Git & PR workflow) so you can pull repos, make safe edits, and collaborate without getting blocked.
             </p>
             <Button
               kind="primary"
               renderIcon={Launch}
               onClick={() => window.open('/training-resources', '_blank')}
             >
-              Explore Advanced Training
+              Go to Practice Lab 
             </Button>
           </div>
         </Section>

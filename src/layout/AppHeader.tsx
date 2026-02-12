@@ -24,6 +24,7 @@ const routes = [
     // Available Sessions (left side)
     { id: "terminal-basics", label: "Command Line", path: "/terminal-basics", available: true },
     { id: "git-workflows", label: "Git & PRs", path: "/git-workflows", available: true },
+    { id: "local-setup", label: "Local Setup", path: "/local-setup", available: true },
     { id: "training-resources", label: "Playbooks", path: "/training-resources", available: true },
     { id: "interactive-terminal", label: "Practice Lab", path: "/interactive-terminal", available: true },
     

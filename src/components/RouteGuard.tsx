@@ -9,6 +9,7 @@ const ALLOWED_PATHS = [
   '/interactive-terminal',
   '/terminal-basics',
   '/git-workflows',
+  '/local-setup', // Allow all local setup subpages
   '/', // Allow landing page
 ];
 
