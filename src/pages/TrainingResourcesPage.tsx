@@ -383,41 +383,6 @@ export default function TrainingResourcesPage() {
           </div>
         </Section>
 
-        {/* Learning Path */}
-        <Section level={3} style={{ marginBottom: "3rem" }}>
-          <Tile style={{ padding: "2rem" }}>
-            <h3 style={{ marginTop: 0, marginBottom: "1.5rem" }}>Recommended Learning Path</h3>
-            
-            <div style={{ display: "grid", gap: "1rem" }}>
-              {[
-                { week: "Week 1", task: "Pick a terminal app and get comfortable opening it", color: "#0f62fe" },
-                { week: "Week 2", task: "Learn basic navigation (pwd, ls, cd, mkdir, rm)", color: "#0f62fe" },
-                { week: "Week 3", task: "Master your editor (start with nano)", color: "#0f62fe" },
-                { week: "Week 4", task: "Explore pipes and redirection", color: "#0f62fe" },
-                { week: "Month 2", task: "Start customizing with aliases and oh-my-zsh", color: "#24a148" },
-                { week: "Month 3", task: "You're dangerous now (in a good way)!", color: "#24a148" }
-              ].map((item, i) => (
-                <Tile
-                  key={i}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                    padding: "1rem",
-                    borderLeft: `4px solid ${item.color}`
-                  }}
-                >
-                  <Tag type={item.color === "#24a148" ? "green" : "blue"} size="md" style={{ flexShrink: 0, minWidth: "80px", justifyContent: "center" }}>
-                    {item.week}
-                  </Tag>
-                  <p style={{ margin: 0, fontSize: "0.9375rem" }}>
-                    {item.task}
-                  </p>
-                </Tile>
-              ))}
-            </div>
-          </Tile>
-        </Section>
 
       </Column>
     </Grid>
