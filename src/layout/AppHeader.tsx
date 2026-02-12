@@ -22,19 +22,19 @@ interface AppHeaderProps {
 // Order: Available sessions first, then upcoming sessions
 const routes = [
     // Available Sessions (left side)
-    { id: "terminal-basics", label: "Command Line", path: "/terminal-basics", available: true },
-    { id: "git-workflows", label: "Git & PRs", path: "/git-workflows", available: true },
-    { id: "local-setup", label: "Local Setup", path: "/local-setup", available: true },
-    { id: "training-resources", label: "Playbooks", path: "/training-resources", available: true },
-    { id: "interactive-terminal", label: "Practice Lab", path: "/interactive-terminal", available: true },
+    { id: "terminal-basics", label: "CLI", path: "/terminal-basics", available: true },
+    { id: "git-workflows", label: "Git", path: "/git-workflows", available: true },
+    { id: "local-setup", label: "Setup", path: "/local-setup", available: true },
+    { id: "training-resources", label: "Resources", path: "/training-resources", available: true },
+    { id: "interactive-terminal", label: "Lab", path: "/interactive-terminal", available: true },
     
     // Upcoming Sessions (right side)
-    { id: "ssh-best-practices", label: "Secure Access", path: "/ssh-best-practices", available: false, upcoming: true },
-    { id: "vim-best-practices", label: "Editors", path: "/vim-best-practices", available: false, upcoming: true },
-    { id: "openshift-best-practices", label: "Deployments", path: "/openshift-best-practices", available: false, upcoming: true },
-    { id: "cpd-cli", label: "Platform CLI", path: "/cpd-cli", available: false, upcoming: true },
-    { id: "api-authentication", label: "API Keys & Auth", path: "/api-authentication", available: false, upcoming: true },
-    { id: "agentic-tools", label: "AI Assist", path: "/agentic-tools", available: false, upcoming: true },
+    { id: "ssh-best-practices", label: "SSH", path: "/ssh-best-practices", available: false, upcoming: true },
+    { id: "vim-best-practices", label: "Vim", path: "/vim-best-practices", available: false, upcoming: true },
+    { id: "openshift-best-practices", label: "OpenShift", path: "/openshift-best-practices", available: false, upcoming: true },
+    { id: "cpd-cli", label: "CPD", path: "/cpd-cli", available: false, upcoming: true },
+    { id: "api-authentication", label: "API Auth", path: "/api-authentication", available: false, upcoming: true },
+    { id: "agentic-tools", label: "AI", path: "/agentic-tools", available: false, upcoming: true },
 ];
 
 const APP_VERSION = "v2.5.0";
