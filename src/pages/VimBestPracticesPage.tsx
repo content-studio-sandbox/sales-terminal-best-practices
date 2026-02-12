@@ -9,7 +9,7 @@ export default function VimBestPracticesPage() {
         <Section level={2} style={{ marginBottom: "2rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
             <Code size={32} style={{ color: "#0f62fe" }} />
-            <Heading style={{ margin: 0 }}>Vim Best Practices for Tech Sellers</Heading>
+            <Heading style={{ margin: 0 }}>Editors (Vim)</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6 }}>
             Vim is a powerful text editor used by developers worldwide. While it has a steep learning curve,

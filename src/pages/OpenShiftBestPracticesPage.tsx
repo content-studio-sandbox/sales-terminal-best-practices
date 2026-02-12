@@ -16,7 +16,7 @@ export default function OpenShiftBestPracticesPage() {
         <Section level={2} style={{ marginBottom: "2rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
             <Cloud size={32} style={{ color: "#0f62fe" }} />
-            <Heading style={{ margin: 0 }}>OpenShift Best Practices for Tech Sellers</Heading>
+            <Heading style={{ margin: 0 }}>Deployments (OpenShift)</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6 }}>
             Red Hat OpenShift is IBM's enterprise Kubernetes platform. Understanding OpenShift basics

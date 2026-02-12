@@ -19,19 +19,19 @@ export default function LandingPage() {
   const features = [
     {
       icon: <Terminal size={32} />,
-      title: "Terminal Basics",
+      title: "Command Line Basics",
       description: "Master command-line navigation, file operations, and essential system commands for efficient terminal usage.",
       path: "/terminal-basics"
     },
     {
       icon: <Code size={32} />,
-      title: "Git Workflows",
+      title: "Git & PR Workflow",
       description: "Learn version control fundamentals, branching strategies, and collaboration workflows for team development.",
       path: "/git-workflows"
     },
     {
       icon: <Security size={32} />,
-      title: "SSH Best Practices",
+      title: "Secure Access (SSH)",
       description: "Understand secure remote connections, key management, and best practices for server access.",
       path: "/ssh-best-practices"
     },
@@ -88,23 +88,23 @@ export default function LandingPage() {
               lineHeight: 1.6,
               opacity: 0.95
             }}>
-              Master essential terminal, Git, and SSH skills for modern development workflows
+              Practical skills for CSEs and tech sellers: run, ship, and support assets with confidence.
             </p>
             <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
               <Button
                 kind="primary"
                 size="lg"
                 renderIcon={ArrowRight}
-                onClick={() => handleNavigate("/terminal-basics", "Start Learning")}
+                onClick={() => handleNavigate("/terminal-basics", "Start Here")}
               >
-                Start Learning
+                Start Here
               </Button>
               <Button
                 kind="secondary"
                 size="lg"
-                onClick={() => handleNavigate("/interactive-terminal", "Try Terminal Simulator")}
+                onClick={() => handleNavigate("/interactive-terminal", "Practice Lab")}
               >
-                Try Terminal Simulator
+                Practice Lab
               </Button>
             </div>
             </div>
@@ -211,7 +211,7 @@ export default function LandingPage() {
                 {
                   number: "1",
                   title: "Learn Fundamentals",
-                  description: "Start with Terminal Basics to understand core commands and navigation patterns."
+                  description: "Start with Command Line Basics to understand core commands and navigation patterns."
                 },
                 {
                   number: "2",
@@ -296,7 +296,7 @@ export default function LandingPage() {
                 size="lg"
                 onClick={() => navigate("/interactive-terminal")}
               >
-                Try Terminal Simulator
+                Practice Lab
               </Button>
             </div>
           </div>

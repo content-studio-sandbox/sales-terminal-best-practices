@@ -88,7 +88,7 @@ export default function TrainingResourcesPage() {
         <Section level={2} style={{ marginBottom: "2rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
             <Education size={32} style={{ color: "#0f62fe" }} />
-            <Heading style={{ margin: 0 }}>Terminal Training Resources</Heading>
+            <Heading style={{ margin: 0 }}>Playbooks & Resources</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6 }}>
             Comprehensive training materials for mastering terminal skills.

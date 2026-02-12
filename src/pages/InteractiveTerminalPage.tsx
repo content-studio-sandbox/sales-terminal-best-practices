@@ -31,7 +31,7 @@ export default function InteractiveTerminalPage() {
         <Section level={2} style={{ marginBottom: "2rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
             <Terminal size={32} style={{ color: "#0f62fe" }} />
-            <Heading style={{ margin: 0 }}>Terminal Simulator Practice</Heading>
+            <Heading style={{ margin: 0 }}>Practice Lab</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px" }}>
             Practice terminal commands in a safe, interactive environment. Try the commands you've learned!

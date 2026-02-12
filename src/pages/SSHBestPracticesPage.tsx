@@ -85,7 +85,7 @@ Host github.com
         <Section level={2} style={{ marginBottom: "2rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
             <Security size={32} style={{ color: "#0f62fe" }} />
-            <Heading style={{ margin: 0 }}>SSH Best Practices</Heading>
+            <Heading style={{ margin: 0 }}>Secure Access (SSH)</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px" }}>
             Learn secure SSH practices for connecting to remote servers, managing keys, and troubleshooting common issues.
