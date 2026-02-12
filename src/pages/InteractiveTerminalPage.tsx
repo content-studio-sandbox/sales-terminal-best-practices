@@ -911,8 +911,6 @@ export default function InteractiveTerminalPage() {
                   </div>
                 </div>
                 )}
-                </div>
-                )}
               </div>
             </div>
 
