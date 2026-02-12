@@ -602,30 +602,6 @@ export default function InteractiveTerminalPage() {
                 {/* Lab 3: Local Setup + Run Project */}
                 {selectedLab === "lab3" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                  {/* Instructor Notes */}
-                  <div style={{
-                    backgroundColor: "#fff3cd",
-                    padding: "1.5rem",
-                    borderRadius: "4px",
-                    border: "2px solid #ffc107",
-                    marginBottom: "0.5rem"
-                  }}>
-                    <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
-                      <Rocket size={24} style={{ color: "#856404", flexShrink: 0, marginTop: "0.125rem" }} />
-                      <div>
-                        <h4 style={{ margin: "0 0 0.75rem 0", color: "#856404", fontSize: "1rem", fontWeight: 600 }}>
-                          📋 Instructor Notes - 30-Minute Live Training
-                        </h4>
-                        <p style={{ margin: "0 0 0.5rem 0", color: "#856404", fontSize: "0.875rem", lineHeight: 1.6 }}>
-                          <strong>Presentation Flow:</strong> Start in simulator for confidence building, then transition to real terminal for live demo.
-                        </p>
-                        <p style={{ margin: "0", color: "#856404", fontSize: "0.875rem", lineHeight: 1.6, fontStyle: "italic" }}>
-                          <strong>Handoff Moment:</strong> "Everything here is simulated. Next I'll run the same workflow in my real terminal."
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
                   {/* Exercise 1: Preflight Checks */}
                   <ExerciseCard
                     id="lab3-ex1"
