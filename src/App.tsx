@@ -24,6 +24,7 @@ import {AppThemeProvider} from "@/theme/ThemeProvider.tsx";
 import { useInstana } from "./hooks/useInstana";
 import RouteTracking from './RouteTracking';
 import RouteGuard from './components/RouteGuard';
+import ScrollToTop from './components/ScrollToTop';
 
 const queryClient = new QueryClient();
 
@@ -84,6 +85,7 @@ const AppContent: React.FC = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <RouteTracking />
       <RouteGuard>
         <Routes>
