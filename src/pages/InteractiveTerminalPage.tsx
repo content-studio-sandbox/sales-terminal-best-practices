@@ -6,12 +6,13 @@ import ExerciseCard from "../components/ExerciseCard";
 import { CodeWithCopy } from "../components/CodeWithCopy";
 
 export default function InteractiveTerminalPage() {
-  const [selectedLab, setSelectedLab] = useState("lab1");
+  const [selectedLab, setSelectedLab] = useState<"lab1" | "lab2" | "lab3">("lab1");
   const [expandedExercises, setExpandedExercises] = useState<Set<string>>(new Set());
 
   const labs = [
     { id: "lab1", text: "Lab 1: Terminal Basics" },
-    { id: "lab2", text: "Lab 2: Git Workflows" }
+    { id: "lab2", text: "Lab 2: Git Workflows" },
+    { id: "lab3", text: "Lab 3: Local Setup + Run Project" }
   ];
 
   const toggleExercise = (exerciseId: string) => {
@@ -127,7 +128,7 @@ export default function InteractiveTerminalPage() {
                     items={labs}
                     itemToString={(item) => (item ? item.text : "")}
                     selectedItem={labs.find(lab => lab.id === selectedLab)}
-                    onChange={({ selectedItem }) => setSelectedLab(selectedItem?.id || "lab1")}
+                    onChange={({ selectedItem }) => setSelectedLab((selectedItem?.id || "lab1") as "lab1" | "lab2" | "lab3")}
                   />
                 </div>
                 
@@ -594,6 +595,319 @@ export default function InteractiveTerminalPage() {
                       </div>
                     </div>
                   </div>
+
+                {/* Lab 3: Local Setup + Run Project */}
+                {selectedLab === "lab3" && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  {/* Instructor Notes */}
+                  <div style={{
+                    backgroundColor: "#fff3cd",
+                    padding: "1.5rem",
+                    borderRadius: "4px",
+                    border: "2px solid #ffc107",
+                    marginBottom: "0.5rem"
+                  }}>
+                    <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
+                      <Rocket size={24} style={{ color: "#856404", flexShrink: 0, marginTop: "0.125rem" }} />
+                      <div>
+                        <h4 style={{ margin: "0 0 0.75rem 0", color: "#856404", fontSize: "1rem", fontWeight: 600 }}>
+                          📋 Instructor Notes - 30-Minute Live Training
+                        </h4>
+                        <p style={{ margin: "0 0 0.5rem 0", color: "#856404", fontSize: "0.875rem", lineHeight: 1.6 }}>
+                          <strong>Presentation Flow:</strong> Start in simulator for confidence building, then transition to real terminal for live demo.
+                        </p>
+                        <p style={{ margin: "0", color: "#856404", fontSize: "0.875rem", lineHeight: 1.6, fontStyle: "italic" }}>
+                          <strong>Handoff Moment:</strong> "Everything here is simulated. Next I'll run the same workflow in my real terminal."
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Exercise 1: Preflight Checks */}
+                  <ExerciseCard
+                    id="lab3-ex1"
+                    title="Exercise 1: Preflight Checks"
+                    scenario="Verify your development environment is ready"
+                    isExpanded={expandedExercises.has('lab3-ex1')}
+                    onToggle={toggleExercise}
+                  >
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Check Node.js & npm:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="node -v" description="Check Node version" />
+                      <CodeWithCopy code="npm -v" description="Check npm version" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Check Python & pip:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="python3 --version" description="Check Python version" />
+                      <CodeWithCopy code="pip --version" description="Check pip version" />
+                    </div>
+                    
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderRadius: "3px", borderLeft: "3px solid #24a148" }}>
+                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
+                        ✅ <strong>Success:</strong> If all commands return version numbers, you're ready to proceed!
+                      </p>
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Exercise 2: Understand the Repo */}
+                  <ExerciseCard
+                    id="lab3-ex2"
+                    title="Exercise 2: Understand the Repo"
+                    scenario="Identify if it's a Node or Python project"
+                    isExpanded={expandedExercises.has('lab3-ex2')}
+                    onToggle={toggleExercise}
+                  >
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Navigate and explore:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="ls -la" description="List all files" />
+                      <CodeWithCopy code="cat README.md" description="Read project documentation" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Look for these signals:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem", marginBottom: "0.5rem" }}>
+                      <CodeWithCopy code="ls package.json" description="Node.js project indicator" />
+                      <CodeWithCopy code="ls requirements.txt" description="Python project indicator" />
+                    </div>
+                    
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderRadius: "3px", borderLeft: "3px solid #0f62fe" }}>
+                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
+                        💡 <strong>Pro Tip:</strong> package.json = Node project, requirements.txt = Python project
+                      </p>
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Exercise 3: Node Version Control (nvm) */}
+                  <ExerciseCard
+                    id="lab3-ex3"
+                    title="Exercise 3: Node Version Control (nvm)"
+                    scenario="Manage Node.js versions with nvm"
+                    isExpanded={expandedExercises.has('lab3-ex3')}
+                    onToggle={toggleExercise}
+                  >
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Check nvm installation:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="nvm --version" description="Verify nvm is installed" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>List and switch versions:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="nvm ls" description="List installed Node versions" />
+                      <CodeWithCopy code="nvm install 18" description="Install Node 18" />
+                      <CodeWithCopy code="nvm use 18" description="Switch to Node 18" />
+                      <CodeWithCopy code="node -v" description="Verify version changed" />
+                    </div>
+                    
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderRadius: "3px", borderLeft: "3px solid #ffc107" }}>
+                      <p style={{ margin: 0, color: "#856404", fontSize: "0.8125rem" }}>
+                        ⚠️ <strong>Note:</strong> Different projects may require different Node versions. Always check .nvmrc or README.md
+                      </p>
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Exercise 4: Python Version Control (pyenv) */}
+                  <ExerciseCard
+                    id="lab3-ex4"
+                    title="Exercise 4: Python Version Control (pyenv)"
+                    scenario="Manage Python versions with pyenv"
+                    isExpanded={expandedExercises.has('lab3-ex4')}
+                    onToggle={toggleExercise}
+                  >
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Check pyenv installation:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="pyenv --version" description="Verify pyenv is installed" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>List and set versions:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="pyenv versions" description="List installed Python versions" />
+                      <CodeWithCopy code="pyenv install 3.11" description="Install Python 3.11" />
+                      <CodeWithCopy code="pyenv local 3.11" description="Set local version to 3.11" />
+                      <CodeWithCopy code="python --version" description="Verify version changed" />
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Exercise 5: Dependencies & Environment */}
+                  <ExerciseCard
+                    id="lab3-ex5"
+                    title="Exercise 5: Dependencies & Environment"
+                    scenario="Install project dependencies"
+                    isExpanded={expandedExercises.has('lab3-ex5')}
+                    onToggle={toggleExercise}
+                  >
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>For Node.js projects:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="npm install" description="Install dependencies from package.json" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>For Python projects:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="python -m venv .venv" description="Create virtual environment" />
+                      <CodeWithCopy code="source .venv/bin/activate" description="Activate virtual environment" />
+                      <CodeWithCopy code="pip install -r requirements.txt" description="Install dependencies" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Environment variables:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="cp .env.example .env" description="Copy environment template" />
+                      <span style={{ color: "#525252", fontSize: "0.8125rem" }}>Then edit .env with your values</span>
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Exercise 6: Run It Locally (Capstone) */}
+                  <ExerciseCard
+                    id="lab3-ex6"
+                    title="Exercise 6: Run It Locally (Capstone) 🎯"
+                    scenario="Complete workflow: clone → setup → run"
+                    isExpanded={expandedExercises.has('lab3-ex6')}
+                    onToggle={toggleExercise}
+                    special={true}
+                  >
+                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderRadius: "3px" }}>
+                      <strong style={{ color: "#24a148" }}>🎯 Capstone Exercise:</strong>
+                      <p style={{ margin: "0.5rem 0 0 0", color: "#161616", fontSize: "0.8125rem" }}>
+                        This simulates the complete workflow you'll use in real projects
+                      </p>
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 1: Clone the repository</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="git clone https://github.com/example/demo-app.git" block={true} />
+                      <CodeWithCopy code="cd demo-app" description="Navigate into project" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 2: Set correct version</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="nvm use" description="Use Node version from .nvmrc" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 3: Install dependencies</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="npm install" description="Install all packages" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 4: Run the dev server</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="npm run dev" description="Start development server" />
+                    </div>
+                    
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderRadius: "3px", borderLeft: "3px solid #24a148" }}>
+                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
+                        ✅ <strong>Success!</strong> You should see: "Server running on http://localhost:3000"
+                      </p>
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Exercise 7: Common Fix - Wrong Node Version */}
+                  <ExerciseCard
+                    id="lab3-ex7"
+                    title="Exercise 7: Troubleshooting - Wrong Node Version"
+                    scenario="Fix: 'Error: Requires Node.js 18.x'"
+                    isExpanded={expandedExercises.has('lab3-ex7')}
+                    onToggle={toggleExercise}
+                  >
+                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#ffebee", borderRadius: "3px", borderLeft: "3px solid #d32f2f" }}>
+                      <strong style={{ color: "#d32f2f" }}>❌ Error:</strong>
+                      <p style={{ margin: "0.5rem 0 0 0", color: "#161616", fontSize: "0.8125rem", fontFamily: "monospace" }}>
+                        Error: The engine "node" is incompatible with this module. Expected version "18.x". Got "16.14.0"
+                      </p>
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Solution:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="node -v" description="Check current version" />
+                      <CodeWithCopy code="nvm install 18" description="Install required version" />
+                      <CodeWithCopy code="nvm use 18" description="Switch to Node 18" />
+                      <CodeWithCopy code="npm install" description="Reinstall dependencies" />
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Exercise 8: Common Fix - Port in Use */}
+                  <ExerciseCard
+                    id="lab3-ex8"
+                    title="Exercise 8: Troubleshooting - Port Already in Use"
+                    scenario="Fix: 'Error: Port 3000 is already in use'"
+                    isExpanded={expandedExercises.has('lab3-ex8')}
+                    onToggle={toggleExercise}
+                  >
+                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#ffebee", borderRadius: "3px", borderLeft: "3px solid #d32f2f" }}>
+                      <strong style={{ color: "#d32f2f" }}>❌ Error:</strong>
+                      <p style={{ margin: "0.5rem 0 0 0", color: "#161616", fontSize: "0.8125rem", fontFamily: "monospace" }}>
+                        Error: listen EADDRINUSE: address already in use :::3000
+                      </p>
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Solution 1: Find and kill the process</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="lsof -i :3000" description="Find process using port 3000" />
+                      <CodeWithCopy code="kill -9 <PID>" description="Kill the process (replace <PID>)" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Solution 2: Use a different port</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="PORT=3001 npm run dev" description="Run on port 3001 instead" />
+                    </div>
+                    
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderRadius: "3px", borderLeft: "3px solid #0f62fe" }}>
+                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
+                        💡 <strong>Pro Tip:</strong> Check .env file for PORT configuration options
+                      </p>
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Pro Tip for Lab 3 */}
+                  <div style={{
+                    backgroundColor: "#e8f4ff",
+                    padding: "1rem",
+                    borderRadius: "4px",
+                    border: "1px solid #0f62fe",
+                    marginTop: "0.5rem"
+                  }}>
+                    <div style={{ fontSize: "0.875rem", color: "#161616", lineHeight: 1.6, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <Information size={20} style={{ color: "#0f62fe", flexShrink: 0 }} />
+                      <div>
+                        <strong style={{ color: "#0f62fe" }}>Pro Tip:</strong> Always read the README.md first! It contains project-specific setup instructions and requirements.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                )}
                 </div>
                 )}
               </div>
