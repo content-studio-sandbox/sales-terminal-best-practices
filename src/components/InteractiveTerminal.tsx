@@ -26,6 +26,12 @@ export default function InteractiveTerminal({
   const [currentBranch, setCurrentBranch] = useState("main");
   const [isZshInstalled, setIsZshInstalled] = useState(false);
   const [isGitInstalled, setIsGitInstalled] = useState(false);
+  const [isNvmInstalled, setIsNvmInstalled] = useState(true); // nvm pre-installed
+  const [isPyenvInstalled, setIsPyenvInstalled] = useState(true); // pyenv pre-installed
+  const [nodeVersion, setNodeVersion] = useState("v20.11.0");
+  const [pythonVersion, setPythonVersion] = useState("3.11.7");
+  const [installedNodeVersions, setInstalledNodeVersions] = useState<string[]>(["v18.19.0", "v20.11.0"]);
+  const [installedPythonVersions, setInstalledPythonVersions] = useState<string[]>(["3.10.13", "3.11.7"]);
 
   const [fileSystem, setFileSystem] = useState<Record<string, string[]>>({
     "/home/sales-user/projects": ["project1/", "project2/", "README.md", "notes.txt"]
@@ -56,6 +62,12 @@ export default function InteractiveTerminal({
   const currentBranchRef = useRef(currentBranch);
   const isZshInstalledRef = useRef(isZshInstalled);
   const isGitInstalledRef = useRef(isGitInstalled);
+  const isNvmInstalledRef = useRef(isNvmInstalled);
+  const isPyenvInstalledRef = useRef(isPyenvInstalled);
+  const nodeVersionRef = useRef(nodeVersion);
+  const pythonVersionRef = useRef(pythonVersion);
+  const installedNodeVersionsRef = useRef(installedNodeVersions);
+  const installedPythonVersionsRef = useRef(installedPythonVersions);
   const fileSystemRef = useRef(fileSystem);
   const commandHistoryRef = useRef(commandHistory);
   const editorModeRef = useRef(editorMode);
@@ -88,6 +100,30 @@ export default function InteractiveTerminal({
   useEffect(() => {
     isGitInstalledRef.current = isGitInstalled;
   }, [isGitInstalled]);
+
+  useEffect(() => {
+    isNvmInstalledRef.current = isNvmInstalled;
+  }, [isNvmInstalled]);
+
+  useEffect(() => {
+    isPyenvInstalledRef.current = isPyenvInstalled;
+  }, [isPyenvInstalled]);
+
+  useEffect(() => {
+    nodeVersionRef.current = nodeVersion;
+  }, [nodeVersion]);
+
+  useEffect(() => {
+    pythonVersionRef.current = pythonVersion;
+  }, [pythonVersion]);
+
+  useEffect(() => {
+    installedNodeVersionsRef.current = installedNodeVersions;
+  }, [installedNodeVersions]);
+
+  useEffect(() => {
+    installedPythonVersionsRef.current = installedPythonVersions;
+  }, [installedPythonVersions]);
 
   useEffect(() => {
     fileSystemRef.current = fileSystem;
@@ -285,6 +321,14 @@ export default function TerminalBasicsPage() {
   brew [cmd]      - Homebrew (macOS)
   apt-get [cmd]   - APT (Debian/Ubuntu)
   sudo [cmd]      - Run command as admin
+  npm [cmd]       - Node Package Manager
+  
+🔧 Version Managers:
+  nvm [cmd]       - Node Version Manager
+  pyenv [cmd]     - Python Version Manager
+  node [--version]- Node.js runtime
+  python [--version] - Python interpreter
+  source [file]   - Load environment/activate venv
   
 📚 Utilities:
   clear           - Clear terminal
@@ -1056,6 +1100,269 @@ usage: git commit -m "message"`;
       return `==> Downloading ${pkg}...
 ==> Installing ${pkg}...
 ✓ ${pkg} installed successfully via Homebrew`;
+    },
+    
+    // Node Version Manager (nvm)
+    nvm: (args?: string) => {
+      if (!args || !args.trim()) {
+        return `Node Version Manager (v0.39.7)
+
+Usage:
+  nvm --version              Show nvm version
+  nvm ls                     List installed Node versions
+  nvm install <version>      Install a Node version
+  nvm use <version>          Switch to a Node version
+  nvm current                Show current Node version
+  nvm alias default <ver>    Set default Node version`;
+      }
+      
+      const cmd = args.trim();
+      
+      if (cmd === "--version") {
+        return "0.39.7";
+      }
+      
+      if (cmd === "ls" || cmd === "list") {
+        const versions = installedNodeVersionsRef.current;
+        const current = nodeVersionRef.current;
+        return versions.map(v =>
+          v === current ? `->     ${v} (Currently using)` : `       ${v}`
+        ).join("\n") + "\ndefault -> v20.11.0";
+      }
+      
+      if (cmd === "current") {
+        return nodeVersionRef.current;
+      }
+      
+      if (cmd.startsWith("install ")) {
+        const version = cmd.replace("install ", "").trim();
+        const versionNum = version.startsWith("v") ? version : `v${version}`;
+        
+        if (installedNodeVersionsRef.current.includes(versionNum)) {
+          return `Version ${versionNum} is already installed`;
+        }
+        
+        setInstalledNodeVersions(prev => [...prev, versionNum]);
+        return `Downloading and installing node ${versionNum}...
+Downloading https://nodejs.org/dist/${versionNum}/node-${versionNum}-darwin-arm64.tar.xz
+######################################################################### 100.0%
+Computing checksum with sha256sum
+Checksums matched!
+Now using node ${versionNum} (npm v10.2.4)
+✅ Node ${versionNum} installed successfully!`;
+      }
+      
+      if (cmd.startsWith("use ")) {
+        const version = cmd.replace("use ", "").trim();
+        const versionNum = version.startsWith("v") ? version : `v${version}`;
+        
+        if (!installedNodeVersionsRef.current.includes(versionNum)) {
+          return `Version ${versionNum} is not installed. Run: nvm install ${versionNum}`;
+        }
+        
+        setNodeVersion(versionNum);
+        return `Now using node ${versionNum} (npm v10.2.4)`;
+      }
+      
+      if (cmd.startsWith("alias default ")) {
+        const version = cmd.replace("alias default ", "").trim();
+        return `default -> ${version}`;
+      }
+      
+      return `nvm: command not found: ${cmd}`;
+    },
+    
+    // Python Version Manager (pyenv)
+    pyenv: (args?: string) => {
+      if (!args || !args.trim()) {
+        return `pyenv 2.3.36
+
+Usage: pyenv <command> [<args>]
+
+Commands:
+  --version              Show pyenv version
+  versions               List installed Python versions
+  install <version>      Install a Python version
+  local <version>        Set local Python version
+  global <version>       Set global Python version
+  which python           Show path to Python executable`;
+      }
+      
+      const cmd = args.trim();
+      
+      if (cmd === "--version") {
+        return "pyenv 2.3.36";
+      }
+      
+      if (cmd === "versions") {
+        const versions = installedPythonVersionsRef.current;
+        const current = pythonVersionRef.current;
+        return versions.map(v =>
+          v === current ? `* ${v} (set by /Users/sales-user/.python-version)` : `  ${v}`
+        ).join("\n");
+      }
+      
+      if (cmd.startsWith("install ")) {
+        const version = cmd.replace("install ", "").trim();
+        
+        if (installedPythonVersionsRef.current.includes(version)) {
+          return `python-build: definition '${version}' already installed`;
+        }
+        
+        setInstalledPythonVersions(prev => [...prev, version]);
+        return `Downloading Python-${version}.tar.xz...
+-> https://www.python.org/ftp/python/${version}/Python-${version}.tar.xz
+Installing Python-${version}...
+Installed Python-${version} to /Users/sales-user/.pyenv/versions/${version}
+✅ Python ${version} installed successfully!`;
+      }
+      
+      if (cmd.startsWith("local ") || cmd.startsWith("global ")) {
+        const version = cmd.replace(/^(local|global) /, "").trim();
+        
+        if (!installedPythonVersionsRef.current.includes(version)) {
+          return `pyenv: version \`${version}\` not installed`;
+        }
+        
+        setPythonVersion(version);
+        return "";
+      }
+      
+      if (cmd === "which python" || cmd === "which python3") {
+        return `/Users/sales-user/.pyenv/versions/${pythonVersionRef.current}/bin/python`;
+      }
+      
+      return `pyenv: no such command \`${cmd}\``;
+    },
+    
+    // Node.js
+    node: (args?: string) => {
+      if (!args || args.trim() === "--version" || args.trim() === "-v") {
+        return nodeVersionRef.current;
+      }
+      
+      if (args?.trim() === "-e" || args?.includes("console.log")) {
+        return "Node.js REPL simulation - command executed";
+      }
+      
+      return `Welcome to Node.js ${nodeVersionRef.current}
+Type ".help" for more information.`;
+    },
+    
+    // Python
+    python: (args?: string) => {
+      if (!args || args.trim() === "--version" || args.trim() === "-V") {
+        return `Python ${pythonVersionRef.current}`;
+      }
+      
+      if (args?.trim() === "-m venv venv") {
+        // Create virtual environment
+        const files = fileSystemRef.current[currentDirRef.current] || [];
+        if (!files.includes("venv/")) {
+          setFileSystem(prev => ({
+            ...prev,
+            [currentDirRef.current]: [...files, "venv/"]
+          }));
+        }
+        return "✅ Virtual environment created in ./venv";
+      }
+      
+      if (args?.includes("-c")) {
+        return "Python code executed";
+      }
+      
+      return `Python ${pythonVersionRef.current}
+Type "help", "copyright", "credits" or "license" for more information.
+>>>`;
+    },
+    
+    python3: (args?: string) => {
+      // Alias to python
+      return getCommands().python(args);
+    },
+    
+    // NPM commands
+    npm: (args?: string) => {
+      if (!args || !args.trim()) {
+        return `npm <command>
+
+Usage:
+  npm install [package]      Install dependencies
+  npm run <script>           Run package.json script
+  npm start                  Start the application
+  npm test                   Run tests
+  npm --version              Show npm version`;
+      }
+      
+      const cmd = args.trim();
+      
+      if (cmd === "--version" || cmd === "-v") {
+        return "10.2.4";
+      }
+      
+      if (cmd === "install" || cmd === "i") {
+        return `
+added 1247 packages, and audited 1248 packages in 8s
+
+198 packages are looking for funding
+  run \`npm fund\` for details
+
+found 0 vulnerabilities
+✅ Dependencies installed successfully!`;
+      }
+      
+      if (cmd.startsWith("install ") || cmd.startsWith("i ")) {
+        const pkg = cmd.replace(/^(install|i) /, "").trim();
+        return `
+added 1 package, and audited 1249 packages in 2s
+
+✅ ${pkg} installed successfully!`;
+      }
+      
+      if (cmd === "run dev" || cmd === "run start" || cmd === "start") {
+        return `> sales-terminal-best-practices@1.0.0 dev
+> vite
+
+  VITE v5.0.8  ready in 423 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+
+🚀 Development server started successfully!`;
+      }
+      
+      if (cmd === "test") {
+        return `> sales-terminal-best-practices@1.0.0 test
+> jest
+
+PASS  src/components/InteractiveTerminal.test.tsx
+✓ renders terminal (45 ms)
+✓ executes commands (23 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+✅ All tests passed!`;
+      }
+      
+      return `npm ERR! Unknown command: "${cmd}"`;
+    },
+    
+    // Source command for activating virtual environments
+    source: (args?: string) => {
+      if (!args || !args.trim()) {
+        return "source: filename argument required";
+      }
+      
+      if (args.includes("venv/bin/activate") || args.includes(".venv/bin/activate")) {
+        return "✅ Virtual environment activated\n(venv) will appear in your prompt";
+      }
+      
+      if (args.includes("nvm.sh")) {
+        return "✅ nvm loaded successfully";
+      }
+      
+      return `source: ${args}: No such file or directory`;
     },
     
     chsh: (args?: string) => {
