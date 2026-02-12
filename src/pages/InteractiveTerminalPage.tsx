@@ -86,6 +86,7 @@ export default function InteractiveTerminalPage() {
               <li style={{ marginBottom: "0.5rem" }}>
                 Use <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>↑</code> and <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>↓</code> arrow keys to navigate command history
               </li>
+              
               <li>
                 Type <code style={{ backgroundColor: "#f4f4f4", padding: "3px 6px", borderRadius: "3px", fontFamily: "'IBM Plex Mono', monospace" }}>help</code> to see all available commands
               </li>
@@ -595,6 +596,8 @@ export default function InteractiveTerminalPage() {
                       </div>
                     </div>
                   </div>
+                </div>
+                )}
 
                 {/* Lab 3: Local Setup + Run Project */}
                 {selectedLab === "lab3" && (
