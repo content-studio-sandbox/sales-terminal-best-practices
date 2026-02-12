@@ -85,32 +85,137 @@ export default function TrainingResourcesPage() {
   return (
     <Grid fullWidth className="page-container">
       <Column lg={16} md={8} sm={4}>
-        <Section level={2} style={{ marginBottom: "2rem" }}>
+        {/* Interactive Training Catalog Header */}
+        <Section level={2} style={{ marginBottom: "3rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
             <Education size={32} style={{ color: "#0f62fe" }} />
-            <Heading style={{ margin: 0 }}>Playbooks & Resources</Heading>
+            <Heading style={{ margin: 0 }}>Interactive Training Catalog</Heading>
           </div>
-          <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6 }}>
-            Comprehensive training materials for mastering terminal skills.
-            These resources include detailed guides, presentation materials, and hands-on exercises.
+          <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6, marginBottom: "1.5rem" }}>
+            Explore comprehensive training topics below. Each topic includes practical examples, visual diagrams, and hands-on exercises. Click any tile to dive deep into that subject.
           </p>
-        </Section>
-
-        {/* Philosophy Section */}
-        <Section level={3} style={{ marginBottom: "3rem" }}>
-          <Tile style={{ padding: "2rem", marginBottom: "2rem" }}>
-            <h3 style={{ marginTop: 0, marginBottom: "1rem" }}>
-              Training Philosophy
-            </h3>
-            <p style={{ lineHeight: 1.8, marginBottom: "1rem", fontSize: "1.125rem", fontWeight: 500 }}>
-              "Create your own workflow and work environment that works for <strong>you</strong>."
+          
+          {/* Learning Path */}
+          <Tile style={{ padding: "1.5rem", backgroundColor: "#f4f4f4" }}>
+            <p style={{ margin: 0, fontSize: "0.875rem", fontWeight: 600, color: "#161616", marginBottom: "0.5rem" }}>
+              Learning Path:
             </p>
-            <p style={{ lineHeight: 1.8, margin: 0 }}>
-              This training is a <strong>starting point</strong> based on collective experience.
-              The end goal is to make you as productive as possible to perform the task at hand.
-              There's no "right" way—only what works for you.
+            <p style={{ margin: 0, fontSize: "0.9375rem", color: "#525252", lineHeight: 1.6 }}>
+              Terminal Apps → Shells → Git Concepts → Text Editors → Navigation → Redirection → Advanced Topics
             </p>
           </Tile>
+        </Section>
+
+        {/* Training Topics Grid */}
+        <Section level={3} style={{ marginBottom: "3rem" }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: "1.5rem"
+          }}>
+            {trainingTopics.map((topic) => {
+              const IconComponent = topic.icon;
+              const isAvailable = topic.status === "Available";
+              const isNew = topic.featured;
+              
+              return (
+                <Tile
+                  key={topic.id}
+                  style={{
+                    padding: "1.5rem",
+                    cursor: isAvailable ? "pointer" : "default",
+                    opacity: isAvailable ? 1 : 0.7,
+                    transition: "all 0.2s",
+                    position: "relative",
+                    border: isAvailable ? "2px solid #0f62fe" : "1px solid #e0e0e0"
+                  }}
+                  onClick={() => {
+                    if (isAvailable && topic.route) {
+                      navigate(topic.route);
+                    }
+                  }}
+                  onMouseEnter={(e) => {
+                    if (isAvailable) {
+                      e.currentTarget.style.transform = "translateY(-4px)";
+                      e.currentTarget.style.boxShadow = "0 4px 8px rgba(0,0,0,0.1)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (isAvailable) {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }
+                  }}
+                >
+                  {/* Status Badge */}
+                  <div style={{ position: "absolute", top: "1rem", right: "1rem" }}>
+                    <Tag
+                      type={isAvailable ? "green" : "cool-gray"}
+                      size="sm"
+                    >
+                      {topic.status}
+                    </Tag>
+                  </div>
+                  
+                  {/* New Badge */}
+                  {isNew && (
+                    <div style={{ position: "absolute", top: "3rem", right: "1rem" }}>
+                      <Tag type="purple" size="sm">New</Tag>
+                    </div>
+                  )}
+                  
+                  {/* Icon */}
+                  <div style={{ marginBottom: "1rem" }}>
+                    <IconComponent size={32} style={{ color: topic.color }} />
+                  </div>
+                  
+                  {/* Title */}
+                  <h3 style={{
+                    marginTop: 0,
+                    marginBottom: "0.75rem",
+                    fontSize: "1.25rem",
+                    fontWeight: 600
+                  }}>
+                    {topic.title}
+                  </h3>
+                  
+                  {/* Description */}
+                  <p style={{
+                    margin: 0,
+                    fontSize: "0.875rem",
+                    color: "#525252",
+                    lineHeight: 1.6,
+                    marginBottom: "1rem"
+                  }}>
+                    {topic.description}
+                  </p>
+                  
+                  {/* Action Button */}
+                  {isAvailable ? (
+                    <Button
+                      kind="tertiary"
+                      size="sm"
+                      renderIcon={Launch}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (topic.route) navigate(topic.route);
+                      }}
+                    >
+                      Explore Topic
+                    </Button>
+                  ) : (
+                    <Button
+                      kind="ghost"
+                      size="sm"
+                      disabled
+                    >
+                      Coming Soon
+                    </Button>
+                  )}
+                </Tile>
+              );
+            })}
+          </div>
         </Section>
 
         {/* Available Resources */}
