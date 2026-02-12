@@ -8,9 +8,10 @@ import {
     Theme,
     HeaderNavigation,
     HeaderMenuItem,
+    HeaderMenu,
     Tag,
 } from "@carbon/react";
-import { Moon, Sun, Chat, Locked } from "@carbon/icons-react";
+import { Moon, Sun, Chat, OverflowMenuVertical } from "@carbon/icons-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAppTheme } from "@/theme/ThemeProvider";
 
@@ -18,23 +19,23 @@ interface AppHeaderProps {
     onFeedbackClick?: () => void;
 }
 
-// Define which routes are currently available vs upcoming sessions
-// Order: Available sessions first, then upcoming sessions
-const routes = [
-    // Available Sessions (left side)
-    { id: "terminal-basics", label: "CLI", path: "/terminal-basics", available: true },
-    { id: "git-workflows", label: "Git", path: "/git-workflows", available: true },
-    { id: "local-setup", label: "Setup", path: "/local-setup", available: true },
-    { id: "training-resources", label: "Resources", path: "/training-resources", available: true },
-    { id: "interactive-terminal", label: "Lab", path: "/interactive-terminal", available: true },
-    
-    // Upcoming Sessions (right side)
-    { id: "ssh-best-practices", label: "SSH", path: "/ssh-best-practices", available: false, upcoming: true },
-    { id: "vim-best-practices", label: "Vim", path: "/vim-best-practices", available: false, upcoming: true },
-    { id: "openshift-best-practices", label: "OpenShift", path: "/openshift-best-practices", available: false, upcoming: true },
-    { id: "cpd-cli", label: "CPD", path: "/cpd-cli", available: false, upcoming: true },
-    { id: "api-authentication", label: "API Auth", path: "/api-authentication", available: false, upcoming: true },
-    { id: "agentic-tools", label: "AI", path: "/agentic-tools", available: false, upcoming: true },
+// Primary navigation items (always visible)
+const primaryRoutes = [
+    { id: "terminal-basics", label: "Command Line", path: "/terminal-basics" },
+    { id: "git-workflows", label: "Git & PRs", path: "/git-workflows" },
+    { id: "local-setup", label: "Local Setup", path: "/local-setup" },
+    { id: "interactive-terminal", label: "Practice Lab", path: "/interactive-terminal" },
+    { id: "training-resources", label: "Playbooks", path: "/training-resources" },
+];
+
+// Secondary navigation items (under "More" dropdown)
+const secondaryRoutes = [
+    { id: "ssh-best-practices", label: "Secure Access (SSH)", path: "/tbd", isTBD: true },
+    { id: "vim-best-practices", label: "Editors (Vim)", path: "/tbd", isTBD: true },
+    { id: "openshift-best-practices", label: "Deployments (OpenShift)", path: "/tbd", isTBD: true },
+    { id: "cpd-cli", label: "Platform CLI (CPD)", path: "/tbd", isTBD: true },
+    { id: "api-authentication", label: "API Keys & Auth", path: "/tbd", isTBD: true },
+    { id: "agentic-tools", label: "AI Assist / Agents", path: "/tbd", isTBD: true },
 ];
 
 const APP_VERSION = "v2.5.0";
@@ -137,6 +138,11 @@ export default function AppHeader({ onFeedbackClick }: AppHeaderProps) {
     const { pathname } = useLocation();
     const { theme, toggle } = useAppTheme();
 
+    // Check if any secondary route is active
+    const isSecondaryRouteActive = secondaryRoutes.some(route => 
+        pathname === route.path || pathname.startsWith(route.path + '/')
+    );
+
     return (
         // Keep the header bar in g100 for contrast; page content theme is managed by the provider.
         <Theme theme="g100">
@@ -159,47 +165,62 @@ export default function AppHeader({ onFeedbackClick }: AppHeaderProps) {
                             </HeaderName>
 
                             <HeaderNavigation aria-label="Main navigation">
-                                {routes.map((route) => (
+                                {/* Primary navigation items */}
+                                {primaryRoutes.map((route) => (
                                     <HeaderMenuItem
                                         key={route.id}
-                                        href={route.available ? route.path : '#'}
-                                        isActive={pathname === route.path}
+                                        href={route.path}
+                                        isActive={pathname === route.path || pathname.startsWith(route.path + '/')}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            if (route.available) {
-                                                navigate(route.path);
-                                            }
-                                        }}
-                                        style={{
-                                            opacity: route.available ? 1 : 0.5,
-                                            cursor: route.available ? 'pointer' : 'not-allowed',
-                                            position: 'relative',
+                                            navigate(route.path);
                                         }}
                                     >
-                                        <div style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '6px',
-                                        }}>
-                                            {route.label}
-                                            {route.upcoming && (
-                                                <Tag
-                                                    size="sm"
-                                                    type="cool-gray"
-                                                    style={{
-                                                        marginLeft: '4px',
-                                                        fontSize: '10px',
-                                                        padding: '0 4px',
-                                                        height: '16px',
-                                                        minHeight: '16px',
-                                                    }}
-                                                >
-                                                    TBD
-                                                </Tag>
-                                            )}
-                                        </div>
+                                        {route.label}
                                     </HeaderMenuItem>
                                 ))}
+
+                                {/* "More" dropdown menu for secondary items */}
+                                <HeaderMenu
+                                    aria-label="More"
+                                    menuLinkName="More"
+                                    isActive={isSecondaryRouteActive}
+                                >
+                                    {secondaryRoutes.map((route) => (
+                                        <HeaderMenuItem
+                                            key={route.id}
+                                            href={route.path}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate(route.path);
+                                            }}
+                                        >
+                                            <div style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '8px',
+                                                justifyContent: 'space-between',
+                                                width: '100%'
+                                            }}>
+                                                <span>{route.label}</span>
+                                                {route.isTBD && (
+                                                    <Tag
+                                                        size="sm"
+                                                        type="cool-gray"
+                                                        style={{
+                                                            fontSize: '10px',
+                                                            padding: '0 4px',
+                                                            height: '16px',
+                                                            minHeight: '16px',
+                                                        }}
+                                                    >
+                                                        TBD
+                                                    </Tag>
+                                                )}
+                                            </div>
+                                        </HeaderMenuItem>
+                                    ))}
+                                </HeaderMenu>
                             </HeaderNavigation>
 
                             <HeaderGlobalBar>
@@ -232,3 +253,5 @@ export default function AppHeader({ onFeedbackClick }: AppHeaderProps) {
         </Theme>
     );
 }
+
+// Made with Bob

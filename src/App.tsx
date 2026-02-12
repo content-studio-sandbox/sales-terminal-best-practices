@@ -19,6 +19,7 @@ import GitConceptsPage from './pages/training/GitConceptsPage';
 import LocalSetupPage from './pages/LocalSetupPage';
 import NodeRuntimePage from './pages/NodeRuntimePage';
 import PythonRuntimePage from './pages/PythonRuntimePage';
+import TBDPage from './pages/TBDPage';
 import {AppThemeProvider} from "@/theme/ThemeProvider.tsx";
 import { useInstana } from "./hooks/useInstana";
 import RouteTracking from './RouteTracking';
@@ -103,6 +104,7 @@ const AppContent: React.FC = () => {
             <Route path="local-setup" element={<LocalSetupPage />} />
             <Route path="local-setup/node" element={<NodeRuntimePage />} />
             <Route path="local-setup/python" element={<PythonRuntimePage />} />
+            <Route path="tbd" element={<TBDPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

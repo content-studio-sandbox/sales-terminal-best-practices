@@ -72,6 +72,7 @@ function getPageType(pathname: string): string | null {
     if (pathname === '/local-setup') return 'local-setup';
     if (pathname === '/local-setup/node') return 'local-setup-node';
     if (pathname === '/local-setup/python') return 'local-setup-python';
+    if (pathname === '/tbd') return 'tbd';
     return null;
 }
 

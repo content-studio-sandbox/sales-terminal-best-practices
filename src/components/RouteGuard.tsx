@@ -10,6 +10,7 @@ const ALLOWED_PATHS = [
   '/terminal-basics',
   '/git-workflows',
   '/local-setup', // Allow all local setup subpages
+  '/tbd', // Allow TBD placeholder page
   '/', // Allow landing page
 ];
 
