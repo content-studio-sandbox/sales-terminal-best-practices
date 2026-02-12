@@ -69,7 +69,6 @@ function getPageType(pathname: string): string | null {
     if (pathname === '/api-authentication') return 'api-authentication';
     if (pathname === '/cpd-cli') return 'cpd-cli';
     if (pathname === '/agentic-tools') return 'agentic-tools';
-    if (pathname === '/survey-results') return 'survey-results';
     return null;
 }
 

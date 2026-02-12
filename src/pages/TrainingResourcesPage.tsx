@@ -91,7 +91,7 @@ export default function TrainingResourcesPage() {
             <Heading style={{ margin: 0 }}>Terminal Training Resources</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6 }}>
-            Comprehensive training materials created by Michael for mastering terminal skills. 
+            Comprehensive training materials for mastering terminal skills.
             These resources include detailed guides, presentation materials, and hands-on exercises.
           </p>
         </Section>
@@ -419,17 +419,6 @@ export default function TrainingResourcesPage() {
           </Tile>
         </Section>
 
-        {/* Credits */}
-        <Section level={3} style={{ marginBottom: "2rem" }}>
-          <Tile style={{ padding: "1.5rem", textAlign: "center" }}>
-            <p style={{ margin: 0, fontSize: "0.9375rem" }}>
-              <strong>Training Materials Created By:</strong> Michael
-            </p>
-            <p style={{ margin: "0.5rem 0 0 0", fontSize: "0.875rem", opacity: 0.7 }}>
-              Comprehensive terminal training for FSM Technical Sales teams
-            </p>
-          </Tile>
-        </Section>
       </Column>
     </Grid>
   );

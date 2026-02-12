@@ -7,7 +7,6 @@ const ALLOWED_PATHS = [
   '/training-resources',
   '/training', // Allow all training subpages
   '/interactive-terminal',
-  '/survey-results',
   '/terminal-basics',
   '/git-workflows',
   '/', // Allow landing page

@@ -26,7 +26,6 @@ const routes = [
     { id: "git-workflows", label: "Git", path: "/git-workflows", available: true },
     { id: "training-resources", label: "Training", path: "/training-resources", available: true },
     { id: "interactive-terminal", label: "Terminal Simulator", path: "/interactive-terminal", available: true },
-    { id: "survey-results", label: "Survey", path: "/survey-results", available: true },
     
     // Upcoming Sessions (right side)
     { id: "ssh-best-practices", label: "SSH", path: "/ssh-best-practices", available: false, upcoming: true },

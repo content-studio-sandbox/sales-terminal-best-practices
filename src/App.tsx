@@ -11,7 +11,6 @@ import SSHBestPracticesPage from './pages/SSHBestPracticesPage';
 import VimBestPracticesPage from './pages/VimBestPracticesPage';
 import OpenShiftBestPracticesPage from './pages/OpenShiftBestPracticesPage';
 import InteractiveTerminalPage from './pages/InteractiveTerminalPage';
-import SurveyResultsPage from './pages/SurveyResultsPage';
 import ApiAuthenticationPage from './pages/ApiAuthenticationPage';
 import CpdCliPage from './pages/CpdCliPage';
 import AgenticToolsPage from './pages/AgenticToolsPage';
@@ -96,7 +95,6 @@ const AppContent: React.FC = () => {
             <Route path="api-authentication" element={<ApiAuthenticationPage />} />
             <Route path="cpd-cli" element={<CpdCliPage />} />
             <Route path="agentic-tools" element={<AgenticToolsPage />} />
-            <Route path="survey-results" element={<SurveyResultsPage />} />
             <Route path="training-resources" element={<TrainingResourcesPage />} />
             <Route path="training/git-concepts" element={<GitConceptsPage />} />
           </Route>
