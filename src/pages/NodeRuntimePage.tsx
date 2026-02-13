@@ -517,6 +517,335 @@ export default function NodeRuntimePage() {
             borderLeft: "4px solid #0f62fe"
           }}>
             <h3 style={{ marginTop: 0, color: "#161616", marginBottom: "1rem", fontWeight: 600 }}>
+        {/* NEW: Microservices Architecture Exercise */}
+        <Section level={3} style={{ marginBottom: "3rem" }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            marginBottom: "1.5rem",
+            paddingBottom: "0.75rem",
+            borderBottom: "2px solid #0f62fe"
+          }}>
+            <Launch size={24} style={{ color: "#0f62fe" }} />
+            <h2 style={{ margin: 0, fontSize: "1.5rem" }}>Advanced Exercise: Polyglot Microservices (nvm + pyenv)</h2>
+          </div>
+
+          <div style={{
+            backgroundColor: "#fff3cd",
+            padding: "1.5rem",
+            borderRadius: "4px",
+            marginBottom: "1.5rem",
+            border: "1px solid #ffc107"
+          }}>
+            <h3 style={{ marginTop: 0, color: "#856404", fontSize: "1.125rem", fontWeight: 600 }}>
+              💼 Why Tech Sellers Need to Know This
+            </h3>
+            <p style={{ color: "#856404", lineHeight: 1.8, marginBottom: "1rem" }}>
+              In financial services, you'll encounter clients running <strong>polyglot microservices</strong> - 
+              multiple services in different languages working together. Understanding how to run these locally 
+              helps you:
+            </p>
+            <ul style={{ marginLeft: "1.5rem", color: "#856404", lineHeight: 1.8, marginTop: "0.5rem" }}>
+              <li><strong>Demo solutions confidently</strong> - Show clients how services integrate</li>
+              <li><strong>Troubleshoot faster</strong> - Understand deployment issues before they escalate</li>
+              <li><strong>Speak the language</strong> - Discuss architecture with technical stakeholders</li>
+              <li><strong>Close deals faster</strong> - Fewer technical blockers = faster deployments = you get paid!</li>
+            </ul>
+          </div>
+
+          <VisualDiagram
+            content={`
+┌─────────────────────────────────────────────────────────────────┐
+│         Microservices Architecture: Real-World Example          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │  Browser (http://localhost:8084)                        │   │
+│  │  ┌───────────────────────────────────────────────────┐  │   │
+│  │  │  Financial News Aggregator (Node.js/React)        │  │   │
+│  │  │  - News Page                                      │  │   │
+│  │  │  - AI Insights (WatsonX.ai)                       │  │   │
+│  │  │  - Market Data Page ← Calls Python service       │  │   │
+│  │  └───────────────────────────────────────────────────┘  │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                           ↓ HTTP Request                        │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │  Market Data Service (http://localhost:8000)            │   │
+│  │  ┌───────────────────────────────────────────────────┐  │   │
+│  │  │  Python FastAPI Backend                           │  │   │
+│  │  │  - Stock prices (IBM, JPM, AAPL, etc.)            │  │   │
+│  │  │  - Commodity data (Gold, Silver, Oil)             │  │   │
+│  │  │  - Forex rates (USD-EUR, USD-GBP, etc.)           │  │   │
+│  │  └───────────────────────────────────────────────────┘  │   │
+│  │                      ↓                                   │   │
+│  │  ┌───────────────────────────────────────────────────┐  │   │
+│  │  │  Redis Cache (port 6379)                          │  │   │
+│  │  │  - 95% cache hit rate                             │  │   │
+│  │  │  - Reduces API costs                              │  │   │
+│  │  └───────────────────────────────────────────────────┘  │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                                                                 │
+│  Why Two Languages?                                             │
+│  • Node.js: Fast UI, real-time updates, React ecosystem        │
+│  • Python: Data processing, ML libraries, API integrations     │
+│  • Best tool for each job = Better performance & maintainability│
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘`}
+            title="Polyglot Microservices Architecture"
+          />
+
+          <div style={{
+            backgroundColor: "#f4f4f4",
+            padding: "1.5rem",
+            borderRadius: "4px",
+            marginTop: "1.5rem",
+            marginBottom: "1.5rem",
+            border: "1px solid #e0e0e0"
+          }}>
+            <h3 style={{ marginTop: 0, color: "#161616", fontSize: "1.125rem", fontWeight: 600 }}>
+              🎯 Exercise Goal
+            </h3>
+            <p style={{ color: "#525252", lineHeight: 1.8, margin: 0 }}>
+              Run <strong>two microservices simultaneously</strong> - one in Node.js (using nvm) and one in Python (using pyenv). 
+              See how they communicate and understand why version management matters for both.
+            </p>
+          </div>
+
+          <VisualDiagram
+            content={`
+┌─────────────────────────────────────────────────────────────────┐
+│              Step 1: Set Up Node.js Service (nvm)               │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  1. Clone the Node.js frontend                                  │
+│     $ git clone git@github.ibm.com:fsm-content-studio/financial-news-aggregator.git│
+│     $ cd financial-news-aggregator                              │
+│                                                                 │
+│  2. Check Node version requirement                              │
+│     $ cat .nvmrc                                                │
+│     20.11.0                                                     │
+│                                                                 │
+│  3. Use correct Node version with nvm                           │
+│     $ nvm install 20.11.0                                       │
+│     $ nvm use 20.11.0                                           │
+│     $ node -v              # Verify: v20.11.0                   │
+│                                                                 │
+│  4. Install dependencies                                        │
+│     $ npm install                                               │
+│                                                                 │
+│  5. Start the Node.js service                                   │
+│     $ npm run dev:all                                           │
+│     ✅ Frontend: http://localhost:8084                          │
+│     ✅ Backend:  http://localhost:3001                          │
+│                                                                 │
+│  Keep this terminal running! ⚠️                                 │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘`}
+            title="Part 1: Node.js Service"
+          />
+
+          <VisualDiagram
+            content={`
+┌─────────────────────────────────────────────────────────────────┐
+│            Step 2: Set Up Python Service (pyenv)                │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Open a NEW terminal window (keep Node.js running!)            │
+│                                                                 │
+│  1. Clone the Python backend                                    │
+│     $ git clone git@github.ibm.com:fsm-content-studio/market-data-service.git│
+│     $ cd market-data-service                                    │
+│                                                                 │
+│  2. Check Python version requirement                            │
+│     $ cat .python-version                                       │
+│     3.11.7                                                      │
+│                                                                 │
+│  3. Use correct Python version with pyenv                       │
+│     $ pyenv install 3.11.7                                      │
+│     $ pyenv local 3.11.7                                        │
+│     $ python --version     # Verify: Python 3.11.7              │
+│                                                                 │
+│  4. Create virtual environment                                  │
+│     $ python -m venv venv                                       │
+│     $ source venv/bin/activate  # macOS/Linux                   │
+│     # OR: venv\\Scripts\\activate  # Windows                      │
+│                                                                 │
+│  5. Install dependencies                                        │
+│     $ pip install -r requirements.txt                           │
+│                                                                 │
+│  6. Start Redis (in another terminal or Docker)                 │
+│     $ docker run -d -p 6379:6379 redis:alpine                   │
+│                                                                 │
+│  7. Start the Python service                                    │
+│     $ uvicorn main:app --reload --port 8000                     │
+│     ✅ Service: http://localhost:8000                           │
+│                                                                 │
+│  Keep this terminal running too! ⚠️                             │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘`}
+            title="Part 2: Python Service"
+          />
+
+          <VisualDiagram
+            content={`
+┌─────────────────────────────────────────────────────────────────┐
+│                Step 3: See Them Work Together                   │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Now you have THREE services running:                           │
+│                                                                 │
+│  Terminal 1: Node.js Frontend (port 8084)                       │
+│  Terminal 2: Python Backend (port 8000)                         │
+│  Terminal 3: Redis Cache (port 6379)                            │
+│                                                                 │
+│  1. Open browser to: http://localhost:8084                      │
+│                                                                 │
+│  2. Navigate to "Market Data" tab                               │
+│                                                                 │
+│  3. You should see:                                             │
+│     ✅ Service Online badge (green)                             │
+│     ✅ 12 stock prices (IBM, JPM, AAPL, TSLA, etc.)             │
+│     ✅ 4 commodity prices (Gold, Silver, Oil, Gas)              │
+│     ✅ 4 forex rates (USD-EUR, USD-GBP, USD-JPY, USD-CNY)       │
+│                                                                 │
+│  4. Watch the magic happen:                                     │
+│     • React frontend (Node.js) makes HTTP request               │
+│     • Python service receives request                           │
+│     • Python checks Redis cache first                           │
+│     • If cached: Returns instantly (95% of requests)            │
+│     • If not cached: Fetches from API, caches, returns          │
+│     • Frontend displays data beautifully                        │
+│                                                                 │
+│  5. Click "Refresh" button - notice how fast it is!             │
+│     That's the Redis cache working! 🚀                          │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘`}
+            title="Part 3: Integration Test"
+          />
+
+          <div style={{
+            backgroundColor: "#e8f4ff",
+            padding: "1.5rem",
+            borderRadius: "4px",
+            marginTop: "1.5rem",
+            border: "1px solid #0f62fe"
+          }}>
+            <h3 style={{ marginTop: 0, color: "#0f62fe", fontSize: "1.125rem", fontWeight: 600 }}>
+              🎓 Key Learnings: nvm vs pyenv
+            </h3>
+            <div style={{ overflowX: "auto" }}>
+              <table style={{
+                width: "100%",
+                borderCollapse: "collapse",
+                marginTop: "1rem",
+                backgroundColor: "#ffffff"
+              }}>
+                <thead>
+                  <tr style={{ backgroundColor: "#f4f4f4" }}>
+                    <th style={{ padding: "0.75rem", textAlign: "left", borderBottom: "2px solid #0f62fe" }}>Step</th>
+                    <th style={{ padding: "0.75rem", textAlign: "left", borderBottom: "2px solid #0f62fe" }}>Node.js (nvm)</th>
+                    <th style={{ padding: "0.75rem", textAlign: "left", borderBottom: "2px solid #0f62fe" }}>Python (pyenv)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><strong>Version file</strong></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>.nvmrc</code></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>.python-version</code></td>
+                  </tr>
+                  <tr>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><strong>Install version</strong></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>nvm install</code></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>pyenv install 3.11.7</code></td>
+                  </tr>
+                  <tr>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><strong>Use version</strong></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>nvm use</code></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>pyenv local 3.11.7</code></td>
+                  </tr>
+                  <tr>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><strong>Dependencies file</strong></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>package.json</code></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>requirements.txt</code></td>
+                  </tr>
+                  <tr>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><strong>Install deps</strong></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>npm install</code></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>pip install -r requirements.txt</code></td>
+                  </tr>
+                  <tr>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><strong>Dependency folder</strong></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>node_modules/</code></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>venv/</code></td>
+                  </tr>
+                  <tr>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><strong>Run dev server</strong></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>npm run dev</code></td>
+                    <td style={{ padding: "0.75rem", borderBottom: "1px solid #e0e0e0" }}><code>uvicorn main:app --reload</code></td>
+                  </tr>
+                  <tr>
+                    <td style={{ padding: "0.75rem" }}><strong>Check version</strong></td>
+                    <td style={{ padding: "0.75rem" }}><code>node -v</code></td>
+                    <td style={{ padding: "0.75rem" }}><code>python --version</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div style={{
+            backgroundColor: "#d4edda",
+            padding: "1.5rem",
+            borderRadius: "4px",
+            marginTop: "1.5rem",
+            border: "1px solid #28a745"
+          }}>
+            <h3 style={{ marginTop: 0, color: "#155724", fontSize: "1.125rem", fontWeight: 600 }}>
+              💼 Sales Conversation Starters
+            </h3>
+            <p style={{ color: "#155724", lineHeight: 1.8, marginBottom: "1rem" }}>
+              After completing this exercise, you can confidently discuss:
+            </p>
+            <ul style={{ marginLeft: "1.5rem", color: "#155724", lineHeight: 1.8, marginTop: "0.5rem", marginBottom: 0 }}>
+              <li><strong>"We use polyglot microservices..."</strong> - You've run them locally!</li>
+              <li><strong>"Our caching reduces API costs by 95%..."</strong> - You've seen Redis in action!</li>
+              <li><strong>"Python for data, Node.js for UI..."</strong> - You understand the architecture!</li>
+              <li><strong>"Version management prevents deployment issues..."</strong> - You've used nvm and pyenv!</li>
+              <li><strong>"IBM can help modernize your architecture..."</strong> - You know what modern looks like!</li>
+            </ul>
+          </div>
+
+          <div style={{
+            backgroundColor: "#fff3cd",
+            padding: "1.5rem",
+            borderRadius: "4px",
+            marginTop: "1.5rem",
+            border: "1px solid #ffc107"
+          }}>
+            <h3 style={{ marginTop: 0, color: "#856404", fontSize: "1.125rem", fontWeight: 600 }}>
+              ⚠️ Common Issues & Solutions
+            </h3>
+            <div style={{ color: "#856404", lineHeight: 1.8 }}>
+              <p><strong>Issue:</strong> "Python service shows offline"</p>
+              <p style={{ marginLeft: "1.5rem" }}>✅ Make sure Python service is running on port 8000</p>
+              <p style={{ marginLeft: "1.5rem" }}>✅ Check: <code>curl http://localhost:8000/health</code></p>
+              
+              <p style={{ marginTop: "1rem" }}><strong>Issue:</strong> "Redis connection failed"</p>
+              <p style={{ marginLeft: "1.5rem" }}>✅ Start Redis: <code>docker run -d -p 6379:6379 redis:alpine</code></p>
+              <p style={{ marginLeft: "1.5rem" }}>✅ Or install locally: <code>brew install redis && brew services start redis</code></p>
+              
+              <p style={{ marginTop: "1rem" }}><strong>Issue:</strong> "Wrong Python version"</p>
+              <p style={{ marginLeft: "1.5rem" }}>✅ Run: <code>pyenv local 3.11.7</code></p>
+              <p style={{ marginLeft: "1.5rem" }}>✅ Verify: <code>python --version</code></p>
+              
+              <p style={{ marginTop: "1rem" }}><strong>Issue:</strong> "Port already in use"</p>
+              <p style={{ marginLeft: "1.5rem" }}>✅ Find process: <code>lsof -i :8000</code> or <code>lsof -i :8084</code></p>
+              <p style={{ marginLeft: "1.5rem", marginBottom: 0 }}>✅ Kill it: <code>kill -9 &lt;PID&gt;</code></p>
+            </div>
+          </div>
+        </Section>
+
               Node Setup Complete!
             </h3>
             <p style={{ fontSize: "1rem", lineHeight: 1.8, marginBottom: "1.5rem", color: "#525252" }}>
