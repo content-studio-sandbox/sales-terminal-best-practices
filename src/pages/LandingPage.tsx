@@ -47,15 +47,16 @@ export default function LandingPage() {
 
   return (
     <div>
-      {/* Compact Hero Section */}
+      {/* Compact Hero Section - Full Bleed */}
       <div style={{
         padding: "2rem 2rem 1.5rem",
         textAlign: "center",
         background: "linear-gradient(135deg, #0f62fe 0%, #0043ce 50%, #002d9c 100%)",
         position: "relative",
         overflow: "hidden",
-        width: "100%",
-        margin: 0
+        width: "100vw",
+        marginLeft: "calc(-50vw + 50%)",
+        marginRight: "calc(-50vw + 50%)"
       }}>
             {/* Geometric Pattern Overlay */}
             <div style={{
