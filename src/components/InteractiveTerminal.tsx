@@ -26,12 +26,12 @@ export default function InteractiveTerminal({
   const [currentBranch, setCurrentBranch] = useState("main");
   const [isZshInstalled, setIsZshInstalled] = useState(false);
   const [isGitInstalled, setIsGitInstalled] = useState(false);
-  const [isNvmInstalled, setIsNvmInstalled] = useState(true); // nvm pre-installed
-  const [isPyenvInstalled, setIsPyenvInstalled] = useState(true); // pyenv pre-installed
-  const [nodeVersion, setNodeVersion] = useState("v20.11.0");
-  const [pythonVersion, setPythonVersion] = useState("3.11.7");
-  const [installedNodeVersions, setInstalledNodeVersions] = useState<string[]>(["v18.19.0", "v20.11.0"]);
-  const [installedPythonVersions, setInstalledPythonVersions] = useState<string[]>(["3.10.13", "3.11.7"]);
+  const [isNvmInstalled, setIsNvmInstalled] = useState(false); // NOT pre-installed
+  const [isPyenvInstalled, setIsPyenvInstalled] = useState(false); // NOT pre-installed
+  const [nodeVersion, setNodeVersion] = useState("");
+  const [pythonVersion, setPythonVersion] = useState("");
+  const [installedNodeVersions, setInstalledNodeVersions] = useState<string[]>([]);
+  const [installedPythonVersions, setInstalledPythonVersions] = useState<string[]>([]);
 
   const [fileSystem, setFileSystem] = useState<Record<string, string[]>>({
     "/home/sales-user/projects": ["project1/", "project2/", "README.md", "notes.txt"]
@@ -1097,6 +1097,21 @@ usage: git commit -m "message"`;
 ✅ Git installed successfully! You can now use git commands.`;
       }
       
+      if (pkg === "pyenv") {
+        setIsPyenvInstalled(true);
+        return `==> Downloading pyenv...
+==> Installing pyenv...
+🍺  /opt/homebrew/Cellar/pyenv/2.3.36: 1,083 files, 3.3MB
+==> Running \`brew cleanup pyenv\`...
+
+✅ pyenv installed successfully!
+💡 Configure your shell:
+   echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+   echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+   echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+   source ~/.zshrc`;
+      }
+      
       return `==> Downloading ${pkg}...
 ==> Installing ${pkg}...
 ✓ ${pkg} installed successfully via Homebrew`;
@@ -1104,6 +1119,15 @@ usage: git commit -m "message"`;
     
     // Node Version Manager (nvm)
     nvm: (args?: string) => {
+      // Check if nvm is installed
+      if (!isNvmInstalledRef.current) {
+        return `bash: nvm: command not found
+
+💡 To install nvm, run:
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+   source ~/.nvm/nvm.sh`;
+      }
+      
       if (!args || !args.trim()) {
         return `Node Version Manager (v0.39.7)
 
@@ -1143,6 +1167,7 @@ Usage:
         }
         
         setInstalledNodeVersions(prev => [...prev, versionNum]);
+        setNodeVersion(versionNum); // Auto-set as current version
         return `Downloading and installing node ${versionNum}...
 Downloading https://nodejs.org/dist/${versionNum}/node-${versionNum}-darwin-arm64.tar.xz
 ######################################################################### 100.0%
@@ -1174,6 +1199,18 @@ Now using node ${versionNum} (npm v10.2.4)
     
     // Python Version Manager (pyenv)
     pyenv: (args?: string) => {
+      // Check if pyenv is installed
+      if (!isPyenvInstalledRef.current) {
+        return `bash: pyenv: command not found
+
+💡 To install pyenv, run:
+   brew install pyenv
+   echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+   echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+   echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+   source ~/.zshrc`;
+      }
+      
       if (!args || !args.trim()) {
         return `pyenv 2.3.36
 
@@ -1237,6 +1274,17 @@ Installed Python-${version} to /Users/sales-user/.pyenv/versions/${version}
     
     // Node.js
     node: (args?: string) => {
+      // Check if node is installed via nvm
+      if (!nodeVersionRef.current) {
+        return `bash: node: command not found
+
+💡 To install Node.js:
+   1. Install nvm first: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+   2. Load nvm: source ~/.nvm/nvm.sh
+   3. Install Node: nvm install 20
+   4. Use Node: nvm use 20`;
+      }
+      
       if (!args || args.trim() === "--version" || args.trim() === "-v") {
         return nodeVersionRef.current;
       }
@@ -1251,6 +1299,17 @@ Type ".help" for more information.`;
     
     // Python
     python: (args?: string) => {
+      // Check if python is installed via pyenv
+      if (!pythonVersionRef.current) {
+        return `bash: python: command not found
+
+💡 To install Python:
+   1. Install pyenv: brew install pyenv
+   2. Configure shell: echo 'eval "$(pyenv init -)"' >> ~/.zshrc && source ~/.zshrc
+   3. Install Python: pyenv install 3.11.7
+   4. Set version: pyenv global 3.11.7`;
+      }
+      
       if (!args || args.trim() === "--version" || args.trim() === "-V") {
         return `Python ${pythonVersionRef.current}`;
       }
@@ -1283,6 +1342,16 @@ Type "help", "copyright", "credits" or "license" for more information.
     
     // NPM commands
     npm: (args?: string) => {
+      // Check if npm is available (comes with node)
+      if (!nodeVersionRef.current) {
+        return `bash: npm: command not found
+
+💡 npm comes with Node.js. Install Node first:
+   1. Install nvm: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+   2. Load nvm: source ~/.nvm/nvm.sh
+   3. Install Node: nvm install 20`;
+      }
+      
       if (!args || !args.trim()) {
         return `npm <command>
 
@@ -1358,11 +1427,52 @@ Tests:       2 passed, 2 total
         return "✅ Virtual environment activated\n(venv) will appear in your prompt";
       }
       
-      if (args.includes("nvm.sh")) {
+      if (args.includes("nvm.sh") || args.includes(".nvm/nvm.sh")) {
+        setIsNvmInstalled(true);
         return "✅ nvm loaded successfully";
       }
       
+      if (args.includes(".zshrc") || args.includes(".bashrc")) {
+        // Loading shell config - check if pyenv was configured
+        if (args.includes("pyenv")) {
+          setIsPyenvInstalled(true);
+        }
+        return "✅ Shell configuration reloaded";
+      }
+      
       return `source: ${args}: No such file or directory`;
+    },
+    
+    // Curl command for downloading nvm installer
+    curl: (args?: string) => {
+      if (!args || !args.trim()) {
+        return "curl: try 'curl --help' for more information";
+      }
+      
+      // Check for nvm installation
+      if (args.includes("nvm-sh/nvm") && args.includes("install.sh")) {
+        if (args.includes("| bash")) {
+          setIsNvmInstalled(true);
+          return `  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 15916  100 15916    0     0  98765      0 --:--:-- --:--:-- --:--:-- 98765
+=> Downloading nvm from git to '/Users/sales-user/.nvm'
+=> Cloning into '/Users/sales-user/.nvm'...
+=> Compressing and cleaning up git repository
+
+=> Appending nvm source string to /Users/sales-user/.zshrc
+=> Appending bash_completion source string to /Users/sales-user/.zshrc
+=> Close and reopen your terminal to start using nvm or run the following to use it now:
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+✅ nvm installed successfully! Run: source ~/.nvm/nvm.sh`;
+        }
+        return "Downloading nvm installer...";
+      }
+      
+      return `curl: ${args}: URL not recognized`;
     },
     
     chsh: (args?: string) => {
@@ -1552,19 +1662,6 @@ file.txt                                      100%  1024    1.0MB/s   00:00`;
 --- ${host} ping statistics ---
 4 packets transmitted, 4 packets received, 0.0% packet loss
 round-trip min/avg/max/stddev = 11.234/12.401/13.456/0.789 ms`;
-    },
-    
-    curl: (args?: string) => {
-      const url = args?.trim() || "https://api.example.com";
-      return `HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Length: 85
-
-{
-  "status": "success",
-  "message": "API is running",
-  "version": "1.0.0"
-}`;
     },
     
     wget: (args?: string) => {
