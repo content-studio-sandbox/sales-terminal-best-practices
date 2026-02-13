@@ -673,6 +673,7 @@ export default function InteractiveTerminalPage() {
                       <CodeWithCopy
                         code='curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash'
                         description="Download and install nvm"
+                        block={true}
                       />
                       <CodeWithCopy code="source ~/.nvm/nvm.sh" description="Load nvm into current session" />
                       <CodeWithCopy code="nvm --version" description="Verify nvm is installed" />
