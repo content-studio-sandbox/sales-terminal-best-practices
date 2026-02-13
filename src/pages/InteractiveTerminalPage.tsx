@@ -673,14 +673,19 @@ export default function InteractiveTerminalPage() {
                     onToggle={toggleExercise}
                   >
                     <div style={{ marginBottom: "0.75rem" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Check nvm installation:</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>📦 Step 1: Install nvm (if not installed):</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy
+                        code='curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash'
+                        description="Download and install nvm"
+                      />
+                      <CodeWithCopy code="source ~/.nvm/nvm.sh" description="Load nvm into current session" />
                       <CodeWithCopy code="nvm --version" description="Verify nvm is installed" />
                     </div>
                     
                     <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>List and switch versions:</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>📋 Step 2: Install and use Node.js:</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
                       <CodeWithCopy code="nvm ls" description="List installed Node versions" />
@@ -705,14 +710,28 @@ export default function InteractiveTerminalPage() {
                     onToggle={toggleExercise}
                   >
                     <div style={{ marginBottom: "0.75rem" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Check pyenv installation:</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>📦 Step 1: Install pyenv (if not installed):</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="brew install pyenv" description="Install pyenv via Homebrew" />
+                      <CodeWithCopy
+                        code={`echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc`}
+                        description="Add pyenv to PATH (step 1)"
+                      />
+                      <CodeWithCopy
+                        code={`echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc`}
+                        description="Add pyenv to PATH (step 2)"
+                      />
+                      <CodeWithCopy
+                        code={`echo 'eval "$(pyenv init -)"' >> ~/.zshrc`}
+                        description="Initialize pyenv"
+                      />
+                      <CodeWithCopy code="source ~/.zshrc" description="Reload shell configuration" />
                       <CodeWithCopy code="pyenv --version" description="Verify pyenv is installed" />
                     </div>
                     
                     <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>List and set versions:</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>📋 Step 2: Install and use Python:</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
                       <CodeWithCopy code="pyenv versions" description="List installed Python versions" />
