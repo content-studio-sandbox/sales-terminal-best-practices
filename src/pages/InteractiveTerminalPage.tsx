@@ -789,8 +789,8 @@ export default function InteractiveTerminalPage() {
                       <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 1: Clone the repository</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="git clone https://github.com/example/demo-app.git" block={true} />
-                      <CodeWithCopy code="cd demo-app" description="Navigate into project" />
+                      <CodeWithCopy code="git clone git@github.ibm.com:content-studio-mirrors/financial-news-aggregator.git" block={true} />
+                      <CodeWithCopy code="cd financial-news-aggregator" description="Navigate into project" />
                     </div>
                     
                     <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
