@@ -595,15 +595,93 @@ ${staged.map(f => `\t\x1b[32mnew file:   ${f}\x1b[0m`).join('\n')}
         const srcPath = `${repoPath}/src`;
         const pagesPath = `${srcPath}/pages`;
         const componentsPath = `${srcPath}/components`;
+        const apiPath = `${repoPath}/api`;
+        const publicPath = `${repoPath}/public`;
         
-        setFileSystem(prev => ({
-          ...prev,
-          [currentDirRef.current]: [...files, repoName + "/"],
-          [repoPath]: ["README.md", "src/", "package.json", ".gitignore", "tsconfig.json"],
-          [srcPath]: ["pages/", "components/", "App.tsx", "index.tsx"],
-          [pagesPath]: ["TerminalBasicsPage.tsx", "GitWorkflowsPage.tsx", "InteractiveTerminalPage.tsx"],
-          [componentsPath]: ["InteractiveTerminal.tsx", "Header.tsx", "Footer.tsx"]
-        }));
+        // Check if this is the financial-news-app to use realistic structure
+        const isFinancialNewsApp = repoName.includes('financial-news');
+        
+        if (isFinancialNewsApp) {
+          // Match actual sales-terminal-best-practices structure
+          setFileSystem(prev => ({
+            ...prev,
+            [currentDirRef.current]: [...files, repoName + "/"],
+            [repoPath]: [
+              "README.md",
+              "package.json",
+              ".gitignore",
+              ".goldenpath.yml",
+              "tsconfig.json",
+              "tsconfig.app.json",
+              "tsconfig.node.json",
+              "vite.config.ts",
+              "eslint.config.js",
+              "index.html",
+              "components.json",
+              "DEMO_SCRIPT.md",
+              "DEPLOYMENT_CHANGES.md",
+              "INSTANA_INTEGRATION.md",
+              "INSTANA_RUM_GUIDE.md",
+              "OAUTH2_USER_TRACKING_GUIDE.md",
+              "PATH_RESTRICTION_GUIDE.md",
+              "PR_COMPREHENSIVE_GIT_WORKFLOWS.md",
+              "TERMINAL_EXPLANATION.md",
+              "TERMINAL_SETUP.md",
+              "convert-exercises.md",
+              "src/",
+              "api/",
+              "public/"
+            ],
+            [srcPath]: [
+              "pages/",
+              "components/",
+              "App.tsx",
+              "main.tsx",
+              "index.css",
+              "App.css"
+            ],
+            [pagesPath]: [
+              "LandingPage.tsx",
+              "TerminalBasicsPage.tsx",
+              "GitWorkflowsPage.tsx",
+              "InteractiveTerminalPage.tsx",
+              "LocalSetupPage.tsx",
+              "NodeRuntimePage.tsx",
+              "PythonRuntimePage.tsx",
+              "SSHBestPracticesPage.tsx",
+              "OpenShiftBestPracticesPage.tsx",
+              "VimBestPracticesPage.tsx",
+              "ApiAuthenticationPage.tsx",
+              "CpdCliPage.tsx",
+              "AgenticToolsPage.tsx"
+            ],
+            [componentsPath]: [
+              "InteractiveTerminal.tsx",
+              "Header.tsx",
+              "VisualDiagram.tsx",
+              "CodeWithCopy.tsx",
+              "ExerciseCard.tsx"
+            ],
+            [apiPath]: [
+              "server.js",
+              "package.json"
+            ],
+            [publicPath]: [
+              "favicon.ico",
+              "robots.txt"
+            ]
+          }));
+        } else {
+          // Generic repo structure for other repos
+          setFileSystem(prev => ({
+            ...prev,
+            [currentDirRef.current]: [...files, repoName + "/"],
+            [repoPath]: ["README.md", "src/", "package.json", ".gitignore", "tsconfig.json"],
+            [srcPath]: ["pages/", "components/", "App.tsx", "index.tsx"],
+            [pagesPath]: ["TerminalBasicsPage.tsx", "GitWorkflowsPage.tsx", "InteractiveTerminalPage.tsx"],
+            [componentsPath]: ["InteractiveTerminal.tsx", "Header.tsx", "Footer.tsx"]
+          }));
+        }
       }
       
       return `Cloning into '${repoName}'...
