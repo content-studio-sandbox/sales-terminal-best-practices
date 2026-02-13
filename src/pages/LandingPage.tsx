@@ -1,5 +1,6 @@
-import { Grid, Column, Button } from "@carbon/react";
-import { ArrowRight, Terminal, Code, Security, Keyboard } from "@carbon/icons-react";
+import React from "react";
+import { Grid, Column, Button, Tag } from "@carbon/react";
+import { ArrowRight, Terminal, Code, Security, Keyboard, Rocket } from "@carbon/icons-react";
 import { useNavigate } from "react-router-dom";
 import { trackUserAction } from "../hooks/useInstana";
 import "./LandingPage.scss";
@@ -34,26 +35,28 @@ export default function LandingPage() {
       title: "Secure Access (SSH)",
       description: "Understand secure remote connections, key management, and best practices for server access.",
       path: "/ssh-best-practices"
-    },
-    {
-      icon: <Keyboard size={32} />,
-      title: "Terminal Simulator",
-      description: "Practice commands in a safe, simulated environment with real-time feedback and guided exercises.",
-      path: "/interactive-terminal"
     }
   ];
 
+  const learningPath = [
+    { label: "1. Command Line", path: "/terminal-basics" },
+    { label: "2. Git & PRs", path: "/git-workflows" },
+    { label: "3. Local Setup", path: "/local-setup" },
+    { label: "4. Practice Lab", path: "/interactive-terminal", highlight: true }
+  ];
+
   return (
-    <div>
-      {/* Hero Section - Full Width */}
+    <div style={{ marginTop: "-3rem" }}>
+      {/* Compact Hero Section - Full Bleed */}
       <div style={{
-        padding: "4rem 2rem",
+        padding: "2rem 2rem 1.5rem",
         textAlign: "center",
         background: "linear-gradient(135deg, #0f62fe 0%, #0043ce 50%, #002d9c 100%)",
         position: "relative",
         overflow: "hidden",
-        width: "100%",
-        margin: 0
+        width: "100vw",
+        marginLeft: "calc(-50vw + 50%)",
+        marginRight: "calc(-50vw + 50%)"
       }}>
             {/* Geometric Pattern Overlay */}
             <div style={{
@@ -70,25 +73,25 @@ export default function LandingPage() {
               pointerEvents: "none"
             }} />
             <div style={{ position: "relative", zIndex: 1 }}>
-            <Terminal size={64} style={{ color: "#ffffff", marginBottom: "1.5rem" }} />
+            <Terminal size={48} style={{ color: "#ffffff", marginBottom: "1rem" }} />
             <h1 style={{
-              fontSize: "2.5rem",
+              fontSize: "2rem",
               fontWeight: 600,
               color: "#ffffff",
-              marginBottom: "1rem",
+              marginBottom: "0.5rem",
               lineHeight: 1.2
             }}>
               FSM Technical Best Practices
             </h1>
             <p style={{
-              fontSize: "1.25rem",
+              fontSize: "1rem",
               color: "#ffffff",
-              maxWidth: "700px",
-              margin: "0 auto 2rem",
-              lineHeight: 1.6,
+              maxWidth: "600px",
+              margin: "0 auto 1.5rem",
+              lineHeight: 1.5,
               opacity: 0.95
             }}>
-              Practical skills for CSEs and tech sellers: run, ship, and support assets with confidence.
+              Practical skills for CSEs: run, ship, and support assets with confidence.
             </p>
             <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
               <Button
@@ -110,15 +113,62 @@ export default function LandingPage() {
             </div>
       </div>
 
+      {/* Quick Start Path Banner */}
+      <div style={{
+        backgroundColor: "#f4f4f4",
+        padding: "1.5rem 2rem",
+        borderBottom: "1px solid #e0e0e0"
+      }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            marginBottom: "1rem"
+          }}>
+            <Rocket size={20} style={{ color: "#0f62fe" }} />
+            <h3 style={{
+              fontSize: "0.875rem",
+              fontWeight: 600,
+              margin: 0,
+              color: "#161616"
+            }}>
+              Recommended Learning Path
+            </h3>
+          </div>
+          <div style={{
+            display: "flex",
+            gap: "0.75rem",
+            alignItems: "center",
+            flexWrap: "wrap"
+          }}>
+            {learningPath.map((step, index) => (
+              <React.Fragment key={index}>
+                <Tag
+                  type={step.highlight ? "green" : "blue"}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(step.path)}
+                >
+                  {step.label}
+                </Tag>
+                {index < learningPath.length - 1 && (
+                  <span style={{ color: "#8d8d8d", fontSize: "0.875rem" }}>→</span>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Features Grid */}
       <Grid fullWidth>
         <Column lg={16} md={8} sm={4}>
-          <div style={{ padding: "4rem 2rem" }}>
+          <div style={{ padding: "3rem 2rem" }}>
             <h2 style={{
-              fontSize: "2rem",
+              fontSize: "1.75rem",
               fontWeight: 600,
               color: "#161616",
-              marginBottom: "3rem",
+              marginBottom: "2rem",
               textAlign: "center"
             }}>
               Learning Modules
@@ -187,15 +237,15 @@ export default function LandingPage() {
 
           {/* How It Works */}
           <div style={{
-            padding: "4rem 2rem",
+            padding: "3rem 2rem",
             backgroundColor: "#f4f4f4",
             borderTop: "1px solid #e0e0e0"
           }}>
             <h2 style={{
-              fontSize: "2rem",
+              fontSize: "1.75rem",
               fontWeight: 600,
               color: "#161616",
-              marginBottom: "3rem",
+              marginBottom: "2rem",
               textAlign: "center"
             }}>
               How It Works
@@ -262,11 +312,11 @@ export default function LandingPage() {
 
           {/* CTA Section */}
           <div style={{
-            padding: "4rem 2rem",
+            padding: "3rem 2rem",
             textAlign: "center"
           }}>
             <h2 style={{
-              fontSize: "2rem",
+              fontSize: "1.75rem",
               fontWeight: 600,
               color: "#161616",
               marginBottom: "1rem"
