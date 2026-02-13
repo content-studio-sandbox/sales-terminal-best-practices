@@ -348,6 +348,144 @@ export default function NodeRuntimePage() {
           </div>
         </Section>
 
+        {/* Hands-On Exercise: Financial News Aggregator */}
+        <Section level={3} style={{ marginBottom: "3rem" }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            marginBottom: "1.5rem",
+            paddingBottom: "0.75rem",
+            borderBottom: "2px solid #0f62fe"
+          }}>
+            <Launch size={24} style={{ color: "#0f62fe" }} />
+            <h2 style={{ margin: 0, fontSize: "1.5rem" }}>Hands-On Exercise: Clone & Run a Real Project</h2>
+          </div>
+
+          <div style={{
+            backgroundColor: "#f4f4f4",
+            padding: "1.5rem",
+            borderRadius: "4px",
+            marginBottom: "1.5rem",
+            border: "1px solid #e0e0e0"
+          }}>
+            <h3 style={{ marginTop: 0, color: "#161616", fontSize: "1.125rem", fontWeight: 600 }}>
+              📦 Project: Financial News Aggregator
+            </h3>
+            <p style={{ color: "#525252", lineHeight: 1.8, marginBottom: "1rem" }}>
+              A React + Node.js app that aggregates financial news and generates AI-powered seller insights using IBM watsonx.ai.
+              This project has both a frontend (React/Vite) and backend (Express.js proxy server).
+            </p>
+            <p style={{ color: "#525252", lineHeight: 1.8, margin: 0 }}>
+              <strong>Repo:</strong> <code>github.com:content-studio-sandbox/financial-news-aggregator.git</code>
+            </p>
+          </div>
+
+          <VisualDiagram
+            content={`
+┌─────────────────────────────────────────────────────┐
+│    Clone & Run: Financial News Aggregator           │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  1. Clone the repository                            │
+│     $ git clone git@github.com:content-studio-sandbox/financial-news-aggregator.git│
+│     $ cd financial-news-aggregator                  │
+│                                                     │
+│  2. Check Node version requirement                  │
+│     $ cat .nvmrc                                    │
+│     20.11.0                                         │
+│                                                     │
+│  3. Use the correct Node version                    │
+│     $ nvm install    # installs Node 20.11.0        │
+│     $ nvm use        # switches to Node 20.11.0     │
+│                                                     │
+│  4. Install dependencies                            │
+│     $ npm install                                   │
+│     # This installs both frontend and backend deps  │
+│                                                     │
+│  5. Set up environment variables                    │
+│     $ cp .env.example .env                          │
+│     $ nano .env      # Add your API keys            │
+│                                                     │
+│     Required API keys:                              │
+│     - VITE_NEWS_API_KEY (newsapi.org)               │
+│     - VITE_FINNHUB_API_KEY (finnhub.io)             │
+│     - VITE_WATSONX_API_KEY (IBM watsonx)            │
+│                                                     │
+│  6. Start the development server                    │
+│     $ npm run dev                                   │
+│     # This starts BOTH:                             │
+│     # - Frontend: http://localhost:5173             │
+│     # - Backend:  http://localhost:3001             │
+│                                                     │
+│  7. Open in browser                                 │
+│     Navigate to: http://localhost:5173              │
+│     You should see the Financial News Aggregator    │
+│                                                     │
+└─────────────────────────────────────────────────────┘`}
+            title="Step-by-Step Setup"
+          />
+
+          <div style={{
+            backgroundColor: "#e8f4ff",
+            padding: "1.5rem",
+            borderRadius: "4px",
+            marginTop: "1.5rem",
+            border: "1px solid #0f62fe"
+          }}>
+            <h3 style={{ marginTop: 0, color: "#0f62fe", fontSize: "1.125rem", fontWeight: 600 }}>
+              🏗️ Project Structure Explained
+            </h3>
+            <pre style={{
+              backgroundColor: "#ffffff",
+              padding: "1rem",
+              borderRadius: "4px",
+              overflow: "auto",
+              fontSize: "0.875rem",
+              lineHeight: 1.6,
+              color: "#161616"
+            }}>{`financial-news-aggregator/
+├── src/                    # Frontend React code
+│   ├── pages/             # Page components
+│   ├── components/        # Reusable components
+│   └── services/          # API service functions
+├── api/                   # Backend Express server
+│   └── server.js          # API proxy (port 3001)
+├── server.js              # Main backend entry point
+├── package.json           # Dependencies & scripts
+├── .nvmrc                 # Node version (20.11.0)
+├── .env.example           # Environment template
+└── vite.config.ts         # Vite configuration`}</pre>
+            <p style={{ color: "#161616", lineHeight: 1.8, marginTop: "1rem", marginBottom: 0 }}>
+              <strong>Key Points:</strong>
+            </p>
+            <ul style={{ marginLeft: "1.5rem", color: "#161616", lineHeight: 1.8, marginTop: "0.5rem" }}>
+              <li><code>server.js</code> at root is the main backend server</li>
+              <li><code>api/server.js</code> is the Express proxy for API calls</li>
+              <li><code>npm run dev</code> starts both frontend (Vite) and backend (Express) concurrently</li>
+              <li>Frontend makes API calls to backend proxy to avoid CORS issues</li>
+            </ul>
+          </div>
+
+          <div style={{
+            backgroundColor: "#fff1f1",
+            padding: "1.5rem",
+            borderRadius: "4px",
+            marginTop: "1.5rem",
+            border: "1px solid #da1e28"
+          }}>
+            <h3 style={{ marginTop: 0, color: "#da1e28", fontSize: "1.125rem", fontWeight: 600 }}>
+              ⚠️ Common Issues When Cloning
+            </h3>
+            <ul style={{ marginLeft: "1.5rem", color: "#161616", lineHeight: 1.8, marginBottom: 0 }}>
+              <li><strong>Wrong Node version:</strong> Make sure you run <code>nvm use</code> before <code>npm install</code></li>
+              <li><strong>Missing .env file:</strong> Copy <code>.env.example</code> to <code>.env</code> and add your API keys</li>
+              <li><strong>Port already in use:</strong> If port 5173 or 3001 is busy, kill the process or change ports</li>
+              <li><strong>API keys not working:</strong> Make sure you've signed up for free accounts at newsapi.org, finnhub.io, and IBM watsonx</li>
+            </ul>
+          </div>
+        </Section>
+
         {/* Common Errors */}
         <Section level={3} style={{ marginBottom: "3rem" }}>
           <div style={{ 
