@@ -12,7 +12,7 @@ export default function InteractiveTerminalPage() {
   const labs = [
     { id: "lab1", text: "Lab 1: Terminal Basics" },
     { id: "lab2", text: "Lab 2: Git Workflows" },
-    { id: "lab3", text: "Lab 3: Local Setup + Run Project" }
+    { id: "lab3", text: "Lab 3: Deployment Readiness" }
   ];
 
   const toggleExercise = (exerciseId: string) => {
@@ -599,75 +599,125 @@ export default function InteractiveTerminalPage() {
                 </div>
                 )}
 
-                {/* Lab 3: Local Setup + Run Project */}
+                {/* Lab 3: Deployment Readiness */}
                 {selectedLab === "lab3" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                  {/* Exercise 1: Preflight Checks */}
+                  {/* Exercise 1: Deployment Preflight */}
                   <ExerciseCard
                     id="lab3-ex1"
-                    title="Exercise 1: Preflight Checks"
-                    scenario="Verify your development environment is ready"
+                    title="Exercise 1: Deployment Preflight (Readiness Check)"
+                    scenario="Client demo in 60 seconds—verify your machine is ready"
                     isExpanded={expandedExercises.has('lab3-ex1')}
                     onToggle={toggleExercise}
                   >
-                    <div style={{ marginBottom: "0.75rem" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Check Node.js & npm:</strong>
-                    </div>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="node -v" description="Check Node version" />
-                      <CodeWithCopy code="npm -v" description="Check npm version" />
+                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderRadius: "3px", borderLeft: "3px solid #ffc107" }}>
+                      <p style={{ margin: 0, color: "#856404", fontSize: "0.8125rem" }}>
+                        <strong>Why this matters for deployments:</strong> Before any demo or deployment validation, you need to know what's installed and what's missing. This prevents "it works on my machine" issues.
+                      </p>
                     </div>
                     
-                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Check Python & pip:</strong>
-                    </div>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="python3 --version" description="Check Python version" />
-                      <CodeWithCopy code="pip --version" description="Check pip version" />
-                    </div>
-                  </ExerciseCard>
-
-                  {/* Exercise 2: Understand the Repo */}
-                  <ExerciseCard
-                    id="lab3-ex2"
-                    title="Exercise 2: Understand the Repo"
-                    scenario="Identify if it's a Node or Python project"
-                    isExpanded={expandedExercises.has('lab3-ex2')}
-                    onToggle={toggleExercise}
-                  >
                     <div style={{ marginBottom: "0.75rem" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Navigate and explore:</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Check what's installed:</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="ls -la" description="List all files" />
-                      <CodeWithCopy code="cat README.md" description="Read project documentation" />
-                    </div>
-                    
-                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Look for these signals:</strong>
-                    </div>
-                    <div style={{ paddingLeft: "1rem", marginBottom: "0.5rem" }}>
-                      <CodeWithCopy code="ls package.json" description="Node.js project indicator" />
-                      <CodeWithCopy code="ls requirements.txt" description="Python project indicator" />
+                      <CodeWithCopy code="git --version" description="Git (should work)" />
+                      <CodeWithCopy code="node -v" description="Node.js (will fail—not installed yet)" />
+                      <CodeWithCopy code="npm -v" description="npm (will fail—not installed yet)" />
+                      <CodeWithCopy code="python3 --version" description="Python (will fail—not installed yet)" />
+                      <CodeWithCopy code="pip --version" description="pip (will fail—not installed yet)" />
                     </div>
                     
                     <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderRadius: "3px", borderLeft: "3px solid #0f62fe" }}>
                       <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
-                        💡 <strong>Pro Tip:</strong> package.json = Node project, requirements.txt = Python project
+                        ✅ <strong>Success Criteria:</strong> You understand what's missing and why version managers (nvm, pyenv) are needed.
                       </p>
                     </div>
                   </ExerciseCard>
 
-                  {/* Exercise 3: Node Version Control (nvm) */}
+                  {/* Exercise 2: Repo Recon */}
+                  <ExerciseCard
+                    id="lab3-ex2"
+                    title="Exercise 2: Repo Recon (README-first + Structure)"
+                    scenario="Clone the financial-news-app and understand its requirements"
+                    isExpanded={expandedExercises.has('lab3-ex2')}
+                    onToggle={toggleExercise}
+                  >
+                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderRadius: "3px", borderLeft: "3px solid #ffc107" }}>
+                      <p style={{ margin: 0, color: "#856404", fontSize: "0.8125rem" }}>
+                        <strong>Why this matters for deployments:</strong> README-first approach prevents wasted time. You need to identify runtime requirements, env vars, and start commands before attempting deployment.
+                      </p>
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Clone and explore:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="git clone git@github.ibm.com:content-studio-mirrors/financial-news-app.git" block={true} description="Clone the demo repo" />
+                      <CodeWithCopy code="cd financial-news-app" description="Navigate into project" />
+                      <CodeWithCopy code="ls -la" description="List all files (including hidden)" />
+                      <CodeWithCopy code="cat README.md" description="Read project documentation" />
+                    </div>
+                    
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderRadius: "3px", borderLeft: "3px solid #0f62fe" }}>
+                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
+                        ✅ <strong>Success Criteria:</strong> Repo is cloned and you've read the README to understand project structure.
+                      </p>
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Exercise 3: Detect Requirements */}
                   <ExerciseCard
                     id="lab3-ex3"
-                    title="Exercise 3: Node Version Control (nvm)"
-                    scenario="Manage Node.js versions with nvm"
+                    title="Exercise 3: Detect Requirements (Runtime + Env + Start Command)"
+                    scenario="Identify what this app needs to run"
                     isExpanded={expandedExercises.has('lab3-ex3')}
                     onToggle={toggleExercise}
                   >
+                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderRadius: "3px", borderLeft: "3px solid #ffc107" }}>
+                      <p style={{ margin: 0, color: "#856404", fontSize: "0.8125rem" }}>
+                        <strong>Why this matters for deployments:</strong> Deployment teams need to know: runtime version, required env vars, and how to start the app. This exercise teaches you to extract that info quickly.
+                      </p>
+                    </div>
+                    
                     <div style={{ marginBottom: "0.75rem" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>📦 Step 1: Install nvm (if not installed):</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Check for runtime version files:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="cat .nvmrc" description="Node version requirement (e.g., '18')" />
+                      <CodeWithCopy code="cat package.json" description="Check scripts: dev, start, build" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Check for environment variables:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="ls -la" description="Look for .env.example" />
+                      <CodeWithCopy code="cat .env.example" description="See required vars: WATSONX_API_KEY, WATSONX_URL, WATSONX_PROJECT_ID" />
+                    </div>
+                    
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderRadius: "3px", borderLeft: "3px solid #0f62fe" }}>
+                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
+                        ✅ <strong>Success Criteria:</strong> You can state: "Needs Node 18, requires WATSONX env vars, starts with 'npm run dev'."
+                      </p>
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Exercise 4: Runtime Pinning (nvm) */}
+                  <ExerciseCard
+                    id="lab3-ex4"
+                    title="Exercise 4: Runtime Pinning (nvm for Node.js)"
+                    scenario="Install nvm and pin Node version to match .nvmrc"
+                    isExpanded={expandedExercises.has('lab3-ex4')}
+                    onToggle={toggleExercise}
+                  >
+                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderRadius: "3px", borderLeft: "3px solid #ffc107" }}>
+                      <p style={{ margin: 0, color: "#856404", fontSize: "0.8125rem" }}>
+                        <strong>Why this matters for deployments:</strong> Version mismatches cause 80% of "works locally, fails in prod" issues. nvm ensures reproducible environments.
+                      </p>
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 1: Install nvm:</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
                       <CodeWithCopy
@@ -680,222 +730,231 @@ export default function InteractiveTerminalPage() {
                     </div>
                     
                     <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>📋 Step 2: Install and use Node.js:</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 2: Install and use Node 18:</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="nvm ls" description="List installed Node versions" />
                       <CodeWithCopy code="nvm install 18" description="Install Node 18" />
                       <CodeWithCopy code="nvm use 18" description="Switch to Node 18" />
-                      <CodeWithCopy code="node -v" description="Verify version changed" />
+                      <CodeWithCopy code="node -v" description="Verify: should show v18.x.x" />
                     </div>
                     
-                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderRadius: "3px", borderLeft: "3px solid #ffc107" }}>
-                      <p style={{ margin: 0, color: "#856404", fontSize: "0.8125rem" }}>
-                        ⚠️ <strong>Note:</strong> Different projects may require different Node versions. Always check .nvmrc or README.md
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderRadius: "3px", borderLeft: "3px solid #0f62fe" }}>
+                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
+                        ✅ <strong>Success Criteria:</strong> node -v now works and matches .nvmrc requirement.
                       </p>
                     </div>
                   </ExerciseCard>
 
-                  {/* Exercise 4: Python Version Control (pyenv) */}
-                  <ExerciseCard
-                    id="lab3-ex4"
-                    title="Exercise 4: Python Version Control (pyenv)"
-                    scenario="Manage Python versions with pyenv"
-                    isExpanded={expandedExercises.has('lab3-ex4')}
-                    onToggle={toggleExercise}
-                  >
-                    <div style={{ marginBottom: "0.75rem" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>📦 Step 1: Install pyenv (if not installed):</strong>
-                    </div>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="brew install pyenv" description="Install pyenv via Homebrew" />
-                      <CodeWithCopy
-                        code={`echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc`}
-                        description="Add pyenv to PATH (step 1)"
-                      />
-                      <CodeWithCopy
-                        code={`echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc`}
-                        description="Add pyenv to PATH (step 2)"
-                      />
-                      <CodeWithCopy
-                        code={`echo 'eval "$(pyenv init -)"' >> ~/.zshrc`}
-                        description="Initialize pyenv"
-                      />
-                      <CodeWithCopy code="source ~/.zshrc" description="Reload shell configuration" />
-                      <CodeWithCopy code="pyenv --version" description="Verify pyenv is installed" />
-                    </div>
-                    
-                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>📋 Step 2: Install and use Python:</strong>
-                    </div>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="pyenv versions" description="List installed Python versions" />
-                      <CodeWithCopy code="pyenv install 3.11" description="Install Python 3.11" />
-                      <CodeWithCopy code="pyenv local 3.11" description="Set local version to 3.11" />
-                      <CodeWithCopy code="python --version" description="Verify version changed" />
-                    </div>
-                  </ExerciseCard>
-
-                  {/* Exercise 5: Dependencies & Environment */}
+                  {/* Exercise 5: Secrets & Config */}
                   <ExerciseCard
                     id="lab3-ex5"
-                    title="Exercise 5: Dependencies & Environment"
-                    scenario="Install project dependencies"
+                    title="Exercise 5: Secrets & Config (Env Vars)"
+                    scenario="Configure environment variables safely"
                     isExpanded={expandedExercises.has('lab3-ex5')}
                     onToggle={toggleExercise}
                   >
+                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderRadius: "3px", borderLeft: "3px solid #ffc107" }}>
+                      <p style={{ margin: 0, color: "#856404", fontSize: "0.8125rem" }}>
+                        <strong>Why this matters for deployments:</strong> Secrets management is critical. Never commit real API keys. Always use .env files (gitignored) and document required vars in .env.example.
+                      </p>
+                    </div>
+                    
                     <div style={{ marginBottom: "0.75rem" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>For Node.js projects:</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Copy and configure .env:</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="npm install" description="Install dependencies from package.json" />
+                      <CodeWithCopy code="cp .env.example .env" description="Copy template to .env" />
+                      <CodeWithCopy code="cat .env" description="View placeholders (never real secrets in simulator)" />
                     </div>
                     
                     <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>For Python projects:</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Simulated edit (in real life, use vim or nano):</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="python -m venv .venv" description="Create virtual environment" />
-                      <CodeWithCopy code="source .venv/bin/activate" description="Activate virtual environment" />
-                      <CodeWithCopy code="pip install -r requirements.txt" description="Install dependencies" />
+                      <CodeWithCopy code="echo 'WATSONX_API_KEY=demo_key_placeholder' >> .env" description="Simulate adding API key" />
+                      <CodeWithCopy code="echo 'WATSONX_URL=https://us-south.ml.cloud.ibm.com' >> .env" description="Add watsonx URL" />
+                      <CodeWithCopy code="echo 'WATSONX_PROJECT_ID=demo_project_id' >> .env" description="Add project ID" />
                     </div>
                     
-                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Environment variables:</strong>
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#ffebee", borderRadius: "3px", borderLeft: "3px solid #d32f2f" }}>
+                      <p style={{ margin: 0, color: "#d32f2f", fontSize: "0.8125rem" }}>
+                        ⚠️ <strong>Security Note:</strong> In real deployments, use secrets managers (IBM Secrets Manager, HashiCorp Vault) or CI/CD secret injection. Never commit .env files.
+                      </p>
                     </div>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="cp .env.example .env" description="Copy environment template" />
-                      <span style={{ color: "#525252", fontSize: "0.8125rem" }}>Then edit .env with your values</span>
+                    
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderRadius: "3px", borderLeft: "3px solid #0f62fe" }}>
+                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
+                        ✅ <strong>Success Criteria:</strong> .env file exists with required vars (placeholders OK for simulator).
+                      </p>
                     </div>
                   </ExerciseCard>
 
-                  {/* Exercise 6: Run It Locally (Capstone) */}
+                  {/* Exercise 6: Dependencies + Build */}
                   <ExerciseCard
                     id="lab3-ex6"
-                    title="Exercise 6: Run It Locally (Capstone) 🎯"
-                    scenario="Complete workflow: clone → setup → run"
+                    title="Exercise 6: Dependencies + Build (Reproducibility)"
+                    scenario="Install dependencies and verify build"
                     isExpanded={expandedExercises.has('lab3-ex6')}
+                    onToggle={toggleExercise}
+                  >
+                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderRadius: "3px", borderLeft: "3px solid #ffc107" }}>
+                      <p style={{ margin: 0, color: "#856404", fontSize: "0.8125rem" }}>
+                        <strong>Why this matters for deployments:</strong> Reproducible builds are essential. package-lock.json ensures everyone gets the same dependency versions.
+                      </p>
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Install dependencies:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="npm install" description="Install all dependencies from package.json" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Optional: Build for production:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="npm run build" description="Create production build (optional but recommended)" />
+                    </div>
+                    
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderRadius: "3px", borderLeft: "3px solid #0f62fe" }}>
+                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
+                        ✅ <strong>Success Criteria:</strong> npm install completes without errors. node_modules/ directory created.
+                      </p>
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Exercise 7: Run + Health Check */}
+                  <ExerciseCard
+                    id="lab3-ex7"
+                    title="Exercise 7: Run + Health Check (Definition of Done)"
+                    scenario="Start the app and validate it's healthy"
+                    isExpanded={expandedExercises.has('lab3-ex7')}
+                    onToggle={toggleExercise}
+                  >
+                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderRadius: "3px", borderLeft: "3px solid #ffc107" }}>
+                      <p style={{ margin: 0, color: "#856404", fontSize: "0.8125rem" }}>
+                        <strong>Why this matters for deployments:</strong> Health checks are the deployment team's "definition of done." If /health returns 200 OK, the app is ready for traffic.
+                      </p>
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Start the development server:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="npm run dev" description="Start dev server (simulated: runs in background)" />
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Validate health endpoint:</strong>
+                    </div>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CodeWithCopy code="curl http://localhost:3000/health" description="Check health endpoint" />
+                    </div>
+                    
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderRadius: "3px", borderLeft: "3px solid #24a148" }}>
+                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
+                        ✅ <strong>Expected Response:</strong> <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px" }}>{"{ \"status\": \"ok\" }"}</code>
+                      </p>
+                    </div>
+                    
+                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderRadius: "3px", borderLeft: "3px solid #0f62fe" }}>
+                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
+                        ✅ <strong>Success Criteria:</strong> Server is running and /health returns 200 OK.
+                      </p>
+                    </div>
+                  </ExerciseCard>
+
+                  {/* Exercise 8: Business Value Validation + Evidence Pack (Capstone) */}
+                  <ExerciseCard
+                    id="lab3-ex8"
+                    title="Exercise 8: Business Value Validation + Deployment Evidence Pack 🎯"
+                    scenario="Validate watsonx.ai integration and generate handoff documentation"
+                    isExpanded={expandedExercises.has('lab3-ex8')}
                     onToggle={toggleExercise}
                     special={true}
                   >
                     <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderRadius: "3px" }}>
                       <strong style={{ color: "#24a148" }}>🎯 Capstone Exercise:</strong>
                       <p style={{ margin: "0.5rem 0 0 0", color: "#161616", fontSize: "0.8125rem" }}>
-                        This simulates the complete workflow you'll use in real projects
+                        This is the deployment handoff moment. You'll validate the business value path (watsonx.ai summarization) and generate an evidence pack for the deployment team.
+                      </p>
+                    </div>
+                    
+                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#fff3cd", borderRadius: "3px", borderLeft: "3px solid #ffc107" }}>
+                      <p style={{ margin: 0, color: "#856404", fontSize: "0.8125rem" }}>
+                        <strong>Why this matters for deployments:</strong> Deployment teams need proof that the app works AND delivers business value. Testing the watsonx endpoint validates both technical health and AI functionality.
                       </p>
                     </div>
                     
                     <div style={{ marginBottom: "0.75rem" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 1: Clone the repository</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 1: Test news endpoint:</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="git clone git@github.ibm.com:content-studio-mirrors/financial-news-aggregator.git" block={true} />
-                      <CodeWithCopy code="cd financial-news-aggregator" description="Navigate into project" />
+                      <CodeWithCopy code="curl http://localhost:3000/api/news" description="Fetch sample news articles" />
                     </div>
                     
                     <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 2: Set correct version</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 2: Test watsonx.ai summarization:</strong>
                     </div>
                     <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="nvm use" description="Use Node version from .nvmrc" />
-                    </div>
-                    
-                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 3: Install dependencies</strong>
-                    </div>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="npm install" description="Install all packages" />
-                    </div>
-                    
-                    <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 4: Run the dev server</strong>
-                    </div>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="npm run dev" description="Start development server" />
+                      <CodeWithCopy
+                        code={`curl -X POST http://localhost:3000/api/summarize -H "Content-Type: application/json" -d '{"text":"IBM announces new AI capabilities"}'`}
+                        description="Test watsonx summarization"
+                        block={true}
+                      />
                     </div>
                     
                     <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderRadius: "3px", borderLeft: "3px solid #24a148" }}>
                       <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
-                        ✅ <strong>Success!</strong> You should see: "Server running on http://localhost:3000"
+                        ✅ <strong>Expected Response:</strong> <code style={{ backgroundColor: "#ffffff", padding: "2px 5px", borderRadius: "3px" }}>{"{ \"summary\": \"IBM's new AI capabilities enhance...\" }"}</code>
                       </p>
-                    </div>
-                  </ExerciseCard>
-
-                  {/* Exercise 7: Common Fix - Wrong Node Version */}
-                  <ExerciseCard
-                    id="lab3-ex7"
-                    title="Exercise 7: Troubleshooting - Wrong Node Version"
-                    scenario="Fix: 'Error: Requires Node.js 18.x'"
-                    isExpanded={expandedExercises.has('lab3-ex7')}
-                    onToggle={toggleExercise}
-                  >
-                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#ffebee", borderRadius: "3px", borderLeft: "3px solid #d32f2f" }}>
-                      <strong style={{ color: "#d32f2f" }}>❌ Error:</strong>
-                      <p style={{ margin: "0.5rem 0 0 0", color: "#161616", fontSize: "0.8125rem", fontFamily: "monospace" }}>
-                        Error: The engine "node" is incompatible with this module. Expected version "18.x". Got "16.14.0"
-                      </p>
-                    </div>
-                    
-                    <div style={{ marginBottom: "0.75rem" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Solution:</strong>
-                    </div>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="node -v" description="Check current version" />
-                      <CodeWithCopy code="nvm install 18" description="Install required version" />
-                      <CodeWithCopy code="nvm use 18" description="Switch to Node 18" />
-                      <CodeWithCopy code="npm install" description="Reinstall dependencies" />
-                    </div>
-                  </ExerciseCard>
-
-                  {/* Exercise 8: Common Fix - Port in Use */}
-                  <ExerciseCard
-                    id="lab3-ex8"
-                    title="Exercise 8: Troubleshooting - Port Already in Use"
-                    scenario="Fix: 'Error: Port 3000 is already in use'"
-                    isExpanded={expandedExercises.has('lab3-ex8')}
-                    onToggle={toggleExercise}
-                  >
-                    <div style={{ marginBottom: "0.75rem", padding: "0.75rem", backgroundColor: "#ffebee", borderRadius: "3px", borderLeft: "3px solid #d32f2f" }}>
-                      <strong style={{ color: "#d32f2f" }}>❌ Error:</strong>
-                      <p style={{ margin: "0.5rem 0 0 0", color: "#161616", fontSize: "0.8125rem", fontFamily: "monospace" }}>
-                        Error: listen EADDRINUSE: address already in use :::3000
-                      </p>
-                    </div>
-                    
-                    <div style={{ marginBottom: "0.75rem" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Solution 1: Find and kill the process</strong>
-                    </div>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="lsof -i :3000" description="Find process using port 3000" />
-                      <CodeWithCopy code="kill -9 <PID>" description="Kill the process (replace <PID>)" />
                     </div>
                     
                     <div style={{ marginBottom: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid #e0e0e0" }}>
-                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Solution 2: Use a different port</strong>
+                      <strong style={{ color: "#161616", fontSize: "0.8125rem" }}>Step 3: Generate Deployment Evidence Pack:</strong>
                     </div>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      <CodeWithCopy code="PORT=3001 npm run dev" description="Run on port 3001 instead" />
+                    <div style={{ paddingLeft: "1rem", marginBottom: "0.75rem" }}>
+                      <div style={{ backgroundColor: "#f4f4f4", padding: "1rem", borderRadius: "3px", fontFamily: "monospace", fontSize: "0.75rem", lineHeight: 1.6 }}>
+                        <strong>📦 DEPLOYMENT EVIDENCE PACK</strong><br/>
+                        <br/>
+                        <strong>Repo:</strong> git@github.ibm.com:content-studio-mirrors/financial-news-app.git<br/>
+                        <strong>Runtime:</strong> Node.js 18.x (from .nvmrc)<br/>
+                        <strong>Install:</strong> npm install<br/>
+                        <strong>Start:</strong> npm run dev<br/>
+                        <strong>Port:</strong> 3000<br/>
+                        <br/>
+                        <strong>Required Env Vars:</strong><br/>
+                        - WATSONX_API_KEY<br/>
+                        - WATSONX_URL<br/>
+                        - WATSONX_PROJECT_ID<br/>
+                        <br/>
+                        <strong>Health Check:</strong> GET /health → {"{ \"status\": \"ok\" }"}<br/>
+                        <strong>Business Value:</strong> POST /api/summarize → watsonx.ai summarization ✅<br/>
+                        <br/>
+                        <strong>Validation Status:</strong> ✅ READY FOR DEPLOYMENT
+                      </div>
                     </div>
                     
                     <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f4ff", borderRadius: "3px", borderLeft: "3px solid #0f62fe" }}>
                       <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
-                        💡 <strong>Pro Tip:</strong> Check .env file for PORT configuration options
+                        ✅ <strong>Success Criteria:</strong> All endpoints tested, evidence pack generated. You're ready to hand off to deployment team!
                       </p>
                     </div>
                   </ExerciseCard>
 
                   {/* Pro Tip for Lab 3 */}
                   <div style={{
-                    backgroundColor: "#e8f4ff",
+                    backgroundColor: "#e8f5e9",
                     padding: "1rem",
                     borderRadius: "4px",
-                    border: "1px solid #0f62fe",
+                    border: "1px solid #24a148",
                     marginTop: "0.5rem"
                   }}>
                     <div style={{ fontSize: "0.875rem", color: "#161616", lineHeight: 1.6, display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      <Information size={20} style={{ color: "#0f62fe", flexShrink: 0 }} />
+                      <Rocket size={20} style={{ color: "#24a148", flexShrink: 0 }} />
                       <div>
-                        <strong style={{ color: "#0f62fe" }}>Pro Tip:</strong> Always read the README.md first! It contains project-specific setup instructions and requirements.
+                        <strong style={{ color: "#24a148" }}>Deployment Pro Tip:</strong> This workflow (preflight → clone → detect → pin → config → install → run → validate → evidence) is your deployment readiness checklist. Master it, and you'll close more deals.
                       </div>
                     </div>
                   </div>
