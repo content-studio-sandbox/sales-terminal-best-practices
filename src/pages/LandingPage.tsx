@@ -46,7 +46,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <div>
+    <div style={{ marginTop: "-3rem" }}>
       {/* Compact Hero Section - Full Bleed */}
       <div style={{
         padding: "2rem 2rem 1.5rem",
