@@ -1276,13 +1276,7 @@ Installed Python-${version} to /Users/sales-user/.pyenv/versions/${version}
     node: (args?: string) => {
       // Check if node is installed via nvm
       if (!nodeVersionRef.current) {
-        return `bash: node: command not found
-
-💡 To install Node.js:
-   1. Install nvm first: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-   2. Load nvm: source ~/.nvm/nvm.sh
-   3. Install Node: nvm install 20
-   4. Use Node: nvm use 20`;
+        return `bash: node: command not found`;
       }
       
       if (!args || args.trim() === "--version" || args.trim() === "-v") {
@@ -1301,13 +1295,7 @@ Type ".help" for more information.`;
     python: (args?: string) => {
       // Check if python is installed via pyenv
       if (!pythonVersionRef.current) {
-        return `bash: python: command not found
-
-💡 To install Python:
-   1. Install pyenv: brew install pyenv
-   2. Configure shell: echo 'eval "$(pyenv init -)"' >> ~/.zshrc && source ~/.zshrc
-   3. Install Python: pyenv install 3.11.7
-   4. Set version: pyenv global 3.11.7`;
+        return `bash: python: command not found`;
       }
       
       if (!args || args.trim() === "--version" || args.trim() === "-V") {
@@ -1344,12 +1332,7 @@ Type "help", "copyright", "credits" or "license" for more information.
     npm: (args?: string) => {
       // Check if npm is available (comes with node)
       if (!nodeVersionRef.current) {
-        return `bash: npm: command not found
-
-💡 npm comes with Node.js. Install Node first:
-   1. Install nvm: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-   2. Load nvm: source ~/.nvm/nvm.sh
-   3. Install Node: nvm install 20`;
+        return `bash: npm: command not found`;
       }
       
       if (!args || !args.trim()) {
