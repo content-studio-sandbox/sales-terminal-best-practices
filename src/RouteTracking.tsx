@@ -69,7 +69,10 @@ function getPageType(pathname: string): string | null {
     if (pathname === '/api-authentication') return 'api-authentication';
     if (pathname === '/cpd-cli') return 'cpd-cli';
     if (pathname === '/agentic-tools') return 'agentic-tools';
-    if (pathname === '/survey-results') return 'survey-results';
+    if (pathname === '/local-setup') return 'local-setup';
+    if (pathname === '/local-setup/node') return 'local-setup-node';
+    if (pathname === '/local-setup/python') return 'local-setup-python';
+    if (pathname === '/tbd') return 'tbd';
     return null;
 }
 

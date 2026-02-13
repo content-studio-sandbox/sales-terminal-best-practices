@@ -78,7 +78,7 @@ cpd-cli version --cpd-scope`;
         <Section level={2} style={{ marginBottom: "2rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
             <Terminal size={32} style={{ color: "#0f62fe" }} />
-            <Heading style={{ margin: 0 }}>IBM Cloud Pak for Data CLI (cpd-cli)</Heading>
+            <Heading style={{ margin: 0 }}>Platform CLI (CPD)</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6 }}>
             Master the CPD CLI for automating Cloud Pak for Data operations, managing projects, 

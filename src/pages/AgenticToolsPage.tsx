@@ -83,7 +83,7 @@ print(response)`;
         <Section level={2} style={{ marginBottom: "2rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
             <Bot size={32} style={{ color: "#0f62fe" }} />
-            <Heading style={{ margin: 0 }}>AI Agentic Tools for Sales Teams</Heading>
+            <Heading style={{ margin: 0 }}>AI Assist / Agents</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6 }}>
             Understand and leverage AI agents across IBM's ecosystem. Learn about watsonx.ai agents, 

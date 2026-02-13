@@ -85,32 +85,137 @@ export default function TrainingResourcesPage() {
   return (
     <Grid fullWidth className="page-container">
       <Column lg={16} md={8} sm={4}>
-        <Section level={2} style={{ marginBottom: "2rem" }}>
+        {/* Interactive Training Catalog Header */}
+        <Section level={2} style={{ marginBottom: "3rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
             <Education size={32} style={{ color: "#0f62fe" }} />
-            <Heading style={{ margin: 0 }}>Terminal Training Resources</Heading>
+            <Heading style={{ margin: 0 }}>Interactive Training Catalog</Heading>
           </div>
-          <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6 }}>
-            Comprehensive training materials created by Michael for mastering terminal skills. 
-            These resources include detailed guides, presentation materials, and hands-on exercises.
+          <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6, marginBottom: "1.5rem" }}>
+            Explore comprehensive training topics below. Each topic includes practical examples, visual diagrams, and hands-on exercises. Click any tile to dive deep into that subject.
           </p>
-        </Section>
-
-        {/* Philosophy Section */}
-        <Section level={3} style={{ marginBottom: "3rem" }}>
-          <Tile style={{ padding: "2rem", marginBottom: "2rem" }}>
-            <h3 style={{ marginTop: 0, marginBottom: "1rem" }}>
-              Training Philosophy
-            </h3>
-            <p style={{ lineHeight: 1.8, marginBottom: "1rem", fontSize: "1.125rem", fontWeight: 500 }}>
-              "Create your own workflow and work environment that works for <strong>you</strong>."
+          
+          {/* Learning Path */}
+          <Tile style={{ padding: "1.5rem", backgroundColor: "#f4f4f4" }}>
+            <p style={{ margin: 0, fontSize: "0.875rem", fontWeight: 600, color: "#161616", marginBottom: "0.5rem" }}>
+              Learning Path:
             </p>
-            <p style={{ lineHeight: 1.8, margin: 0 }}>
-              This training is a <strong>starting point</strong> based on collective experience.
-              The end goal is to make you as productive as possible to perform the task at hand.
-              There's no "right" way—only what works for you.
+            <p style={{ margin: 0, fontSize: "0.9375rem", color: "#525252", lineHeight: 1.6 }}>
+              Terminal Apps → Shells → Git Concepts → Text Editors → Navigation → Redirection → Advanced Topics
             </p>
           </Tile>
+        </Section>
+
+        {/* Training Topics Grid */}
+        <Section level={3} style={{ marginBottom: "3rem" }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: "1.5rem"
+          }}>
+            {trainingTopics.map((topic) => {
+              const IconComponent = topic.icon;
+              const isAvailable = topic.status === "Available";
+              const isNew = topic.featured;
+              
+              return (
+                <Tile
+                  key={topic.id}
+                  style={{
+                    padding: "1.5rem",
+                    cursor: isAvailable ? "pointer" : "default",
+                    opacity: isAvailable ? 1 : 0.7,
+                    transition: "all 0.2s",
+                    position: "relative",
+                    border: isAvailable ? "2px solid #0f62fe" : "1px solid #e0e0e0"
+                  }}
+                  onClick={() => {
+                    if (isAvailable && topic.route) {
+                      navigate(topic.route);
+                    }
+                  }}
+                  onMouseEnter={(e) => {
+                    if (isAvailable) {
+                      e.currentTarget.style.transform = "translateY(-4px)";
+                      e.currentTarget.style.boxShadow = "0 4px 8px rgba(0,0,0,0.1)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (isAvailable) {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }
+                  }}
+                >
+                  {/* Status Badge */}
+                  <div style={{ position: "absolute", top: "1rem", right: "1rem" }}>
+                    <Tag
+                      type={isAvailable ? "green" : "cool-gray"}
+                      size="sm"
+                    >
+                      {topic.status}
+                    </Tag>
+                  </div>
+                  
+                  {/* New Badge */}
+                  {isNew && (
+                    <div style={{ position: "absolute", top: "3rem", right: "1rem" }}>
+                      <Tag type="purple" size="sm">New</Tag>
+                    </div>
+                  )}
+                  
+                  {/* Icon */}
+                  <div style={{ marginBottom: "1rem" }}>
+                    <IconComponent size={32} style={{ color: topic.color }} />
+                  </div>
+                  
+                  {/* Title */}
+                  <h3 style={{
+                    marginTop: 0,
+                    marginBottom: "0.75rem",
+                    fontSize: "1.25rem",
+                    fontWeight: 600
+                  }}>
+                    {topic.title}
+                  </h3>
+                  
+                  {/* Description */}
+                  <p style={{
+                    margin: 0,
+                    fontSize: "0.875rem",
+                    color: "#525252",
+                    lineHeight: 1.6,
+                    marginBottom: "1rem"
+                  }}>
+                    {topic.description}
+                  </p>
+                  
+                  {/* Action Button */}
+                  {isAvailable ? (
+                    <Button
+                      kind="tertiary"
+                      size="sm"
+                      renderIcon={Launch}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (topic.route) navigate(topic.route);
+                      }}
+                    >
+                      Explore Topic
+                    </Button>
+                  ) : (
+                    <Button
+                      kind="ghost"
+                      size="sm"
+                      disabled
+                    >
+                      Coming Soon
+                    </Button>
+                  )}
+                </Tile>
+              );
+            })}
+          </div>
         </Section>
 
         {/* Available Resources */}
@@ -239,197 +344,7 @@ export default function TrainingResourcesPage() {
           </div>
         </Section>
 
-        {/* Interactive Training Catalog */}
-        <Section level={3} style={{ marginBottom: "3rem" }}>
-          <div style={{ 
-            backgroundColor: "#e8f4ff", 
-            padding: "2rem", 
-            borderRadius: "8px",
-            marginBottom: "2rem",
-            border: "1px solid #0f62fe"
-          }}>
-            <h2 style={{ marginTop: 0, color: "#0f62fe", marginBottom: "1rem" }}>
-              <Education size={24} style={{ verticalAlign: "middle", marginRight: "0.5rem" }} />
-              Interactive Training Catalog
-            </h2>
-            <p style={{ color: "#161616", lineHeight: 1.8, marginBottom: "1rem" }}>
-              Explore comprehensive training topics below. Each topic includes practical examples, 
-              visual diagrams, and hands-on exercises. Click any tile to dive deep into that subject.
-            </p>
-            <div style={{ fontFamily: "monospace", fontSize: "0.875rem", color: "#161616", lineHeight: 1.8 }}>
-              <div><strong>Learning Path:</strong></div>
-              <div>Terminal Apps → Shells → Git Concepts → Text Editors → Navigation → Redirection → Advanced Topics</div>
-            </div>
-          </div>
 
-          {/* Training Topic Tiles */}
-          <div style={{ 
-            display: "grid", 
-            gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))", 
-            gap: "1.5rem",
-            marginBottom: "2rem"
-          }}>
-            {trainingTopics.map((topic) => {
-              const IconComponent = topic.icon;
-              const isAvailable = topic.route !== null;
-              return (
-                <div
-                  key={topic.id}
-                  onClick={() => {
-                    if (isAvailable && topic.route) {
-                      navigate(topic.route);
-                    }
-                  }}
-                  style={{
-                    backgroundColor: isAvailable ? "#ffffff" : "#f4f4f4",
-                    border: topic.featured ? "2px solid #24a148" : "1px solid #e0e0e0",
-                    borderRadius: "8px",
-                    padding: "1.5rem",
-                    cursor: isAvailable ? "pointer" : "not-allowed",
-                    transition: "all 0.2s ease",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-                    position: "relative",
-                    opacity: isAvailable ? 1 : 0.7
-                  }}
-                  onMouseEnter={(e) => {
-                    if (isAvailable) {
-                      e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
-                      e.currentTarget.style.transform = "translateY(-2px)";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (isAvailable) {
-                      e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1)";
-                      e.currentTarget.style.transform = "translateY(0)";
-                    }
-                  }}
-                >
-                  {topic.featured && (
-                    <div style={{
-                      position: "absolute",
-                      top: "1rem",
-                      right: "1rem"
-                    }}>
-                      <Tag type="green" size="sm">
-                        <Rocket size={16} style={{ marginRight: "0.25rem" }} />
-                        New
-                      </Tag>
-                    </div>
-                  )}
-                  
-                  <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
-                    <div style={{
-                      backgroundColor: topic.color,
-                      borderRadius: "8px",
-                      padding: "0.75rem",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center"
-                    }}>
-                      <IconComponent size={24} style={{ color: "#ffffff" }} />
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <h3 style={{ 
-                        margin: 0, 
-                        marginBottom: "0.5rem", 
-                        color: "#161616",
-                        fontSize: "1.125rem",
-                        fontWeight: 600
-                      }}>
-                        {topic.title}
-                      </h3>
-                      <Tag type={topic.status === "Available" ? "blue" : "gray"} size="sm">
-                        {topic.status}
-                      </Tag>
-                    </div>
-                  </div>
-                  
-                  <p style={{ 
-                    color: "#525252", 
-                    lineHeight: 1.6,
-                    marginBottom: "1rem",
-                    fontSize: "0.9375rem"
-                  }}>
-                    {topic.description}
-                  </p>
-                  
-                  {isAvailable ? (
-                    <div style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                      color: "#0f62fe",
-                      fontWeight: 600,
-                      fontSize: "0.9375rem"
-                    }}>
-                      <span>Explore Topic</span>
-                      <Launch size={16} />
-                    </div>
-                  ) : (
-                    <div style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                      color: "#8d8d8d",
-                      fontWeight: 600,
-                      fontSize: "0.9375rem"
-                    }}>
-                      <span>Coming Soon</span>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </Section>
-
-        {/* Learning Path */}
-        <Section level={3} style={{ marginBottom: "3rem" }}>
-          <Tile style={{ padding: "2rem" }}>
-            <h3 style={{ marginTop: 0, marginBottom: "1.5rem" }}>Recommended Learning Path</h3>
-            
-            <div style={{ display: "grid", gap: "1rem" }}>
-              {[
-                { week: "Week 1", task: "Pick a terminal app and get comfortable opening it", color: "#0f62fe" },
-                { week: "Week 2", task: "Learn basic navigation (pwd, ls, cd, mkdir, rm)", color: "#0f62fe" },
-                { week: "Week 3", task: "Master your editor (start with nano)", color: "#0f62fe" },
-                { week: "Week 4", task: "Explore pipes and redirection", color: "#0f62fe" },
-                { week: "Month 2", task: "Start customizing with aliases and oh-my-zsh", color: "#24a148" },
-                { week: "Month 3", task: "You're dangerous now (in a good way)!", color: "#24a148" }
-              ].map((item, i) => (
-                <Tile
-                  key={i}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                    padding: "1rem",
-                    borderLeft: `4px solid ${item.color}`
-                  }}
-                >
-                  <Tag type={item.color === "#24a148" ? "green" : "blue"} size="md" style={{ flexShrink: 0, minWidth: "80px", justifyContent: "center" }}>
-                    {item.week}
-                  </Tag>
-                  <p style={{ margin: 0, fontSize: "0.9375rem" }}>
-                    {item.task}
-                  </p>
-                </Tile>
-              ))}
-            </div>
-          </Tile>
-        </Section>
-
-        {/* Credits */}
-        <Section level={3} style={{ marginBottom: "2rem" }}>
-          <Tile style={{ padding: "1.5rem", textAlign: "center" }}>
-            <p style={{ margin: 0, fontSize: "0.9375rem" }}>
-              <strong>Training Materials Created By:</strong> Michael
-            </p>
-            <p style={{ margin: "0.5rem 0 0 0", fontSize: "0.875rem", opacity: 0.7 }}>
-              Comprehensive terminal training for FSM Technical Sales teams
-            </p>
-          </Tile>
-        </Section>
       </Column>
     </Grid>
   );

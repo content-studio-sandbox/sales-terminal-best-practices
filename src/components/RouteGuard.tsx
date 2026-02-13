@@ -7,9 +7,10 @@ const ALLOWED_PATHS = [
   '/training-resources',
   '/training', // Allow all training subpages
   '/interactive-terminal',
-  '/survey-results',
   '/terminal-basics',
   '/git-workflows',
+  '/local-setup', // Allow all local setup subpages
+  '/tbd', // Allow TBD placeholder page
   '/', // Allow landing page
 ];
 

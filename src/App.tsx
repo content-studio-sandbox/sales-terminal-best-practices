@@ -11,16 +11,20 @@ import SSHBestPracticesPage from './pages/SSHBestPracticesPage';
 import VimBestPracticesPage from './pages/VimBestPracticesPage';
 import OpenShiftBestPracticesPage from './pages/OpenShiftBestPracticesPage';
 import InteractiveTerminalPage from './pages/InteractiveTerminalPage';
-import SurveyResultsPage from './pages/SurveyResultsPage';
 import ApiAuthenticationPage from './pages/ApiAuthenticationPage';
 import CpdCliPage from './pages/CpdCliPage';
 import AgenticToolsPage from './pages/AgenticToolsPage';
 import TrainingResourcesPage from './pages/TrainingResourcesPage';
 import GitConceptsPage from './pages/training/GitConceptsPage';
+import LocalSetupPage from './pages/LocalSetupPage';
+import NodeRuntimePage from './pages/NodeRuntimePage';
+import PythonRuntimePage from './pages/PythonRuntimePage';
+import TBDPage from './pages/TBDPage';
 import {AppThemeProvider} from "@/theme/ThemeProvider.tsx";
 import { useInstana } from "./hooks/useInstana";
 import RouteTracking from './RouteTracking';
 import RouteGuard from './components/RouteGuard';
+import ScrollToTop from './components/ScrollToTop';
 
 const queryClient = new QueryClient();
 
@@ -81,6 +85,7 @@ const AppContent: React.FC = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <RouteTracking />
       <RouteGuard>
         <Routes>
@@ -96,9 +101,12 @@ const AppContent: React.FC = () => {
             <Route path="api-authentication" element={<ApiAuthenticationPage />} />
             <Route path="cpd-cli" element={<CpdCliPage />} />
             <Route path="agentic-tools" element={<AgenticToolsPage />} />
-            <Route path="survey-results" element={<SurveyResultsPage />} />
             <Route path="training-resources" element={<TrainingResourcesPage />} />
             <Route path="training/git-concepts" element={<GitConceptsPage />} />
+            <Route path="local-setup" element={<LocalSetupPage />} />
+            <Route path="local-setup/node" element={<NodeRuntimePage />} />
+            <Route path="local-setup/python" element={<PythonRuntimePage />} />
+            <Route path="tbd" element={<TBDPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

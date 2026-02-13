@@ -180,7 +180,7 @@ export default function GitWorkflowsPage() {
         <Section level={2} style={{ marginBottom: "2rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
             <Branch size={32} style={{ color: "#0f62fe" }} />
-            <Heading style={{ margin: 0 }}>Git Workflows for Sales Teams</Heading>
+            <Heading style={{ margin: 0 }}>Git & PR Workflow for Tech Sellers</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px" }}>
             Complete guide from installation to advanced workflows. Learn Git from scratch and master essential commands for daily work.

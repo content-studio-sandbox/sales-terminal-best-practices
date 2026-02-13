@@ -76,7 +76,7 @@ curl -X POST https://cpd-instance.example.com/v2/projects \\
         <Section level={2} style={{ marginBottom: "2rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
             <Security size={32} style={{ color: "#0f62fe" }} />
-            <Heading style={{ margin: 0 }}>API Authentication for Sales Teams</Heading>
+            <Heading style={{ margin: 0 }}>API Keys & Auth</Heading>
           </div>
           <p style={{ fontSize: "1.125rem", color: "#525252", maxWidth: "800px", lineHeight: 1.6 }}>
             Master API authentication methods including Bearer tokens, ZenAPI keys, and curl commands. 
