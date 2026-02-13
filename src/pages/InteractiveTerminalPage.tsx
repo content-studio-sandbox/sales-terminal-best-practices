@@ -625,12 +625,6 @@ export default function InteractiveTerminalPage() {
                       <CodeWithCopy code="python3 --version" description="Check Python version" />
                       <CodeWithCopy code="pip --version" description="Check pip version" />
                     </div>
-                    
-                    <div style={{ marginTop: "0.75rem", padding: "0.75rem", backgroundColor: "#e8f5e9", borderRadius: "3px", borderLeft: "3px solid #24a148" }}>
-                      <p style={{ margin: 0, color: "#161616", fontSize: "0.8125rem" }}>
-                        ✅ <strong>Success:</strong> If all commands return version numbers, you're ready to proceed!
-                      </p>
-                    </div>
                   </ExerciseCard>
 
                   {/* Exercise 2: Understand the Repo */}
